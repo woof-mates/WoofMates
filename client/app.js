@@ -16,9 +16,9 @@ class App extends React.Component {
                     <Route path='/' exact />
                 </div>
             </Router>
-        )
-    }
-}
+        );
+    };
+};
 
 
-export default App
+export default App;
