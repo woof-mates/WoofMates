@@ -24,7 +24,7 @@ app.use((err, req, res, next) => {
 async function init() {
   try {
     console.log('syncing');
-    await db.sync();
+    await db.sync({force:true});
     const PORT = process.env.PORT || 3000;
     await app.listen(PORT, () => {
       //seed file

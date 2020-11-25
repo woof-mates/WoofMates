@@ -1,9 +1,16 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
-const { STRING, INTEGER, BOOLEAN } = Sequelize;
+const { STRING, INTEGER, BOOLEAN, ARRAY, TEXT } = Sequelize;
 
 const Dog = db.define('dog', {
     dogName: {
+        type: STRING,
+        allowNull: false,
+        validate: {
+            notEmpty: true
+        }
+    },
+    breed: {
         type: STRING,
         allowNull: false,
         validate: {
@@ -14,13 +21,16 @@ const Dog = db.define('dog', {
         type: INTEGER,
         allowNull: false,
     },
-    energy: {
+    energyLevel: {
         type: INTEGER,
         validate: {
             max: 5,
             min: 1
         },
         defaultValue: 3
+    },
+    weight: {
+        type: INTEGER,
     },
     neutered: {
         type: BOOLEAN,
@@ -29,7 +39,10 @@ const Dog = db.define('dog', {
     dogImage: {
         type: STRING,
         defaultValue: '/images/notFound.png'
-    }
+    },
+    dogInterests: {
+        type: ARRAY(TEXT)
+    },
 })
 
 module.exports = Dog;

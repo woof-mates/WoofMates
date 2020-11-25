@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-const { STRING, ENUM } = Sequelize
+const { STRING, ENUM, INTEGER, ARRAY, TEXT } = Sequelize
 
 const User = db.define('user', {
     userType: {
@@ -36,6 +36,12 @@ const User = db.define('user', {
     userImage: {
         type: STRING,
         defaultValue: '/images/notFound.png'
+    },
+    zipCode: {
+        type: INTEGER
+    },
+    userInterests: {
+        type: ARRAY(TEXT)
     }
 })
 
