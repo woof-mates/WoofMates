@@ -1,0 +1,58 @@
+{
+  "name": "woof-mates",
+  "version": "1.0.0",
+  "description": "Woof-Mates",
+  "main": "index.js",
+  "scripts": {
+    "start-seed": "npm run seed & npm run start-server & npm run build-watch",
+    "start-dev": "npm run start-server & npm run build-watch",
+    "build-watch": "webpack -w",
+    "start-server": "nodemon --watch server -e js,html server/index.js",
+    "seed": "node server/db/seed.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/woof-mates/WoofMates.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "db-create": "^1.2.0",
+    "express": "^4.17.1",
+    "faker": "^5.1.0",
+    "pg": "^8.3.0",
+    "pg-hstore": "^2.3.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.1.0",
+    "react-router": "^5.0.1",
+    "react-router-dom": "^4.4.0-beta.8",
+    "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "sequelize": "^6.3.4",
+    "volleyball": "^1.5.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.5.5",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.5",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "nodemon": "^1.19.1",
+    "webpack": "^3.12.0",
+    "webpack-cli": "^4.1.0"
+  },
+  "bugs": {
+    "url": "https://github.com/woof-mates/WoofMates/issues"
+  },
+  "homepage": "https://github.com/woof-mates/WoofMates#readme"
+}
