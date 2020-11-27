@@ -17,9 +17,9 @@ const createUsers = (numUsers) => {
     lastNames.push(faker.name.lastName())
     userEmails.push(faker.internet.email())
     passwords.push(faker.internet.password())
-    userImages1.push(faker.image.cats())
+    userImages1.push(faker.image.animals())
     userImages2.push(faker.image.people())
-    dogImages.push(faker.image.cats())
+    dogImages.push(faker.image.animals())
     zipCodes.push(parseInt(faker.address.zipCode()))
     userInterests.push([faker.lorem.sentences(),faker.lorem.sentences()])
   }
