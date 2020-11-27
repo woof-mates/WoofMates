@@ -33,7 +33,15 @@ const User = db.define('user', {
             notEmpty: true
         }
     },
-    userImage: {
+    userImage1: {
+        type: STRING,
+        defaultValue: '/images/notFound.png'
+    },
+    userImage2: {
+        type: STRING,
+        defaultValue: '/images/notFound.png'
+    },
+    dogImage: {
         type: STRING,
         defaultValue: '/images/notFound.png'
     },

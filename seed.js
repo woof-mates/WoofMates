@@ -8,7 +8,7 @@ const seed = async () => {
 
       const user1 = await User.create({ firstName: 'charles', userEmail: 'ddd@ddd.com', password: 'blah'})
       const user2 = await User.create({ firstName: 'barb', userEmail: 'ddxxd@ddd.com', password: 'plaah'})
-      await Relationship.create({ userId: user1.id, matchId: user2.id, result: 'liked'})
+      await Relationship.create({ userId: user1.id, matchId: user2.id, result: 'UserLikedMatch'})
 
       await db.close();
       console.log('seeded');

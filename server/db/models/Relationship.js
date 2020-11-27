@@ -4,7 +4,7 @@ const { ENUM } = Sequelize;
 
 const Relationship = db.define('relationship', {
     result: {
-        type: ENUM('liked', 'rejected'),
+        type: ENUM('UserLikedMatch', 'MatchRejectedUser', 'Matched', 'UserRejectedMatch'),
         allowNull: false
     },
 })
