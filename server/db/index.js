@@ -9,6 +9,7 @@ const Prompt = require('./models/Prompt');
 Dog.belongsTo(User);
 Session.belongsTo(User);
 MatchMetric.belongsTo(User);
-User.belongsToMany(User, { as: 'match', through: Relationship })
+User.belongsToMany(User, { as: 'match', through: Relationship });
+Prompt.belongsTo(User);
 
 module.exports = { db, User, Dog, Session, MatchMetric, Relationship, Prompt }
