@@ -1,14 +1,12 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
-const { ENUM, INTEGER } = Sequelize;
+const { ENUM } = Sequelize;
 
 const Relationship = db.define('relationship', {
     result: {
-        type: ENUM('liked', 'rejected')
+        type: ENUM('liked', 'rejected'),
+        allowNull: false
     },
-    matchId: {
-        type: INTEGER
-    }    
 })
 
 module.exports = Relationship;
