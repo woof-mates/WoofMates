@@ -36,10 +36,6 @@ const Dog = db.define('dog', {
         type: BOOLEAN,
         allowNull: false,
     },
-    dogImage: {
-        type: STRING,
-        defaultValue: '/images/notFound.png'
-    },
     dogInterests: {
         type: ARRAY(TEXT)
     },
