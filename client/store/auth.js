@@ -9,14 +9,12 @@ const _login = (user) => {
     }
 };
 
-const login = (userObj) => {
-    return async(dispatch) => {
-        try {
-            const user = await (axios.get('/api/auth/login', userObj))
-            dispatch(_login(user))
-        } catch(err) { console.error(err); }
-    }
-}
+const login = (loginInfo) => async(dispatch) => {
+    try {
+        const { data } = await (axios.post('/api/auth/login', loginInfo))
+        dispatch(_login(data))
+    } catch(err) { console.error(err); }
+};
 
 export default function userReducer(state = {}, action) {
     switch (action.type) {
