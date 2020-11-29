@@ -2,11 +2,15 @@ const express = require('express');
 const app = express();
 const volleyball = require('volleyball');
 const path = require('path');
-const { db } = require('./db')
+const cookieParser = require('cookie-parser');
+const { db } = require('./db');
+const authMiddleware = require('./middleware/auth');
 
 app.use(express.json());
 app.use(volleyball);
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(authMiddleware);
 
 app.use(express.static(path.join(__dirname, '../public')));
 

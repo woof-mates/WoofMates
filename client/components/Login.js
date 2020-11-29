@@ -30,12 +30,14 @@ class Login extends Component {
         login(this.state)
     }
     render(){
+        const { user } = this.props
         return(
             <>
                 <form onSubmit={this.submit}>
                     <input onChange={this.setEmail} placeholder='email'></input>
                     <input onChange={this.setPassword} placeholder='password'></input>
                     <button type='submit'>Log In</button>
+                    { user.firstName ? <p>Welcome {user.firstName}!</p> : null }
                 </form>
             </>
         )
@@ -52,5 +54,4 @@ const mapDispatchToProps = (dispatch) => ({
     login: (loginInfo) => dispatch(login(loginInfo))
 });
 
-// export default Login
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
