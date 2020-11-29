@@ -26,6 +26,8 @@ class Match extends Component {
                 <p>Dog Name: {match.dog.dogName}</p>
                 <p>Dog Breed: {match.dog.breed}</p>
                 <p>Match User Id: {match.id}</p>
+                <button>Like</button>
+                <button>Don't like</button>
             </>
             : null
         )
