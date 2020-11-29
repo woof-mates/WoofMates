@@ -17,7 +17,7 @@ router.post('/login', async(req, res, next) => {
         if (user) {
             // if user already has a session, refresh the expiration date of cookie
             if(user.session) {
-                res.cookie('sid', newSession.sid, {
+                res.cookie('sid', user.session.sid, {
                     maxAge: A_WEEK_IN_SECONDS,
                     path: '/',
                 });
@@ -27,7 +27,6 @@ router.post('/login', async(req, res, next) => {
             else {
                 const newSession = await Session.create();
                 await newSession.setUser(user);
-                console.log(newSession.sid)
                 res.cookie('sid', newSession.sid, {
                     maxAge: A_WEEK_IN_SECONDS,
                     path: '/',
