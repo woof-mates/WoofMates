@@ -35,8 +35,10 @@ export const registerUser = (firstName, lastName, userEmail, password, city, sta
 
 export const login = (loginInfo) => async(dispatch) => {
   try {
-      let {userEmail} = loginInfo
-      let hashedPassword = saltAndHash(loginInfo.password)
+      const {userEmail, password} = loginInfo
+      // hash function not implemented yet in login - need to change the seeding
+      const hashedPassword = password
+      // const hashedPassword = saltAndHash(password)
       const { data } = await (axios.post('/api/auth/login', {userEmail, hashedPassword}))
       dispatch(_login(data))
   } catch(err) {
@@ -45,7 +47,7 @@ export const login = (loginInfo) => async(dispatch) => {
   }
 };
 
-export const userReducer = (state = {}, action) => {
+export default function userReducer (state = {}, action) {
   switch (action.type) {
       case REGISTER_USER:
           return action.user

@@ -7,6 +7,7 @@ const Relationship = require('./models/Relationship');
 const Prompt = require('./models/Prompt');
 
 Dog.belongsTo(User);
+User.hasOne(Dog);
 User.hasOne(Session);
 Session.belongsTo(User);
 MatchMetric.belongsTo(User);
