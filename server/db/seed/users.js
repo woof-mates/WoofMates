@@ -4,7 +4,7 @@ const createUsers = (numUsers) => {
   let firstNames = [];
   let lastNames = [];
   let userEmails = [];
-  let passwords = [];
+  let hashedPasswords = [];
   let userImages1 = [];
   let userImages2 = [];
   let dogImages = [];
@@ -18,7 +18,7 @@ const createUsers = (numUsers) => {
     firstNames.push(faker.name.firstName())
     lastNames.push(faker.name.lastName())
     userEmails.push(faker.internet.email())
-    passwords.push(faker.internet.password())
+    hashedPasswords.push(faker.internet.password())
     userImages1.push(`https://placedog.net/500/280/sepia?id=${i}`)
     userImages2.push(faker.image.people())
     dogImages.push(`https://placedog.net/500/280/sepia?id=${i}`)
@@ -33,7 +33,7 @@ const createUsers = (numUsers) => {
     users[i].firstName = firstNames[i]
     users[i].lastName = lastNames[i]
     users[i].userEmail = userEmails[i]
-    users[i].hashedPassword = passwords[i]
+    users[i].hashedPassword = hashedPasswords[i]
     users[i].userImage1 = userImages1[i]
     users[i].userImage2 = userImages2[i]
     users[i].dogImage = dogImages[i]
