@@ -13,7 +13,10 @@ const login = (loginInfo) => async(dispatch) => {
     try {
         const { data } = await (axios.post('/api/auth/login', loginInfo))
         dispatch(_login(data))
-    } catch(err) { console.error(err); }
+    } catch(err) { 
+        alert(err.message);
+        console.error(err); 
+    }
 };
 
 export default function userReducer(state = {}, action) {

@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { login } from '../store/user';
 
 class Login extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             userEmail: '',
             password: ''
@@ -15,12 +15,10 @@ class Login extends Component {
     }
 
     setEmail(ev){
-        console.log(ev.target.value)
         this.setState( {userEmail: ev.target.value} )
     }
 
     setPassword(ev){
-        console.log(ev.target.value)
         this.setState( {password: ev.target.value} )
     }
 
