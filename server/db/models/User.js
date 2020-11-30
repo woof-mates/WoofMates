@@ -47,7 +47,7 @@ const User = db.define('user', {
         defaultValue: '/images/notFound.png'
     },
     zipCode: {
-        type: STRING
+        type: INTEGER
     },
     city: {
         type: STRING
