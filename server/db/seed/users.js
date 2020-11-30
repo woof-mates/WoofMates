@@ -30,7 +30,7 @@ const createUsers = (numUsers) => {
     userImages1.push(`https://placedog.net/500/280/sepia?id=${i}`)
     userImages2.push(faker.image.people())
     dogImages.push(`https://placedog.net/500/280/sepia?id=${i}`)
-    zipCodes.push(faker.address.zipCode())
+    zipCodes.push(parseInt(faker.address.zipCode()))
     city.push(faker.address.city())
     state.push(faker.address.stateAbbr())
     age.push(getRandomInt(100))
