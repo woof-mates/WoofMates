@@ -1,3 +1,13 @@
+const MAX_DOG_AGE = 30;
+
+const MAX_DOG_WEIGHT = 200;
+
+const MAX_USER_AGE = 120;
+
+const ENERGY_LEVELS = ['Very Low', 'Low', 'Medium', 'High', 'Very High']
+
+const RELATIONSHIPS = ['UserLikedMatch', 'MatchRejectedUser', 'Matched', 'UserRejectedMatch']
+
 const BREEDS =    [
   'Affenpinscher',
   'Afghan Hound',
@@ -454,10 +464,6 @@ const BREEDS =    [
   'Šarplaninac'
 ]
 
-const ENERGY_LEVELS = ['Very Low', 'Low', 'Medium', 'High', 'Very High']
-
-const RELATIONSHIPS = ['UserLikedMatch', 'MatchRejectedUser', 'Matched', 'UserRejectedMatch']
-
 const USER_INTERESTS = [
   '3D printing',
   'Scrapbook',
@@ -657,4 +663,4 @@ const PROFESSIONS = [
 'Trades & Services',
 ]
 
-module.exports = {BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS}
+module.exports = {BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS, MAX_DOG_AGE, MAX_DOG_WEIGHT, MAX_USER_AGE}

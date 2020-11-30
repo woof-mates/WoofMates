@@ -1,10 +1,7 @@
 /* eslint-disable max-statements */
 const faker = require('faker')
 const {USER_INTERESTS, PROFESSIONS} = require('../../../constants')
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
+const {getRandomInt} = require('../../../utils/mathFuncs')
 
 const createUsers = (numUsers) => {
   let firstNames = [];
