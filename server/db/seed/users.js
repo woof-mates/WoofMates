@@ -1,5 +1,6 @@
+/* eslint-disable max-statements */
 const faker = require('faker')
-const {USER_INTERESTS} = require('../../../constants')
+const {USER_INTERESTS, PROFESSIONS} = require('../../../constants')
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
@@ -21,7 +22,7 @@ const createUsers = (numUsers) => {
   let profession = [];
   let users = [];
 
-  for(let i = 0; i<numUsers;i++){
+  for (let i = 0; i < numUsers;i++){
     firstNames.push(faker.name.firstName())
     lastNames.push(faker.name.lastName())
     userEmails.push(faker.internet.email())
@@ -29,15 +30,15 @@ const createUsers = (numUsers) => {
     userImages1.push(`https://placedog.net/500/280/sepia?id=${i}`)
     userImages2.push(faker.image.people())
     dogImages.push(`https://placedog.net/500/280/sepia?id=${i}`)
-    zipCodes.push(parseInt(faker.address.zipCode()))
+    zipCodes.push(faker.address.zipCode())
     city.push(faker.address.city())
     state.push(faker.address.stateAbbr())
     age.push(getRandomInt(100))
-    profession.push(faker.name.jobTitle())
-    userInterests.push(USER_INTERESTS[getRandomInt(USER_INTERESTS.length)])
+    profession.push(PROFESSIONS[getRandomInt(PROFESSIONS.length)])
+    userInterests.push([USER_INTERESTS[getRandomInt(USER_INTERESTS.length)], USER_INTERESTS[getRandomInt(USER_INTERESTS.length)]])
   }
 
-  for(let i = 0; i<numUsers;i++){
+  for (let i = 0; i < numUsers;i++){
     users.push({});
     users[i].firstName = firstNames[i]
     users[i].lastName = lastNames[i]

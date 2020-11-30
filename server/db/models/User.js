@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 const { STRING, ENUM, INTEGER, ARRAY, TEXT } = Sequelize
-const {USER_INTERESTS} = require('../../../constants')
+const {USER_INTERESTS, PROFESSIONS} = require('../../../constants')
 
 const User = db.define('user', {
     userType: {
@@ -47,7 +47,7 @@ const User = db.define('user', {
         defaultValue: '/images/notFound.png'
     },
     zipCode: {
-        type: INTEGER
+        type: STRING
     },
     city: {
         type: STRING
@@ -56,13 +56,13 @@ const User = db.define('user', {
         type: STRING
     },
     userInterests: {
-        type: ENUM(...USER_INTERESTS),
+        type: ARRAY(ENUM(...USER_INTERESTS)),
     },
     age: {
         type: INTEGER
     },
     profession: {
-        type: STRING
+        type: ENUM(...PROFESSIONS)
     }
 })
 
