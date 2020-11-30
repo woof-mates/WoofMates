@@ -5,11 +5,11 @@ const A_WEEK_IN_SECONDS = 1000 * 60 * 60 * 24 * 7;
 
 router.post('/login', async(req, res, next) => {
     try {
-        const { userEmail, password } = req.body;
+        const { userEmail, hashedPassword } = req.body;
         const user = await User.findOne({
             where: {
                 userEmail,
-                hashedPassword: password
+                hashedPassword
             },
             include: [Session],
         })

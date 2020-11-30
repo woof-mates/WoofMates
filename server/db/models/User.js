@@ -48,6 +48,12 @@ const User = db.define('user', {
     zipCode: {
         type: INTEGER
     },
+    city: {
+        type: STRING
+    },
+    state: {
+        type: STRING
+    },
     userInterests: {
         type: ARRAY(TEXT)
     }

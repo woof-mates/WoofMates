@@ -9,6 +9,8 @@ const createUsers = (numUsers) => {
   let userImages2 = [];
   let dogImages = [];
   let zipCodes = [];
+  let city = [];
+  let state = [];
   let userInterests = [];
   let users = [];
 
@@ -21,6 +23,8 @@ const createUsers = (numUsers) => {
     userImages2.push(faker.image.people())
     dogImages.push(`https://placedog.net/500/280/sepia?id=${i}`)
     zipCodes.push(parseInt(faker.address.zipCode()))
+    city.push(faker.address.city())
+    state.push(faker.address.stateAbbr())
     userInterests.push([faker.lorem.sentences(),faker.lorem.sentences()])
   }
 
@@ -34,6 +38,8 @@ const createUsers = (numUsers) => {
     users[i].userImage2 = userImages2[i]
     users[i].dogImage = dogImages[i]
     users[i].zipCode = zipCodes[i]
+    users[i].city = city[i]
+    users[i].state = state[i]
     users[i].userInterests = userInterests[i]
   }
   return users;
