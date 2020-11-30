@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { User, Relationship, Dog } = require('../db')
-// need to check why matches are going back to Wyman even after matching already!
+
 router.get('/:userId', async(req,res,next) => {
     try {
         const { userId } = req.params
@@ -20,26 +20,26 @@ router.get('/:userId', async(req,res,next) => {
         }
         // if there are no matches that have already liked this user...
         else {
+            // first find IDs of matches that this user should not see in their feed:
             // all matches that this user has seen already
             const seenMatches = await Relationship.findAll({
                 where: {
                     userId,
                 }
             });
-            // matches that are Matched where this user is under matchId
-            const matchedMatches = await Relationship.findAll({
+            // users that have already seen this user as a match (we check for UserLikedMatch above so don't need result condition)
+            const matchesThatHaveSeenThisUser = await Relationship.findAll({
                 where: { 
                     matchId: userId,
-                    result: 'Matched'
                 }
             })
-            let seenOrMatchedMatchesId = []
-            seenMatches.forEach(match => seenOrMatchedMatchesId.push(match.matchId))
-            matchedMatches.forEach(match => seenOrMatchedMatchesId.push(match.userId))
+            let matchesToExcludeId = []
+            seenMatches.forEach(match => matchesToExcludeId.push(match.matchId))
+            matchesThatHaveSeenThisUser.forEach(match => matchesToExcludeId.push(match.userId))
 
             const allUsers = await User.findAll({ include: Dog });
             const unseenMatches = allUsers.filter(user => {
-                return (!seenOrMatchedMatchesId.includes(user.id) && user.id !== userId*1)
+                return (!matchesToExcludeId.includes(user.id) && user.id !== userId*1)
             })
             // same as above, sending first of array for now
             res.send(unseenMatches[0])
