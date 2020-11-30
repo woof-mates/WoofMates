@@ -37,6 +37,7 @@ class Match extends Component {
                 <p>Dog Name: {match.dog.dogName}</p>
                 <p>Dog Breed: {match.dog.breed}</p>
                 <p>Match User Id: {match.id}</p>
+                <img src={match.userImage1}></img>
                 <button onClick={this.sendDecision} value='like'>Like</button>
                 <button onClick={this.sendDecision} value='reject'>Don't like</button>
                 <p>{this.state.message}</p>

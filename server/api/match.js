@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { Op } = require('sequelize');
 const { User, Relationship, Dog } = require('../db')
 // need to check why matches are going back to Wyman even after matching already!
 router.get('/:userId', async(req,res,next) => {
@@ -70,6 +69,7 @@ router.put('/:userId', async(req, res, next) => {
             }
             res.send(existingRelationship);
         }
+        // if match has not yet seen user, create a new relationship
         else {
                 const result = decision === 'like' ? 'UserLikedMatch' : 'UserRejectedMatch'
                 const newRelationship = await Relationship.create({
@@ -77,8 +77,6 @@ router.put('/:userId', async(req, res, next) => {
                     matchId,
                     result
                 })
-                // if (decision === 'like') newRelationship.update({ result: 'UserLikedMatch' })
-                // if (decision === 'reject') newRelationship.update({ result: 'UserRejectedMatch' })
                 res.send(newRelationship);
         }
     } catch(err) { next(err); }
