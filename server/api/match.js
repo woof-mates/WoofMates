@@ -37,4 +37,40 @@ router.get('/:userId', async(req,res,next) => {
     } catch(err) { next(err) }
 })
 
+router.put('/:userId', async(req, res, next) => {
+    try {
+        const { userId } = req.params
+        const { decision, matchId } = req.body
+        console.log(decision, 'userid', userId, 'matchId', matchId)
+        // first check to see if match has already liked user
+        const existingRelationship = await Relationship.findOne({
+            where:
+                {
+                    userId: matchId,
+                    matchId: userId
+                }
+        })
+        if(existingRelationship) {
+            if (decision === 'like') {
+                await existingRelationship.update({ result: 'Matched' })
+            }
+            if (decision === 'reject') {
+                await existingRelationship.update({ result: 'MatchRejectedUser' })
+            }
+            res.send(existingRelationship);
+        }
+        else {
+                const result = decision === 'like' ? 'UserLikedMatch' : 'UserRejectedMatch'
+                const newRelationship = await Relationship.create({
+                    userId,
+                    matchId,
+                    result
+                })
+                // if (decision === 'like') newRelationship.update({ result: 'UserLikedMatch' })
+                // if (decision === 'reject') newRelationship.update({ result: 'UserRejectedMatch' })
+                res.send(newRelationship);
+        }
+    } catch(err) { next(err); }
+})
+
 module.exports = router;
