@@ -9,7 +9,7 @@ router.post('/login', async(req, res, next) => {
         const user = await User.findOne({
             where: {
                 userEmail,
-                password
+                hashedPassword: password
             },
             include: [Session],
         })
@@ -35,7 +35,7 @@ router.post('/login', async(req, res, next) => {
             }
         }
         // if userEmail and password are not a match, send 404
-        else res.sendStatus(404)
+        else res.status(404).json({error: 'User and password do not match'})
     } catch(err) { next(err); }
 });
 
