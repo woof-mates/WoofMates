@@ -12,17 +12,17 @@ const NUM_RELPS = 200;
 const seed = async () => {
     try {
       console.log('creating users,dogs,prompts,relps');
-      users = createUsers(NUM_USERS);
-      dogs = createDogs(NUM_USERS)
-      prompts = createPrompts(NUM_USERS);
-      relationships = createRelationships(NUM_RELPS, NUM_USERS)
+      let users = createUsers(NUM_USERS);
+      let dogs = createDogs(NUM_USERS)
+      let prompts = createPrompts(NUM_USERS);
+      let relationships = createRelationships(NUM_RELPS, NUM_USERS)
 
       console.log('seeding into db')
 
       await db.sync({ force: true });
       let promises = [];
 
-      for(let i = 0; i <users.length; i++){
+      for (let i = 0; i <users.length; i++){
         promises.push(User.create(users[i]))
       }
 

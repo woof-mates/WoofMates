@@ -1,4 +1,9 @@
 const faker = require('faker')
+const {USER_INTERESTS} = require('../../../constants')
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
 
 const createUsers = (numUsers) => {
   let firstNames = [];
@@ -12,6 +17,8 @@ const createUsers = (numUsers) => {
   let city = [];
   let state = [];
   let userInterests = [];
+  let age = [];
+  let profession = [];
   let users = [];
 
   for(let i = 0; i<numUsers;i++){
@@ -25,7 +32,9 @@ const createUsers = (numUsers) => {
     zipCodes.push(parseInt(faker.address.zipCode()))
     city.push(faker.address.city())
     state.push(faker.address.stateAbbr())
-    userInterests.push([faker.lorem.sentences(),faker.lorem.sentences()])
+    age.push(getRandomInt(100))
+    profession.push(faker.name.jobTitle())
+    userInterests.push(USER_INTERESTS[getRandomInt(USER_INTERESTS.length)])
   }
 
   for(let i = 0; i<numUsers;i++){
@@ -40,6 +49,8 @@ const createUsers = (numUsers) => {
     users[i].zipCode = zipCodes[i]
     users[i].city = city[i]
     users[i].state = state[i]
+    users[i].age = age[i]
+    users[i].profession = profession[i]
     users[i].userInterests = userInterests[i]
   }
   return users;
