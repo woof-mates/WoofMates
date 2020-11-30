@@ -1,6 +1,7 @@
 const router = require('express').Router();
+const { Op } = require('sequelize');
 const { User, Relationship, Dog } = require('../db')
-
+// need to check why matches are going back to Wyman even after matching already!
 router.get('/:userId', async(req,res,next) => {
     try {
         const { userId } = req.params
@@ -20,16 +21,26 @@ router.get('/:userId', async(req,res,next) => {
         }
         // if there are no matches that have already liked this user...
         else {
+            // all matches that this user has seen already
             const seenMatches = await Relationship.findAll({
                 where: {
-                    userId
+                    userId,
                 }
             });
-            let seenMatchesId = []
-            seenMatches.forEach(match => seenMatchesId.push(match.matchId))
+            // matches that are Matched where this user is under matchId
+            const matchedMatches = await Relationship.findAll({
+                where: { 
+                    matchId: userId,
+                    result: 'Matched'
+                }
+            })
+            let seenOrMatchedMatchesId = []
+            seenMatches.forEach(match => seenOrMatchedMatchesId.push(match.matchId))
+            matchedMatches.forEach(match => seenOrMatchedMatchesId.push(match.userId))
+
             const allUsers = await User.findAll({ include: Dog });
             const unseenMatches = allUsers.filter(user => {
-                return (!seenMatchesId.includes(user.id) && user.id !== userId*1)
+                return (!seenOrMatchedMatchesId.includes(user.id) && user.id !== userId*1)
             })
             // same as above, sending first of array for now
             res.send(unseenMatches[0])

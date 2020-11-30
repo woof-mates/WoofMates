@@ -21,15 +21,15 @@ class Match extends Component {
     async sendDecision(ev){
         try {
             const { getMatch, user, match } = this.props;
-            console.log(ev.target.value)
-            const matchResult = await (axios.put(`/api/match/${user.id}`, { decision: ev.target.value, matchId: match.id }))
-            if(matchResult.result === 'Matched') this.setState({ message: `${user.firstName}, you have matched with ${match.firstName}!` })
+            const matchResult = (await (axios.put(`/api/match/${user.id}`, { decision: ev.target.value, matchId: match.id }))).data
+            console.log('result',matchResult)
             getMatch(user.id)
+            if(matchResult.result === 'Matched') this.setState({ message: `${user.firstName}, you have matched with ${match.firstName}!` })
+            else this.setState( { message: ''} )
         } catch(err) { console.error(err); }
     }
     render(){
         let { match } = this.props;
-        console.log('match',match)
         return (
             match.firstName ? 
             <>
@@ -39,6 +39,7 @@ class Match extends Component {
                 <p>Match User Id: {match.id}</p>
                 <button onClick={this.sendDecision} value='like'>Like</button>
                 <button onClick={this.sendDecision} value='reject'>Don't like</button>
+                <p>{this.state.message}</p>
             </>
             : null
         )
