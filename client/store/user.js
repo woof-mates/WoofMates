@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const LOGIN = 'LOGIN';
+const LOGOUT = 'LOGOUT'
 
 const _login = (user) => {
     return {
@@ -19,13 +20,31 @@ const login = (loginInfo) => async(dispatch) => {
     }
 };
 
+const _logout = (emptyUser) => {
+    return {
+        type: LOGOUT,
+        emptyUser
+    }
+};
+
+const logout = (userId) => async(dispatch) => {
+    try {
+        const { data } = await (axios.delete(`/api/auth/logout/${userId}`))
+        dispatch(_logout({}))
+    } catch(err) {
+        console.error(err);
+    }
+}
+
 export default function userReducer(state = {}, action) {
     switch (action.type) {
         case LOGIN: 
             return action.user;
+        case LOGOUT:
+            return action.emptyUser;
         default: 
             return state
     }
 }
 
-export { login };
+export { login, logout };

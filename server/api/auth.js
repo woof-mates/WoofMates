@@ -39,4 +39,17 @@ router.post('/login', async(req, res, next) => {
     } catch(err) { next(err); }
 });
 
+router.delete('/logout/:userId', async(req, res, next) => {
+    try {
+        const { userId } = req.params;
+        const userSession = await Session.findOne({
+            where: {
+                userId
+            }
+        });
+        userSession.destroy();
+        res.status(200).send( {message: 'You have been successfully logged out.'} )
+    } catch(err) { next(err); }
+})
+
 module.exports = router;
