@@ -16,7 +16,7 @@ router.post('/login', async(req, res, next) => {
         // if userEmail and password is a match...
         if (user) {
             // if user already has a session, refresh the expiration date of cookie
-            if(user.session) {
+            if (user.session) {
                 res.cookie('sid', user.session.sid, {
                     maxAge: A_WEEK_IN_SECONDS,
                     path: '/',
@@ -31,7 +31,7 @@ router.post('/login', async(req, res, next) => {
                     maxAge: A_WEEK_IN_SECONDS,
                     path: '/',
                 });
-                res.status(201).send(user)
+                res.status(201).send(user, { include: newSession })
             }
         }
         // if userEmail and password are not a match, send 404
