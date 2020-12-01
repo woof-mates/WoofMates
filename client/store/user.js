@@ -37,12 +37,10 @@ export const registerUser = (firstName, lastName, userEmail, password, city, sta
 export const login = (loginInfo) => async(dispatch) => {
   try {
       const {userEmail, password} = loginInfo
-      // hash function not implemented yet in login - need to change the seeding
-      const hashedPassword = password
-      // const hashedPassword = saltAndHash(password)
+      const hashedPassword = saltAndHash(password)
       const { data } = await (axios.post('/api/auth/login', {userEmail, hashedPassword}))
       dispatch(_login(data))
-  } catch(err) {
+  } catch (err) {
       alert(err.message);
       console.error(err);
   }
