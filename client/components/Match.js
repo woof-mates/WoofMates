@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getMatch } from '../store/match';
-import axios from 'axios';
-
-// todo: create api route for matches. also need to consider what data route will send back - will need dog info inside user.
+import { getMatch, sendDecision } from '../store/match';
+// import axios from 'axios';
 
 class Match extends Component {
     constructor(props){
@@ -11,35 +9,35 @@ class Match extends Component {
         this.state = {
             message: ''
         }
-        this.sendDecision = this.sendDecision.bind(this)
+        this.sendDecisionAndLoadNextMatch = this.sendDecisionAndLoadNextMatch.bind(this)
     }
     componentDidMount(){
         const { getMatch, user } = this.props;
         console.log('user', user)
         getMatch(user.id)
     }
-    async sendDecision(ev){
+    async sendDecisionAndLoadNextMatch(ev){
         try {
-            const { getMatch, user, match } = this.props;
-            const matchResult = (await (axios.put(`/api/match/${user.id}`, { decision: ev.target.value, matchId: match.id }))).data
-            console.log('result',matchResult)
+            const { getMatch, user, match, sendDecision } = this.props;
+            // const matchResult = (await (axios.put(`/api/match/${user.id}`, { decision: ev.target.value, matchId: match.id }))).data
+            const matchResult = await sendDecision(user.id, match.id, ev.target.value);
             getMatch(user.id)
-            if(matchResult.result === 'Matched') this.setState({ message: `${user.firstName}, you have matched with ${match.firstName}!` })
+            if (matchResult.result === 'Matched') this.setState({ message: `${user.firstName}, you have matched with ${match.firstName}!` })
             else this.setState( { message: ''} )
-        } catch(err) { console.error(err); }
+        } catch (err) { console.error(err); }
     }
     render(){
         let { match } = this.props;
         return (
-            match.firstName ? 
+            match.firstName ?
             <>
                 <p>Human Name: {match.firstName}</p>
                 <p>Dog Name: {match.dog.dogName}</p>
                 <p>Dog Breed: {match.dog.breed}</p>
                 <p>Match User Id: {match.id}</p>
-                <img src={match.userImage1}></img>
-                <button onClick={this.sendDecision} value='like'>Like</button>
-                <button onClick={this.sendDecision} value='reject'>Don't like</button>
+                <img src={match.userImage1} />
+                <button onClick={this.sendDecisionAndLoadNextMatch} value="like" type="submit">Like</button>
+                <button onClick={this.sendDecisionAndLoadNextMatch} value="reject" type="submit">Don't like</button>
                 <p>{this.state.message}</p>
             </>
             : null
@@ -55,7 +53,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    getMatch: (userId) => dispatch(getMatch(userId))
-})
+    getMatch: (userId) => dispatch(getMatch(userId)),
+    sendDecision: (userId, matchId, decision) => (dispatch(sendDecision(userId, matchId, decision)))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Match);
