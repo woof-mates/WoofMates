@@ -35,7 +35,7 @@ router.post('/login', async(req, res, next) => {
             }
         }
         // if userEmail and password are not a match, send 404
-        else res.status(404).json({error: 'User and password do not match'})
+        else res.sendStatus(404);
     } catch(err) { next(err); }
 });
 
