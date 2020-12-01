@@ -2,13 +2,12 @@ import React from 'react';
 import Chat from './Chat';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { getMatch } from '../store/match';
+import { getMatches } from '../store/matches';
 
 class Chatrooms extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            matches: [],
             messaging: 0
         };
         this.toMessage = this.toMessage.bind(this);
@@ -17,7 +16,7 @@ class Chatrooms extends React.Component {
 
     componentDidMount() {
         if (this.props.user.id) {
-            this.props.getMatch(this.props.user.id);
+            this.props.getMatches(this.props.user.id);
         } 
     }
 
@@ -35,9 +34,9 @@ class Chatrooms extends React.Component {
 
     render() {
         const { user } = this.props;
-        const { match } = this.props;
+        const { matches } = this.props;
         const { messaging } = this.state;
-        
+
         if (!user.id) {
             return (
                 <div>
@@ -48,14 +47,20 @@ class Chatrooms extends React.Component {
             return (
                 <div>
                     <div onClick={this.closeChat}>Close Chat</div>
-                    <Chat from={user.id} to={match.id}/>
+                    <Chat from={user.id} to={messaging}/>
                 </div>
             );
         } else {
             return (
                 <div>
                     <ul>
-                        <li onClick={() => this.toMessage(match.id)}>{match.firstName} {match.lastName}</li>
+                        {
+                            matches.map(match => {
+                                return (
+                                    <li key={match.id} onClick={() => this.toMessage(match.id)}>{match.firstName} {match.lastName}</li>
+                                )
+                            })
+                        }
                     </ul>
                 </div>
             );
@@ -66,12 +71,12 @@ class Chatrooms extends React.Component {
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        match: state.match
+        matches: state.matches
     };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    getMatch: (userId) => dispatch(getMatch(userId))
+    getMatches: (userId) => dispatch(getMatches(userId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chatrooms);
