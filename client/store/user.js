@@ -41,8 +41,8 @@ export const login = (loginInfo) => async(dispatch) => {
       const hashedPassword = saltAndHash(password)
       const { data } = await (axios.post('/api/auth/login', {userEmail, hashedPassword}))
       dispatch(_login(data))
-  } catch (err) {
-      alert(err.message);
+  } catch(err) {
+      alert('User and password do not match');
       console.error(err);
   }
 };
