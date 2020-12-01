@@ -35,7 +35,7 @@ class Chat extends React.Component {
         });
 
         try {
-            db.ref(`${this.props.from}${this.props.to}/chats`).on("value", snapshot => {
+            db.ref(`${this.props.from}-${this.props.to}/chats`).on("value", snapshot => {
                 let chats = [];
                 snapshot.forEach(snap => {
                     chats.push(snap.val());
@@ -59,11 +59,11 @@ class Chat extends React.Component {
             writeError: null
         })
         try {
-            await db.ref(`${this.props.from}${this.props.to}/chats`).push({
+            await db.ref(`${this.props.from}-${this.props.to}/chats`).push({
                 message: this.state.message,
                 timestamp: Date.now()
             });
-            await db.ref(`${this.props.to}${this.props.from}/chats`).push({
+            await db.ref(`${this.props.to}-${this.props.from}/chats`).push({
                 message: this.state.message,
                 timestamp: Date.now()
             });
