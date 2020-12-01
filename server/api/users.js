@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { User, Session } = require('../db/index')
+const { User, Session, Dog } = require('../db/index')
 
 const A_WEEK_IN_SECONDS = 1000 * 60 * 60 * 24 * 7;
 
@@ -18,7 +18,9 @@ router.get('/:userId', async(req, res, next) => { // single user profile
       where: {
         id: req.params.userId
       },
+      include: Dog
     });
+    console.log('backend', userProfile)
     res.send(userProfile)
   }
   catch (ex) {

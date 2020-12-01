@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { User, Session } = require('../db');
+const { User, Session, Dog } = require('../db');
 
 const A_WEEK_IN_SECONDS = 1000 * 60 * 60 * 24 * 7;
 
@@ -12,7 +12,7 @@ router.post('/login', async(req, res, next) => {
                 userEmail,
                 hashedPassword
             },
-            include: [Session],
+            include: [Session, Dog],
         })
         // if userEmail and password is a match...
         if (user) {
