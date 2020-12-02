@@ -3,8 +3,9 @@ import {saltAndHash} from '../../utils/hashPasswordFunc'
 
 //User State
 
-const REGISTER_USER = "REGISTER_USER"
+const REGISTER_USER = 'REGISTER_USER'
 const LOGIN = 'LOGIN';
+const LOGOUT = 'LOGOUT'
 
 const _login = (user) => {
     return {
@@ -13,7 +14,7 @@ const _login = (user) => {
     }
 };
 
-export const registerAUser = (user) => {
+const registerAUser = (user) => {
   return {
       type: REGISTER_USER,
       user
@@ -25,6 +26,7 @@ export const registerUser = (firstName, lastName, userEmail, password, city, sta
     try {
       let hashedPassword = saltAndHash(password)
       const newUser = (await axios.post('/api/users/register', {firstName, lastName, userEmail, hashedPassword, city, state, zipCode})).data
+      console.log('newuser', newUser)
       dispatch(registerAUser(newUser))
     }
     catch (error) {
@@ -36,16 +38,30 @@ export const registerUser = (firstName, lastName, userEmail, password, city, sta
 export const login = (loginInfo) => async(dispatch) => {
   try {
       const {userEmail, password} = loginInfo
-      // hash function not implemented yet in login - need to change the seeding
-      const hashedPassword = password
-      // const hashedPassword = saltAndHash(password)
+      const hashedPassword = saltAndHash(password)
       const { data } = await (axios.post('/api/auth/login', {userEmail, hashedPassword}))
       dispatch(_login(data))
   } catch(err) {
-      alert(err.message);
+      alert('User and password do not match');
       console.error(err);
   }
 };
+
+const _logout = (emptyUser) => {
+  return {
+      type: LOGOUT,
+      emptyUser
+  }
+};
+
+export const logout = (userId) => async(dispatch) => {
+  try {
+      await (axios.delete(`/api/auth/logout/${userId}`))
+      dispatch(_logout({}))
+  } catch (err) {
+      console.error(err);
+  }
+}
 
 export default function userReducer (state = {}, action) {
   switch (action.type) {
@@ -53,7 +69,9 @@ export default function userReducer (state = {}, action) {
           return action.user
       case LOGIN:
         return action.user;
+      case LOGOUT:
+        return action.emptyUser;
       default:
-          return state
+        return state
   }
-};
+}

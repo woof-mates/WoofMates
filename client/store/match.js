@@ -14,8 +14,15 @@ const getMatch = (userId) => async(dispatch) => {
         const { data } = await (axios.get(`/api/match/${userId}`))
         console.log(data)
         dispatch(_getMatch(data))
-    } catch(err) { console.error(err); }
+    } catch (err) { console.error(err); }
 };
+
+const sendDecision = (userId, matchId, decision) => async() => {
+    try {
+        const relationship = (await (axios.put(`/api/match/${userId}`, { decision, matchId }))).data;
+        return relationship;
+    } catch (err) { console.error(err); }
+}
 
 export default function matchReducer(state = {}, action) {
     switch (action.type) {
@@ -26,4 +33,4 @@ export default function matchReducer(state = {}, action) {
     }
 }
 
-export { getMatch }
+export { getMatch, sendDecision }

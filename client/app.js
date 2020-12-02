@@ -1,9 +1,9 @@
 import React from 'react'
 import { HashRouter as Router, Link, Route} from 'react-router-dom'
 import Registration from './registration/index'
-import Chat from './components/chat';
 import Login from './components/Login'
 import Match from './components/match'
+import Chatrooms from './components/Chatrooms'
 
 class App extends React.Component {
     componentDidMount(){
@@ -23,7 +23,7 @@ class App extends React.Component {
                     </ul>
                     <Route path='/' exact />
                     <Route path='/signUp' component={Registration} exact />
-                    <Route path='/chat' exact component={Chat}/>
+                    <Route path='/chat' exact component={Chatrooms}/>
                     <Route path='/login' exact component={Login}/>
                     <Route path='/match' exact component={Match}/>
                 </div>
