@@ -1,7 +1,7 @@
+/* eslint-disable no-shadow */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getMatch, sendDecision } from '../store/match';
-// import axios from 'axios';
 
 class Match extends Component {
     constructor(props){
@@ -19,7 +19,6 @@ class Match extends Component {
     async sendDecisionAndLoadNextMatch(ev){
         try {
             const { getMatch, user, match, sendDecision } = this.props;
-            // const matchResult = (await (axios.put(`/api/match/${user.id}`, { decision: ev.target.value, matchId: match.id }))).data
             const matchResult = await sendDecision(user.id, match.id, ev.target.value);
             getMatch(user.id)
             if (matchResult.result === 'Matched') this.setState({ message: `${user.firstName}, you have matched with ${match.firstName}!` })

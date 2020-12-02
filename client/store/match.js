@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const GET_MATCH = 'GET_MATCH';
-const SEND_DECISION = 'SEND_DECISION';
 
 const _getMatch = (match) => {
     return {
