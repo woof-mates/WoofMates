@@ -23,8 +23,20 @@ const seed = async () => {
       await db.sync({ force: true });
       let promises = [];
 
-      // const pref = await Preference.create({breed: {pug: 0, golden: 0}})
-      // pref.update({breed: {pug: 0, golden: 1}})
+      const pref = await Preference.create({'dogBreed': {golden:1, pug:2}})
+      // let obj  = pref.dogBreed
+      // obj.golden++
+      // console.log(typeof obj)
+
+      // pref.update({'dogBreed': obj})
+
+
+
+      let val  = pref.dogBreed.golden + 1
+      console.log(val)
+      pref.update({'dogBreed': {...pref.dogBreed, golden: val}})
+
+      const dog = await Dog.create({'dogAge': 1, 'dogName': 'hello', 'breed': 'pug', 'neutered': false})
 
       for (let i = 0; i < users.length; i++){
         promises.push(User.create(users[i]))
@@ -43,9 +55,9 @@ const seed = async () => {
       for (let i = 0; i < relationships.length; i++){
         promises.push(Relationship.create(relationships[i]))
       }
-      for (let i = 0; i < preferences.length; i++){
-        promises.push(Preference.create(preferences[i]))
-      }
+      // for (let i = 0; i < preferences.length; i++){
+      //   promises.push(Preference.create(preferences[i]))
+      // }
 
       await Promise.all(promises);
 
