@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { registerAUser } from '../store/user'
+import { registerUser } from '../store/user'
 
 class Registration extends React.Component {
   constructor () {
@@ -142,7 +142,7 @@ const mapState = state => (
 
 const mapDispatch = (dispatch) => {
   return {
-    registerUser: (firstName, lastName, userEmail, password, city, state, zipCode) => dispatch(registerAUser(firstName, lastName, userEmail, password, city, state, zipCode))
+    registerUser: (firstName, lastName, userEmail, password, city, state, zipCode) => dispatch(registerUser(firstName, lastName, userEmail, password, city, state, zipCode))
   }
 }
 

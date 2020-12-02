@@ -1,5 +1,7 @@
 const router = require('express').Router()
-const {User} = require('../db/index')
+const { User, Session } = require('../db/index')
+
+const A_WEEK_IN_SECONDS = 1000 * 60 * 60 * 24 * 7;
 
 router.get('/', async(req, res, next) => { // api/users
   try {
@@ -27,10 +29,23 @@ router.get('/:userId', async(req, res, next) => { // single user profile
 router.post('/register', async(req,res,next) => { // register a user (api/users/register)
   try {
     console.log('trying to create a new user')
+    const newSession = await Session.create()
     const newUser = await User.create(req.body)
-    res.status(201).send(newUser)
+    await newSession.setUser(newUser);
+    res.cookie('sid', newSession.sid, {
+      maxAge: A_WEEK_IN_SECONDS,
+      path: '/',
+    });
+    const newUserWithSession = await User.findOne({
+      where: {
+        id: newUser.id
+      },
+      include: [Session]
+    })
+    res.status(201).send(newUserWithSession)
   }
   catch (ex) {
+      console.error(ex)
       res.send({
       message: 'Cannot register a new user'
     })
