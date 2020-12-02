@@ -1,5 +1,5 @@
 /* eslint-disable max-statements */
-const {BREEDS, MAX_DOG_AGE, MAX_DOG_WEIGHT, PROFESSIONS, USER_INTERESTS, MAX_USER_AGE} = require('../../../constants')
+const {BREEDS, MAX_DOG_AGE, MAX_DOG_WEIGHT, PROFESSIONS, USER_INTERESTS, MAX_USER_AGE, MAX_DISTANCE_FROM_USER} = require('../../../constants')
 const {getRandomInt} = require('../../../utils/mathFuncs')
 const {setValObj, setNumericalObj} = require('../../../utils/dbFuncs')
 
@@ -12,6 +12,7 @@ const createPreferences = (numUsers, numVotes) => {
   let userInterests = [];
   let userAge = [];
   let userProfession = [];
+  let distanceFromLocation = [];
   let preferences = [];
 
   for (let i = 0; i < numUsers;i++){
@@ -23,6 +24,8 @@ const createPreferences = (numUsers, numVotes) => {
     userInterests.push(setValObj(USER_INTERESTS, numVotes))
     userAge.push(setNumericalObj(MAX_USER_AGE, numVotes))
     userProfession.push(setValObj(PROFESSIONS, numVotes))
+    distanceFromLocation.push(getRandomInt(MAX_DISTANCE_FROM_USER)+1)
+
   }
 
   for (let i = 0; i < numUsers;i++){
@@ -35,6 +38,7 @@ const createPreferences = (numUsers, numVotes) => {
     preferences[i].userInterests = userInterests[i]
     preferences[i].userAge = userAge[i]
     preferences[i].userProfession = userProfession[i]
+    preferences[i].distanceFromLocation = distanceFromLocation[i]
     preferences[i].userId = i + 1
   }
   return preferences;

@@ -23,8 +23,9 @@ const seed = async () => {
       await db.sync({ force: true });
       let promises = [];
 
-      // const pref = await Preference.create({breed: {pug: 0, golden: 0}})
-      // pref.update({breed: {pug: 0, golden: 1}})
+      // const pref = await Preference.create({'dogBreed': {golden:1, pug:2}})
+      // let val  = pref.dogBreed.golden + 1
+      // pref.update({'dogBreed': {...pref.dogBreed, golden: val}})
 
       for (let i = 0; i < users.length; i++){
         promises.push(User.create(users[i]))
