@@ -29,10 +29,10 @@ export const registerUser = (firstName, lastName, userEmail, password, city, sta
       let hashedPassword = saltAndHash(password)
       // mapquest API to get latitude and longitude from user zipcode
       const mapQuestInfo = (await axios.get(`http://www.mapquestapi.com/geocoding/v1/address?key=${mapQuestKey}&location=${zipCode}%2C+US&thumbMaps=true`)).data
-      const latitude = mapQuestInfo.results[0].locations[0].latLng.lat;
-      const longitude = mapQuestInfo.results[0].locations[0].latLng.lng;
+      const userLatitude = mapQuestInfo.results[0].locations[0].latLng.lat;
+      const userLongitude = mapQuestInfo.results[0].locations[0].latLng.lng;
 
-      const newUser = (await axios.post('/api/users/register', {firstName, lastName, userEmail, hashedPassword, city, state, zipCode, latitude, longitude})).data
+      const newUser = (await axios.post('/api/users/register', {firstName, lastName, userEmail, hashedPassword, city, state, zipCode, userLatitude, userLongitude})).data
       console.log('newuser', newUser)
       dispatch(registerAUser(newUser))
     }
