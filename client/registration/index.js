@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { registerUser } from '../store/user'
 import {PROFESSIONS, DOG_WEIGHTS, USER_INTERESTS, BREEDS, DOG_AGES} from '../../constants'
+import {createBreedsObjForPref} from '../../utils/preferencesObjFuncs'
 
 
 class Registration extends React.Component {
@@ -18,17 +19,17 @@ class Registration extends React.Component {
       city: '',
       state: '',
       zipCode: '',
-      age: '', //int
+      age: '',
       profession: '',
       userInterests: '',
       dogName: '',
       breed: '',
-      dogAge: '', //int
-      energyLevel: '', //int
-      weight: '', //int
-      neutered: '', // convert to boolean: var isTrueSet = (myValue == 'true');
+      dogAge: '',
+      energyLevel: '',
+      weight: '',
+      neutered: '',
       dogInterests: '',
-      dogBreed: '', // json
+      dogBreed: createBreedsObjForPref(),
       dogAge: '', // json
       dogEnergyLevel: '', // json
       dogWeight: '', // json
@@ -36,6 +37,10 @@ class Registration extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
+
+  // const pref = await Preference.create({'dogBreed': {golden:1, pug:2}})
+  // let val  = pref.dogBreed.golden + 1
+  // pref.update({'dogBreed': {...pref.dogBreed, golden: val}})
 
 
   onChange (e) {
@@ -50,6 +55,28 @@ class Registration extends React.Component {
       this.tempDogInterests.push(e.target.value)
       this.setState({
         dogInterests: this.tempDogInterests
+      })
+    }
+    if (e.target.name === 'dogBreed') {
+      let target = e.target.name // 'dogBreed'
+      let breed = e.target.value // 'chihuaha'
+      let currBreedList = this.state.dogBreed // {'X': 0, 'Y':0, ...}
+      console.log(currBreedList)
+      console.log(currBreedList[breed])
+      currBreedList[breed] = 20 // 20 pts for initial pref.
+      this.setState({
+        [e.target.name]: currBreedList
+      })
+    }
+    if (e.target.name === 'age' || e.target.name === 'dogAge' || e.target.name === 'energyLevel' || e.target.name === 'weight') {
+      this.setState({
+        [e.target.name]: Number(e.target.value)
+      })
+    }
+    if (e.target.name === 'neutered') {
+      let neuteredBool = (e.target.value === 'true')
+      this.setState({
+        [e.target.name]: neuteredBool
       })
     }
     else {
@@ -197,8 +224,8 @@ class Registration extends React.Component {
               <p></p>
               Neutered?
               <select id="neutered" name="neutered" onChange={this.onChange}>
-              <option value="Yes">Yes</option>
-              <option value="No">No</option>
+              <option value="true">Yes</option>
+              <option value="false">No</option>
               </select>
               <p></p>
               Your dog's primary interest:

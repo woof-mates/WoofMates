@@ -690,3 +690,8 @@ const PROFESSIONS = [
 ]
 
 module.exports = {BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS, MAX_DOG_AGE, MAX_DOG_WEIGHT, MAX_USER_AGE, MAX_DISTANCE_FROM_USER, DOG_AGES, DOG_WEIGHTS}
+
+
+// const pref = await Preference.create({'dogBreed': {golden:1, pug:2}})
+// let val  = pref.dogBreed.golden + 1
+// pref.update({'dogBreed': {...pref.dogBreed, golden: val}})
