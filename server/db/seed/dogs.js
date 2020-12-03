@@ -1,9 +1,6 @@
 const faker = require('faker')
 const {BREEDS} = require('../../../constants')
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
+const {getRandomInt} = require('../../../utils/mathFuncs')
 
 const createDogs = (numUsers) => {
   let dogNames = [];
