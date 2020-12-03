@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { registerUser } from '../store/user'
-import {PROFESSIONS, DOG_WEIGHTS, USER_INTERESTS, BREEDS, DOG_AGES} from '../../constants'
-import {createBreedsObjForPref} from '../../utils/preferencesObjFuncs'
+import {INITIAL_PREF_POINTS, PROFESSIONS, DOG_WEIGHTS, USER_INTERESTS, BREEDS, DOG_AGES} from '../../constants'
+import {createBreedsObjForPref, createAgesObjForPref, createEnergyLevelObjForPref, createWeightObjForPref} from '../../utils/preferencesObjFuncs'
 
 
 class Registration extends React.Component {
@@ -22,6 +22,8 @@ class Registration extends React.Component {
       age: '',
       profession: '',
       userInterests: '',
+      dogSpeak: '',
+      favoriteActivityWithDog: '',
       dogName: '',
       breed: '',
       dogAge: '',
@@ -29,8 +31,8 @@ class Registration extends React.Component {
       weight: '',
       neutered: '',
       dogInterests: '',
-      dogBreed: createBreedsObjForPref(),
-      dogAge: '', // json
+      dogBreed: '',
+      dogAgeForPref: '',
       dogEnergyLevel: '', // json
       dogWeight: '', // json
     };
@@ -44,41 +46,68 @@ class Registration extends React.Component {
 
 
   onChange (e) {
-    // console.log('target is', e.target.name, 'value is', e.target.value)
-    if (e.target.name === 'userInterestsList') {
+    console.log('target is', e.target.name, 'value is', e.target.value)
+    if (e.target.name === "userInterestsList") {
       this.tempUserInterests.push(e.target.value)
       this.setState({
         userInterests: this.tempUserInterests
       })
     }
-    if (e.target.name === 'dogInterestsList') {
+    else if (e.target.name === "dogInterestsList") {
       this.tempDogInterests.push(e.target.value)
       this.setState({
         dogInterests: this.tempDogInterests
       })
     }
-    if (e.target.name === 'dogBreed') {
-      let target = e.target.name // 'dogBreed'
-      let breed = e.target.value // 'chihuaha'
-      let currBreedList = this.state.dogBreed // {'X': 0, 'Y':0, ...}
-      console.log(currBreedList)
-      console.log(currBreedList[breed])
-      currBreedList[breed] = 20 // 20 pts for initial pref.
+    else if (e.target.name === "dogBreed") {
+      let newBreedsObj = createBreedsObjForPref();
+      newBreedsObj[e.target.value] = INITIAL_PREF_POINTS;
+      console.log(newBreedsObj)
       this.setState({
-        [e.target.name]: currBreedList
+        dogBreed: newBreedsObj
       })
     }
-    if (e.target.name === 'age' || e.target.name === 'dogAge' || e.target.name === 'energyLevel' || e.target.name === 'weight') {
+
+    else if (e.target.name === "dogAgeForPref") {
+      let newAgesObj = createAgesObjForPref();
+      newAgesObj[e.target.value] = INITIAL_PREF_POINTS;
+      console.log(newAgesObj)
+      this.setState({
+        dogAgeForPref: newAgesObj
+      })
+    }
+
+    else if (e.target.name === "dogEnergyLevel") {
+      let newEnergyLevelsObj = createEnergyLevelObjForPref();
+      newEnergyLevelsObj[e.target.value] = INITIAL_PREF_POINTS;
+      console.log(newEnergyLevelsObj)
+      this.setState({
+        dogEnergyLevel: newEnergyLevelsObj
+      })
+    }
+
+    else if (e.target.name === "dogWeight") {
+      let newWeightLevelsObj = createWeightObjForPref();
+      newWeightLevelsObj[e.target.value] = INITIAL_PREF_POINTS;
+      console.log(newWeightLevelsObj)
+      this.setState({
+        dogWeight: newWeightLevelsObj
+      })
+    }
+
+    else if (e.target.name === "age" || e.target.name === "dogAge" || e.target.name === "energyLevel" || e.target.name === "weight") {
       this.setState({
         [e.target.name]: Number(e.target.value)
       })
     }
-    if (e.target.name === 'neutered') {
-      let neuteredBool = (e.target.value === 'true')
+
+    else if (e.target.name === "neutered") {
+      let neuteredBool = (e.target.value === "true")
       this.setState({
         [e.target.name]: neuteredBool
       })
     }
+
     else {
       this.setState({
         [e.target.name]: e.target.value
@@ -224,8 +253,8 @@ class Registration extends React.Component {
               <p></p>
               Neutered?
               <select id="neutered" name="neutered" onChange={this.onChange}>
-              <option value="true">Yes</option>
               <option value="false">No</option>
+              <option value="true">Yes</option>
               </select>
               <p></p>
               Your dog's primary interest:
@@ -239,12 +268,12 @@ class Registration extends React.Component {
               <p></p>
               Your favorite thing to do with your pup is...
               <br></br>
-              <textarea name="dogSpeak" rows="3" cols="50" wrap="hard" placeholder="" onChange={this.onChange}></textarea>
+              <textarea name="favoriteActivityWithDog" rows="3" cols="50" wrap="hard" placeholder="" onChange={this.onChange}></textarea>
               <h3>Last step: tell us your preferences!</h3>
               In an ideal world, I'd like to be matched with a
               <select id="dogBreed" name="dogBreed" onChange={this.onChange}>   {BREEDS.map(breed => (<option value={breed}>{breed}</option>))}
               </select> pup who is
-              <select id="dogAge" name="dogAge" onChange={this.onChange}> {DOG_AGES.map(age => (<option value={age}>{age}</option>))}
+              <select id="dogAgeForPref" name="dogAgeForPref" onChange={this.onChange}> {DOG_AGES.map(age => (<option value={age}>{age}</option>))}
               </select>
               years old, has
               <select id="dogEnergyLevel" name="dogEnergyLevel" onChange={this.onChange}>
