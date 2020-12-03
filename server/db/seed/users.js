@@ -1,6 +1,6 @@
 /* eslint-disable max-statements */
 const faker = require('faker')
-const {USER_INTERESTS, PROFESSIONS} = require('../../../constants')
+const {USER_INTERESTS, PROFESSIONS, CITIES} = require('../../../constants')
 const {getRandomInt} = require('../../../utils/mathFuncs')
 const { saltAndHash } = require('../../../utils/hashPasswordFunc')
 
@@ -27,7 +27,7 @@ const createUsers = (numUsers) => {
     userImages2.push(faker.image.people())
     dogImages.push(`https://placedog.net/500/280/sepia?id=${i}`)
     zipCodes.push(parseInt(faker.address.zipCode()))
-    city.push(faker.address.city())
+    city.push(CITIES[getRandomInt(CITIES.length)])
     state.push(faker.address.stateAbbr())
     age.push(getRandomInt(100))
     profession.push(PROFESSIONS[getRandomInt(PROFESSIONS.length)])

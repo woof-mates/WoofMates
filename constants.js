@@ -10,6 +10,8 @@ const ENERGY_LEVELS = ['Very Low', 'Low', 'Medium', 'High', 'Very High']
 
 const RELATIONSHIPS = ['UserLikedMatch', 'MatchRejectedUser', 'Matched', 'UserRejectedMatch']
 
+const CITIES = ['New York', 'Chicago', 'Los Angeles']
+
 const BREEDS =    [
   'Affenpinscher',
   'Afghan Hound',
@@ -665,4 +667,4 @@ const PROFESSIONS = [
 'Trades & Services',
 ]
 
-module.exports = {BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS, MAX_DOG_AGE, MAX_DOG_WEIGHT, MAX_USER_AGE, MAX_DISTANCE_FROM_USER}
+module.exports = {BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS, MAX_DOG_AGE, MAX_DOG_WEIGHT, MAX_USER_AGE, MAX_DISTANCE_FROM_USER, CITIES}
