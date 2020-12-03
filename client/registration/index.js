@@ -2,10 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { registerUser } from '../store/user'
+import {PROFESSIONS, DOG_WEIGHTS, USER_INTERESTS, BREEDS, DOG_AGES} from '../../constants'
+
 
 class Registration extends React.Component {
   constructor () {
     super ()
+    this.tempUserInterests = []
+    this.tempDogInterests = []
     this.state = {
       firstName: '',
       lastName: '',
@@ -13,7 +17,21 @@ class Registration extends React.Component {
       password: '',
       city: '',
       state: '',
-      zipCode: ''
+      zipCode: '',
+      age: '', //int
+      profession: '',
+      userInterests: '',
+      dogName: '',
+      breed: '',
+      dogAge: '', //int
+      energyLevel: '', //int
+      weight: '', //int
+      neutered: '', // convert to boolean: var isTrueSet = (myValue == 'true');
+      dogInterests: '',
+      dogBreed: '', // json
+      dogAge: '', // json
+      dogEnergyLevel: '', // json
+      dogWeight: '', // json
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -22,10 +40,24 @@ class Registration extends React.Component {
 
   onChange (e) {
     // console.log('target is', e.target.name, 'value is', e.target.value)
-    this.setState({
-      [e.target.name]: e.target.value
-    })
-    console.log(this.state)
+    if (e.target.name === 'userInterestsList') {
+      this.tempUserInterests.push(e.target.value)
+      this.setState({
+        userInterests: this.tempUserInterests
+      })
+    }
+    if (e.target.name === 'dogInterestsList') {
+      this.tempDogInterests.push(e.target.value)
+      this.setState({
+        dogInterests: this.tempDogInterests
+      })
+    }
+    else {
+      this.setState({
+        [e.target.name]: e.target.value
+      })
+      console.log(this.state)
+    }
   }
 
   async onSubmit (e) {
@@ -38,6 +70,7 @@ class Registration extends React.Component {
   }
 
   componentDidMount() {
+    console.log(PROFESSIONS)
   }
 
   render() {
@@ -125,6 +158,76 @@ class Registration extends React.Component {
               Zip code:
               <input type="zipCode" name = "zipCode" onChange={this.onChange} />
               <p></p>
+              <h3>A bit more about you...</h3>
+              Age: <input type="age" name = "age" onChange={this.onChange} />
+              <p></p>
+              Profession: <select id="profession" name="profession" onChange={this.onChange}>   {PROFESSIONS.map(profession => (<option value={profession}>{profession}</option>))}
+              </select>
+              <p></p>
+              Interest 1: <select id="userInterestsList" name="userInterestsList" onChange={this.onChange}>   {USER_INTERESTS.map(interest => (<option value={interest}>{interest}</option>))}
+              </select>
+              <p></p>
+              Interest 2: <select id="userInterestsList" name="userInterestsList" onChange={this.onChange}>   {USER_INTERESTS.map(interest => (<option value={interest}>{interest}</option>))}
+              </select>
+              <p></p>
+              Interest 3: <select id="userInterestsList" name="userInterestsList" onChange={this.onChange}>   {USER_INTERESTS.map(interest => (<option value={interest}>{interest}</option>))}
+              </select>
+              <h3>Tell us more about your pup!</h3>
+              Name:
+              <input type="dogName" name = "dogName" onChange={this.onChange} />
+              <p></p>
+              Breed:
+              <select id="breed" name="breed" onChange={this.onChange}>   {BREEDS.map(breed => (<option value={breed}>{breed}</option>))}
+              </select>
+              <p></p>
+              Dog Age:
+              <input type="dogAge" name="dogAge" onChange={this.onChange} />
+              <p></p>
+              Energy Level:
+              <select id="energyLevel" name="energyLevel" onChange={this.onChange}>
+              <option value="1">1 (Lowest)</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5 (Highest)</option>
+              </select>
+              <p></p>
+              Weight (lbs):
+              <input type="weight" name = "weight" onChange={this.onChange} />
+              <p></p>
+              Neutered?
+              <select id="neutered" name="neutered" onChange={this.onChange}>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+              </select>
+              <p></p>
+              Your dog's primary interest:
+              <select id="dogInterestsList" name="dogInterestsList" onChange={this.onChange}>   {USER_INTERESTS.map(interest => (<option value={interest}>{interest}</option>))}
+              </select>
+              <h3>Spice up your profile</h3>
+              <h4>Answer a few prompts to help personalize your profile and ensure matches</h4>
+              If your dog could speak it would say....
+              <br></br>
+              <textarea name="dogSpeak" rows="3" cols="50" wrap="hard" placeholder="" onChange={this.onChange}></textarea>
+              <p></p>
+              Your favorite thing to do with your pup is...
+              <br></br>
+              <textarea name="dogSpeak" rows="3" cols="50" wrap="hard" placeholder="" onChange={this.onChange}></textarea>
+              <h3>Last step: tell us your preferences!</h3>
+              In an ideal world, I'd like to be matched with a
+              <select id="dogBreed" name="dogBreed" onChange={this.onChange}>   {BREEDS.map(breed => (<option value={breed}>{breed}</option>))}
+              </select> pup who is
+              <select id="dogAge" name="dogAge" onChange={this.onChange}> {DOG_AGES.map(age => (<option value={age}>{age}</option>))}
+              </select>
+              years old, has
+              <select id="dogEnergyLevel" name="dogEnergyLevel" onChange={this.onChange}>
+              <option value="1">1 (Lowest)</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5 (Highest)</option>
+              </select> energy and weighs <select id="dogWeight" name="dogWeight" onChange={this.onChange}>   {DOG_WEIGHTS.map(weight => (<option value={weight}>{weight}</option>))}
+              </select> pounds.
               <p></p>
               <button className="submit" type="submit" onClick={this.onSubmit}>Register</button>
           </div>

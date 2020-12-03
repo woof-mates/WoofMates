@@ -14,6 +14,13 @@ const _login = (user) => {
     }
 };
 
+const _logout = (emptyUser) => {
+  return {
+      type: LOGOUT,
+      emptyUser
+  }
+};
+
 const registerAUser = (user) => {
   return {
       type: REGISTER_USER,
@@ -44,13 +51,6 @@ export const login = (loginInfo) => async(dispatch) => {
   } catch(err) {
       alert('User and password do not match');
       console.error(err);
-  }
-};
-
-const _logout = (emptyUser) => {
-  return {
-      type: LOGOUT,
-      emptyUser
   }
 };
 
