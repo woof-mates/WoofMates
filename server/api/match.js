@@ -18,7 +18,7 @@ router.get('/:userId', async(req, res, next) => {
         const allUsers = await User.findAll({ include: Dog });
 
         // function to filter matches with upfront user-specified filters
-        const filterMatchesWithUserSpecifiedFilters = async (matchArray) => {
+        const filterMatchesWithUserSpecifiedFilters = (matchArray) => {
             let filteredMatchArray = [];
             for (let i = 0; i < matchArray.length; i++){
                 const match = matchArray[i]
@@ -51,7 +51,7 @@ router.get('/:userId', async(req, res, next) => {
             // create array of Matches based on the match id array from above
             matchesAlreadyLikedUser = allUsers.filter(user => matchesAlreadyLikedUserIds.includes(user.id));
             // filter these matches with user specified filters using function defined above
-            matchesAlreadyLikedUser = await filterMatchesWithUserSpecifiedFilters(matchesAlreadyLikedUser)
+            matchesAlreadyLikedUser = filterMatchesWithUserSpecifiedFilters(matchesAlreadyLikedUser)
             console.log('matches already liked user after filtering', matchesAlreadyLikedUser)
         }
         // if after filtering by user-specified filters, matches still remain...
@@ -86,7 +86,7 @@ router.get('/:userId', async(req, res, next) => {
                 return (!matchesToExcludeId.includes(user.id) && user.id !== userId * 1)
             })
             console.log('n of unseenmatchesbeforefilter', unseenMatches.length)
-            unseenMatches = await filterMatchesWithUserSpecifiedFilters(unseenMatches)
+            unseenMatches = filterMatchesWithUserSpecifiedFilters(unseenMatches)
 
             console.log('showing filtered matches below, user prefs here: distance', distanceFromLocation, 'neutereddealbreaker', isNeuteredDealbreaker)
             unseenMatches.forEach(match => {
