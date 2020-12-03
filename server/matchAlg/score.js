@@ -15,9 +15,13 @@ const MATCH_PREF_WITH_DOG = {
 }
 
 const score = (user1, user2) => {
+  //set score for dealbreakers to -1
+  const dog2 = user2.dog.dataValues
+  if (user1.preference.dataValues.isNeuteredDealbreaker){
+    if (!dog2.neutered){return -1}
+  }
   //calculate how much user1 will like user2
     const user1FavTraits = favoriteTraits(user1);
-    const dog2 = user2.dog.dataValues
     let total = 0;
     for (let key in user1FavTraits){
       if (MATCH_PREF_WITH_USER[key]){

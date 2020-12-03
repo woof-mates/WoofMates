@@ -26,7 +26,8 @@ const findMatch = async (currUserId) => {
       bestMatch = possibleMatch;
     }
   }
-  console.log(bestMatch)
+  console.log(bestMatch.dataValues)
+  console.log(`high score: ${highestScore}`)
   return bestMatch;
 
 }
