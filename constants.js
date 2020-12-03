@@ -667,4 +667,17 @@ const PROFESSIONS = [
 
 const mapQuestKey = '6k5vyVG6Y0JOyqDXbfyn4sHx3OVBruPw';
 
-module.exports = {BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS, MAX_DOG_AGE, MAX_DOG_WEIGHT, MAX_USER_AGE, MAX_DISTANCE_FROM_USER, mapQuestKey}
+// http://en.wikipedia.org/wiki/Extreme_points_of_the_United_States#Westernmost
+const topLatitudeUS = 49.3457868  // north lat
+const leftLongitudeUS = -124.7844079 // west long
+const rightLongitudeUS = -66.9513812 // east long
+const bottomLatitudeUS =  24.7433195 // south lat
+const lengthUS = topLatitudeUS - bottomLatitudeUS
+const widthUS = -(leftLongitudeUS - rightLongitudeUS)
+const latitudeNY = 40.7128
+const longitudeNY = -74.0060
+const maxLatitudeDistanceFromNY = 1 // Each degree of latitude is approximately 69 miles apart
+const maxLongitudeDistanceFromNY = 1 // Each degree of longitude is approximately 50 miles apart
+
+
+module.exports = { BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS, MAX_DOG_AGE, MAX_DOG_WEIGHT, MAX_USER_AGE, MAX_DISTANCE_FROM_USER, mapQuestKey, topLatitudeUS, leftLongitudeUS, rightLongitudeUS, bottomLatitudeUS, lengthUS, widthUS, latitudeNY, longitudeNY }
