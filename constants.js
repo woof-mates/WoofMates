@@ -657,4 +657,6 @@ const PROFESSIONS = [
 'Trades & Services',
 ]
 
-module.exports = {BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS}
+const mapQuestKey = '6k5vyVG6Y0JOyqDXbfyn4sHx3OVBruPw';
+
+module.exports = {BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS, mapQuestKey}

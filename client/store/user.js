@@ -1,5 +1,7 @@
+/* eslint-disable max-params */
 import axios from 'axios';
 import {saltAndHash} from '../../utils/hashPasswordFunc'
+import { mapQuestKey } from '../../constants'
 
 //User State
 
@@ -25,7 +27,11 @@ export const registerUser = (firstName, lastName, userEmail, password, city, sta
   return async(dispatch) => {
     try {
       let hashedPassword = saltAndHash(password)
-      const newUser = (await axios.post('/api/users/register', {firstName, lastName, userEmail, hashedPassword, city, state, zipCode})).data
+      const mapQuestInfo = (await axios.get(`http://www.mapquestapi.com/geocoding/v1/address?key=${mapQuestKey}&location=${zipCode}%2C+US&thumbMaps=true`)).data
+      console.log('mapquest', mapQuestInfo)
+      const coordinates = mapQuestInfo.results[0].locations[0].latLng;
+      console.log('coords',coordinates)
+      const newUser = (await axios.post('/api/users/register', {firstName, lastName, userEmail, hashedPassword, city, state, zipCode, coordinates})).data
       console.log('newuser', newUser)
       dispatch(registerAUser(newUser))
     }
