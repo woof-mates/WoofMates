@@ -1,9 +1,6 @@
 const faker = require('faker')
 const {RELATIONSHIPS} = require('../../../constants')
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
+const {getRandomInt} = require('../../../utils/mathFuncs')
 
 const deepIncludes = (arr, pair) => {
   for(let elem of arr){
