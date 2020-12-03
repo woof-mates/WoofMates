@@ -1,6 +1,5 @@
-// const { User, Preference } = require('../db')
-
 const largestOption = (traitObj) => {
+  //returns option with highest vote count for one trait
   let largest = 0;
   let trait = '';
   for (let elem in traitObj){
@@ -13,8 +12,8 @@ const largestOption = (traitObj) => {
 }
 
 const favoriteTraits = (user) => {
+  //Creates object with highest vote count
   let favTraits = {};
-  // let user = await User.findByPk(userId, { include: [Preference] })
   let preferences = user.preference.dataValues
   for (let elem in preferences){
     if (elem === 'isNeuteredDealbreaker' || elem === 'distanceFromLocation' || elem === 'createdAt' || elem === 'updatedAt' || elem === 'id' || elem === 'userId'){continue;}
