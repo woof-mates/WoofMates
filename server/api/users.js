@@ -65,4 +65,32 @@ router.delete('/:userId', async(req,res,next) => { // delete a user (api/users)
 
 })
 
+router.put('/:userId', async(req,res,next) => { // update a user (api/users)
+  try {
+    console.log('req.body.......', req.body.dog)
+    let updatedDog = await Dog.update(req.body.dog, {
+      where: {
+        id: req.body.dog.id
+      }
+    })
+    const withoutDog = req.body;
+    delete withoutDog.dog
+    await User.update(withoutDog, {
+      where: {
+        id: req.params.userId
+      }
+    })
+    const updatedUser = await User.findOne({
+      where: {
+        id: req.params.userId
+      }
+    })
+    res.send(updatedUser);
+  } catch (error) {
+    console.log(error)
+    res.sendStatus(500)
+  }
+
+})
+
 module.exports = router;

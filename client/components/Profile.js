@@ -10,6 +10,7 @@ class Profile extends React.Component {
             edit: false
         };
         this.openEdit = this.openEdit.bind(this);
+        this.closeEdit = this.closeEdit.bind(this);
     }
 
     componentDidMount() {
@@ -19,6 +20,12 @@ class Profile extends React.Component {
     openEdit(){
         this.setState({
             edit: true
+        });
+    };
+
+    closeEdit(){
+        this.setState({
+            edit: false
         });
     };
 
@@ -34,14 +41,14 @@ class Profile extends React.Component {
             );
         } else if (this.state.edit) {
             console.log('trying to edit')
-            return <EditProfile/>;
+            return <EditProfile closeEdit={this.closeEdit}/>;
         } else {
             return (
                 //take our <br> lines after CSS
                 <div>
                     <div onClick={this.openEdit}>Edit Profile</div>
                     <div id='user'>User Profile<br></br>
-                        <img src={user.userImage2} width={300} height={250}></img>
+                        <img src={user.userImage1} width={300} height={250}></img>
                         <div>Name: {user.firstName} {user.lastName}</div>
                         <div>Email: {user.userEmail}</div>
                         <div>Address: {user.city}, {user.state} {user.zipCode}</div>
@@ -56,20 +63,22 @@ class Profile extends React.Component {
                     </div><br></br>
                     <div id='dog'>Dog Profile<br></br>
                         <img src={user.dogImage} width={300} height={250}></img>
-                        <div>Name: {dog.dogName}</div>
-                        <div>Breed: {dog.breed}</div>
-                        <div>Weight: {dog.weight}</div>
-                        <div>Age: {dog.dogAge}</div>
-                        <div>Energy Level: {dog.energyLevel}</div>
+                        <div>Name: {dog ? dog.dogName : ''}</div>
+                        <div>Breed: {dog ? dog.breed: ''}</div>
+                        <div>Weight: {dog ? dog.weight: ''}</div>
+                        <div>Age: {dog ? dog.dogAge: ''}</div>
+                        <div>Energy Level: {dog ? dog.energyLevel : ''}</div>
                         <div>Neutered: 
                             {
-                                dog.neutered ? ' Yes' : ' No'
+                                dog ? dog.neutered ? ' Yes' : ' No'
+                                : ''
                             }
                         </div>
                         <div>Interests: 
-                            {dog.dogInterests.reduce((acc, interest) => {
+                            {dog ? dog.dogInterests.reduce((acc, interest) => {
                                     return acc + ' ' + interest
                                 }, '')
+                                : ''
                             }
                         </div>
                     </div>

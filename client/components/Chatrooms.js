@@ -1,5 +1,5 @@
 import React from 'react';
-import Chat from './Chat';
+import Chat from './chat';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { getMatches } from '../store/matches';
@@ -15,6 +15,7 @@ class Chatrooms extends React.Component {
     }
 
     componentDidMount() {
+        console.log('props', this.props)
         if (this.props.user.id) {
             this.props.getMatches(this.props.user.id);
         } 
@@ -52,7 +53,7 @@ class Chatrooms extends React.Component {
             );
         } else {
             return (
-                <div>
+                <div>Matches: <br></br>
                     <ul>
                         {
                             matches.map(match => {

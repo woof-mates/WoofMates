@@ -1,41 +1,45 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { updateUser } from '../store/user'
+import { editProfile } from '../store/user'
+import { BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS } from '../../constants';
 
 class EditProfile extends React.Component {
-  constructor () {
-    super ()
-    this.state = {
-        user: {
-            firstName: '',
-            lastName: '',
-            userEmail: '',
-            password: '',
-            city: '',
-            state: '',
-            zipCode: ''
-        },
-        dog: {
-            name: ''
-        }
+  constructor (props) {
+    super (props);
+    const {firstName, lastName, userEmail, hashedPassword, age, profession, userImage1, userImage2, city, state, zipCode, userInterests, dog} = props.user;
+    this.state = {firstName, lastName, userEmail, hashedPassword, age, profession, userImage1, userImage2, city, state, zipCode, userInterests, dog};
 
-    };
     this.onSubmit = this.onSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
+    this.userOnChange = this.userOnChange.bind(this);
+    this.dogOnChange = this.dogOnChange.bind(this);
   }
 
-  onChange (e) {
+  userOnChange (e) {
     this.setState({
       [e.target.name]: e.target.value
     })
   }
 
+  dogOnChange (e) {
+    let { dog } = this.state
+    for (let key in dog)  {
+      if (key === e.target.name) {
+        dog[key] = e.target.value
+      }
+    }
+    
+    this.setState({
+      dog
+    })
+  }
+
   async onSubmit (e) {
     e.preventDefault();
-    let {firstName, lastName, userEmail, password, city, state, zipCode} = this.state
-    userEmail = userEmail.toLowerCase()
-    this.props.updateUser(firstName, lastName, userEmail, password, city, state, zipCode)
-    console.log('user in the store is now ', this.props.user)
+    let userProfile = this.state
+    userProfile.userEmail = userProfile.userEmail.toLowerCase()
+    this.props.updateUser(this.props.user.id, userProfile)
+    console.log('user has been updated', this.props.user)
+    this.props.closeEdit();
   }
 
   componentDidMount() {
@@ -43,29 +47,42 @@ class EditProfile extends React.Component {
   }
 
   render() {
-    const {user} = this.props
+    
+    const {dog} = this.state
     return (
         <div id="updateContainer">
             <h3>Update Profile</h3>
             <div id="userUpdateForm">
                 <h4>User</h4>
                 First Name:
-                <input type="firstName" name = "firstName" onChange={this.onChange} />
+                <input value={this.state.firstName} type="firstName" name = "firstName" onChange={this.userOnChange} />
                 <p></p>
                 Last Name:
-                <input type="lastName" name = "lastName" onChange={this.onChange} />
+                <input value={this.state.lastName} type="lastName" name = "lastName" onChange={this.userOnChange} />
                 <p></p>
                 Email:
-                <input type="email" name = "userEmail" onChange={this.onChange} />
+                <input value={this.state.userEmail} type="email" name = "userEmail" onChange={this.userOnChange} />
                 <p></p>
                 Password:
-                <input type="password" name = "password" onChange={this.onChange} />
+                <input type="hashedPassword" name = "hashedPassword" onChange={this.userOnChange} />
+                <p></p>
+                Age:
+                <input value={this.state.age} type="age" name = "age" onChange={this.userOnChange} />
+                <p></p>
+                Profession:
+                <input value={this.state.profession} type="profession" name = "profession" onChange={this.userOnChange} />
+                <p></p>
+                Photo1: 
+                <input value={this.state.userImage1} type="photo1" name = "photo1" onChange={this.userOnChange} />
+                <p></p>
+                Photo2: 
+                <input value={this.state.userImage2} type="photo2" name = "photo2" onChange={this.userOnChange} />
                 <p></p>
                 City:
-                <input type="city" name = "city" onChange={this.onChange} />
+                <input value={this.state.city} type="city" name = "city" onChange={this.userOnChange} />
                 <p></p>
                 State:
-                <select selected={this.state.user.state} id="stateList" name="state" onChange={this.onChange}>
+                <select value={this.state.state} id="stateList" name="state" onChange={this.userOnChange}>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
                 <option value="AZ">Arizona</option>
@@ -120,29 +137,37 @@ class EditProfile extends React.Component {
                 </select>
                 <p></p>
                 Zip code:
-                <input type="zipCode" name = "zipCode" onChange={this.onChange} />
+                <input value={this.state.zipCode} type="zipCode" name = "zipCode" onChange={this.userOnChange} />
                 <p></p>
+                Interests:
+                <input value={this.state.userInterests} type="interests" name = "interests" onChange={this.userOnChange} />
                 <p></p>
-                <button className="submit" type="submit" onClick={this.onSubmit}>Update</button>
             </div>
             <div id="dogUpdateForm">
                 <h4>Dog</h4>
-                First Name:
-                <input type="firstName" name = "firstName" onChange={this.onChange} />
+                Name:
+                <input value={this.state.dog.dogName} type="dogName" name = "dogName" onChange={this.dogOnChange} />
                 <p></p>
-                Last Name:
-                <input type="lastName" name = "lastName" onChange={this.onChange} />
+                Breed:
+                <input value={this.state.dog.breed} type="breed" name = "breed" onChange={this.dogOnChange} />
                 <p></p>
-                Email:
-                <input type="email" name = "userEmail" onChange={this.onChange} />
+                Age:
+                <input value={this.state.dog.dogAge} type="dogAge" name = "dogAge" onChange={this.dogOnChange} />
                 <p></p>
-                Password:
-                <input type="password" name = "password" onChange={this.onChange} />
+                Energy Level:
+                <input value={this.state.dog.energyLevel} type="energyLevel" name = "energyLevel" onChange={this.dogOnChange} />
                 <p></p>
-                City:
-                <input type="city" name = "city" onChange={this.onChange} />
+                Weight:
+                <input value={this.state.dog.weight} type="weight" name = "weight" onChange={this.dogOnChange} />
+                <p></p>
+                Neutered:
+                <input value={this.state.dog.neutered} type="neutered" name = "neutered" onChange={this.dogOnChange} />
+                <p></p>
+                Interests:
+                <input value={this.state.dog.dogInterests} type="dogInterests" name = "dogInterests" onChange={this.dogOnChange} />
                 <p></p>
                 <button className="submit" type="submit" onClick={this.onSubmit}>Update</button>
+                <button onClick={this.props.closeEdit}>Cancel</button>
             </div>
         </div>
     )
@@ -157,7 +182,7 @@ const mapState = state => (
 
 const mapDispatch = (dispatch) => {
   return {
-    updateUser: (firstName, lastName, userEmail, password, city, state, zipCode) => dispatch(updateUser(firstName, lastName, userEmail, password, city, state, zipCode))
+    updateUser: (userId, userProfile ) => dispatch(editProfile(userId, userProfile))
   }
 }
 
