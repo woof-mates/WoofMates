@@ -37,7 +37,7 @@ router.post('/login', async(req, res, next) => {
                     where: {
                       id: user.id
                     },
-                    include: [Session]
+                    include: [Session, Dog],
                   })
                 res.status(201).send(userWithNewSession)
             }

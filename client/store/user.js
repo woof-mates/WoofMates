@@ -73,7 +73,6 @@ const updateUser = (user) => {
 
 export const editProfile = (userId, updatedProfile) => async(dispatch) => {
   try {
-    updatedProfile.hashedPassword = saltAndHash(updatedProfile.hashedPassword);
     await (axios.put(`/api/users/${userId}`, updatedProfile));
     let updatedUser = await (axios.get(`/api/users/${userId}`))
     dispatch(updateUser(updatedUser.data));

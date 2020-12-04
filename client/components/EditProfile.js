@@ -6,8 +6,8 @@ import { BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS } fro
 class EditProfile extends React.Component {
   constructor (props) {
     super (props);
-    const {firstName, lastName, userEmail, hashedPassword, age, profession, userImage1, userImage2, city, state, zipCode, userInterests, dog} = props.user;
-    this.state = {firstName, lastName, userEmail, hashedPassword, age, profession, userImage1, userImage2, city, state, zipCode, userInterests, dog};
+    const {firstName, lastName, userEmail, age, profession, userImage1, userImage2, city, state, zipCode, userInterests, dog} = props.user;
+    this.state = {firstName, lastName, userEmail, age, profession, userImage1, userImage2, city, state, zipCode, userInterests, dog};
 
     this.onSubmit = this.onSubmit.bind(this);
     this.userOnChange = this.userOnChange.bind(this);
@@ -62,9 +62,6 @@ class EditProfile extends React.Component {
                 <p></p>
                 Email:
                 <input value={this.state.userEmail} type="email" name = "userEmail" onChange={this.userOnChange} />
-                <p></p>
-                Password:
-                <input type="hashedPassword" name = "hashedPassword" onChange={this.userOnChange} />
                 <p></p>
                 Age:
                 <input value={this.state.age} type="age" name = "age" onChange={this.userOnChange} />

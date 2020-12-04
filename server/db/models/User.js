@@ -28,7 +28,7 @@ const User = db.define('user', {
         },
     },
     hashedPassword: {
-        type: STRING,
+        type: TEXT,
         allowNull: false,
         validate: {
             notEmpty: true
