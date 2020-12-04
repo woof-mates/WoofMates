@@ -1,5 +1,5 @@
 const faker = require('faker')
-const {BREEDS} = require('../../../constants')
+const {BREEDS, DOG_INTERESTS} = require('../../../constants')
 const {getRandomInt} = require('../../../utils/mathFuncs')
 
 const createDogs = (numUsers) => {
@@ -19,7 +19,7 @@ const createDogs = (numUsers) => {
     energyLevels.push(getRandomInt(5) + 1)
     weights.push(getRandomInt(100))
     neutered.push(getRandomInt(2))
-    dogInterests.push([faker.lorem.sentences(), faker.lorem.sentences()])
+    dogInterests.push([DOG_INTERESTS[getRandomInt(DOG_INTERESTS.length)], DOG_INTERESTS[getRandomInt(DOG_INTERESTS.length)]])
   }
 
   for (let i = 0; i < numUsers;i++){

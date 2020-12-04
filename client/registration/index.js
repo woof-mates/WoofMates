@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { registerUser } from '../store/user'
-import {INITIAL_PREF_POINTS_BREED, INITIAL_PREF_POINTS_OTHER, PROFESSIONS, DOG_WEIGHTS, USER_INTERESTS, BREEDS, DOG_AGES, MAX_DISTANCES} from '../../constants'
+import {INITIAL_PREF_POINTS_BREED, INITIAL_PREF_POINTS_OTHER, PROFESSIONS, DOG_WEIGHTS, USER_INTERESTS, BREEDS, DOG_AGES, MAX_DISTANCES, DOG_INTERESTS} from '../../constants'
 import {createBreedsObjForPref, createAgesObjForPref, createEnergyLevelObjForPref, createWeightObjForPref} from '../../utils/preferencesObjFuncs'
 
 
@@ -259,7 +259,7 @@ class Registration extends React.Component {
               </select>
               <p></p>
               Your dog's primary interest:
-              <select id="dogInterestsList" name="dogInterestsList" onChange={this.onChange}>   {USER_INTERESTS.map(interest => (<option value={interest}>{interest}</option>))}
+              <select id="dogInterestsList" name="dogInterestsList" onChange={this.onChange}>   {DOG_INTERESTS.map(interest => (<option value={interest}>{interest}</option>))}
               </select>
               <p></p>
               Maximum distance between you and your new pup friends:
