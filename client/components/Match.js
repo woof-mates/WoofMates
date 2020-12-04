@@ -13,8 +13,8 @@ class Match extends Component {
     }
     componentDidMount(){
         const { getMatch, user } = this.props;
-        console.log('user', user)
-        getMatch(user.id)
+        console.log('user', user, user.userLatitude, user.userLongitude)
+        getMatch(user.id, user.userLatitude, user.userLongitude)
     }
     async sendDecisionAndLoadNextMatch(ev){
         try {
@@ -52,7 +52,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    getMatch: (userId) => dispatch(getMatch(userId)),
+    getMatch: (userId, userLatitude, userLongitude) => dispatch(getMatch(userId, userLatitude, userLongitude)),
     sendDecision: (userId, matchId, decision) => (dispatch(sendDecision(userId, matchId, decision)))
 });
 

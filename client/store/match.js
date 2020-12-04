@@ -9,9 +9,9 @@ const _getMatch = (match) => {
     }
 };
 
-const getMatch = (userId) => async(dispatch) => {
+const getMatch = (userId, userLatitude, userLongitude) => async(dispatch) => {
     try {
-        const { data } = await (axios.get(`/api/match/${userId}`))
+        const { data } = await (axios.get(`/api/match/${userId}`, { params: { userLatitude, userLongitude } }))
         console.log(data)
         dispatch(_getMatch(data))
     } catch (err) { console.error(err); }
