@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { User, Session } = require('../db');
+const { User, Session, Dog } = require('../db');
 
 const A_WEEK_IN_SECONDS = 1000 * 60 * 60 * 24 * 7;
 
@@ -12,7 +12,7 @@ router.post('/login', async(req, res, next) => {
                 userEmail,
                 hashedPassword
             },
-            include: [Session],
+            include: [Session, Dog],
         })
         // if userEmail and password is a match...
         if (user) {
@@ -37,14 +37,14 @@ router.post('/login', async(req, res, next) => {
                     where: {
                       id: user.id
                     },
-                    include: [Session]
+                    include: [Session, Dog],
                   })
                 res.status(201).send(userWithNewSession)
             }
         }
         // if userEmail and password are not a match, send 404
         else res.sendStatus(404);
-    } catch(err) { next(err); }
+    } catch (err) { next(err); }
 });
 
 router.delete('/logout/:userId', async(req, res, next) => {

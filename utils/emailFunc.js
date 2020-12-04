@@ -1,9 +1,12 @@
-import React from 'react';
-
 export function matchEmail(user, match){
-    console.log('match', match)
-    console.log('matchdog', match.dog.dogName)
-    const { firstName, dog } = match
-
-    return `<p>Congrats ${firstName}, you have matched with ${user.firstName}!</p>`
+    return `<p>Congrats ${match.firstName}, you and ${match.dog.dogName} have a new match! Check them out:</p>
+        <ul>
+            <li>Owner Name: ${user.firstName} </li>
+            <li>Dog Name: ${user.dog.dogName} </li>
+            <li>${user.city}, ${user.state} </li>
+            <img src=${user.userImage1} />
+        </ul>
+        <p>Happy matching!! If you have any questions, please reply to this email.</p>
+      <p>Thanks,</p>
+      <p>The WoofMate Team</p>`;
 }

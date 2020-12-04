@@ -22,7 +22,6 @@ class Match extends Component {
             const matchResult = await sendDecision(user.id, match.id, ev.target.value);
             console.log('matchresult', matchResult)
             if (matchResult.result === 'Matched') {
-                console.log('sending email component')
                 await sendEmailToMatch(user, match)
                 getMatch(user.id, user.userLatitude, user.userLongitude)
                 this.setState({ message: `${user.firstName}, you have matched with ${match.firstName}!` })
