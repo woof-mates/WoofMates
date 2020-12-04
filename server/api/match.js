@@ -145,13 +145,13 @@ router.post('/email', async (req, res, next) => {
         const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'graceshockers@gmail.com', // generated ethereal user
-            pass: 'Catchers', // generated ethereal password
+            user: 'woofmates.matching@gmail.com', // generated ethereal user
+            pass: 'Woofmates123', // generated ethereal password
         },
         });
         // send mail with defined transport object
         const info = await transporter.sendMail({
-        from: '"WoofMates" <graceshockers@gmail.com>',
+        from: '"WoofMates 🐶" <woofmates.matching@gmail.com>',
         to: matchEmail,
         subject: 'You have a new match!!',
         html: matchEmailText,
