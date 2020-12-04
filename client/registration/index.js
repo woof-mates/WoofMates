@@ -120,9 +120,9 @@ class Registration extends React.Component {
   async onSubmit (e) {
     e.preventDefault();
     console.log('current state in Registration is: ',this.state)
-    let {firstName, lastName, userEmail, password, city, state, zipCode} = this.state
+    let {firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation} = this.state
     userEmail = userEmail.toLowerCase()
-    this.props.registerUser(firstName, lastName, userEmail, password, city, state, zipCode)
+    this.props.registerUser(firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation)
     console.log('user in the store is now ', this.props.user)
   }
 
@@ -307,7 +307,7 @@ const mapState = state => (
 
 const mapDispatch = (dispatch) => {
   return {
-    registerUser: (firstName, lastName, userEmail, password, city, state, zipCode) => dispatch(registerUser(firstName, lastName, userEmail, password, city, state, zipCode))
+    registerUser: (firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation) => dispatch(registerUser(firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation))
   }
 }
 

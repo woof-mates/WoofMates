@@ -31,7 +31,7 @@ const createPreferences = (numUsers, numVotes) => {
   for (let i = 0; i < numUsers;i++){
     preferences.push({});
     preferences[i].dogBreed = dogBreeds[i]
-    preferences[i].dogAge = dogAges[i]
+    preferences[i].dogAgeForPref = dogAges[i]
     preferences[i].dogEnergyLevel = dogEnergyLevels[i]
     preferences[i].dogWeight = dogWeights[i]
     preferences[i].isNeuteredDealbreaker = isNeuteredDealbreaker[i]
