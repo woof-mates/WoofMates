@@ -27,9 +27,7 @@ const sendDecision = (userId, matchId, decision) => async() => {
 
 const sendEmailToMatch = (user, match) => async() => {
     try {
-        console.log('user', user, 'match', match)
         const matchEmailText = matchEmail(user, match)
-        console.log(match.userEmail, matchEmailText)
         await (axios.post(`/api/match/email`, { matchEmail: match.userEmail, matchEmailText }))
     } catch (err) { console.error(err); }
 }

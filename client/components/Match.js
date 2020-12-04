@@ -20,9 +20,10 @@ class Match extends Component {
         try {
             const { getMatch, user, match, sendDecision, sendEmailToMatch } = this.props;
             const matchResult = await sendDecision(user.id, match.id, ev.target.value);
-            console.log('matchresult', matchResult)
             if (matchResult.result === 'Matched') {
-                await sendEmailToMatch(user, match)
+                // saving current match in variable before calling getMatch again. email takes too long to send with await.
+                const thisMatch = match
+                sendEmailToMatch(user, thisMatch)
                 getMatch(user.id, user.userLatitude, user.userLongitude)
                 this.setState({ message: `${user.firstName}, you have matched with ${match.firstName}!` })
             }
