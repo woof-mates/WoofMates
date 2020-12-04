@@ -26,8 +26,12 @@ const sendDecision = (userId, matchId, decision) => async() => {
 }
 
 const sendEmailToMatch = (user, match) => async() => {
-    const matchEmailText = matchEmail(user, match)
-    await (axios.post(`/api/match/email`, { matchEmail: match.userEmail, matchEmailText }))
+    try {
+        console.log('email store')
+        const matchEmailText = matchEmail(user, match)
+        console.log(match.userEmail, matchEmailText)
+        await (axios.post(`/api/match/email`, { matchEmail: match.userEmail, matchEmailText }))
+    } catch (err) { console.error(err); }
 }
 
 export default function matchReducer(state = {}, action) {

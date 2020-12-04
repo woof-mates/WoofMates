@@ -25,7 +25,9 @@ const createUsers = (numUsers) => {
   for (let i = 0; i < numUsers;i++){
     firstNames.push(faker.name.firstName())
     lastNames.push(faker.name.lastName())
-    userEmails.push(faker.internet.email())
+    // pushing Fu junk email to test email functionality-creating new user doesnt work for testing as of now
+    if (i === 0) userEmails.push('mary510295@gmail.com')
+    else userEmails.push(faker.internet.email())
     userImages1.push(`https://placedog.net/500/280/sepia?id=${i}`)
     userImages2.push(faker.image.people())
     dogImages.push(`https://placedog.net/500/280/sepia?id=${i}`)

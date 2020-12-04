@@ -1,3 +1,9 @@
+import React from 'react';
+
 export function matchEmail(user, match){
-    return `<p>Congrats ${match.firstName}, you and ${match.dog.dogName} have matched with ${user.firstName} and ${user.dog.dogName}!</p>`
+    console.log('match', match)
+    console.log('matchdog', match.dog.dogName)
+    const { firstName, dog } = match
+
+    return `<p>Congrats ${firstName}, you have matched with ${user.firstName}!</p>`
 }

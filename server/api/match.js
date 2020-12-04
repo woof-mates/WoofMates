@@ -5,6 +5,7 @@ const { User, Relationship, Dog, Preference } = require('../db')
 const { getDistance }  = require('../../utils/mathFuncs')
 
 router.get('/:userId', async(req, res, next) => {
+    // console.logs left in intentionally for testing purposes
     try {
         const { userId } = req.params
         const { userLatitude, userLongitude } = req.query
@@ -53,15 +54,15 @@ router.get('/:userId', async(req, res, next) => {
             matchesAlreadyLikedUser = allUsers.filter(user => matchesAlreadyLikedUserIds.includes(user.id));
             // filter these matches with user specified filters using function defined above
             matchesAlreadyLikedUser = filterMatchesWithUserSpecifiedFilters(matchesAlreadyLikedUser)
-            console.log('matches already liked user after filtering', matchesAlreadyLikedUser)
+            console.log('matches already liked user after filtering:')
+            matchesAlreadyLikedUser.forEach(match => console.log(match.id))
         }
         // if after filtering by user-specified filters, matches still remain...
         if (matchesAlreadyLikedUser.length) {
+            console.log('here')
             // send one match at a time so algo can update with each decision by user
             // sending 1st element in matches array for now, but this would be sorted based on algorithm
-            const matchToSendId = matchesAlreadyLikedUser[0].userId;
-                const matchToSend = await User.findByPk(matchToSendId, { include: [Dog] })
-                res.send(matchToSend)
+            res.send(matchesAlreadyLikedUser[0])
             }
         // if there are no filtered matches that have already liked this user...
         else {
@@ -96,6 +97,7 @@ router.get('/:userId', async(req, res, next) => {
             })
 
             // same as above, sending first of array for now
+            // if (!unseenMatches.length) res.send( { message: 'You have no matches that fit your criteria. Try broadening it in your settings!'})
             res.send(unseenMatches[0])
         }
     } catch (err) { next(err) }
@@ -139,6 +141,7 @@ router.put('/:userId', async(req, res, next) => {
 router.post('/email', async (req, res, next) => {
     try {
         const { matchEmail, matchEmailText } = req.body;
+        console.log(matchEmail, matchEmailText)
         const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {

@@ -20,12 +20,17 @@ class Match extends Component {
         try {
             const { getMatch, user, match, sendDecision, sendEmailToMatch } = this.props;
             const matchResult = await sendDecision(user.id, match.id, ev.target.value);
-            getMatch(user.id)
+            console.log('matchresult', matchResult)
             if (matchResult.result === 'Matched') {
-                sendEmailToMatch(user, match)
+                console.log('sending email component')
+                await sendEmailToMatch(user, match)
+                getMatch(user.id, user.userLatitude, user.userLongitude)
                 this.setState({ message: `${user.firstName}, you have matched with ${match.firstName}!` })
             }
-            else this.setState( { message: ''} )
+            else {
+                getMatch(user.id, user.userLatitude, user.userLongitude)
+                this.setState( { message: ''} )
+            }
         } catch (err) { console.error(err); }
     }
     render(){
