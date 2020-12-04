@@ -8,7 +8,8 @@ const MAX_USER_AGE = 120;
 
 const MAX_DOG_ENERGY_LEVEL = 5;
 
-const INITIAL_PREF_POINTS = 20;
+const INITIAL_PREF_POINTS_BREED = 100000;
+const INITIAL_PREF_POINTS_OTHER = 20;
 
 const ENERGY_LEVELS = ['Very Low', 'Low', 'Medium', 'High', 'Very High']
 
@@ -16,6 +17,14 @@ const RELATIONSHIPS = ['UserLikedMatch', 'MatchRejectedUser', 'Matched', 'UserRe
 
 const DOG_AGES = [
   1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30
+]
+
+const MAX_DISTANCES = [
+  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11,
+  12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+  23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
+  34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44,
+  45, 46, 47, 48, 49, 50
 ]
 
 const DOG_WEIGHTS = [
@@ -693,7 +702,7 @@ const PROFESSIONS = [
 'Trades & Services',
 ]
 
-module.exports = {BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS, MAX_DOG_AGE, MAX_DOG_WEIGHT, MAX_USER_AGE, MAX_DISTANCE_FROM_USER, DOG_AGES, DOG_WEIGHTS, INITIAL_PREF_POINTS, MAX_DOG_ENERGY_LEVEL}
+module.exports = {BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS, MAX_DOG_AGE, MAX_DOG_WEIGHT, MAX_USER_AGE, MAX_DISTANCE_FROM_USER, DOG_AGES, DOG_WEIGHTS, INITIAL_PREF_POINTS, MAX_DOG_ENERGY_LEVEL, MAX_DISTANCES}
 
 
 // const pref = await Preference.create({'dogBreed': {golden:1, pug:2}})

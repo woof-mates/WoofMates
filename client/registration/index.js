@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { registerUser } from '../store/user'
-import {INITIAL_PREF_POINTS, PROFESSIONS, DOG_WEIGHTS, USER_INTERESTS, BREEDS, DOG_AGES} from '../../constants'
+import {INITIAL_PREF_POINTS_BREED, INITIAL_PREF_POINTS_OTHER, PROFESSIONS, DOG_WEIGHTS, USER_INTERESTS, BREEDS, DOG_AGES, MAX_DISTANCES} from '../../constants'
 import {createBreedsObjForPref, createAgesObjForPref, createEnergyLevelObjForPref, createWeightObjForPref} from '../../utils/preferencesObjFuncs'
 
 
@@ -33,8 +33,9 @@ class Registration extends React.Component {
       dogInterests: '',
       dogBreed: '',
       dogAgeForPref: '',
-      dogEnergyLevel: '', // json
-      dogWeight: '', // json
+      dogEnergyLevel: '',
+      dogWeight: '',
+      distanceFromLocation: '',
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -61,7 +62,7 @@ class Registration extends React.Component {
     }
     else if (e.target.name === "dogBreed") {
       let newBreedsObj = createBreedsObjForPref();
-      newBreedsObj[e.target.value] = INITIAL_PREF_POINTS;
+      newBreedsObj[e.target.value] = INITIAL_PREF_POINTS_BREED;
       console.log(newBreedsObj)
       this.setState({
         dogBreed: newBreedsObj
@@ -70,7 +71,7 @@ class Registration extends React.Component {
 
     else if (e.target.name === "dogAgeForPref") {
       let newAgesObj = createAgesObjForPref();
-      newAgesObj[e.target.value] = INITIAL_PREF_POINTS;
+      newAgesObj[e.target.value] = INITIAL_PREF_POINTS_OTHER;
       console.log(newAgesObj)
       this.setState({
         dogAgeForPref: newAgesObj
@@ -79,7 +80,7 @@ class Registration extends React.Component {
 
     else if (e.target.name === "dogEnergyLevel") {
       let newEnergyLevelsObj = createEnergyLevelObjForPref();
-      newEnergyLevelsObj[e.target.value] = INITIAL_PREF_POINTS;
+      newEnergyLevelsObj[e.target.value] = INITIAL_PREF_POINTS_OTHER;
       console.log(newEnergyLevelsObj)
       this.setState({
         dogEnergyLevel: newEnergyLevelsObj
@@ -88,14 +89,14 @@ class Registration extends React.Component {
 
     else if (e.target.name === "dogWeight") {
       let newWeightLevelsObj = createWeightObjForPref();
-      newWeightLevelsObj[e.target.value] = INITIAL_PREF_POINTS;
+      newWeightLevelsObj[e.target.value] = INITIAL_PREF_POINTS_OTHER;
       console.log(newWeightLevelsObj)
       this.setState({
         dogWeight: newWeightLevelsObj
       })
     }
 
-    else if (e.target.name === "age" || e.target.name === "dogAge" || e.target.name === "energyLevel" || e.target.name === "weight") {
+    else if (e.target.name === "age" || e.target.name === "dogAge" || e.target.name === "energyLevel" || e.target.name === "weight" || e.target.name === "distanceFromLocation") {
       this.setState({
         [e.target.name]: Number(e.target.value)
       })
@@ -260,6 +261,11 @@ class Registration extends React.Component {
               Your dog's primary interest:
               <select id="dogInterestsList" name="dogInterestsList" onChange={this.onChange}>   {USER_INTERESTS.map(interest => (<option value={interest}>{interest}</option>))}
               </select>
+              <p></p>
+              Maximum distance between you and your new pup friends:
+              <select id="distanceFromLocation" name="distanceFromLocation" onChange={this.onChange}>   {MAX_DISTANCES.map(distance => (<option value={distance}>{distance}</option>))}
+              </select>
+
               <h3>Spice up your profile</h3>
               <h4>Answer a few prompts to help personalize your profile and ensure matches</h4>
               If your dog could speak it would say....

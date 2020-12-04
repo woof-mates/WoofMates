@@ -18,7 +18,7 @@ const createPreferences = (numUsers, numVotes) => {
   for (let i = 0; i < numUsers;i++){
     dogBreeds.push(setValObj(BREEDS, numVotes))
     dogAges.push(setNumericalObj(MAX_DOG_AGE, numVotes))
-    dogEnergyLevels.push(setNumericalObj(10, numVotes))
+    dogEnergyLevels.push(setNumericalObj(5, numVotes))
     dogWeights.push(setNumericalObj(MAX_DOG_WEIGHT, numVotes))
     isNeuteredDealbreaker.push(getRandomInt(2))
     userInterests.push(setValObj(USER_INTERESTS, numVotes))
