@@ -47,7 +47,6 @@ class Registration extends React.Component {
 
 
   onChange (e) {
-    console.log('target is', e.target.name, 'value is', e.target.value)
     if (e.target.name === "userInterestsList") {
       this.tempUserInterests.push(e.target.value)
       this.setState({
@@ -63,7 +62,6 @@ class Registration extends React.Component {
     else if (e.target.name === "dogBreed") {
       let newBreedsObj = createBreedsObjForPref();
       newBreedsObj[e.target.value] = INITIAL_PREF_POINTS_BREED;
-      console.log(newBreedsObj)
       this.setState({
         dogBreed: newBreedsObj
       })
@@ -72,7 +70,6 @@ class Registration extends React.Component {
     else if (e.target.name === "dogAgeForPref") {
       let newAgesObj = createAgesObjForPref();
       newAgesObj[e.target.value] = INITIAL_PREF_POINTS_OTHER;
-      console.log(newAgesObj)
       this.setState({
         dogAgeForPref: newAgesObj
       })
@@ -81,7 +78,6 @@ class Registration extends React.Component {
     else if (e.target.name === "dogEnergyLevel") {
       let newEnergyLevelsObj = createEnergyLevelObjForPref();
       newEnergyLevelsObj[e.target.value] = INITIAL_PREF_POINTS_OTHER;
-      console.log(newEnergyLevelsObj)
       this.setState({
         dogEnergyLevel: newEnergyLevelsObj
       })
@@ -90,7 +86,6 @@ class Registration extends React.Component {
     else if (e.target.name === "dogWeight") {
       let newWeightLevelsObj = createWeightObjForPref();
       newWeightLevelsObj[e.target.value] = INITIAL_PREF_POINTS_OTHER;
-      console.log(newWeightLevelsObj)
       this.setState({
         dogWeight: newWeightLevelsObj
       })
@@ -113,7 +108,6 @@ class Registration extends React.Component {
       this.setState({
         [e.target.name]: e.target.value
       })
-      console.log(this.state)
     }
   }
 
@@ -127,7 +121,6 @@ class Registration extends React.Component {
   }
 
   componentDidMount() {
-    console.log(PROFESSIONS)
   }
 
   render() {

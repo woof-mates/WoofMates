@@ -30,11 +30,12 @@ router.get('/:userId', async(req, res, next) => { // single user profile
 router.post('/register', async(req,res,next) => { // register a user (api/users/register)
   try {
     console.log('trying to create a new user')
+
     const newSession = await Session.create()
 
-    const {firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation} = req.body
+    const {firstName, lastName, userEmail, hashedPassword, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userLatitude, userLongitude} = req.body
 
-    const bodyForUser = {firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, userLatitude, userLongitude}
+    const bodyForUser = {firstName, lastName, userEmail, hashedPassword, city, state, zipCode, age, profession, userInterests, userLatitude, userLongitude}
 
     const newUser = await User.create(bodyForUser)
 
