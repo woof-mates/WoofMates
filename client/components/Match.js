@@ -1,7 +1,7 @@
 /* eslint-disable no-shadow */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getMatch, sendDecision } from '../store/match';
+import { getMatch, sendDecision, sendEmailToMatch } from '../store/match';
 
 class Match extends Component {
     constructor(props){
@@ -18,10 +18,13 @@ class Match extends Component {
     }
     async sendDecisionAndLoadNextMatch(ev){
         try {
-            const { getMatch, user, match, sendDecision } = this.props;
+            const { getMatch, user, match, sendDecision, sendEmailToMatch } = this.props;
             const matchResult = await sendDecision(user.id, match.id, ev.target.value);
             getMatch(user.id)
-            if (matchResult.result === 'Matched') this.setState({ message: `${user.firstName}, you have matched with ${match.firstName}!` })
+            if (matchResult.result === 'Matched') {
+                sendEmailToMatch(user, match)
+                this.setState({ message: `${user.firstName}, you have matched with ${match.firstName}!` })
+            }
             else this.setState( { message: ''} )
         } catch (err) { console.error(err); }
     }
@@ -53,7 +56,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     getMatch: (userId, userLatitude, userLongitude) => dispatch(getMatch(userId, userLatitude, userLongitude)),
-    sendDecision: (userId, matchId, decision) => (dispatch(sendDecision(userId, matchId, decision)))
+    sendDecision: (userId, matchId, decision) => (dispatch(sendDecision(userId, matchId, decision))),
+    sendEmailToMatch: (user, match) => dispatch(sendEmailToMatch(user, match))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Match);

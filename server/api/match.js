@@ -1,5 +1,6 @@
 /* eslint-disable max-statements */
 const router = require('express').Router();
+const nodemailer = require('nodemailer');
 const { User, Relationship, Dog, Preference } = require('../db')
 const { getDistance }  = require('../../utils/mathFuncs')
 
@@ -134,5 +135,28 @@ router.put('/:userId', async(req, res, next) => {
         }
     } catch (err) { next(err); }
 })
+
+router.post('/email', async (req, res, next) => {
+    try {
+        const { matchEmail, matchEmailText } = req.body;
+        const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'graceshockers@gmail.com', // generated ethereal user
+            pass: 'Catchers', // generated ethereal password
+        },
+        });
+        // send mail with defined transport object
+        const info = await transporter.sendMail({
+        from: '"WoofMates" <graceshockers@gmail.com>',
+        to: matchEmail,
+        subject: 'You have a new match!!',
+        html: matchEmailText,
+        });
+
+        console.log('Message sent: %s', info.messageId);
+        res.sendStatus(200);
+    } catch (err) { next(err); }
+});
 
 module.exports = router;

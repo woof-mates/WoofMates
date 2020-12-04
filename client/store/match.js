@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { matchEmail } from '../../utils/emailFunc'
 
 const GET_MATCH = 'GET_MATCH';
 
@@ -24,6 +25,11 @@ const sendDecision = (userId, matchId, decision) => async() => {
     } catch (err) { console.error(err); }
 }
 
+const sendEmailToMatch = (user, match) => async() => {
+    const matchEmailText = matchEmail(user, match)
+    await (axios.post(`/api/match/email`, { matchEmail: match.userEmail, matchEmailText }))
+}
+
 export default function matchReducer(state = {}, action) {
     switch (action.type) {
         case GET_MATCH:
@@ -33,4 +39,4 @@ export default function matchReducer(state = {}, action) {
     }
 }
 
-export { getMatch, sendDecision }
+export { getMatch, sendDecision, sendEmailToMatch }
