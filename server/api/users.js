@@ -59,7 +59,7 @@ router.post('/register', async(req,res,next) => { // register a user (api/users/
       where: {
         id: newUser.id
       },
-      include: [Session]
+      include: [Session, Dog]
     })
     res.status(201).send(newUserWithSession)
   }
