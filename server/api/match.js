@@ -25,6 +25,7 @@ router.get('/:userId', async(req, res, next) => {
             for (let i = 0; i < matchArray.length; i++){
                 const match = matchArray[i]
                 // logs for debugging; can be deleted later
+                console.log('latlongs',userLatitude * 1, userLongitude * 1, match.userLatitude * 1, match.userLongitude * 1)
                 console.log('matchId', match.id, 'Userdistancefrommatch:', (getDistance(userLatitude * 1, userLongitude * 1, match.userLatitude * 1, match.userLongitude * 1)))
                 if (isNeuteredDealbreaker) console.log('neutered is a dealbreaker, matchDog is neutered:', match.dog.neutered)
 
