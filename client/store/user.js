@@ -1,6 +1,5 @@
 /* eslint-disable max-params */
 import axios from 'axios';
-// import {saltAndHash} from '../../utils/hashPasswordFunc'
 import { mapQuestKey } from '../../constants'
 
 //User State
@@ -40,7 +39,7 @@ export const registerUser = (firstName, lastName, userEmail, password, city, sta
       const userLatitude = mapQuestInfo.results[0].locations[0].latLng.lat;
       const userLongitude = mapQuestInfo.results[0].locations[0].latLng.lng;
 
-      const newUser = (await axios.post('/api/users/register', {firstName, lastName, userEmail, hashedPassword, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userLatitude, userLongitude})).data
+      const newUser = (await axios.post('/api/users/register', {firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userLatitude, userLongitude})).data
       console.log('newuser', newUser)
       dispatch(registerAUser(newUser))
     }

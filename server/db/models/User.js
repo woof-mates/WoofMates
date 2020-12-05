@@ -57,6 +57,7 @@ const User = db.define('user', {
     },
     userInterests: {
         type: ARRAY(ENUM(...USER_INTERESTS)),
+        defaultValue: []
     },
     age: {
         type: INTEGER
