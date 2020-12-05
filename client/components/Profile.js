@@ -13,10 +13,6 @@ class Profile extends React.Component {
         this.closeEdit = this.closeEdit.bind(this);
     }
 
-    componentDidMount() {
-        console.log(this.props.user)
-    };
-
     openEdit(){
         this.setState({
             edit: true
@@ -55,7 +51,7 @@ class Profile extends React.Component {
                         <div>Profession: {user.profession}</div>
                         <div>Interests: 
                             {user.userInterests.reduce((acc, interest) => {
-                                    return acc + ' ' + interest
+                                    return acc + ', ' + interest
                                 }, '')
                             }
                         </div>
@@ -75,7 +71,7 @@ class Profile extends React.Component {
                         </div>
                         <div>Interests: 
                             {dog ? dog.dogInterests.reduce((acc, interest) => {
-                                    return acc + ' ' + interest
+                                    return acc + ', ' + interest
                                 }, '')
                                 : ''
                             }

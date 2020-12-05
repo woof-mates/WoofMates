@@ -15,7 +15,6 @@ class Chatrooms extends React.Component {
     }
 
     componentDidMount() {
-        console.log('props', this.props)
         if (this.props.user.id) {
             this.props.getMatches(this.props.user.id);
         } 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { editProfile } from '../store/user'
-import { PROFESSIONS, DOG_WEIGHTS, USER_INTERESTS, BREEDS, DOG_AGES, DOG_INTERESTS} from '../../constants'
+import { PROFESSIONS, USER_INTERESTS, BREEDS, DOG_INTERESTS} from '../../constants'
 
 class EditProfile extends React.Component {
   constructor (props) {
@@ -18,9 +18,7 @@ class EditProfile extends React.Component {
   }
 
   userOnChange (e) {
-    console.log(e.target.value)
     const { dog } = this.state
-    console.log(dog)
     if (e.target.name === "userInterestsList1") {
       this.tempUserInterests[0] = e.target.value
       this.setState({
@@ -83,10 +81,6 @@ class EditProfile extends React.Component {
     this.props.updateUser(this.props.user.id, userProfile)
     console.log('user has been updated', this.props.user)
     this.props.closeEdit();
-  }
-
-  componentDidMount() {
-    console.log(this.props.user)
   }
 
   render() {
