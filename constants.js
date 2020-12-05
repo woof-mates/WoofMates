@@ -704,9 +704,6 @@ const PROFESSIONS = [
 'Trades & Services',
 ]
 
-// const pref = await Preference.create({'dogBreed': {golden:1, pug:2}})
-// let val  = pref.dogBreed.golden + 1
-// pref.update({'dogBreed': {...pref.dogBreed, golden: val}})
 const mapQuestKey = '6k5vyVG6Y0JOyqDXbfyn4sHx3OVBruPw';
 
 // http://en.wikipedia.org/wiki/Extreme_points_of_the_United_States#Westernmost
