@@ -25,7 +25,7 @@ const createUsers = (numUsers) => {
   for (let i = 0; i < numUsers;i++){
     firstNames.push(faker.name.firstName())
     lastNames.push(faker.name.lastName())
-    userEmails.push(faker.internet.email())
+    userEmails.push(faker.internet.email().toLowerCase())
     userImages1.push(`https://placedog.net/500/280/sepia?id=${i}`)
     userImages2.push(faker.image.people())
     dogImages.push(`https://placedog.net/500/280/sepia?id=${i}`)

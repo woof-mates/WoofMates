@@ -18,8 +18,9 @@ router.get('/:userId', async(req, res, next) => { // single user profile
       where: {
         id: req.params.userId
       },
-      include: [Preference]
+      include: [Preference, Dog]
     });
+    console.log('backend', userProfile)
     res.send(userProfile)
   }
   catch (ex) {
@@ -58,7 +59,7 @@ router.post('/register', async(req,res,next) => { // register a user (api/users/
       where: {
         id: newUser.id
       },
-      include: [Session]
+      include: [Session, Dog]
     })
     res.status(201).send(newUserWithSession)
   }
@@ -74,6 +75,34 @@ router.delete('/:userId', async(req,res,next) => { // delete a user (api/users)
   try {
     await User.destroy({where: {id: req.params.userId}})
     res.sendStatus(200)
+  } catch (error) {
+    console.log(error)
+    res.sendStatus(500)
+  }
+
+})
+
+router.put('/:userId', async(req,res,next) => { // update a user (api/users)
+  try {
+    await Dog.update(req.body.dog, {
+      where: {
+        id: req.body.dog.id
+      }
+    })
+    const withoutDog = req.body;
+    delete withoutDog.dog
+
+    await User.update(withoutDog, {
+      where: {
+        id: req.params.userId
+      }
+    })
+    const updatedUser = await User.findOne({
+      where: {
+        id: req.params.userId
+      }
+    })
+    res.send(updatedUser);
   } catch (error) {
     console.log(error)
     res.sendStatus(500)

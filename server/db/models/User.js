@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-const { STRING, ENUM, INTEGER, ARRAY, FLOAT } = Sequelize
-const { USER_INTERESTS, PROFESSIONS } = require('../../../constants')
+const { STRING, ENUM, INTEGER, ARRAY, TEXT } = Sequelize
+const {USER_INTERESTS, PROFESSIONS} = require('../../../constants')
 
 const User = db.define('user', {
     userType: {
@@ -28,7 +28,7 @@ const User = db.define('user', {
         },
     },
     hashedPassword: {
-        type: STRING,
+        type: TEXT,
         allowNull: false,
         validate: {
             notEmpty: true
@@ -63,12 +63,6 @@ const User = db.define('user', {
     },
     profession: {
         type: ENUM(...PROFESSIONS)
-    },
-    userLatitude: {
-        type: FLOAT
-    },
-    userLongitude: {
-        type: FLOAT
     }
 })
 

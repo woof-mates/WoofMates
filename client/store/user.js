@@ -5,9 +5,10 @@ import { mapQuestKey } from '../../constants'
 
 //User State
 
-const REGISTER_USER = 'REGISTER_USER'
+const REGISTER_USER = 'REGISTER_USER';
 const LOGIN = 'LOGIN';
-const LOGOUT = 'LOGOUT'
+const LOGOUT = 'LOGOUT';
+const UPDATE = 'UPDATE';
 
 const _login = (user) => {
     return {
@@ -70,8 +71,27 @@ export const logout = (userId) => async(dispatch) => {
   }
 }
 
+const updateUser = (user) => {
+  return {
+    type: UPDATE,
+    user
+  }
+}
+
+export const editProfile = (userId, updatedProfile) => async(dispatch) => {
+  try {
+    await (axios.put(`/api/users/${userId}`, updatedProfile));
+    let updatedUser = await (axios.get(`/api/users/${userId}`))
+    dispatch(updateUser(updatedUser.data));
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 export default function userReducer (state = {}, action) {
   switch (action.type) {
+      case UPDATE:
+        return action.user;
       case REGISTER_USER:
           return action.user
       case LOGIN:
