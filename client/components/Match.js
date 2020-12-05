@@ -30,13 +30,35 @@ class Match extends Component {
         return (
             match.firstName ?
             <>
-                <p>Human Name: {match.firstName}</p>
-                <p>Dog Name: {match.dog.dogName}</p>
-                <p>Dog Breed: {match.dog.breed}</p>
-                <p>Match User Id: {match.id}</p>
+                <div>Owner Name: {match.firstName}</div>
+                <div>Dog Name and Breed: {match.dog.dogName}, a {match.dog.breed}</div>
+                <div>Location: {match.city}, {match.state}</div>
+                <div>Meet the Dog:
+                    <div>Weight: {match.dog.weight}</div>
+                    <div>Age: {match.dog.dogAge}</div>
+                    <div>Energy Level: {match.dog.energyLevel}</div>
+                    <div>Neutered: {match.dog.neutered ? ' Yes' : ' No'}</div>
+                    <div>Interests:
+                        {match.dog.dogInterests.reduce((acc, interest) => {
+                            return acc + ', ' + interest
+                        }, '')}
+                    </div>
+                </div>
+
+                {/* <div>Profession: {match.profession}</div>
+                <div>Interests:
+                    {match.userInterests.reduce((acc, interest) => {
+                            return acc + ', ' + interest
+                        }, '')
+                    }
+                </div>
                 <img src={match.userImage1} />
+                <img src={match.userImage2} />
+                <img src={match.dogImage} /> */}
                 <button onClick={this.sendDecisionAndLoadNextMatch} value="like" type="submit">Like</button>
                 <button onClick={this.sendDecisionAndLoadNextMatch} value="reject" type="submit">Don't like</button>
+                {/* Match user ID for debugging purposes, will take out */}
+                <p>Match User Id: {match.id}</p>
                 <p>{this.state.message}</p>
             </>
             : null
