@@ -15,5 +15,6 @@ MatchMetric.belongsTo(User);
 User.belongsToMany(User, { as: 'match', through: Relationship });
 Prompt.belongsTo(User);
 Preference.belongsTo(User);
+User.hasOne(Preference);
 
 module.exports = { db, User, Dog, Session, MatchMetric, Relationship, Prompt, Preference }

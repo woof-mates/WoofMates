@@ -16,6 +16,13 @@ const _login = (user) => {
     }
 };
 
+const _logout = (emptyUser) => {
+  return {
+      type: LOGOUT,
+      emptyUser
+  }
+};
+
 const registerAUser = (user) => {
   return {
       type: REGISTER_USER,
@@ -23,7 +30,7 @@ const registerAUser = (user) => {
   }
 };
 
-export const registerUser = (firstName, lastName, userEmail, password, city, state, zipCode) => {
+export const registerUser = (firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation) => {
   return async(dispatch) => {
     try {
       let hashedPassword = saltAndHash(password)
@@ -32,7 +39,7 @@ export const registerUser = (firstName, lastName, userEmail, password, city, sta
       const userLatitude = mapQuestInfo.results[0].locations[0].latLng.lat;
       const userLongitude = mapQuestInfo.results[0].locations[0].latLng.lng;
 
-      const newUser = (await axios.post('/api/users/register', {firstName, lastName, userEmail, hashedPassword, city, state, zipCode, userLatitude, userLongitude})).data
+      const newUser = (await axios.post('/api/users/register', {firstName, lastName, userEmail, hashedPassword, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userLatitude, userLongitude})).data
       console.log('newuser', newUser)
       dispatch(registerAUser(newUser))
     }
@@ -51,13 +58,6 @@ export const login = (loginInfo) => async(dispatch) => {
   } catch(err) {
       alert('User and password do not match');
       console.error(err);
-  }
-};
-
-const _logout = (emptyUser) => {
-  return {
-      type: LOGOUT,
-      emptyUser
   }
 };
 

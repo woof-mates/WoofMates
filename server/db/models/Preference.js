@@ -21,7 +21,7 @@ const Preference = db.define('preference', {
           notEmpty: true
       }
     },
-    dogAge: {
+    dogAgeForPref: {
       type: JSON,
       defaultValue: ageObj,
       allowNull: false,
