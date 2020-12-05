@@ -40,7 +40,6 @@ class Profile extends React.Component {
                 </div>
             );
         } else if (this.state.edit) {
-            console.log('trying to edit')
             return <EditProfile closeEdit={this.closeEdit}/>;
         } else {
             return (

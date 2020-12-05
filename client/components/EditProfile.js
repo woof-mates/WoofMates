@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { editProfile } from '../store/user'
-import { BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS } from '../../constants';
+import { PROFESSIONS, DOG_WEIGHTS, USER_INTERESTS, BREEDS, DOG_AGES, DOG_INTERESTS} from '../../constants'
 
 class EditProfile extends React.Component {
   constructor (props) {
@@ -9,15 +9,38 @@ class EditProfile extends React.Component {
     const {firstName, lastName, userEmail, age, profession, userImage1, userImage2, city, state, zipCode, userInterests, dog} = props.user;
     this.state = {firstName, lastName, userEmail, age, profession, userImage1, userImage2, city, state, zipCode, userInterests, dog};
 
+    this.tempUserInterests = userInterests;
+    this.tempDogInterests = dog.dogInterests;
+
     this.onSubmit = this.onSubmit.bind(this);
     this.userOnChange = this.userOnChange.bind(this);
     this.dogOnChange = this.dogOnChange.bind(this);
   }
 
   userOnChange (e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
+    console.log(e.target.value)
+    const { dog } = this.state
+    console.log(dog)
+    if (e.target.name === "userInterestsList1") {
+      this.tempUserInterests[0] = e.target.value
+      this.setState({
+        userInterests: this.tempUserInterests
+      })
+    } else if (e.target.name === "userInterestsList2") {
+      this.tempUserInterests[1] = e.target.value
+      this.setState({
+        userInterests: this.tempUserInterests
+      })
+    } else if (e.target.name === "userInterestsList3") {
+      this.tempUserInterests[2] = e.target.value
+      this.setState({
+        userInterests: this.tempUserInterests
+      })
+    } else {
+      this.setState({
+        [e.target.name]: e.target.value
+      })
+    }
   }
 
   dogOnChange (e) {
@@ -27,10 +50,30 @@ class EditProfile extends React.Component {
         dog[key] = e.target.value
       }
     }
-    
-    this.setState({
-      dog
-    })
+
+    if (e.target.name === "dogInterestsList1") {
+      this.tempDogInterests[0] = e.target.value
+      dog.dogInterests = this.tempDogInterests
+      this.setState({
+        dog
+      })
+    } else if (e.target.name === "dogInterestsList2") {
+      this.tempDogInterests[1] = e.target.value
+      dog.dogInterests = this.tempDogInterests
+      this.setState({
+        dog
+      })
+    } else if (e.target.name === "dogInterestsList3") {
+      this.tempDogInterests[2] = e.target.value
+      dog.dogInterests = this.tempDogInterests
+      this.setState({
+        dog
+      })
+    } else {
+      this.setState({
+        dog
+      })
+    }
   }
 
   async onSubmit (e) {
@@ -55,28 +98,31 @@ class EditProfile extends React.Component {
             <div id="userUpdateForm">
                 <h4>User</h4>
                 First Name:
-                <input value={this.state.firstName} type="firstName" name = "firstName" onChange={this.userOnChange} />
+                <input value={this.state.firstName} id="firstName" name = "firstName" onChange={this.userOnChange} />
                 <p></p>
                 Last Name:
-                <input value={this.state.lastName} type="lastName" name = "lastName" onChange={this.userOnChange} />
+                <input value={this.state.lastName} id="lastName" name = "lastName" onChange={this.userOnChange} />
                 <p></p>
                 Email:
-                <input value={this.state.userEmail} type="email" name = "userEmail" onChange={this.userOnChange} />
+                <input value={this.state.userEmail} id="email" name = "userEmail" onChange={this.userOnChange} />
                 <p></p>
                 Age:
-                <input value={this.state.age} type="age" name = "age" onChange={this.userOnChange} />
+                <input value={this.state.age} id="age" name = "age" onChange={this.userOnChange} />
                 <p></p>
-                Profession:
-                <input value={this.state.profession} type="profession" name = "profession" onChange={this.userOnChange} />
+                Profession: <select id="profession" name="profession" onChange={this.userOnChange}>
+                <option value="none" selected disabled hidden>
+                {this.state.profession}</option>
+                {PROFESSIONS.map(profession => (<option key = {profession} value={profession}>{profession}</option>))}
+                </select>
                 <p></p>
                 Photo1: 
-                <input value={this.state.userImage1} type="photo1" name = "photo1" onChange={this.userOnChange} />
+                <input value={this.state.userImage1} id="photo1" name = "photo1" onChange={this.userOnChange} />
                 <p></p>
                 Photo2: 
-                <input value={this.state.userImage2} type="photo2" name = "photo2" onChange={this.userOnChange} />
+                <input value={this.state.userImage2} id="photo2" name = "photo2" onChange={this.userOnChange} />
                 <p></p>
                 City:
-                <input value={this.state.city} type="city" name = "city" onChange={this.userOnChange} />
+                <input value={this.state.city} id="city" name = "city" onChange={this.userOnChange} />
                 <p></p>
                 State:
                 <select value={this.state.state} id="stateList" name="state" onChange={this.userOnChange}>
@@ -134,36 +180,86 @@ class EditProfile extends React.Component {
                 </select>
                 <p></p>
                 Zip code:
-                <input value={this.state.zipCode} type="zipCode" name = "zipCode" onChange={this.userOnChange} />
+                <input value={this.state.zipCode} id="zipCode" name = "zipCode" onChange={this.userOnChange} />
                 <p></p>
-                Interests:
-                <input value={this.state.userInterests} type="interests" name = "interests" onChange={this.userOnChange} />
+                Interest 1: <select id="userInterestsList" name="userInterestsList1" onChange={this.userOnChange}>
+                  <option value="none" selected disabled hidden>
+                  {this.state.userInterests[0] || 'Select an Option'}</option>
+                  {USER_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
+                </select>
+                <p></p>
+                Interest 2: <select id="userInterestsList" name="userInterestsList2" onChange={this.userOnChange}>
+                  <option value="none" selected disabled hidden>
+                  {this.state.userInterests[1] || 'Select an Option'}</option>
+                  {USER_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
+                </select>
+                <p></p>
+                Interest 3: <select id="userInterestsList" name="userInterestsList3" onChange={this.userOnChange}>
+                  <option value="none" selected disabled hidden>
+                  {this.state.userInterests[2] || 'Select an Option'}</option>
+                  {USER_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
+                </select>
                 <p></p>
             </div>
             <div id="dogUpdateForm">
                 <h4>Dog</h4>
                 Name:
-                <input value={this.state.dog.dogName} type="dogName" name = "dogName" onChange={this.dogOnChange} />
+                <input value={this.state.dog.dogName} id="dogName" name = "dogName" onChange={this.dogOnChange} />
                 <p></p>
                 Breed:
-                <input value={this.state.dog.breed} type="breed" name = "breed" onChange={this.dogOnChange} />
+                <select id="breed" name="breed" onChange={this.dogOnChange}>
+                <option value="none" selected disabled hidden>
+                {this.state.dog.breed}</option>
+                {BREEDS.map(breed => (<option key = {breed} value={breed}>{breed}</option>))}
+                </select>
                 <p></p>
                 Age:
-                <input value={this.state.dog.dogAge} type="dogAge" name = "dogAge" onChange={this.dogOnChange} />
+                <input value={this.state.dog.dogAge} id="dogAge" name = "dogAge" onChange={this.dogOnChange} />
                 <p></p>
                 Energy Level:
-                <input value={this.state.dog.energyLevel} type="energyLevel" name = "energyLevel" onChange={this.dogOnChange} />
+                <select id="energyLevel" name="energyLevel" onChange={this.dogOnChange}>
+                <option value="none" selected disabled hidden>
+                {this.state.dog.energyLevel}</option>
+                <option value="1">1 (Lowest)</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5 (Highest)</option>
+                </select>
                 <p></p>
                 Weight:
-                <input value={this.state.dog.weight} type="weight" name = "weight" onChange={this.dogOnChange} />
+                <input value={this.state.dog.weight} id="weight" name = "weight" onChange={this.dogOnChange} />
                 <p></p>
-                Neutered:
-                <input value={this.state.dog.neutered} type="neutered" name = "neutered" onChange={this.dogOnChange} />
+                Neutered?
+                <select id="neutered" name="neutered" onChange={this.dogOnChange}>
+                <option value="none" selected disabled hidden>
+                {this.state.dog.neutered ? 'Yes' : 'No'}</option>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+                </select>
                 <p></p>
-                Interests:
-                <input value={this.state.dog.dogInterests} type="dogInterests" name = "dogInterests" onChange={this.dogOnChange} />
+                Dog's Interests 1:
+                <select id="dogInterestsList" name="dogInterestsList1" onChange={this.dogOnChange}>
+                <option value="none" selected disabled hidden>
+                {this.state.dog.dogInterests[0] || 'Select an Option'}</option>
+                {DOG_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
+                </select>
                 <p></p>
-                <button className="submit" type="submit" onClick={this.onSubmit}>Update</button>
+                Dog's Interests 2:
+                <select id="dogInterestsList" name="dogInterestsList2" onChange={this.dogOnChange}>
+                <option value="none" selected disabled hidden>
+                {this.state.dog.dogInterests[1] || 'Select an Option'}</option>
+                {DOG_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
+                </select>
+                <p></p>
+                Dog's Interests 2:
+                <select id="dogInterestsList" name="dogInterestsList3" onChange={this.dogOnChange}>
+                <option value="none" selected disabled hidden>
+                {this.state.dog.dogInterests[2] || 'Select an Option'}</option>
+                {DOG_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
+                </select>
+                <p></p>
+                <button className="submit" id="submit" onClick={this.onSubmit}>Update</button>
                 <button onClick={this.props.closeEdit}>Cancel</button>
             </div>
         </div>
