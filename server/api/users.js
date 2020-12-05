@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { User, Session, Dog } = require('../db/index')
+const { User, Session, Preference, Dog, Prompt } = require('../db/index')
 
 const A_WEEK_IN_SECONDS = 1000 * 60 * 60 * 24 * 7;
 
@@ -18,7 +18,7 @@ router.get('/:userId', async(req, res, next) => { // single user profile
       where: {
         id: req.params.userId
       },
-      include: Dog
+      include: [Preference, Dog]
     });
     console.log('backend', userProfile)
     res.send(userProfile)
@@ -31,8 +31,25 @@ router.get('/:userId', async(req, res, next) => { // single user profile
 router.post('/register', async(req,res,next) => { // register a user (api/users/register)
   try {
     console.log('trying to create a new user')
+
     const newSession = await Session.create()
-    const newUser = await User.create(req.body)
+
+    const {firstName, lastName, userEmail, hashedPassword, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userLatitude, userLongitude} = req.body
+
+    const bodyForUser = {firstName, lastName, userEmail, hashedPassword, city, state, zipCode, age, profession, userInterests, userLatitude, userLongitude}
+
+    const newUser = await User.create(bodyForUser)
+
+    const bodyForDogs = {userId: newUser.id, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests}
+
+    const bodyForPrompts = {userId: newUser.id, dogSpeak, favoriteActivityWithDog}
+
+    const bodyForPreferences = {userId: newUser.id, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation}
+
+    await Dog.create(bodyForDogs)
+    await Prompt.create(bodyForPrompts)
+    await Preference.create(bodyForPreferences)
+
     await newSession.setUser(newUser);
     res.cookie('sid', newSession.sid, {
       maxAge: A_WEEK_IN_SECONDS,

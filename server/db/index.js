@@ -5,6 +5,7 @@ const Session = require('./models/Session');
 const MatchMetric = require('./models/MatchMetric');
 const Relationship = require('./models/Relationship');
 const Prompt = require('./models/Prompt');
+const Preference = require('./models/Preference');
 
 Dog.belongsTo(User);
 User.hasOne(Dog);
@@ -13,5 +14,7 @@ Session.belongsTo(User);
 MatchMetric.belongsTo(User);
 User.belongsToMany(User, { as: 'match', through: Relationship });
 Prompt.belongsTo(User);
+Preference.belongsTo(User);
+User.hasOne(Preference);
 
-module.exports = { db, User, Dog, Session, MatchMetric, Relationship, Prompt }
+module.exports = { db, User, Dog, Session, MatchMetric, Relationship, Prompt, Preference }

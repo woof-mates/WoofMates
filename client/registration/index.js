@@ -2,10 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { registerUser } from '../store/user'
+import {INITIAL_PREF_POINTS_BREED, INITIAL_PREF_POINTS_OTHER, PROFESSIONS, DOG_WEIGHTS, USER_INTERESTS, BREEDS, DOG_AGES, MAX_DISTANCES, DOG_INTERESTS} from '../../constants'
+import {createBreedsObjForPref, createAgesObjForPref, createEnergyLevelObjForPref, createWeightObjForPref} from '../../utils/preferencesObjFuncs'
+
 
 class Registration extends React.Component {
   constructor () {
     super ()
+    this.tempUserInterests = []
+    this.tempDogInterests = []
     this.state = {
       firstName: '',
       lastName: '',
@@ -13,27 +18,100 @@ class Registration extends React.Component {
       password: '',
       city: '',
       state: '',
-      zipCode: ''
+      zipCode: '',
+      age: '',
+      profession: '',
+      userInterests: '',
+      dogSpeak: '',
+      favoriteActivityWithDog: '',
+      dogName: '',
+      breed: '',
+      dogAge: '',
+      energyLevel: '',
+      weight: '',
+      neutered: '',
+      dogInterests: '',
+      dogBreed: '',
+      dogAgeForPref: '',
+      dogEnergyLevel: '',
+      dogWeight: '',
+      distanceFromLocation: '',
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
-
   onChange (e) {
-    // console.log('target is', e.target.name, 'value is', e.target.value)
-    this.setState({
-      [e.target.name]: e.target.value
-    })
-    console.log(this.state)
+    if (e.target.name === "userInterestsList") {
+      this.tempUserInterests.push(e.target.value)
+      this.setState({
+        userInterests: this.tempUserInterests
+      })
+    }
+    else if (e.target.name === "dogInterestsList") {
+      this.tempDogInterests.push(e.target.value)
+      this.setState({
+        dogInterests: this.tempDogInterests
+      })
+    }
+    else if (e.target.name === "dogBreed") {
+      let newBreedsObj = createBreedsObjForPref();
+      newBreedsObj[e.target.value] = INITIAL_PREF_POINTS_BREED;
+      this.setState({
+        dogBreed: newBreedsObj
+      })
+    }
+
+    else if (e.target.name === "dogAgeForPref") {
+      let newAgesObj = createAgesObjForPref();
+      newAgesObj[e.target.value] = INITIAL_PREF_POINTS_OTHER;
+      this.setState({
+        dogAgeForPref: newAgesObj
+      })
+    }
+
+    else if (e.target.name === "dogEnergyLevel") {
+      let newEnergyLevelsObj = createEnergyLevelObjForPref();
+      newEnergyLevelsObj[e.target.value] = INITIAL_PREF_POINTS_OTHER;
+      this.setState({
+        dogEnergyLevel: newEnergyLevelsObj
+      })
+    }
+
+    else if (e.target.name === "dogWeight") {
+      let newWeightLevelsObj = createWeightObjForPref();
+      newWeightLevelsObj[e.target.value] = INITIAL_PREF_POINTS_OTHER;
+      this.setState({
+        dogWeight: newWeightLevelsObj
+      })
+    }
+
+    else if (e.target.name === "age" || e.target.name === "dogAge" || e.target.name === "energyLevel" || e.target.name === "weight" || e.target.name === "distanceFromLocation") {
+      this.setState({
+        [e.target.name]: Number(e.target.value)
+      })
+    }
+
+    else if (e.target.name === "neutered") {
+      let neuteredBool = (e.target.value === "true")
+      this.setState({
+        [e.target.name]: neuteredBool
+      })
+    }
+
+    else {
+      this.setState({
+        [e.target.name]: e.target.value
+      })
+    }
   }
 
   async onSubmit (e) {
     e.preventDefault();
     console.log('current state in Registration is: ',this.state)
-    let {firstName, lastName, userEmail, password, city, state, zipCode} = this.state
+    let {firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation} = this.state
     userEmail = userEmail.toLowerCase()
-    this.props.registerUser(firstName, lastName, userEmail, password, city, state, zipCode)
+    this.props.registerUser(firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation)
     console.log('user in the store is now ', this.props.user)
   }
 
@@ -69,6 +147,8 @@ class Registration extends React.Component {
               <p></p>
               State:
               <select id="stateList" name="state" onChange={this.onChange}>
+              <option value="none" selected disabled hidden>
+              Select an Option</option>
               <option value="AL">Alabama</option>
               <option value="AK">Alaska</option>
               <option value="AZ">Arizona</option>
@@ -125,6 +205,117 @@ class Registration extends React.Component {
               Zip code:
               <input type="zipCode" name = "zipCode" onChange={this.onChange} />
               <p></p>
+              <h3>A bit more about you...</h3>
+              Age: <input type="age" name = "age" onChange={this.onChange} />
+              <p></p>
+              Profession: <select id="profession" name="profession" onChange={this.onChange}>
+              <option value="none" selected disabled hidden>
+              Select an Option</option>
+              {PROFESSIONS.map(profession => (<option key = {profession} value={profession}>{profession}</option>))}
+              </select>
+              <p></p>
+              Interest 1: <select id="userInterestsList" name="userInterestsList" onChange={this.onChange}>
+              <option value="none" selected disabled hidden>
+              Select an Option</option>
+              {USER_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
+              </select>
+              <p></p>
+              Interest 2: <select id="userInterestsList" name="userInterestsList" onChange={this.onChange}>
+              <option value="none" selected disabled hidden>
+              Select an Option</option>
+              {USER_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
+              </select>
+              <p></p>
+              Interest 3: <select id="userInterestsList" name="userInterestsList" onChange={this.onChange}>
+              <option value="none" selected disabled hidden>
+              Select an Option</option>
+              {USER_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
+              </select>
+              <h3>Tell us more about your pup!</h3>
+              Name:
+              <input type="dogName" name = "dogName" onChange={this.onChange} />
+              <p></p>
+              Breed:
+              <select id="breed" name="breed" onChange={this.onChange}>
+              <option value="none" selected disabled hidden>
+              Select an Option</option>
+              {BREEDS.map(breed => (<option key = {breed} value={breed}>{breed}</option>))}
+              </select>
+              <p></p>
+              Dog Age:
+              <input type="dogAge" name="dogAge" onChange={this.onChange} />
+              <p></p>
+              Energy Level:
+              <select id="energyLevel" name="energyLevel" onChange={this.onChange}>
+              <option value="none" selected disabled hidden>
+              Select an Option</option>
+              <option value="1">1 (Lowest)</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5 (Highest)</option>
+              </select>
+              <p></p>
+              Weight (lbs):
+              <input type="weight" name = "weight" onChange={this.onChange} />
+              <p></p>
+              Neutered?
+              <select id="neutered" name="neutered" onChange={this.onChange}>
+              <option value="none" selected disabled hidden>
+              Select an Option</option>
+              <option value="false">No</option>
+              <option value="true">Yes</option>
+              </select>
+              <p></p>
+              Your dog's primary interest:
+              <select id="dogInterestsList" name="dogInterestsList" onChange={this.onChange}>
+              <option value="none" selected disabled hidden>
+              Select an Option</option>
+              {DOG_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
+              </select>
+              <p></p>
+              Maximum distance between you and your new pup friends:
+              <select id="distanceFromLocation" name="distanceFromLocation" onChange={this.onChange}>
+              <option value="none" selected disabled hidden>
+              Select an Option</option>
+              {MAX_DISTANCES.map(distance => (<option key = {distance} value={distance}>{distance}</option>))}
+              </select>
+
+              <h3>Spice up your profile</h3>
+              <h4>Answer a few prompts to help personalize your profile and ensure matches</h4>
+              If your dog could speak it would say....
+              <br></br>
+              <textarea name="dogSpeak" rows="3" cols="50" wrap="hard" placeholder="" onChange={this.onChange}></textarea>
+              <p></p>
+              Your favorite thing to do with your pup is...
+              <br></br>
+              <textarea name="favoriteActivityWithDog" rows="3" cols="50" wrap="hard" placeholder="" onChange={this.onChange}></textarea>
+              <h3>Last step: tell us your preferences!</h3>
+              In an ideal world, I'd like to be matched with a
+              <select id="dogBreed" name="dogBreed" onChange={this.onChange}>
+              <option value="none" selected disabled hidden>
+              Select an Option</option>
+              {BREEDS.map(breed => (<option key={breed} value={breed}>{breed}</option>))}
+              </select> pup who is
+              <select id="dogAgeForPref" name="dogAgeForPref" onChange={this.onChange}>
+              <option value="none" selected disabled hidden>
+              Select an Option</option>
+              {DOG_AGES.map(age => (<option key = {age} value={age}>{age}</option>))}
+              </select>
+              years old, has
+              <select id="dogEnergyLevel" name="dogEnergyLevel" onChange={this.onChange}>
+              <option value="none" selected disabled hidden>
+              Select an Option</option>
+              <option value="1">1 (Lowest)</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5 (Highest)</option>
+              </select> energy and weighs <select id="dogWeight" name="dogWeight" onChange={this.onChange}>
+              <option value="none" selected disabled hidden>
+              Select an Option</option>
+              {DOG_WEIGHTS.map(weight => (<option key = {weight} value={weight}>{weight}</option>))}
+              </select> pounds.
               <p></p>
               <button className="submit" type="submit" onClick={this.onSubmit}>Register</button>
           </div>
@@ -142,7 +333,7 @@ const mapState = state => (
 
 const mapDispatch = (dispatch) => {
   return {
-    registerUser: (firstName, lastName, userEmail, password, city, state, zipCode) => dispatch(registerUser(firstName, lastName, userEmail, password, city, state, zipCode))
+    registerUser: (firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation) => dispatch(registerUser(firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation))
   }
 }
 
