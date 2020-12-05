@@ -4,7 +4,7 @@ const { USER_INTERESTS, PROFESSIONS, leftLongitudeUS, bottomLatitudeUS, lengthUS
 const { getRandomInt } = require('../../../utils/mathFuncs')
 const { saltAndHash } = require('../../../utils/hashPasswordFunc')
 
-const createUsers = (numUsers) => {
+const createUsers = async (numUsers) => {
   let firstNames = [];
   let lastNames = [];
   let userEmails = [];
@@ -48,7 +48,7 @@ const createUsers = (numUsers) => {
     users[i].firstName = firstNames[i]
     users[i].lastName = lastNames[i]
     users[i].userEmail = userEmails[i]
-    users[i].hashedPassword = saltAndHash(userEmails[i])
+    users[i].hashedPassword = await saltAndHash(userEmails[i])
     users[i].userImage1 = userImages1[i]
     users[i].userImage2 = userImages2[i]
     users[i].dogImage = dogImages[i]
