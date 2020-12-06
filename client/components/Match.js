@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getMatch, sendDecision, sendEmailToMatch } from '../store/match';
 import { getDistance }  from '../../utils/mathFuncs'
+import Chatrooms from './Chatrooms'
 
 class Match extends Component {
     constructor(props){
@@ -26,7 +27,7 @@ class Match extends Component {
                 const thisMatch = match
                 sendEmailToMatch(user, thisMatch)
                 getMatch(user.id, user.userLatitude, user.userLongitude)
-                this.setState({ message: `${user.firstName}, you have matched with ${match.firstName}!` })
+                this.setState({ message: `${user.firstName}, you have matched with ${match.firstName}! Send them a message now:` })
             }
             else {
                 getMatch(user.id, user.userLatitude, user.userLongitude)
@@ -74,6 +75,7 @@ class Match extends Component {
                 {/* Match user ID for debugging purposes, will take out */}
                 <p>Match User Id: {match.id}</p>
                 <p>{this.state.message}</p>
+                { this.state.message.includes('you have matched') ? <Chatrooms matchedId = {match.id} /> : null}
             </>
             : null
         )
