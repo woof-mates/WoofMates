@@ -12,6 +12,15 @@ router.get('/', async(req, res, next) => { // api/users
   }
 })
 
+router.get('/get-user', (req, res, next) => {
+  try {
+    res.send(req.user)
+  }
+  catch (err) {
+      next(err)
+  }
+})
+
 router.get('/:userId', async(req, res, next) => { // single user profile
   try {
     const userProfile = await User.findOne({
@@ -24,7 +33,7 @@ router.get('/:userId', async(req, res, next) => { // single user profile
     res.send(userProfile)
   }
   catch (ex) {
-    next (ex)
+    next(ex)
   }
 })
 

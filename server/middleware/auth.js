@@ -2,7 +2,7 @@ const { Session, User } = require('../db');
 
 const authMiddleware = async(req, res, next) => {
    const { sid } = req.cookies;
-   if(!sid) {
+   if (!sid) {
        console.log("No session associated with this user");
        req.session = null;
    } else {
@@ -12,13 +12,15 @@ const authMiddleware = async(req, res, next) => {
            },
            include: [User],
         });
-        if(!session) {
+        console.log(session)
+        if (!session) {
             console.log('Invalid session ID - not located in database. Removing cookie.');
             res.clearCookie('sid');
             req.session = null;
         } else {
             console.log(`Session user identified with email: ${session.user.userEmail}`)
             req.session = session
+            req.user = session.user
         }
    }
 //    console.log('sid',sid)
