@@ -11,6 +11,7 @@ import {getUser} from './store/user'
 class App extends React.Component {
     async componentDidMount (){
         await this.props.getUser()
+        console.log(`user is: ${JSON.stringify(this.props.user)}`)
     }
 
     render() {
