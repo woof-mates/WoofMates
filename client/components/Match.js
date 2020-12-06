@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getMatch, sendDecision, sendEmailToMatch } from '../store/match';
+import { getDistance }  from '../../utils/mathFuncs'
+import Chatrooms from './Chatrooms'
 
 class Match extends Component {
     constructor(props){
@@ -25,7 +27,7 @@ class Match extends Component {
                 const thisMatch = match
                 sendEmailToMatch(user, thisMatch)
                 getMatch(user.id, user.userLatitude, user.userLongitude)
-                this.setState({ message: `${user.firstName}, you have matched with ${match.firstName}!` })
+                this.setState({ message: `${user.firstName}, you have matched with ${match.firstName}! Send them a message now:` })
             }
             else {
                 getMatch(user.id, user.userLatitude, user.userLongitude)
@@ -34,18 +36,46 @@ class Match extends Component {
         } catch (err) { console.error(err); }
     }
     render(){
-        let { match } = this.props;
+        let { match, user } = this.props;
         return (
             match.firstName ?
             <>
-                <p>Human Name: {match.firstName}</p>
-                <p>Dog Name: {match.dog.dogName}</p>
-                <p>Dog Breed: {match.dog.breed}</p>
-                <p>Match User Id: {match.id}</p>
+                <div>Owner Name and Age: {match.firstName}, age {match.age}</div>
+                <div>Dog Name, Age, and Breed: {match.dog.dogName}, age {match.dog.dogAge}, a {match.dog.breed}</div>
+                <div>Location: {match.city}, {match.state}, {parseInt(getDistance(user.userLatitude, user.userLongitude, match.userLatitude, match.userLongitude))} miles from you</div>
+                <br />
+                <div>Meet the Dog:
+                    <div>Weight: {match.dog.weight}</div>
+                    <div>Energy Level: {match.dog.energyLevel}</div>
+                    <div>Neutered: {match.dog.neutered ? ' Yes' : ' No'}</div>
+                    <div>Interests:
+                        {match.dog.dogInterests.reduce((acc, interest, i) => {
+                            if (i === 0) return acc + interest
+                            else return acc + ', ' + interest
+                        }, '')}
+                    </div>
+                </div>
+                <br />
+                <div>Meet the Owner:
+                    <div>Age: {match.age}</div>
+                    <div>Interests:
+                        {match.userInterests.reduce((acc, interest, i) => {
+                            if (i === 0) return acc + interest
+                            else return acc + ', ' + interest
+                        }, '')
+                        }
+                    </div>
+                    <div>Profession: {match.profession}</div>
+                </div>
                 <img src={match.userImage1} />
+                <img src={match.userImage2} />
+                <img src={match.dogImage} />
                 <button onClick={this.sendDecisionAndLoadNextMatch} value="like" type="submit">Like</button>
                 <button onClick={this.sendDecisionAndLoadNextMatch} value="reject" type="submit">Don't like</button>
+                {/* Match user ID for debugging purposes, will take out */}
+                <p>Match User Id: {match.id}</p>
                 <p>{this.state.message}</p>
+                { this.state.message.includes('you have matched') ? <Chatrooms matchedId = {match.id} /> : null}
             </>
             : null
         )
