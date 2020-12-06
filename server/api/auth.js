@@ -44,7 +44,7 @@ router.post('/login', async(req, res, next) => {
         }
         // if userEmail and password are not a match, send 404
         else res.sendStatus(404);
-    } catch(err) { next(err); }
+    } catch (err) { next(err); }
 });
 
 router.delete('/logout/:userId', async(req, res, next) => {
