@@ -12,7 +12,12 @@ const authMiddleware = async(req, res, next) => {
            },
            include: [User],
         });
-        console.log(session)
+        const user = await User.findOne({
+            where: {
+                id: session.user.id
+            },
+            include: {all: true}
+        })
         if (!session) {
             console.log('Invalid session ID - not located in database. Removing cookie.');
             res.clearCookie('sid');
@@ -20,7 +25,7 @@ const authMiddleware = async(req, res, next) => {
         } else {
             console.log(`Session user identified with email: ${session.user.userEmail}`)
             req.session = session
-            req.user = session.user
+            req.user = user
         }
    }
 //    console.log('sid',sid)

@@ -47,7 +47,10 @@ class Login extends Component {
                     <input onChange={this.setPassword} value={this.state.password} placeholder="password" type="password" />
                     <button type="submit">{!user.firstName ? 'Log In' : 'Log Out'}</button>
                     <p>{this.state.message}</p>
-                    <div>Welcome {user.firstName}</div>
+                    {
+                        user.firstName ? <div>Logged in as: {user.firstName}</div> : <div />
+                    }
+
                 </form>
             </>
         )
