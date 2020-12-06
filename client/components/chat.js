@@ -1,6 +1,7 @@
 import React from 'react';
 
 import firebase from 'firebase';
+import VideoChatContainer from './VideoChat/VideoChatContainer';
 
 const firebaseConfig = {
     apiKey: "AIzaSyDZUsDKQ79fy2TRZJWfmiprYqHUdizGLlo",
@@ -23,10 +24,13 @@ class Chat extends React.Component {
             chats: [],
             message: '',
             readError: null,
-            writeError: null
+            writeError: null,
+            videoChat: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.openVideo = this.openVideo.bind(this);
+        this.closeVideo = this.closeVideo.bind(this);
     }
 
     async componentDidMount() {
@@ -77,26 +81,49 @@ class Chat extends React.Component {
         })
     }
 
+    openVideo() {
+        this.setState({
+            videoChat: true
+        })
+    }
+
+    closeVideo() {
+        this.setState({
+            videoChat: false
+        })
+    }
+
     render() {
-        const { chats } = this.state;
-        return (
-            <div>
+        const { chats, videoChat } = this.state;
+
+        if (videoChat) {
+            return (
                 <div>
-                    {
-                        chats.map(chat => {
-                            return (
-                                <p key={chat.timestamp}>{chat.message}</p>
-                            )
-                        })
-                    }
+                    <VideoChatContainer fromName={this.props.fromName} toName={this.props.toName} closeVideo={this.closeVideo}/>
                 </div>
-                <form onSubmit={this.handleSubmit}>
-                    <input onChange={this.handleChange} value={this.state.message}></input>
-                    {this.state.writeError ? <p>{this.state.writeError}</p> : null}
-                    <button type="submit">Send</button>
-                </form>
-            </div>
-        )
+            )
+        } else {
+            return (
+                <div>
+                    <button onClick={this.props.closeChat}>Close Chat</button>
+                    <button onClick={this.openVideo}>Call</button>
+                    <div>
+                        {
+                            chats.map(chat => {
+                                return (
+                                    <p key={chat.timestamp}>{chat.message}</p>
+                                )
+                            })
+                        }
+                    </div>
+                    <form onSubmit={this.handleSubmit}>
+                        <input onChange={this.handleChange} value={this.state.message}></input>
+                        {this.state.writeError ? <p>{this.state.writeError}</p> : null}
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+            )
+        }
     }
 }
 

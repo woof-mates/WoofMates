@@ -21,6 +21,7 @@
     "axios": "^0.17.1",
     "babel-eslint": "^10.1.0",
     "cookie-parser": "^1.4.5",
+    "classnames": "^2.2.6",
     "db-create": "^1.2.0",
     "eslint": "^7.14.0",
     "eslint-config-fullstack": "^6.0.0",
@@ -40,7 +41,8 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "sequelize": "^6.3.4",
-    "volleyball": "^1.5.1"
+    "volleyball": "^1.5.1",
+    "webrtc-adapter": "7.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",

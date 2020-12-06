@@ -1,18 +1,76 @@
 import React from 'react';
 
 import firebase from 'firebase';
+import 'firebase/database';
+import classnames from 'classnames';
 
-var firebaseConfig = {
-    apiKey: "AIzaSyAgHuCxQ9X4dZ-732QncgW6LoBo7JppBtM",
-    authDomain: "videochat-2d073.firebaseapp.com",
-    projectId: "videochat-2d073",
-    storageBucket: "videochat-2d073.appspot.com",
-    messagingSenderId: "204956355660",
-    appId: "1:204956355660:web:a6a8e7a3e4b7fa73b178e9"
-  };
-  
-firebase.initializeApp(firebaseConfig);
+class VideoChat extends React.Component {
+    constructor(props) {
+        super (props);
+        this.state = {
+            isLoggedIn: false,
+            userToCall: null,
+            username: this.props.fromName
+        }
 
-const db = firebase.database().ref(); 
+        this.onLoginClicked = this.onLoginClicked.bind(this);
+        this.onStartCallClicked = this.onStartCallClicked.bind(this);
+        this.renderVideos = this.renderVideos.bind(this);
+        this.renderForms = this.renderForms.bind(this);
+    }
+    
 
+    async onLoginClicked() {
+        await this.props.onLogin(this.state.username);
+        this.setState({
+            isLoggedIn: true
+        });
+    }
 
+    onStartCallClicked() {
+        this.props.startCall(this.state.username, this.state.userToCall)
+    }
+
+    renderVideos() {
+        return (
+            <div className={classnames('videos', { active: this.state.isLoggedIn })}>
+                <div>
+                    <label>{this.state.username}</label><br></br>
+                    <video ref={this.props.setLocalVideoRef} autoPlay playsInline></video>
+                </div>
+                <div>
+                    <label>{this.props.connectedUser}</label><br></br>
+                    <video ref={this.props.setRemoteVideoRef} autoPlay playsInline></video>
+                </div>
+            </div>
+        )
+    }
+
+    renderForms() {
+        return this.state.isLoggedIn
+            ? <div key='a' className='form'>
+                <label>Call to</label>
+                <input value={this.state.userToCall} type='text' onChange={e => this.setState({ userToCall: e.target.value})} />
+                <button onClick={this.onStartCallClicked} id='call-btn' className='btn btn-primary'>Call</button>
+            </div>
+            : <div key='b' className='form'>
+                <label>Type a name</label>
+                <input value={this.state.username} type='text' onChange={e => this.setState({ username: e.target.value})} />
+                <button onClick={this.onLoginClicked} id='login-btn' className='btn btn-primary'>Login</button>
+            </div>
+
+    }
+
+    render() {
+        return (
+            <section id='container'>
+                {this.props.connectedUser ? null : this.renderForms()}
+
+                {this.renderVideos()}
+            </section>
+        )
+    }
+
+}
+
+export default VideoChat;

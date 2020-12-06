@@ -1,5 +1,5 @@
 import React from 'react';
-import Chat from './chat';
+import Chat from './Chat';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { getMatches } from '../store/matches';
@@ -8,7 +8,8 @@ class Chatrooms extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            messaging: 0
+            messaging: 0,
+            messagingToName: ''
         };
         this.toMessage = this.toMessage.bind(this);
         this.closeChat = this.closeChat.bind(this);
@@ -26,9 +27,10 @@ class Chatrooms extends React.Component {
         });
     }
 
-    toMessage(id) {
+    toMessage(id, name) {
         this.setState({
-            messaging: id
+            messaging: id,
+            messagingToName: name
         });
     }
 
@@ -36,7 +38,7 @@ class Chatrooms extends React.Component {
         const { user } = this.props;
         const { matches } = this.props;
         const { messaging } = this.state;
-
+        console.log(matches)
         if (!user.id) {
             return (
                 <div>
@@ -46,18 +48,18 @@ class Chatrooms extends React.Component {
         } else if (messaging !== 0) {
             return (
                 <div>
-                    <div onClick={this.closeChat}>Close Chat</div>
-                    <Chat from={user.id} to={messaging}/>
+                    <Chat from={user.id} to={messaging} fromName={`${user.firstName} ${user.lastName}`} toName={this.state.messagingToName} closeChat={this.closeChat}/>
                 </div>
             );
         } else {
             return (
-                <div>Matches: <br></br>
+                <div>
                     <ul>
                         {
                             matches.map(match => {
+                                const fullName = match.firstName + ' ' + match.lastName
                                 return (
-                                    <li key={match.id} onClick={() => this.toMessage(match.id)}>{match.firstName} {match.lastName}</li>
+                                    <li key={match.id} onClick={() => this.toMessage(match.id, fullName)}>{fullName}</li>
                                 )
                             })
                         }
