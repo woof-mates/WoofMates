@@ -5,6 +5,7 @@ const { Op } = require('sequelize')
 router.get('/:userId', async(req,res,next) => {
     try {
         const { userId } = req.params
+        
         //find all matches on relationship table where either userId or MatchId is the userId
         const allMatches = await Relationship.findAll({
             where: {
