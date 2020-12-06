@@ -6,8 +6,17 @@ import { PROFESSIONS, USER_INTERESTS, BREEDS, DOG_INTERESTS} from '../../constan
 class EditProfile extends React.Component {
   constructor (props) {
     super (props);
-    const {firstName, lastName, userEmail, age, profession, userImage1, userImage2, city, state, zipCode, userInterests, dog} = props.user;
-    this.state = {firstName, lastName, userEmail, age, profession, userImage1, userImage2, city, state, zipCode, userInterests, dog};
+    this.state = {
+      firstName: '',
+      lastName: '',
+      userEmail: '',
+      city: '',
+      state: '',
+      zipCode: '',
+      age: '',
+      profession: '',
+      userInterests: '',
+    }
 
     this.tempUserInterests = userInterests;
     this.tempDogInterests = dog.dogInterests;
@@ -15,6 +24,11 @@ class EditProfile extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.userOnChange = this.userOnChange.bind(this);
     this.dogOnChange = this.dogOnChange.bind(this);
+  }
+
+  componentDidMount(){
+    const {firstName, lastName, userEmail, age, profession, userImage1, userImage2, city, state, zipCode, userInterests, dog} = this.props.user;
+    this.setstate({firstName, lastName, userEmail, age, profession, userImage1, userImage2, city, state, zipCode, userInterests, dog});
   }
 
   userOnChange (e) {
@@ -84,7 +98,7 @@ class EditProfile extends React.Component {
   }
 
   render() {
-    
+
     const {dog} = this.state
     return (
         <div id="updateContainer">
@@ -109,10 +123,10 @@ class EditProfile extends React.Component {
                 {PROFESSIONS.map(profession => (<option key = {profession} value={profession}>{profession}</option>))}
                 </select>
                 <p></p>
-                Photo1: 
+                Photo1:
                 <input value={this.state.userImage1} id="photo1" name = "photo1" onChange={this.userOnChange} />
                 <p></p>
-                Photo2: 
+                Photo2:
                 <input value={this.state.userImage2} id="photo2" name = "photo2" onChange={this.userOnChange} />
                 <p></p>
                 City:
