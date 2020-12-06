@@ -47,7 +47,8 @@ const User = db.define('user', {
         defaultValue: '/images/notFound.png'
     },
     zipCode: {
-        type: INTEGER
+        type: INTEGER,
+        allowNull: false
     },
     city: {
         type: STRING
@@ -57,13 +58,13 @@ const User = db.define('user', {
     },
     userInterests: {
         type: ARRAY(ENUM(...USER_INTERESTS)),
-        defaultValue: []
     },
     age: {
-        type: INTEGER
+        type: INTEGER,
+        allowNull: false
     },
     profession: {
-        type: ENUM(...PROFESSIONS)
+        type: STRING
     },
     userLatitude: {
         type: FLOAT,

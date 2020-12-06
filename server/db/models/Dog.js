@@ -32,6 +32,7 @@ const Dog = db.define('dog', {
     },
     weight: {
         type: INTEGER,
+        allowNull: false
     },
     neutered: {
         type: BOOLEAN,
