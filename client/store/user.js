@@ -30,7 +30,7 @@ const registerAUser = (user) => {
   }
 };
 
-export const registerUser = (firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation) => {
+export const registerUser = (firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userAge, userProfessionsPref) => {
   return async(dispatch) => {
     try {
       // let hashedPassword = saltAndHash(password)
@@ -38,10 +38,8 @@ export const registerUser = (firstName, lastName, userEmail, password, city, sta
       const mapQuestInfo = (await axios.get(`http://www.mapquestapi.com/geocoding/v1/address?key=${mapQuestKey}&location=${zipCode}%2C+US&thumbMaps=true`)).data
       const userLatitude = mapQuestInfo.results[0].locations[0].latLng.lat;
       const userLongitude = mapQuestInfo.results[0].locations[0].latLng.lng;
-      // if user does not enter interests, 
-      if (!userInterests.length) userInterests = []
-      if (!dogInterests.length) dogInterests = []
-      const newUser = (await axios.post('/api/users/register', {firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userLatitude, userLongitude})).data
+
+      const newUser = (await axios.post('/api/users/register', {firstName, lastName, userEmail, hashedPassword, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userAge, userProfessionsPref, userLatitude, userLongitude})).data
       console.log('newuser', newUser)
       dispatch(registerAUser(newUser))
     }

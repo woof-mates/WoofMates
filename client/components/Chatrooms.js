@@ -8,7 +8,7 @@ class Chatrooms extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            messaging: 0
+            messaging: this.props.matchedId ? this.props.matchedId : 0
         };
         this.toMessage = this.toMessage.bind(this);
         this.closeChat = this.closeChat.bind(this);
@@ -17,7 +17,7 @@ class Chatrooms extends React.Component {
     componentDidMount() {
         if (this.props.user.id) {
             this.props.getMatches(this.props.user.id);
-        } 
+        }
     }
 
     closeChat() {

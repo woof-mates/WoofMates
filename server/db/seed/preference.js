@@ -20,12 +20,15 @@ const createPreferences = (numUsers, numVotes) => {
     dogAges.push(setNumericalObj(MAX_DOG_AGE, numVotes))
     dogEnergyLevels.push(setNumericalObj(5, numVotes))
     dogWeights.push(setNumericalObj(MAX_DOG_WEIGHT, numVotes))
-    isNeuteredDealbreaker.push(getRandomInt(2))
+    // first user as broad as possible for match testing purposes
+    if (i === 0) isNeuteredDealbreaker.push(false)
+    else isNeuteredDealbreaker.push(getRandomInt(2))
     userInterests.push(setValObj(USER_INTERESTS, numVotes))
     userAge.push(setNumericalObj(MAX_USER_AGE, numVotes))
     userProfession.push(setValObj(PROFESSIONS, numVotes))
-    distanceFromLocation.push(getRandomInt(MAX_DISTANCE_FROM_USER)+1)
-
+    // first user as broad as possible for match testing purposes
+    if (i === 0) distanceFromLocation.push(MAX_DISTANCE_FROM_USER)
+    else distanceFromLocation.push(getRandomInt(MAX_DISTANCE_FROM_USER)+1)
   }
 
   for (let i = 0; i < numUsers;i++){

@@ -64,13 +64,13 @@ const User = db.define('user', {
         allowNull: false
     },
     profession: {
-        type: STRING
+        type: ENUM(...PROFESSIONS)
     },
     userLatitude: {
-        type: FLOAT,
+        type: FLOAT
     },
     userLongitude: {
-        type: FLOAT,
+        type: FLOAT
     }
 })
 
