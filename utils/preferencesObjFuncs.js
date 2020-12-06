@@ -1,4 +1,4 @@
-const {BREEDS, DOG_AGES, MAX_DOG_ENERGY_LEVEL, MAX_DOG_WEIGHT} = require('../constants')
+const {BREEDS, DOG_AGES, MAX_DOG_ENERGY_LEVEL, MAX_DOG_WEIGHT, MAX_USER_AGE, PROFESSIONS} = require('../constants')
 
 
 const createBreedsObjForPref = () => {
@@ -10,11 +10,27 @@ const createBreedsObjForPref = () => {
 }
 
 const createAgesObjForPref = () => {
-  let agesObjForNewUser = {}
+  let agesPrefObjForNewUser = {}
   for (let i=0; i<DOG_AGES.length; i++) {
-    agesObjForNewUser[DOG_AGES[i]] = 0;
+    agesPrefObjForNewUser[DOG_AGES[i]] = 0;
+  }
+  return agesPrefObjForNewUser
+}
+
+const createUserAgesObjForPref = () => {
+  let agesObjForNewUser = {}
+  for (let i=1; i<=MAX_USER_AGE; i++) {
+    agesObjForNewUser[[i]] = 0;
   }
   return agesObjForNewUser
+}
+
+const createProfessionsObjForPref = () => {
+  let professionsPrefObjForNewUser = {}
+  for (let i=0; i<PROFESSIONS.length; i++) {
+    professionsPrefObjForNewUser[PROFESSIONS[i]] = 0;
+  }
+  return professionsPrefObjForNewUser
 }
 
 const createEnergyLevelObjForPref = () => {
@@ -34,5 +50,5 @@ const createWeightObjForPref = () => {
 }
 
 module.exports = {createBreedsObjForPref, createAgesObjForPref, createEnergyLevelObjForPref,
-createWeightObjForPref}
+createWeightObjForPref, createUserAgesObjForPref, createProfessionsObjForPref}
 

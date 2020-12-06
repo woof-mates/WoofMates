@@ -48,7 +48,7 @@ router.post('/register', async(req, res, next) => { // register a user (api/user
 
     const newSession = await Session.create()
 
-    const {firstName, lastName, userEmail, hashedPassword, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userLatitude, userLongitude} = req.body
+    const {firstName, lastName, userEmail, hashedPassword, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userAge, userProfessionsPref, userLatitude, userLongitude} = req.body
 
     const bodyForUser = {firstName, lastName, userEmail, hashedPassword, city, state, zipCode, age, profession, userInterests, userLatitude, userLongitude}
 
@@ -58,7 +58,7 @@ router.post('/register', async(req, res, next) => { // register a user (api/user
 
     const bodyForPrompts = {userId: newUser.id, dogSpeak, favoriteActivityWithDog}
 
-    const bodyForPreferences = {userId: newUser.id, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation}
+    const bodyForPreferences = {userId: newUser.id, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userAge, userProfession: userProfessionsPref}
 
     await Dog.create(bodyForDogs)
     await Prompt.create(bodyForPrompts)

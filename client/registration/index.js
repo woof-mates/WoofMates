@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { registerUser } from '../store/user'
 import {INITIAL_PREF_POINTS_BREED, INITIAL_PREF_POINTS_OTHER, PROFESSIONS, DOG_WEIGHTS, USER_INTERESTS, BREEDS, DOG_AGES, MAX_DISTANCES, DOG_INTERESTS} from '../../constants'
-import {createBreedsObjForPref, createAgesObjForPref, createEnergyLevelObjForPref, createWeightObjForPref} from '../../utils/preferencesObjFuncs'
+import {createBreedsObjForPref, createAgesObjForPref, createEnergyLevelObjForPref, createWeightObjForPref, createUserAgesObjForPref, createProfessionsObjForPref} from '../../utils/preferencesObjFuncs'
 
 
 class Registration extends React.Component {
@@ -36,6 +36,8 @@ class Registration extends React.Component {
       dogEnergyLevel: '',
       dogWeight: '',
       distanceFromLocation: '',
+      userAge: '',
+      userProfessionsPref: ''
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -86,6 +88,22 @@ class Registration extends React.Component {
       })
     }
 
+    else if (e.target.name === "userAge") {
+      let newUserAgePrefObj = createUserAgesObjForPref();
+      newUserAgePrefObj[e.target.value] = INITIAL_PREF_POINTS_OTHER;
+      this.setState({
+        userAge: newUserAgePrefObj
+      })
+    }
+
+    else if (e.target.name === "userProfessionsPref") {
+      let newUserProfPrefObj = createProfessionsObjForPref();
+      newUserProfPrefObj[e.target.value] = INITIAL_PREF_POINTS_OTHER;
+      this.setState({
+        userProfessionsPref: newUserProfPrefObj
+      })
+    }
+
     else if (e.target.name === "age" || e.target.name === "dogAge" || e.target.name === "energyLevel" || e.target.name === "weight" || e.target.name === "distanceFromLocation") {
       this.setState({
         [e.target.name]: Number(e.target.value)
@@ -109,9 +127,9 @@ class Registration extends React.Component {
   async onSubmit (e) {
     e.preventDefault();
     console.log('current state in Registration is: ',this.state)
-    let {firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation} = this.state
+    let {firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userAge, userProfessionsPref} = this.state
     userEmail = userEmail.toLowerCase()
-    this.props.registerUser(firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation)
+    this.props.registerUser(firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userAge, userProfessionsPref)
     console.log('user in the store is now ', this.props.user)
   }
 
@@ -315,7 +333,11 @@ class Registration extends React.Component {
               <option value="none" selected disabled hidden>
               Select an Option</option>
               {DOG_WEIGHTS.map(weight => (<option key = {weight} value={weight}>{weight}</option>))}
-              </select> pounds.
+              </select> pounds. I'd like to be matched with a pet owner who works in <select id="userProfessionsPref" name="userProfessionsPref" onChange={this.onChange}>
+              <option value="none" selected disabled hidden>
+              Select an Option</option>
+              {PROFESSIONS.map(profession => (<option key = {profession} value={profession}>{profession}</option>))}
+              </select> and is <input type="userAge" name="userAge" onChange={this.onChange} /> years old.
               <p></p>
               <button className="submit" type="submit" onClick={this.onSubmit}>Register</button>
           </div>
@@ -333,7 +355,7 @@ const mapState = state => (
 
 const mapDispatch = (dispatch) => {
   return {
-    registerUser: (firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation) => dispatch(registerUser(firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation))
+    registerUser: (firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userAge, userProfessionsPref) => dispatch(registerUser(firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userAge, userProfessionsPref))
   }
 }
 
