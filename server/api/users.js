@@ -36,7 +36,7 @@ router.post('/register', async(req, res, next) => { // register a user (api/user
     const newSession = await Session.create()
 
     const {firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userAge, userProfessionsPref, userLatitude, userLongitude} = req.body
-    console.log(req.body)
+
     const hashedPassword = await saltAndHash(password)
 
     const bodyForUser = {firstName, lastName, userEmail, hashedPassword, city, state, zipCode, age, profession, userInterests, userLatitude, userLongitude}

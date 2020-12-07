@@ -32,12 +32,12 @@ class Registration extends React.Component {
       neutered: '', //required
       dogInterests: [],
       dogBreed: '',
-      dogAgeForPref: null,
-      dogEnergyLevel: null,
-      dogWeight: null,
+      dogAgeForPref: '',
+      dogEnergyLevel: '',
+      dogWeight: '',
       distanceFromLocation: 5,
-      userAge: null,
-      userProfessionsPref: null
+      userAge: '',
+      userProfessionsPref: ''
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
