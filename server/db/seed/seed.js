@@ -4,6 +4,7 @@ const createDogs = require('./dogs')
 const createPrompts = require('./prompts')
 const createRelationships = require('./relationships')
 const createPreferences = require('./preference')
+const createUserPrefs = require('./userpref')
 
 //Relationship seeding takes too long if there are too few users.  Keep this number high compared to # relps.
 const NUM_USERS = 100;

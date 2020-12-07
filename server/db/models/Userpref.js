@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-const { STRING, INTEGER } = Sequelize
+const { STRING, INTEGER, ARRAY } = Sequelize
 
 const Userpref = db.define('userpref', {
     dogBreedPref: {
@@ -15,11 +15,14 @@ const Userpref = db.define('userpref', {
     dogWeightPref: {
         type: STRING
     },
-    userAgePref: {
-        type: STRING
+    userAgePref: { // store as multiples of 10 (with implied range of +9 e.g. 10-19, 20-29) for ease of use later
+        type: INTEGER
     },
     userProfessionsPref: {
-        type: STRING
+        type: ARRAY(STRING)
+    },
+    userInterestsPref: {
+        type: ARRAY(STRING)
     }
 })
 
