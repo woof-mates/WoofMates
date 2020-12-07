@@ -15,25 +15,25 @@ class App extends React.Component {
         return (
             <Router>
                 <div>
-                    <ul id='nav'>
-                        <li><Link to='/'>Home</Link></li>
-                        <li><Link to='/signUp'>Sign Up</Link></li>
-                        <li><Link to='/profile'>Profile</Link></li>
-                        <li><Link to='/chat'>Chat</Link></li>
-                        <li><Link to='/login'>Login</Link></li>
-                        <li><Link to='/match'>Find Your Match</Link></li>
+                    <ul id="nav">
+                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/signUp">Sign Up</Link></li>
+                        <li><Link to="/profile">Profile</Link></li>
+                        <li><Link to="/chat">Chat</Link></li>
+                        <li><Link to="/login">Login</Link></li>
+                        <li><Link to="/match">Find Your Match</Link></li>
                     </ul>
-                    <Route path='/' exact />
-                    <Route path='/signUp' exact component={Registration}/>
-                    <Route path='/profile' exact component={Profile}/>
-                    <Route path='/chat' exact component={Chatrooms}/>
-                    <Route path='/login' exact component={Login}/>
-                    <Route path='/match' exact component={Match}/>
+                    <Route path="/" exact />
+                    <Route path="/signUp" exact component={Registration} />
+                    <Route path="/profile" exact component={Profile} />
+                    <Route path="/chat" exact component={Chatrooms} />
+                    <Route path="/login" exact component={Login} />
+                    <Route path="/match" exact component={Match} />
                 </div>
             </Router>
         );
-    };
-};
+    }
+}
 
 
 export default App;
