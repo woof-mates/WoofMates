@@ -31,7 +31,7 @@ const createUsers = async (numUsers) => {
     userImages2.push(faker.image.people())
     dogImages.push(`https://placedog.net/500/280/sepia?id=${i}`)
     zipCodes.push(parseInt(faker.address.zipCode()))
-    city.push(CITIES[getRandomInt(CITIES.length)])
+    city.push(faker.address.city())
     state.push(faker.address.stateAbbr())
     age.push(getRandomInt(100))
     profession.push(PROFESSIONS[getRandomInt(PROFESSIONS.length)])

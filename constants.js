@@ -15,11 +15,8 @@ const ENERGY_LEVELS = ['Very Low', 'Low', 'Medium', 'High', 'Very High']
 
 const RELATIONSHIPS = ['UserLikedMatch', 'MatchRejectedUser', 'Matched', 'UserRejectedMatch']
 
-const CITIES = ['New York', 'Chicago', 'Los Angeles']
-const DOG_INTERESTS = ['Walks','Fetch and other games','Treats!','Playing in the dog park', 'Dancing','Eating','Chasing','Giving you kisses']
-
 const DOG_AGES = [
-  1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
 ]
 
 const MAX_DISTANCES = [
@@ -720,4 +717,4 @@ const maxLatitudeDistanceFromNY = 1 // Each degree of latitude is approximately 
 const maxLongitudeDistanceFromNY = 1 // Each degree of longitude is approximately 50 miles apart
 
 
-module.exports = { BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS, MAX_DOG_AGE, MAX_DOG_WEIGHT, MAX_USER_AGE, MAX_DISTANCE_FROM_USER,  DOG_AGES, DOG_WEIGHTS, INITIAL_PREF_POINTS_OTHER, INITIAL_PREF_POINTS_BREED, MAX_DOG_ENERGY_LEVEL, MAX_DISTANCES, DOG_INTERESTS, mapQuestKey, topLatitudeUS, leftLongitudeUS, rightLongitudeUS, bottomLatitudeUS, lengthUS, widthUS, latitudeNY, longitudeNY, CITIES }
+module.exports = { BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS, MAX_DOG_AGE, MAX_DOG_WEIGHT, MAX_USER_AGE, MAX_DISTANCE_FROM_USER,  DOG_AGES, DOG_WEIGHTS, INITIAL_PREF_POINTS_OTHER, INITIAL_PREF_POINTS_BREED, MAX_DOG_ENERGY_LEVEL, MAX_DISTANCES, DOG_INTERESTS, mapQuestKey, topLatitudeUS, leftLongitudeUS, rightLongitudeUS, bottomLatitudeUS, lengthUS, widthUS, latitudeNY, longitudeNY }
