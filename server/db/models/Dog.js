@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
-const { STRING, INTEGER, BOOLEAN, ARRAY, TEXT } = Sequelize;
+const {DOG_INTERESTS} = require('../../../constants')
+const { STRING, INTEGER, BOOLEAN, ARRAY, TEXT, ENUM } = Sequelize;
 
 const Dog = db.define('dog', {
     dogName: {
@@ -31,13 +32,14 @@ const Dog = db.define('dog', {
     },
     weight: {
         type: INTEGER,
+        allowNull: false
     },
     neutered: {
         type: BOOLEAN,
         allowNull: false,
     },
     dogInterests: {
-        type: ARRAY(TEXT)
+        type: ARRAY(ENUM(...DOG_INTERESTS))
     },
 })
 

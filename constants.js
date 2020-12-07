@@ -6,11 +6,49 @@ const MAX_DOG_WEIGHT = 200;
 
 const MAX_USER_AGE = 120;
 
+const MAX_DOG_ENERGY_LEVEL = 5;
+
+const INITIAL_PREF_POINTS_BREED = 100000;
+const INITIAL_PREF_POINTS_OTHER = 20;
+
 const ENERGY_LEVELS = ['Very Low', 'Low', 'Medium', 'High', 'Very High']
 
 const RELATIONSHIPS = ['UserLikedMatch', 'MatchRejectedUser', 'Matched', 'UserRejectedMatch']
 
 const CITIES = ['New York', 'Chicago', 'Los Angeles']
+const DOG_INTERESTS = ['Walks','Fetch and other games','Treats!','Playing in the dog park', 'Dancing','Eating','Chasing','Giving you kisses']
+
+const DOG_AGES = [
+  1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30
+]
+
+const MAX_DISTANCES = [
+  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11,
+  12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+  23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
+  34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44,
+  45, 46, 47, 48, 49, 50
+]
+
+const DOG_WEIGHTS = [
+  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11,
+  12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
+  24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
+  36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
+  48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59,
+  60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71,
+  72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83,
+  84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95,
+  96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111,
+  112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123,
+  124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135,
+  136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147,
+  148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159,
+  160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171,
+  172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183,
+  184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195,
+  196, 197, 198, 199, 200
+]
 
 const BREEDS =    [
   'Affenpinscher',
@@ -667,4 +705,23 @@ const PROFESSIONS = [
 'Trades & Services',
 ]
 
+<<<<<<< HEAD
 module.exports = {BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS, MAX_DOG_AGE, MAX_DOG_WEIGHT, MAX_USER_AGE, MAX_DISTANCE_FROM_USER, CITIES}
+=======
+const mapQuestKey = '6k5vyVG6Y0JOyqDXbfyn4sHx3OVBruPw';
+
+// http://en.wikipedia.org/wiki/Extreme_points_of_the_United_States#Westernmost
+const topLatitudeUS = 49.3457868  // north lat
+const leftLongitudeUS = -124.7844079 // west long
+const rightLongitudeUS = -66.9513812 // east long
+const bottomLatitudeUS =  24.7433195 // south lat
+const lengthUS = topLatitudeUS - bottomLatitudeUS
+const widthUS = -(leftLongitudeUS - rightLongitudeUS)
+const latitudeNY = 40.7128
+const longitudeNY = -74.0060
+const maxLatitudeDistanceFromNY = 1 // Each degree of latitude is approximately 69 miles apart
+const maxLongitudeDistanceFromNY = 1 // Each degree of longitude is approximately 50 miles apart
+
+
+module.exports = { BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS, MAX_DOG_AGE, MAX_DOG_WEIGHT, MAX_USER_AGE, MAX_DISTANCE_FROM_USER,  DOG_AGES, DOG_WEIGHTS, INITIAL_PREF_POINTS_OTHER, INITIAL_PREF_POINTS_BREED, MAX_DOG_ENERGY_LEVEL, MAX_DISTANCES, DOG_INTERESTS, mapQuestKey, topLatitudeUS, leftLongitudeUS, rightLongitudeUS, bottomLatitudeUS, lengthUS, widthUS, latitudeNY, longitudeNY }
+>>>>>>> dad51190b485ce3b71e18110ef7f79eccd9e7951

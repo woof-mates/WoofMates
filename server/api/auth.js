@@ -1,21 +1,25 @@
-const router = require('express').Router()
-const { User, Session } = require('../db');
+const router = require('express').Router();
+const { User, Session, Dog } = require('../db');
+const bcrypt = require('bcrypt');
 
 const A_WEEK_IN_SECONDS = 1000 * 60 * 60 * 24 * 7;
 
 router.post('/login', async(req, res, next) => {
     try {
-        const { userEmail, hashedPassword } = req.body;
-        console.log(userEmail, hashedPassword)
+        const { userEmail, password } = req.body;
         const user = await User.findOne({
             where: {
                 userEmail,
-                hashedPassword
             },
-            include: [Session],
+            include: [Session, Dog],
         })
-        // if userEmail and password is a match...
+        // if userEmail has an account...
         if (user) {
+            // first check password match with hashed pwd stored in db
+            const comparisonResult = await bcrypt.compare(password, user.hashedPassword);
+                if (!comparisonResult) {
+                throw new Error('Wrong password!');
+            }
             // if user already has a session, refresh the expiration date of cookie
             if (user.session) {
                 res.cookie('sid', user.session.sid, {
@@ -37,14 +41,14 @@ router.post('/login', async(req, res, next) => {
                     where: {
                       id: user.id
                     },
-                    include: [Session]
+                    include: [Session, Dog],
                   })
                 res.status(201).send(userWithNewSession)
             }
         }
         // if userEmail and password are not a match, send 404
         else res.sendStatus(404);
-    } catch(err) { next(err); }
+    } catch (err) { next(err); }
 });
 
 router.delete('/logout/:userId', async(req, res, next) => {

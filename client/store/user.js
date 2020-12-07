@@ -1,17 +1,26 @@
+/* eslint-disable max-params */
 import axios from 'axios';
-import {saltAndHash} from '../../utils/hashPasswordFunc'
+import { mapQuestKey } from '../../constants'
 
 //User State
 
-const REGISTER_USER = 'REGISTER_USER'
+const REGISTER_USER = 'REGISTER_USER';
 const LOGIN = 'LOGIN';
-const LOGOUT = 'LOGOUT'
+const LOGOUT = 'LOGOUT';
+const UPDATE = 'UPDATE';
 
 const _login = (user) => {
     return {
         type: LOGIN,
         user
     }
+};
+
+const _logout = (emptyUser) => {
+  return {
+      type: LOGOUT,
+      emptyUser
+  }
 };
 
 const registerAUser = (user) => {
@@ -21,11 +30,15 @@ const registerAUser = (user) => {
   }
 };
 
-export const registerUser = (firstName, lastName, userEmail, password, city, state, zipCode) => {
+export const registerUser = (firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userAge, userProfessionsPref) => {
   return async(dispatch) => {
     try {
-      let hashedPassword = saltAndHash(password)
-      const newUser = (await axios.post('/api/users/register', {firstName, lastName, userEmail, hashedPassword, city, state, zipCode})).data
+      // mapquest API to get latitude and longitude from user zipcode
+      const mapQuestInfo = (await axios.get(`http://www.mapquestapi.com/geocoding/v1/address?key=${mapQuestKey}&location=${zipCode}%2C+US&thumbMaps=true`)).data
+      const userLatitude = mapQuestInfo.results[0].locations[0].latLng.lat;
+      const userLongitude = mapQuestInfo.results[0].locations[0].latLng.lng;
+
+      const newUser = (await axios.post('/api/users/register', {firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userAge, userProfessionsPref, userLatitude, userLongitude})).data
       console.log('newuser', newUser)
       dispatch(registerAUser(newUser))
     }
@@ -38,19 +51,12 @@ export const registerUser = (firstName, lastName, userEmail, password, city, sta
 export const login = (loginInfo) => async(dispatch) => {
   try {
       const {userEmail, password} = loginInfo
-      const hashedPassword = saltAndHash(password)
-      const { data } = await (axios.post('/api/auth/login', {userEmail, hashedPassword}))
+      // const hashedPassword = saltAndHash(password)
+      const { data } = await (axios.post('/api/auth/login', {userEmail, password}))
       dispatch(_login(data))
   } catch(err) {
       alert('User and password do not match');
       console.error(err);
-  }
-};
-
-const _logout = (emptyUser) => {
-  return {
-      type: LOGOUT,
-      emptyUser
   }
 };
 
@@ -63,8 +69,27 @@ export const logout = (userId) => async(dispatch) => {
   }
 }
 
+const updateUser = (user) => {
+  return {
+    type: UPDATE,
+    user
+  }
+}
+
+export const editProfile = (userId, updatedProfile) => async(dispatch) => {
+  try {
+    await (axios.put(`/api/users/${userId}`, updatedProfile));
+    let updatedUser = await (axios.get(`/api/users/${userId}`))
+    dispatch(updateUser(updatedUser.data));
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 export default function userReducer (state = {}, action) {
   switch (action.type) {
+      case UPDATE:
+        return action.user;
       case REGISTER_USER:
           return action.user
       case LOGIN:

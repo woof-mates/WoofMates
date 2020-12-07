@@ -13,7 +13,7 @@ const MAX_NUM_VOTES = 100;
 const seed = async () => {
     try {
       console.log('creating users,dogs,prompts,relps');
-      let users = createUsers(NUM_USERS);
+      let users = await createUsers(NUM_USERS);
       let dogs = createDogs(NUM_USERS)
       let prompts = createPrompts(NUM_USERS);
       let relationships = createRelationships(NUM_RELPS, NUM_USERS)

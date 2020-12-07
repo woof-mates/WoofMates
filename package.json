@@ -20,6 +20,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "babel-eslint": "^10.1.0",
+    "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
     "db-create": "^1.2.0",
     "eslint": "^7.14.0",
@@ -28,6 +29,7 @@
     "express": "^4.17.1",
     "faker": "^5.1.0",
     "firebase": "^8.1.1",
+    "nodemailer": "^6.4.16",
     "pg": "^8.3.0",
     "pg-hstore": "^2.3.3",
     "react": "^16.13.1",
