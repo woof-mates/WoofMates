@@ -10,7 +10,7 @@ class VideoChat extends React.Component {
         this.state = {
             isLoggedIn: false,
             userToCall: null,
-            username: this.props.fromName
+            username: null
         }
 
         this.onLoginClicked = this.onLoginClicked.bind(this);
@@ -65,7 +65,7 @@ class VideoChat extends React.Component {
         return (
             <section id='container'>
                 {this.props.connectedUser ? null : this.renderForms()}
-
+                <button onClick={this.onStartCallClicked} id='call-btn' className='btn btn-primary'>Call</button>
                 {this.renderVideos()}
             </section>
         )

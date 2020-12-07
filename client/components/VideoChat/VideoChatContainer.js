@@ -56,7 +56,7 @@ class VideoChatContainer extends React.Component {
     };
 
     async startCall (username, userToCall) {
-        const { database, localConnection, localStream} = this.state;
+        const { localConnection, database, localStream} = this.state;
         listenToConnectionEvents(localConnection, username, userToCall, database, this.remoteVideoRef, doCandidate);
         createOffer(localConnection, localStream, userToCall, doOffer, database, username);
 
@@ -64,7 +64,7 @@ class VideoChatContainer extends React.Component {
 
     async onLogin (username) {
         console.log('login', username, this.state.database)
-        await doLogin(username, this.state.database, this.handleUpdate)
+        return await doLogin(username, this.state.database, this.handleUpdate)
     };
 
     setLocalVideoRef (ref) {
@@ -76,11 +76,13 @@ class VideoChatContainer extends React.Component {
     };
 
     handleUpdate (notif, username) {    
-        const { database, localConnection, localStream} = this.state;
+        const { localConnection, database, localStream} = this.state;
 
         if (notif) {
             switch (notif.type) {
                 case 'offer':
+                    console.log('.........................1')
+                    console.log(notif.from)
                     this.setState({
                         connectedUser: notif.from
                     })
@@ -90,6 +92,8 @@ class VideoChatContainer extends React.Component {
                     sendAnswer(localConnection, localStream, notif, doAnswer, database, username)
                     break;
                 case 'answer':
+                    console.log('.........................2')
+                    console.log(notif.from)
                     this.setState({
                         connectedUser: notif.from
                     });
@@ -97,6 +101,7 @@ class VideoChatContainer extends React.Component {
 
                     break;
                 case 'candidate': 
+                    console.log('.........................3')
                     addCandidate(localConnection, notif)
                     break;
                 default: 
