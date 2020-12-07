@@ -9,6 +9,7 @@ const MAX_USER_AGE = 120;
 const MAX_DOG_ENERGY_LEVEL = 5;
 
 const INITIAL_PREF_POINTS_BREED = 100000;
+
 const INITIAL_PREF_POINTS_OTHER = 20;
 
 const ENERGY_LEVELS = ['Very Low', 'Low', 'Medium', 'High', 'Very High']
