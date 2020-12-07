@@ -62,7 +62,6 @@ class VideoChatContainer extends React.Component {
     };
 
     async onLogin (username) {
-        console.log('login', username, this.state.database)
         return await doLogin(username, this.state.database, this.handleUpdate)
     };
 
@@ -80,8 +79,6 @@ class VideoChatContainer extends React.Component {
         if (notif) {
             switch (notif.type) {
                 case 'offer':
-                    console.log('.........................1')
-                    console.log(notif.from)
                     this.setState({
                         connectedUser: notif.from
                     })
@@ -91,8 +88,6 @@ class VideoChatContainer extends React.Component {
                     sendAnswer(localConnection, localStream, notif, doAnswer, database, username)
                     break;
                 case 'answer':
-                    console.log('.........................2')
-                    console.log(notif.from)
                     this.setState({
                         connectedUser: notif.from
                     });
@@ -100,7 +95,6 @@ class VideoChatContainer extends React.Component {
 
                     break;
                 case 'candidate': 
-                    console.log('.........................3')
                     addCandidate(localConnection, notif)
                     break;
                 default: 

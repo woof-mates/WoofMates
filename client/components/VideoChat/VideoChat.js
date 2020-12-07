@@ -13,7 +13,6 @@ class VideoChat extends React.Component {
             username: this.props.fromName
         }
 
-        // this.onLoginClicked = this.onLoginClicked.bind(this);
         this.onStartCallClicked = this.onStartCallClicked.bind(this);
         this.renderVideos = this.renderVideos.bind(this);
     }
