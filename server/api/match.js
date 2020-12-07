@@ -3,6 +3,7 @@ const router = require('express').Router();
 const nodemailer = require('nodemailer');
 const { User, Relationship, Dog, Preference } = require('../db')
 const { getDistance }  = require('../../utils/mathFuncs')
+const {findMatch} = require('../../server/matchAlg/match')
 
 router.get('/:userId', async(req, res, next) => {
     // console.logs left in intentionally for testing purposes
@@ -15,6 +16,8 @@ router.get('/:userId', async(req, res, next) => {
                 userId
             }
         });
+        const currUser = (await User.findByPk(userId, { include: [Preference] })).dataValues
+
         const { distanceFromLocation, isNeuteredDealbreaker } = userPreferences;
         console.log('user prefs: distance', distanceFromLocation, 'neutereddealbreaker', isNeuteredDealbreaker)
         const allUsers = await User.findAll({ include: Dog });
@@ -63,7 +66,9 @@ router.get('/:userId', async(req, res, next) => {
             console.log('here')
             // send one match at a time so algo can update with each decision by user
             // sending 1st element in matches array for now, but this would be sorted based on algorithm
-            res.send(matchesAlreadyLikedUser[0])
+            const bestMatch = findMatch(currUser, matchesAlreadyLikedUser)
+            console.log(bestMatch)
+            res.send(bestMatch)
             }
         // if there are no filtered matches that have already liked this user...
         else {
@@ -99,7 +104,9 @@ router.get('/:userId', async(req, res, next) => {
 
             // same as above, sending first of array for now
             // if (!unseenMatches.length) res.send( { message: 'You have no matches that fit your criteria. Try broadening it in your settings!'})
-            res.send(unseenMatches[0])
+            const bestMatch = findMatch(currUser, unseenMatches)
+            console.log(bestMatch)
+            res.send(bestMatch)
         }
     } catch (err) { next(err) }
 })

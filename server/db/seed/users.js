@@ -1,18 +1,11 @@
 /* eslint-disable max-statements */
 const faker = require('faker')
-<<<<<<< HEAD
-const {USER_INTERESTS, PROFESSIONS, CITIES} = require('../../../constants')
-const {getRandomInt} = require('../../../utils/mathFuncs')
-const { saltAndHash } = require('../../../utils/hashPasswordFunc')
 
-const createUsers = (numUsers) => {
-=======
 const { USER_INTERESTS, PROFESSIONS, leftLongitudeUS, bottomLatitudeUS, lengthUS, widthUS, latitudeNY, longitudeNY } = require('../../../constants')
 const { getRandomInt } = require('../../../utils/mathFuncs')
 const { saltAndHash } = require('../../../utils/hashPasswordFunc')
 
 const createUsers = async (numUsers) => {
->>>>>>> dad51190b485ce3b71e18110ef7f79eccd9e7951
   let firstNames = [];
   let lastNames = [];
   let userEmails = [];
