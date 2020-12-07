@@ -16,6 +16,7 @@ const findMatch = async (currUserId) => {
     },
     include: [Dog]
   })
+  console.log(users)
   let highestScore = -1;
   let bestMatch = {};
   let currScore = 0;
