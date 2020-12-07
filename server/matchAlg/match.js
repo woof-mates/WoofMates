@@ -1,22 +1,12 @@
 const {score} = require('./score')
 const {favoriteTraits} = require('./favTraits')
+const chalk = require('chalk')
 // const { User, Preference, Dog} = require('../db')
 
 const findMatch = async (currUser, users) => {
   //use score to return dog with highest score
   //Need to figure out how to filter out distance.  For now I am using city
 
-  //Need to filter out users who have already been seen.  Need to talk to Fu.
-  // const currUser = (await User.findByPk(currUserId, { include: [Preference] })).dataValues
-  // const users = await User.findAll({
-  //   where: {
-  //     city: currUser.city,
-  //     id: {
-  //       [require('sequelize').Op.not]: currUser.id
-  //     }
-  //   },
-  //   include: [Dog]
-  // })
   let highestScore = -1;
   let bestMatch = {};
   let currScore = 0;
@@ -28,7 +18,7 @@ const findMatch = async (currUser, users) => {
       bestMatch = possibleMatch;
     }
   }
-  console.log(highestScore)
+
   return bestMatch;
 
 }

@@ -19,7 +19,7 @@ router.get('/:userId', async(req, res, next) => {
         const currUser = (await User.findByPk(userId, { include: [Preference] })).dataValues
 
         const { distanceFromLocation, isNeuteredDealbreaker } = userPreferences;
-        console.log('user prefs: distance', distanceFromLocation, 'neutereddealbreaker', isNeuteredDealbreaker)
+        // console.log('user prefs: distance', distanceFromLocation, 'neutereddealbreaker', isNeuteredDealbreaker)
         const allUsers = await User.findAll({ include: Dog });
 
         // function to filter matches with upfront user-specified filters
@@ -28,8 +28,8 @@ router.get('/:userId', async(req, res, next) => {
             for (let i = 0; i < matchArray.length; i++){
                 const match = matchArray[i]
                 // logs for debugging; can be deleted later
-                console.log('latlongs',userLatitude * 1, userLongitude * 1, match.userLatitude * 1, match.userLongitude * 1)
-                console.log('matchId', match.id, 'Userdistancefrommatch:', (getDistance(userLatitude * 1, userLongitude * 1, match.userLatitude * 1, match.userLongitude * 1)))
+                // console.log('latlongs',userLatitude * 1, userLongitude * 1, match.userLatitude * 1, match.userLongitude * 1)
+                // console.log('matchId', match.id, 'Userdistancefrommatch:', (getDistance(userLatitude * 1, userLongitude * 1, match.userLatitude * 1, match.userLongitude * 1)))
                 if (isNeuteredDealbreaker) console.log('neutered is a dealbreaker, matchDog is neutered:', match.dog.neutered)
 
                 if (getDistance(userLatitude * 1, userLongitude * 1, match.userLatitude * 1, match.userLongitude * 1) <= distanceFromLocation
@@ -63,11 +63,10 @@ router.get('/:userId', async(req, res, next) => {
         }
         // if after filtering by user-specified filters, matches still remain...
         if (matchesAlreadyLikedUser.length) {
-            console.log('here')
+            // console.log('here')
             // send one match at a time so algo can update with each decision by user
             // sending 1st element in matches array for now, but this would be sorted based on algorithm
-            const bestMatch = findMatch(currUser, matchesAlreadyLikedUser)
-            console.log(bestMatch)
+            const bestMatch = await findMatch(currUser, matchesAlreadyLikedUser)
             res.send(bestMatch)
             }
         // if there are no filtered matches that have already liked this user...
@@ -104,8 +103,7 @@ router.get('/:userId', async(req, res, next) => {
 
             // same as above, sending first of array for now
             // if (!unseenMatches.length) res.send( { message: 'You have no matches that fit your criteria. Try broadening it in your settings!'})
-            const bestMatch = findMatch(currUser, unseenMatches)
-            console.log(bestMatch)
+            const bestMatch = await findMatch(currUser, unseenMatches)
             res.send(bestMatch)
         }
     } catch (err) { next(err) }

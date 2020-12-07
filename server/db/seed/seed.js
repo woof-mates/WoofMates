@@ -6,8 +6,8 @@ const createRelationships = require('./relationships')
 const createPreferences = require('./preference')
 
 //Relationship seeding takes too long if there are too few users.  Keep this number high compared to # relps.
-const NUM_USERS = 1000;
-const NUM_RELPS = 2000;
+const NUM_USERS = 100;
+const NUM_RELPS = 200;
 const MAX_NUM_VOTES = 100;
 
 const seed = async () => {
