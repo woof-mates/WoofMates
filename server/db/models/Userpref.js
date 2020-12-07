@@ -15,7 +15,7 @@ const Userpref = db.define('userpref', {
     dogWeightPref: {
         type: STRING
     },
-    userAgePref: { // store as multiples of 10 (with implied range of +9 e.g. 10-19, 20-29) for ease of use later
+    userAgePrefMinRange: { // store as multiples of 10 (with implied range of +9 e.g. 10-19, 20-29) for ease of use later
         type: INTEGER
     },
     userProfessionsPref: {
