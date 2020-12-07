@@ -11,7 +11,7 @@ class VideoChatContainer extends React.Component {
     constructor(props) {
         super (props);
         this.state = {
-            database: null,
+            database: firebase.database(),
             connectedUser: null,
             localStream: null,
             localConnection: null
@@ -33,7 +33,6 @@ class VideoChatContainer extends React.Component {
       
       const localConnection = await initiateConnection();
       this.setState({
-          database: firebase.database(),
           localStream,
           localConnection
       })

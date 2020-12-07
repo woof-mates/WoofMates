@@ -54,8 +54,9 @@ class Chatrooms extends React.Component {
         } else {
             return (
                 <div>
+                    <h4>Matches: </h4>
                     <ul>
-                        {
+                        {   
                             matches.map(match => {
                                 const fullName = match.firstName + ' ' + match.lastName
                                 return (

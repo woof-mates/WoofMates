@@ -9,18 +9,17 @@ class VideoChat extends React.Component {
         super (props);
         this.state = {
             isLoggedIn: false,
-            userToCall: null,
-            username: null
+            userToCall: this.props.toName,
+            username: this.props.fromName
         }
 
-        this.onLoginClicked = this.onLoginClicked.bind(this);
+        // this.onLoginClicked = this.onLoginClicked.bind(this);
         this.onStartCallClicked = this.onStartCallClicked.bind(this);
         this.renderVideos = this.renderVideos.bind(this);
-        this.renderForms = this.renderForms.bind(this);
     }
     
 
-    async onLoginClicked() {
+    async componentDidMount() {
         await this.props.onLogin(this.state.username);
         this.setState({
             isLoggedIn: true
@@ -36,36 +35,21 @@ class VideoChat extends React.Component {
             <div className={classnames('videos', { active: this.state.isLoggedIn })}>
                 <div>
                     <label>{this.state.username}</label><br></br>
-                    <video ref={this.props.setLocalVideoRef} autoPlay playsInline></video>
+                    <video width={500} height={400} ref={this.props.setLocalVideoRef} autoPlay playsInline></video>
                 </div>
                 <div>
-                    <label>{this.props.connectedUser}</label><br></br>
-                    <video ref={this.props.setRemoteVideoRef} autoPlay playsInline></video>
+                    <label>{this.props.connectedUser}</label><br></br> 
+                    <video width={500} height={400} ref={this.props.setRemoteVideoRef} autoPlay playsInline></video>
                 </div>
             </div>
         )
     }
 
-    renderForms() {
-        return this.state.isLoggedIn
-            ? <div key='a' className='form'>
-                <label>Call to</label>
-                <input value={this.state.userToCall} type='text' onChange={e => this.setState({ userToCall: e.target.value})} />
-                <button onClick={this.onStartCallClicked} id='call-btn' className='btn btn-primary'>Call</button>
-            </div>
-            : <div key='b' className='form'>
-                <label>Type a name</label>
-                <input value={this.state.username} type='text' onChange={e => this.setState({ username: e.target.value})} />
-                <button onClick={this.onLoginClicked} id='login-btn' className='btn btn-primary'>Login</button>
-            </div>
-
-    }
-
     render() {
         return (
             <section id='container'>
-                {this.props.connectedUser ? null : this.renderForms()}
-                <button onClick={this.onStartCallClicked} id='call-btn' className='btn btn-primary'>Call</button>
+                <button onClick={this.onStartCallClicked} id='call-btn' className='btn btn-primary'>Start Call</button>
+
                 {this.renderVideos()}
             </section>
         )
