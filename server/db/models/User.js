@@ -61,10 +61,9 @@ const User = db.define('user', {
     },
     age: {
         type: INTEGER,
-        allowNull: false
     },
     profession: {
-        type: ENUM(...PROFESSIONS)
+        type: STRING
     },
     userLatitude: {
         type: FLOAT

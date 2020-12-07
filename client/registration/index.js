@@ -7,35 +7,35 @@ import {createBreedsObjForPref, createAgesObjForPref, createEnergyLevelObjForPre
 
 
 class Registration extends React.Component {
-  constructor () {
-    super ()
+  constructor (props) {
+    super(props)
     this.tempUserInterests = []
     this.tempDogInterests = []
     this.state = {
-      firstName: '',
+      firstName: '', //required
       lastName: '',
-      userEmail: '',
-      password: '',
+      userEmail: '', //required
+      password: '', //required
       city: '',
       state: '',
-      zipCode: '',
-      age: '',
+      zipCode: 0, //required
+      age: null,
       profession: '',
-      userInterests: '',
+      userInterests: [],
       dogSpeak: '',
       favoriteActivityWithDog: '',
-      dogName: '',
-      breed: '',
-      dogAge: '',
-      energyLevel: '',
-      weight: '',
-      neutered: '',
-      dogInterests: '',
+      dogName: '', //required
+      breed: '', //required
+      dogAge: 0, //required
+      energyLevel: 3,
+      weight: 0, //required
+      neutered: '', //required
+      dogInterests: [],
       dogBreed: '',
       dogAgeForPref: '',
       dogEnergyLevel: '',
       dogWeight: '',
-      distanceFromLocation: '',
+      distanceFromLocation: 5,
       userAge: '',
       userProfessionsPref: ''
     };

@@ -1,9 +1,10 @@
-const { db, User, Dog, Prompt, Relationship, Preference } = require('..')
+const { db, User, Dog, Prompt, Relationship, Preference, Userpref } = require('..')
 const createUsers = require('./users')
 const createDogs = require('./dogs')
 const createPrompts = require('./prompts')
 const createRelationships = require('./relationships')
 const createPreferences = require('./preference')
+const createUserprefs = require('./userpref')
 
 //Relationship seeding takes too long if there are too few users.  Keep this number high compared to # relps.
 const NUM_USERS = 100;
@@ -12,12 +13,13 @@ const MAX_NUM_VOTES = 100;
 
 const seed = async () => {
     try {
-      console.log('creating users,dogs,prompts,relps');
+      console.log('creating users, dogs, prompts, relps, userprefs');
       let users = await createUsers(NUM_USERS);
       let dogs = createDogs(NUM_USERS)
       let prompts = createPrompts(NUM_USERS);
       let relationships = createRelationships(NUM_RELPS, NUM_USERS)
       let preferences = createPreferences(NUM_USERS, MAX_NUM_VOTES)
+      let userprefs = createUserprefs(NUM_USERS)
       console.log('seeding into db')
 
       await db.sync({ force: true });
@@ -46,7 +48,9 @@ const seed = async () => {
       for (let i = 0; i < preferences.length; i++){
         promises.push(Preference.create(preferences[i]))
       }
-
+      for (let i = 0; i < userprefs.length; i++) {
+        promises.push(Userpref.create(userprefs[i]))
+      }
       await Promise.all(promises);
 
       await db.close();

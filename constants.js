@@ -705,6 +705,18 @@ const PROFESSIONS = [
 'Trades & Services',
 ]
 
+const DOG_AGE_PREFS = [
+  'Older',
+  'Same',
+  'Younger'
+]
+
+const DOG_WEIGHT_PREFS = [
+  'Larger',
+  'Same',
+  'Smaller'
+]
+
 const mapQuestKey = '6k5vyVG6Y0JOyqDXbfyn4sHx3OVBruPw';
 
 // http://en.wikipedia.org/wiki/Extreme_points_of_the_United_States#Westernmost
@@ -720,4 +732,4 @@ const maxLatitudeDistanceFromNY = 1 // Each degree of latitude is approximately 
 const maxLongitudeDistanceFromNY = 1 // Each degree of longitude is approximately 50 miles apart
 
 
-module.exports = { BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS, MAX_DOG_AGE, MAX_DOG_WEIGHT, MAX_USER_AGE, MAX_DISTANCE_FROM_USER,  DOG_AGES, DOG_WEIGHTS, INITIAL_PREF_POINTS_OTHER, INITIAL_PREF_POINTS_BREED, MAX_DOG_ENERGY_LEVEL, MAX_DISTANCES, DOG_INTERESTS, mapQuestKey, topLatitudeUS, leftLongitudeUS, rightLongitudeUS, bottomLatitudeUS, lengthUS, widthUS, latitudeNY, longitudeNY }
+module.exports = { BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS, MAX_DOG_AGE, MAX_DOG_WEIGHT, MAX_USER_AGE, MAX_DISTANCE_FROM_USER,  DOG_AGES, DOG_WEIGHTS, INITIAL_PREF_POINTS_OTHER, INITIAL_PREF_POINTS_BREED, MAX_DOG_ENERGY_LEVEL, MAX_DISTANCES, DOG_INTERESTS, DOG_AGE_PREFS, DOG_WEIGHT_PREFS, mapQuestKey, topLatitudeUS, leftLongitudeUS, rightLongitudeUS, bottomLatitudeUS, lengthUS, widthUS, latitudeNY, longitudeNY }
