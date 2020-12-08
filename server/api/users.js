@@ -23,7 +23,6 @@ router.get('/get-user', (req, res, next) => {
 
 router.get('/:userId', async(req, res, next) => { // single user profile
   try {
-    if (req.user.id === Number(req.params.userId)){
       const userProfile = await User.findOne({
         where: {
           id: req.params.userId
@@ -32,10 +31,6 @@ router.get('/:userId', async(req, res, next) => { // single user profile
       });
       console.log('backend', userProfile)
       res.send(userProfile)
-    }
-    else {
-      res.send('You are unauthorized to access this.')
-    }
   }
   catch (ex) {
     next(ex)
@@ -87,13 +82,8 @@ router.post('/register', async(req, res, next) => { // register a user (api/user
 
 router.delete('/:userId', async(req, res, next) => { // delete a user (api/users)
   try {
-    if (req.user.id === Number(req.params.userId)){
       await User.destroy({where: {id: req.params.userId}})
       res.sendStatus(200)
-    }
-    else {
-      res.send('You are unauthorized to access this.')
-    }
   } catch (error) {
     console.log(error)
     res.sendStatus(500)
@@ -103,7 +93,6 @@ router.delete('/:userId', async(req, res, next) => { // delete a user (api/users
 
 router.put('/:userId', async(req, res, next) => { // update a user (api/users)
   try {
-    if (req.user.id === Number(req.params.userId)){
       await Dog.update(req.body.dog, {
         where: {
           id: req.body.dog.id
@@ -124,10 +113,7 @@ router.put('/:userId', async(req, res, next) => { // update a user (api/users)
       })
       res.send(updatedUser);
     }
-  else {
-    res.send('You are unauthorized to access this.')
-  }
-  } catch (error) {
+    catch (error) {
     console.log(error)
     res.sendStatus(500)
   }
