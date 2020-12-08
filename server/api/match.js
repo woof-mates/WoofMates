@@ -22,8 +22,8 @@ router.get('/:userId', async(req, res, next) => {
         // function to filter matches with upfront user-specified filters
         const filterMatchesWithUserSpecifiedFilters = (matchArray) => {
             let filteredMatchArray = [];
-            for (let i = 0; i < matchArray.length; i++){
-                const match = matchArray[i]
+            for (let match of matchArray){
+                // const match = matchArray[i]
                 // logs for debugging; can be deleted later
                 console.log('latlongs',userLatitude * 1, userLongitude * 1, match.userLatitude * 1, match.userLongitude * 1)
                 console.log('matchId', match.id, 'Userdistancefrommatch:', (getDistance(userLatitude * 1, userLongitude * 1, match.userLatitude * 1, match.userLongitude * 1)))

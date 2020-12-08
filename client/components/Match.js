@@ -37,8 +37,8 @@ class Match extends Component {
     }
     render(){
         let { match, user } = this.props;
-        return (
-            match.firstName ?
+        if (!match.firstName) {
+            return (
             <>
                 <div>Owner Name and Age: {match.firstName}, age {match.age}</div>
                 <div>Dog Name, Age, and Breed: {match.dog.dogName}, age {match.dog.dogAge}, a {match.dog.breed}</div>
@@ -77,8 +77,7 @@ class Match extends Component {
                 <p>{this.state.message}</p>
                 { this.state.message.includes('you have matched') ? <Chatrooms matchedId = {match.id} /> : null}
             </>
-            : null
-        )
+        )}
     }
 }
 
