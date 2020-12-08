@@ -16,11 +16,11 @@ router.get('/:userId', async(req, res, next) => {
                 userId
             }
         });
-        const currUser = (await User.findByPk(userId, { include: [Preference, Userpref] })).dataValues
+        const currUser = (await User.findByPk(userId, { include: [Preference, Userpref, Dog] })).dataValues
 
         const { distanceFromLocation, isNeuteredDealbreaker } = userPreferences;
         // console.log('user prefs: distance', distanceFromLocation, 'neutereddealbreaker', isNeuteredDealbreaker)
-        const allUsers = await User.findAll({ include: Dog });
+        const allUsers = await User.findAll({ include: [Dog, Preference] });
 
         // function to filter matches with upfront user-specified filters
         const filterMatchesWithUserSpecifiedFilters = (matchArray) => {

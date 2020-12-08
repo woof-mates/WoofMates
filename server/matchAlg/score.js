@@ -9,7 +9,7 @@ const VOTES_FOR_STATED_PREF = 100000000
 const MATCH_PREF_WITH_USER = {
   userProfession: 'profession',
   userAge: 'age',
-  userInterests: 'userInterests'
+  userInterests: 'userInterests',
 }
 
 const MATCH_PREF_WITH_DOG = {
@@ -17,6 +17,16 @@ const MATCH_PREF_WITH_DOG = {
   dogAgeForPref: 'dogAge',
   dogEnergyLevel: 'energyLevel',
   dogWeight: 'weight'
+}
+
+const MATCH_PREF_WITH_SWIPING_ACT = {
+  dogBreed: 'dogBreed',
+  dogAgeForPref: 'dogAgeForPref',
+  dogEnergyLevel: 'dogEnergyLevel',
+  dogWeight: 'dogWeight',
+  userProfession: 'userProfession',
+  userAge: 'userAge',
+  userInterests: 'userInterests'
 }
 
 const MATCH_USERPREF_WITH_DOG = {
@@ -28,38 +38,54 @@ const MATCH_USERPREF_WITH_DOG = {
 
 const MATCH_USERPREF_WITH_USER = {
   userProfessionsPref: 'profession',
-  // userAge: 'age',
+  userAgePrefMinRange: 'age',
   userInterestsPref: 'userInterests'
 }
 
-const scoreActivity = (user1FavTraits, user2) => {
+const scoreActivity = (user1FavTraits, user2, currUser) => {
   const dog2 = user2.dog.dataValues
+  const userSwipingActivity = currUser.preference.dataValues
+  console.log('in scoreActivity function, user passed in for evalution as a match is: ', user2)
   //calculate how much user1 will like user2
     let total = 0;
     for (let key in user1FavTraits){
       let user1FavTrait = user1FavTraits[key];
       switch (key) {
         case 'dogBreed':
-          if (user1FavTrait === dog2[MATCH_PREF_WITH_DOG[key]]){total++}
+          if (user1FavTrait === dog2[MATCH_PREF_WITH_DOG[key]]) {
+            total += userSwipingActivity[MATCH_PREF_WITH_SWIPING_ACT[key][user1FavTrait]]
+          }
           break;
         case 'dogAgeForPref':
-          if (parseInt(user1FavTrait) === dog2[MATCH_PREF_WITH_DOG[key]]){total++}
+          if (user1FavTrait === dog2[MATCH_PREF_WITH_DOG[key]]) {
+            total += userSwipingActivity[MATCH_PREF_WITH_SWIPING_ACT[key][user1FavTrait]]
+          }
           break;
         case 'dogEnergyLevel':
-          if (parseInt(user1FavTrait) === dog2[MATCH_PREF_WITH_DOG[key]]){total++}
+          if (user1FavTrait === dog2[MATCH_PREF_WITH_DOG[key]]) {
+            total += userSwipingActivity[MATCH_PREF_WITH_SWIPING_ACT[key][user1FavTrait]]
+          }
           break;
         case 'dogWeight':
-          if (parseInt(user1FavTrait) === dog2[MATCH_PREF_WITH_DOG[key]]){total++}
+          if (user1FavTrait === dog2[MATCH_PREF_WITH_DOG[key]]) {
+            total += userSwipingActivity[MATCH_PREF_WITH_SWIPING_ACT[key][user1FavTrait]]
+          }
           break;
         case 'userProfession':
-          if (user1FavTrait === user2[MATCH_PREF_WITH_USER[key]]){total++}
+          if (user1FavTrait === user2[MATCH_PREF_WITH_SWIPING_ACT[key]]) {
+            total += userSwipingActivity[MATCH_PREF_WITH_SWIPING_ACT[key][user1FavTrait]]
+          }
           break;
         case 'userAge':
-          if (parseInt(user1FavTrait) === user2[MATCH_PREF_WITH_USER[key]]){total++}
+          if (user1FavTrait === user2[MATCH_PREF_WITH_SWIPING_ACT[key]]) {
+            total += userSwipingActivity[MATCH_PREF_WITH_SWIPING_ACT[key][user1FavTrait]]
+          }
           break;
         case 'userInterests':
-          for (let interest of user2[MATCH_PREF_WITH_USER[key]]){
-            if (user1FavTrait === interest){total++}
+          for (let interest of user2[MATCH_PREF_WITH_SWIPING_ACT[key]]){
+            if (user1FavTrait === interest) {
+              total += userSwipingActivity[MATCH_PREF_WITH_SWIPING_ACT[key][user1FavTrait]]
+            }
           }
           break;
         default:
@@ -69,8 +95,11 @@ const scoreActivity = (user1FavTraits, user2) => {
     return total;
 }
 
-const scorePreferences = (statedPreferences, user2) => {
+// userAgePrefMinRange
+
+const scorePreferences = (statedPreferences, user2, userDog) => {
   const dog2 = user2.dog.dataValues
+  const usersDog = userDog
   //calculate how much user1 will like user2
     let total = 0;
     for (let key in statedPreferences){
@@ -81,22 +110,46 @@ const scorePreferences = (statedPreferences, user2) => {
           if (statedPreference === dog2[MATCH_USERPREF_WITH_DOG[key]]){total += VOTES_FOR_STATED_PREF}
           break;
         case 'dogAgePref':
-          if (parseInt(statedPreference) === dog2[MATCH_USERPREF_WITH_DOG[key]]){total += VOTES_FOR_STATED_PREF}
+          if (statedPreference === 'Same' && dog2[MATCH_USERPREF_WITH_DOG[key]] == usersDog[MATCH_USERPREF_WITH_DOG[key]]) {
+            total += VOTES_FOR_STATED_PREF
+          }
+
+          else if (statedPreference === 'Younger' && dog2[MATCH_USERPREF_WITH_DOG[key]] < usersDog[MATCH_USERPREF_WITH_DOG[key]]) {
+            total += VOTES_FOR_STATED_PREF
+          }
+
+          else if (statedPreference === 'Older' && dog2[MATCH_USERPREF_WITH_DOG[key]] > usersDog[MATCH_USERPREF_WITH_DOG[key]]) {
+            total += VOTES_FOR_STATED_PREF
+          }
+
           break;
         case 'dogEnergyLevelPref':
           if (parseInt(statedPreference) === dog2[MATCH_USERPREF_WITH_DOG[key]]){total += VOTES_FOR_STATED_PREF}
           break;
         case 'dogWeightPref':
-          if (parseInt(statedPreference) === dog2[MATCH_USERPREF_WITH_DOG[key]]){total += VOTES_FOR_STATED_PREF}
+          if (statedPreference === 'Same' && dog2[MATCH_USERPREF_WITH_DOG[key]] == usersDog[MATCH_USERPREF_WITH_DOG[key]]) {
+            total += VOTES_FOR_STATED_PREF
+          }
+
+          else if (statedPreference === 'Larger' && dog2[MATCH_USERPREF_WITH_DOG[key]] > usersDog[MATCH_USERPREF_WITH_DOG[key]]) {
+            total += VOTES_FOR_STATED_PREF
+          }
+
+          else if (statedPreference === 'Smaller' && dog2[MATCH_USERPREF_WITH_DOG[key]] < usersDog[MATCH_USERPREF_WITH_DOG[key]]) {
+            total += VOTES_FOR_STATED_PREF
+          }
+
           break;
         case 'userProfessionsPref':
           for (let profession of statedPreference){
             if (profession === user2[MATCH_USERPREF_WITH_USER[key]]){total += VOTES_FOR_STATED_PREF}
           }
           break;
-        // case 'userAge':
-        //   if (parseInt(statedPreference) === user2[MATCH_USERPREF_WITH_USER[key]]){total++}
-        //   break;
+        case 'userAgePrefMinRange':
+          if (user2[MATCH_USERPREF_WITH_USER[key]] > statedPreference[key] && user2[MATCH_USERPREF_WITH_USER[key]] <= (statedPreference[key] + 9)) {
+            total += VOTES_FOR_STATED_PREF
+          }
+          break;
         case 'userInterestsPref':
           for (let interest of user2[MATCH_USERPREF_WITH_USER[key]]){
             for (let statedInterest of statedPreference){

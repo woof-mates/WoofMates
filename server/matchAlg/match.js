@@ -29,10 +29,11 @@ const findMatch = async (currUser, users) => {
   for (let possibleMatch of users){
     if (isUserSpecifiedPref) {
       const statedPreferences = currUser.userpref.dataValues;
-      const scoreStatedPrefs = await scorePreferences(statedPreferences, possibleMatch)
+      const userDog = currUser.dog.dataValues
+      const scoreStatedPrefs = await scorePreferences(statedPreferences, possibleMatch, userDog)
       statedPrefScore = scoreStatedPrefs;
     }
-    activityScore = await scoreActivity(favPreferences, possibleMatch)
+    activityScore = await scoreActivity(favPreferences, possibleMatch, currUser)
     currScore = activityScore + statedPrefScore;
     // console.log(`activity score: ${activityScore}`)
     // console.log(`statedPrefScore: ${statedPrefScore}`)
