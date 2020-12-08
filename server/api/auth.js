@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { User, Session, Dog } = require('../db');
 const bcrypt = require('bcrypt');
-const A_WEEK_IN_MILLISECONDS = require('../../constants')
+const { A_WEEK_IN_MILLISECONDS } = require('../../constants')
 
 router.post('/login', async(req, res, next) => {
     try {

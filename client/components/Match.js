@@ -37,47 +37,47 @@ class Match extends Component {
     }
     render(){
         let { match, user } = this.props;
-        if (!match.firstName) {
-            return (
-            <>
-                <div>Owner Name and Age: {match.firstName}, age {match.age}</div>
-                <div>Dog Name, Age, and Breed: {match.dog.dogName}, age {match.dog.dogAge}, a {match.dog.breed}</div>
-                <div>Location: {match.city}, {match.state}, {parseInt(getDistance(user.userLatitude, user.userLongitude, match.userLatitude, match.userLongitude))} miles from you</div>
-                <br />
-                <div>Meet the Dog:
-                    <div>Weight: {match.dog.weight}</div>
-                    <div>Energy Level: {match.dog.energyLevel}</div>
-                    <div>Neutered: {match.dog.neutered ? ' Yes' : ' No'}</div>
-                    <div>Interests:
-                        {match.dog.dogInterests.reduce((acc, interest, i) => {
-                            if (i === 0) return acc + interest
-                            else return acc + ', ' + interest
-                        }, '')}
-                    </div>
+        if (!match.firstName) return null
+        return (
+        <>
+            <div>Owner Name and Age: {match.firstName}, age {match.age}</div>
+            <div>Dog Name, Age, and Breed: {match.dog.dogName}, age {match.dog.dogAge}, a {match.dog.breed}</div>
+            <div>Location: {match.city}, {match.state}, {parseInt(getDistance(user.userLatitude, user.userLongitude, match.userLatitude, match.userLongitude))} miles from you</div>
+            <br />
+            <div>Meet the Dog:
+                <div>Weight: {match.dog.weight}</div>
+                <div>Energy Level: {match.dog.energyLevel}</div>
+                <div>Neutered: {match.dog.neutered ? ' Yes' : ' No'}</div>
+                <div>Interests:
+                    {match.dog.dogInterests.reduce((acc, interest, i) => {
+                        if (i === 0) return acc + interest
+                        else return acc + ', ' + interest
+                    }, '')}
                 </div>
-                <br />
-                <div>Meet the Owner:
-                    <div>Age: {match.age}</div>
-                    <div>Interests:
-                        {match.userInterests.reduce((acc, interest, i) => {
-                            if (i === 0) return acc + interest
-                            else return acc + ', ' + interest
-                        }, '')
-                        }
-                    </div>
-                    <div>Profession: {match.profession}</div>
+            </div>
+            <br />
+            <div>Meet the Owner:
+                <div>Age: {match.age}</div>
+                <div>Interests:
+                    {match.userInterests.reduce((acc, interest, i) => {
+                        if (i === 0) return acc + interest
+                        else return acc + ', ' + interest
+                    }, '')
+                    }
                 </div>
-                <img src={match.userImage1} />
-                <img src={match.userImage2} />
-                <img src={match.dogImage} />
-                <button onClick={this.sendDecisionAndLoadNextMatch} value="like" type="submit">Like</button>
-                <button onClick={this.sendDecisionAndLoadNextMatch} value="reject" type="submit">Don't like</button>
-                {/* Match user ID for debugging purposes, will take out */}
-                <p>Match User Id: {match.id}</p>
-                <p>{this.state.message}</p>
-                { this.state.message.includes('you have matched') ? <Chatrooms matchedId = {match.id} /> : null}
-            </>
-        )}
+                <div>Profession: {match.profession}</div>
+            </div>
+            <img src={match.userImage1} />
+            <img src={match.userImage2} />
+            <img src={match.dogImage} />
+            <button onClick={this.sendDecisionAndLoadNextMatch} value="like" type="submit">Like</button>
+            <button onClick={this.sendDecisionAndLoadNextMatch} value="reject" type="submit">Don't like</button>
+            {/* Match user ID for debugging purposes, will take out */}
+            <p>Match User Id: {match.id}</p>
+            <p>{this.state.message}</p>
+            { this.state.message.includes('you have matched') ? <Chatrooms matchedId = {match.id} /> : null}
+        </>
+    )
     }
 }
 
