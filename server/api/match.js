@@ -1,7 +1,7 @@
 /* eslint-disable max-statements */
 const router = require('express').Router();
 const nodemailer = require('nodemailer');
-const { User, Relationship, Dog, Preference } = require('../db')
+const { User, Relationship, Dog, Preference, Userpref } = require('../db')
 const { getDistance }  = require('../../utils/mathFuncs')
 const {findMatch} = require('../../server/matchAlg/match')
 
@@ -16,7 +16,7 @@ router.get('/:userId', async(req, res, next) => {
                 userId
             }
         });
-        const currUser = (await User.findByPk(userId, { include: [Preference] })).dataValues
+        const currUser = (await User.findByPk(userId, { include: [Preference, Userpref] })).dataValues
 
         const { distanceFromLocation, isNeuteredDealbreaker } = userPreferences;
         // console.log('user prefs: distance', distanceFromLocation, 'neutereddealbreaker', isNeuteredDealbreaker)
