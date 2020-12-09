@@ -13,7 +13,6 @@ class Auth extends Component {
     }
     setMessage(message){
         if (message === 'Welcome ') message += `${this.props.user.firstName}!`
-        console.log('message',message)
         this.setState({ message })
     }
     render() {
