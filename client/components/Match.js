@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getMatch, sendDecision, sendEmailToMatch } from '../store/match';
 import { getDistance }  from '../../utils/mathFuncs'
 import Chatrooms from './Chatrooms'
+import { list } from '../../utils/frontEndFuncs'
 
 class Match extends Component {
     constructor(props){
@@ -15,7 +16,6 @@ class Match extends Component {
     }
     componentDidMount(){
         const { getMatch, user } = this.props;
-        console.log('user', user, user.userLatitude, user.userLongitude)
         getMatch(user.id, user.userLatitude, user.userLongitude)
     }
     async sendDecisionAndLoadNextMatch(ev){
@@ -24,8 +24,7 @@ class Match extends Component {
             const matchResult = await sendDecision(user.id, match.id, ev.target.value);
             if (matchResult.result === 'Matched') {
                 // saving current match in variable before calling getMatch again. email takes too long to send with await.
-                const thisMatch = match
-                sendEmailToMatch(user, thisMatch)
+                sendEmailToMatch(user, match)
                 getMatch(user.id, user.userLatitude, user.userLongitude)
                 this.setState({ message: `${user.firstName}, you have matched with ${match.firstName}! Send them a message now:` })
             }
@@ -37,34 +36,24 @@ class Match extends Component {
     }
     render(){
         let { match, user } = this.props;
+        let matchDistanceFromUser = parseInt(getDistance(user.userLatitude, user.userLongitude, match.userLatitude, match.userLongitude))
         if (!match.firstName) return null
         return (
         <>
             <div>Owner Name and Age: {match.firstName}, age {match.age}</div>
             <div>Dog Name, Age, and Breed: {match.dog.dogName}, age {match.dog.dogAge}, a {match.dog.breed}</div>
-            <div>Location: {match.city}, {match.state}, {parseInt(getDistance(user.userLatitude, user.userLongitude, match.userLatitude, match.userLongitude))} miles from you</div>
+            <div>Location: {match.city}, {match.state}, {matchDistanceFromUser} miles from you</div>
             <br />
             <div>Meet the Dog:
                 <div>Weight: {match.dog.weight}</div>
                 <div>Energy Level: {match.dog.energyLevel}</div>
                 <div>Neutered: {match.dog.neutered ? ' Yes' : ' No'}</div>
-                <div>Interests:
-                    {match.dog.dogInterests.reduce((acc, interest, i) => {
-                        if (i === 0) return acc + interest
-                        else return acc + ', ' + interest
-                    }, '')}
-                </div>
+                <div>Interests: {list(match.dog.dogInterests)}</div>
             </div>
             <br />
             <div>Meet the Owner:
                 <div>Age: {match.age}</div>
-                <div>Interests:
-                    {match.userInterests.reduce((acc, interest, i) => {
-                        if (i === 0) return acc + interest
-                        else return acc + ', ' + interest
-                    }, '')
-                    }
-                </div>
+                <div>Interests: {list(match.userInterests)}</div>
                 <div>Profession: {match.profession}</div>
             </div>
             <img src={match.userImage1} />
@@ -81,12 +70,10 @@ class Match extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        match: state.match,
-        user: state.user
-    }
-};
+const mapStateToProps = (state) => ({
+    match: state.match,
+    user: state.user,
+});
 
 const mapDispatchToProps = (dispatch) => ({
     getMatch: (userId, userLatitude, userLongitude) => dispatch(getMatch(userId, userLatitude, userLongitude)),
