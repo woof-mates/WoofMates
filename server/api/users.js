@@ -5,7 +5,11 @@ const A_WEEK_IN_SECONDS = 1000 * 60 * 60 * 24 * 7;
 
 router.get('/', async(req, res, next) => { // api/users
   try {
-    res.send(await User.findAll());
+    res.send(await User.findAll({
+      attributes: {
+        exclude: ['hashedPassword']
+      }
+    }));
   }
   catch (ex) {
     next(ex)
@@ -27,9 +31,11 @@ router.get('/:userId', async(req, res, next) => { // single user profile
         where: {
           id: req.params.userId
         },
-        include: [Preference, Dog]
+        include: [Preference, Dog],
+        attributes: {
+          exclude: ['hashedPassword']
+        }
       });
-      console.log('backend', userProfile)
       res.send(userProfile)
   }
   catch (ex) {

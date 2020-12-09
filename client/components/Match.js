@@ -15,7 +15,8 @@ class Match extends Component {
     }
     componentDidMount(){
         const { getMatch, user } = this.props;
-        console.log('user', user, user.userLatitude, user.userLongitude)
+        // console.log('user', user, user.userLatitude, user.userLongitude)
+        console.log(`Props: ${user.id} ${getMatch}`)
         getMatch(user.id, user.userLatitude, user.userLongitude)
     }
     async sendDecisionAndLoadNextMatch(ev){

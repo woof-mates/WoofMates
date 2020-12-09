@@ -30,7 +30,7 @@ class EditProfile extends React.Component {
 
   componentDidMount(){
     if (this.props.user){
-      console.log(this.props.user)
+      // console.log(this.props.user)
       const {firstName, lastName, userEmail, age, profession, userImage1, userImage2, city, state, zipCode, userInterests, dog} = this.props.user;
       this.setState({firstName, lastName, userEmail, age, profession, userImage1, userImage2, city, state, zipCode, userInterests, dog});
       this.tempUserInterests = userInterests;
