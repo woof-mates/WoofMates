@@ -1,7 +1,6 @@
 /* eslint-disable complexity */
 /* eslint-disable no-undef */
 /* eslint-disable guard-for-in */
-// const {favoriteTraits} = require('./favTraits')
 
 //Need to add UserAge and DogInterests
 const VOTES_FOR_STATED_PREF = 100000000
@@ -13,21 +12,9 @@ const WEIGHTS_FOR_ALGO = {
   dogWeight: 20,
   userProfession: 3,
   userAge: 25,
-  userInterests: 60
+  userInterests: 60,
+  dogInterests: 2
 }
-
-// const MATCH_PREF_WITH_USER = {
-//   userProfession: 'profession',
-//   userAge: 'age',
-//   userInterests: 'userInterests',
-// }
-
-// const MATCH_PREF_WITH_DOG = {
-//   dogBreed: 'breed',
-//   dogAgeForPref: 'dogAge',
-//   dogEnergyLevel: 'energyLevel',
-//   dogWeight: 'weight'
-// }
 
 const MATCH_PREF_WITH_SWIPING_ACT = {
   dogBreed: 'dogBreed',
@@ -60,49 +47,33 @@ const scoreActivity = (possibleMatch, currUser) => {
   //calculate how much user1 will like user2
     let total = 0;
     for (let trait in MATCH_PREF_WITH_SWIPING_ACT){
-      console.log(trait)
       switch (trait) {
         case 'dogBreed':
-            console.log(userSwipingActivity[MATCH_PREF_WITH_SWIPING_ACT[trait]])
-            total += (userSwipingActivity[MATCH_PREF_WITH_SWIPING_ACT[trait]] * WEIGHTS_FOR_ALGO[trait])
+            total += (parseInt(userSwipingActivity.dogBreed[possibleMatch.dog.dataValues.breed]) * WEIGHTS_FOR_ALGO[trait])
           break;
         case 'dogAgeForPref':
-          if (prefTrait === dog2[MATCH_PREF_WITH_DOG[trait]]) {
-            total += (prefTrait[MATCH_PREF_WITH_SWIPING_ACT[trait][prefTrait]] * WEIGHTS_FOR_ALGO[trait])
-          }
+          total += (parseInt(userSwipingActivity.dogAgeForPref[possibleMatch.dog.dataValues.dogAge]) * WEIGHTS_FOR_ALGO[trait])
           break;
         case 'dogEnergyLevel':
-          if (prefTrait === dog2[MATCH_PREF_WITH_DOG[trait]]) {
-            total += (prefTrait[MATCH_PREF_WITH_SWIPING_ACT[trait][prefTrait]] * WEIGHTS_FOR_ALGO[trait])
-          }
+          total += (parseInt(userSwipingActivity.dogEnergyLevel[possibleMatch.dog.dataValues.energyLevel]) * WEIGHTS_FOR_ALGO[trait])
           break;
         case 'dogWeight':
-          if (prefTrait === dog2[MATCH_PREF_WITH_DOG[trait]]) {
-            total += (prefTrait[MATCH_PREF_WITH_SWIPING_ACT[trait][prefTrait]] * WEIGHTS_FOR_ALGO[trait])
-          }
+          total += (parseInt(userSwipingActivity.dogWeight[possibleMatch.dog.dataValues.weight]) * WEIGHTS_FOR_ALGO[trait])
           break;
         case 'userProfession':
-          if (prefTrait === possibleMatch[MATCH_PREF_WITH_SWIPING_ACT[trait]]) {
-            total += (prefTrait[MATCH_PREF_WITH_SWIPING_ACT[trait][prefTrait]] * WEIGHTS_FOR_ALGO[trait])
-          }
+          total += (parseInt(userSwipingActivity.userProfession[possibleMatch.dataValues.profession]) * WEIGHTS_FOR_ALGO[trait])
           break;
         case 'userAge':
-          if (prefTrait === possibleMatch[MATCH_PREF_WITH_SWIPING_ACT[trait]]) {
-            total += (prefTrait[MATCH_PREF_WITH_SWIPING_ACT[trait][prefTrait]] * WEIGHTS_FOR_ALGO[trait])
-          }
+          total += (parseInt(userSwipingActivity.userAge[possibleMatch.dataValues.age]) * WEIGHTS_FOR_ALGO[trait])
           break;
         case 'userInterests':
-          for (let interest of possibleMatch[MATCH_PREF_WITH_SWIPING_ACT[trait]]){
-            if (prefTrait === interest) {
-              total += (prefTrait[MATCH_PREF_WITH_SWIPING_ACT[trait][prefTrait]] * WEIGHTS_FOR_ALGO[trait])
-            }
+          for (let interest of possibleMatch.dataValues.userInterests){
+            total += (parseInt(userSwipingActivity.userInterests[interest]) * WEIGHTS_FOR_ALGO[trait])
           }
           break;
         case 'dogInterests':
-          for (let interest of dog2[MATCH_PREF_WITH_SWIPING_ACT[trait]]) {
-            if (prefTrait === interest) {
-              total += (prefTrait[MATCH_PREF_WITH_SWIPING_ACT[trait][prefTrait]] * WEIGHTS_FOR_ALGO[trait])
-            }
+          for (let interest of dog2.dogInterests) {
+            total += (parseInt(userSwipingActivity.dogInterests[interest]) * WEIGHTS_FOR_ALGO[trait])
           }
           break;
         default:

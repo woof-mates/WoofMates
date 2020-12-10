@@ -163,7 +163,7 @@ router.post('/email', async (req, res, next) => {
         html: matchEmailText,
         });
 
-        console.log('Message sent: %s', info.messageId);
+        // console.log('Message sent: %s', info.messageId);
         res.sendStatus(200);
     } catch (err) { next(err); }
 });
