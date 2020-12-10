@@ -30,7 +30,7 @@ router.get('/:userId', async(req, res, next) => {
                 // logs for debugging; can be deleted later
                 // console.log('latlongs',userLatitude * 1, userLongitude * 1, match.userLatitude * 1, match.userLongitude * 1)
                 // console.log('matchId', match.id, 'Userdistancefrommatch:', (getDistance(userLatitude * 1, userLongitude * 1, match.userLatitude * 1, match.userLongitude * 1)))
-                if (isNeuteredDealbreaker) console.log('neutered is a dealbreaker, matchDog is neutered:', match.dog.neutered)
+                // if (isNeuteredDealbreaker) console.log('neutered is a dealbreaker, matchDog is neutered:', match.dog.neutered)
 
                 if (getDistance(userLatitude * 1, userLongitude * 1, match.userLatitude * 1, match.userLongitude * 1) <= distanceFromLocation
                 && (isNeuteredDealbreaker && match.dog.neutered || isNeuteredDealbreaker === false)) filteredMatchArray.push(match)
@@ -53,13 +53,13 @@ router.get('/:userId', async(req, res, next) => {
                 acc.push(relp.userId)
                 return acc
             }, []);
-            console.log('matches already liked userIDs', matchesAlreadyLikedUserIds)
+            // console.log('matches already liked userIDs', matchesAlreadyLikedUserIds)
             // create array of Matches based on the match id array from above
             matchesAlreadyLikedUser = allUsers.filter(user => matchesAlreadyLikedUserIds.includes(user.id));
             // filter these matches with user specified filters using function defined above
             matchesAlreadyLikedUser = filterMatchesWithUserSpecifiedFilters(matchesAlreadyLikedUser)
-            console.log('matches already liked user after filtering:')
-            matchesAlreadyLikedUser.forEach(match => console.log(match.id))
+            // console.log('matches already liked user after filtering:')
+            // matchesAlreadyLikedUser.forEach(match => console.log(match.id))
         }
         // if after filtering by user-specified filters, matches still remain...
         if (matchesAlreadyLikedUser.length) {
@@ -92,13 +92,13 @@ router.get('/:userId', async(req, res, next) => {
             let unseenMatches = allUsers.filter(user => {
                 return (!matchesToExcludeId.includes(user.id) && user.id !== userId * 1)
             })
-            console.log('n of unseenmatchesbeforefilter', unseenMatches.length)
+            // console.log('n of unseenmatchesbeforefilter', unseenMatches.length)
             unseenMatches = filterMatchesWithUserSpecifiedFilters(unseenMatches)
 
-            console.log('showing filtered matches below, user prefs here: distance', distanceFromLocation, 'neutereddealbreaker', isNeuteredDealbreaker)
+            // console.log('showing filtered matches below, user prefs here: distance', distanceFromLocation, 'neutereddealbreaker', isNeuteredDealbreaker)
             unseenMatches.forEach(match => {
-                console.log('FilteredMatchId:', match.id, 'userDistanceFromMatch:', getDistance(userLatitude * 1, userLongitude * 1, match.userLatitude * 1, match.userLongitude * 1))
-                if (isNeuteredDealbreaker) console.log('Neutered is a deal breaker, matchdog neutered:', match.dog.neutered)
+                // console.log('FilteredMatchId:', match.id, 'userDistanceFromMatch:', getDistance(userLatitude * 1, userLongitude * 1, match.userLatitude * 1, match.userLongitude * 1))
+                // if (isNeuteredDealbreaker) console.log('Neutered is a deal breaker, matchdog neutered:', match.dog.neutered)
             })
 
             // same as above, sending first of array for now
@@ -113,7 +113,7 @@ router.put('/:userId', async(req, res, next) => {
     try {
         const { userId } = req.params
         const { decision, matchId } = req.body
-        console.log(decision, 'userid', userId, 'matchId', matchId)
+        // console.log(decision, 'userid', userId, 'matchId', matchId)
         // first check to see if match has already liked user
         const existingRelationship = await Relationship.findOne({
             where:
@@ -147,7 +147,7 @@ router.put('/:userId', async(req, res, next) => {
 router.post('/email', async (req, res, next) => {
     try {
         const { matchEmail, matchEmailText } = req.body;
-        console.log(matchEmail, matchEmailText)
+        // console.log(matchEmail, matchEmailText)
         const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {

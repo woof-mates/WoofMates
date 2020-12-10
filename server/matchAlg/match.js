@@ -1,10 +1,9 @@
 const {scoreActivity, scorePreferences} = require('./score')
-const {favoriteTraits} = require('./favTraits')
+// const {favoriteTraits} = require('./favTraits')
 const chalk = require('chalk')
 const {getRandomInt} = require('../../utils/mathFuncs')
 // const User = require('../db/models/User')
- const { User, Preference, Dog, Userpref} = require('../db')
-const score = require('./score')
+//  const { User, Preference, Dog, Userpref} = require('../db')
 
 const findMatch = async (currUser, users) => {
 // const findMatch = async (currUserId, user2Id) => {
@@ -25,7 +24,7 @@ const findMatch = async (currUser, users) => {
     isUserSpecifiedPref = true;
   }
 
-  const favPreferences = await favoriteTraits(currUser);
+  // const favPreferences = await favoriteTraits(currUser);
   for (let possibleMatch of users){
     if (isUserSpecifiedPref) {
       const statedPreferences = currUser.userpref.dataValues;
@@ -33,15 +32,15 @@ const findMatch = async (currUser, users) => {
       const scoreStatedPrefs = await scorePreferences(statedPreferences, possibleMatch, userDog)
       statedPrefScore = scoreStatedPrefs;
     }
-    activityScore = await scoreActivity(favPreferences, possibleMatch, currUser)
+    activityScore = await scoreActivity(possibleMatch, currUser)
     currScore = activityScore + statedPrefScore;
-    // console.log(`activity score: ${activityScore}`)
-    // console.log(`statedPrefScore: ${statedPrefScore}`)
+    console.log(`activity score: ${activityScore}`)
+    console.log(`statedPrefScore: ${statedPrefScore}`)
     if (currScore > highestScore){
       highestScore = currScore;
       bestMatch = possibleMatch;
     }
-    // console.log(`currScore ${currScore}`)
+    console.log(`currScore ${currScore}`)
   }
   return bestMatch;
 }
