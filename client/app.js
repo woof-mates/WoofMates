@@ -1,8 +1,8 @@
 import React from 'react'
 import { HashRouter as Router, Link, Route} from 'react-router-dom'
 import Registration from './registration/index'
-import Login from './components/Login'
-import Match from './components/match'
+import Auth from './components/Auth'
+import Match from './components/Match'
 import Chatrooms from './components/Chatrooms'
 import Profile from './components/Profile'
 
@@ -27,7 +27,7 @@ class App extends React.Component {
                     <Route path='/signUp' exact component={Registration}/>
                     <Route path='/profile' exact component={Profile}/>
                     <Route path='/chat' exact component={Chatrooms}/>
-                    <Route path='/login' exact component={Login}/>
+                    <Route path='/login' exact component={Auth}/>
                     <Route path='/match' exact component={Match}/>
                 </div>
             </Router>

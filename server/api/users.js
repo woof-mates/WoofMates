@@ -1,8 +1,7 @@
 const router = require('express').Router();
 const { User, Session, Preference, Dog, Prompt } = require('../db/index');
 const { saltAndHash } = require('../../utils/hashPasswordFunc');
-
-const A_WEEK_IN_SECONDS = 1000 * 60 * 60 * 24 * 7;
+const A_WEEK_IN_MILLISECONDS = require('../../constants')
 
 router.get('/', async(req, res, next) => { // api/users
   try {
@@ -55,7 +54,7 @@ router.post('/register', async(req, res, next) => { // register a user (api/user
 
     await newSession.setUser(newUser);
     res.cookie('sid', newSession.sid, {
-      maxAge: A_WEEK_IN_SECONDS,
+      maxAge: A_WEEK_IN_MILLISECONDS,
       path: '/',
     });
     const newUserWithSession = await User.findOne({

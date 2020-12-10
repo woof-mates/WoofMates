@@ -1,8 +1,7 @@
 const router = require('express').Router();
 const { User, Session, Dog } = require('../db');
 const bcrypt = require('bcrypt');
-
-const A_WEEK_IN_SECONDS = 1000 * 60 * 60 * 24 * 7;
+const { A_WEEK_IN_MILLISECONDS } = require('../../constants')
 
 router.post('/login', async(req, res, next) => {
     try {
@@ -23,7 +22,7 @@ router.post('/login', async(req, res, next) => {
             // if user already has a session, refresh the expiration date of cookie
             if (user.session) {
                 res.cookie('sid', user.session.sid, {
-                    maxAge: A_WEEK_IN_SECONDS,
+                    maxAge: A_WEEK_IN_MILLISECONDS,
                     path: '/',
                 });
                 res.status(200).send(user)
@@ -34,7 +33,7 @@ router.post('/login', async(req, res, next) => {
                 await newSession.setUser(user);
                 await newSession.save()
                 res.cookie('sid', newSession.sid, {
-                    maxAge: A_WEEK_IN_SECONDS,
+                    maxAge: A_WEEK_IN_MILLISECONDS,
                     path: '/',
                 });
                 const userWithNewSession = await User.findOne({
@@ -61,7 +60,7 @@ router.delete('/logout/:userId', async(req, res, next) => {
         });
         userSession.destroy();
         res.status(200).send( {message: 'You have been successfully logged out.'} )
-    } catch(err) { next(err); }
+    } catch (err) { next(err); }
 })
 
 module.exports = router;
