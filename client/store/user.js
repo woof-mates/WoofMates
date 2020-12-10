@@ -30,9 +30,12 @@ const registerAUser = (user) => {
   }
 };
 
-export const registerUser = (firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userAge, userProfessionsPref) => {
+export const registerUser = (userInfo) => {
   return async(dispatch) => {
     try {
+      console.log('USERINFO PASSED IN:')
+      console.log(userInfo)
+      let {firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userAge, userProfessionsPref} = userInfo
       // mapquest API to get latitude and longitude from user zipcode
       const mapQuestInfo = (await axios.get(`http://www.mapquestapi.com/geocoding/v1/address?key=${mapQuestKey}&location=${zipCode}%2C+US&thumbMaps=true`)).data
       const userLatitude = mapQuestInfo.results[0].locations[0].latLng.lat;
