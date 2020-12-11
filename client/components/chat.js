@@ -1,20 +1,6 @@
 import React from 'react';
 
-import firebase from 'firebase';
-
-const firebaseConfig = {
-    apiKey: "AIzaSyDZUsDKQ79fy2TRZJWfmiprYqHUdizGLlo",
-    authDomain: "dog-chat-74ccf.firebaseapp.com",
-    databaseURL: "https://dog-chat-74ccf.firebaseio.com",
-    projectId: "dog-chat-74ccf",
-    storageBucket: "dog-chat-74ccf.appspot.com",
-    messagingSenderId: "391829997647",
-    appId: "1:391829997647:web:d5de6332d455f8c3ab823a"
-};
-
-firebase.initializeApp(firebaseConfig);
-
-const db = firebase.database();
+import firebaseDB from './Firebase'
 
 class Chat extends React.Component {
     constructor(props) {
@@ -35,7 +21,7 @@ class Chat extends React.Component {
         });
 
         try {
-            db.ref(`${this.props.from}-${this.props.to}/chats`).on("value", snapshot => {
+            firebaseDB.ref(`${this.props.from}-${this.props.to}/chats`).on("value", snapshot => {
                 let chats = [];
                 snapshot.forEach(snap => {
                     chats.push(snap.val());
@@ -59,11 +45,11 @@ class Chat extends React.Component {
             writeError: null
         })
         try {
-            await db.ref(`${this.props.from}-${this.props.to}/chats`).push({
+            await firebaseDB.ref(`${this.props.from}-${this.props.to}/chats`).push({
                 message: this.state.message,
                 timestamp: Date.now()
             });
-            await db.ref(`${this.props.to}-${this.props.from}/chats`).push({
+            await firebaseDB.ref(`${this.props.to}-${this.props.from}/chats`).push({
                 message: this.state.message,
                 timestamp: Date.now()
             });
