@@ -2,40 +2,41 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { registerUser } from '../store/user'
-import {INITIAL_PREF_POINTS_BREED, INITIAL_PREF_POINTS_OTHER, PROFESSIONS, DOG_WEIGHTS, USER_INTERESTS, BREEDS, DOG_AGES, MAX_DISTANCES, DOG_INTERESTS} from '../../constants'
-import {createBreedsObjForPref, createAgesObjForPref, createEnergyLevelObjForPref, createWeightObjForPref, createUserAgesObjForPref, createProfessionsObjForPref} from '../../utils/preferencesObjFuncs'
+import {INITIAL_PREF_POINTS_BREED, INITIAL_PREF_POINTS_OTHER, PROFESSIONS, DOG_WEIGHTS, USER_INTERESTS, BREEDS, DOG_AGES, MAX_DISTANCES, DOG_INTERESTS, MAX_DOG_ENERGY_LEVEL, MAX_DOG_WEIGHT, MAX_USER_AGE} from '../../constants'
+import {createObjForPref, createObjForPref2} from '../../utils/preferencesObjFuncs'
 
 
 class Registration extends React.Component {
-  constructor () {
-    super ()
+  constructor (props) {
+    super (props)
+    this.arrForNums = ["age","dogAge","energyLevel","weight","distanceFromLocation"]
     this.tempUserInterests = []
     this.tempDogInterests = []
     this.state = {
-      firstName: '',
+      firstName: '', //required
       lastName: '',
-      userEmail: '',
-      password: '',
+      userEmail: '', //required
+      password: '', //required
       city: '',
       state: '',
-      zipCode: '',
-      age: '',
+      zipCode: 0, //required
+      age: null,
       profession: '',
-      userInterests: '',
+      userInterests: [],
       dogSpeak: '',
       favoriteActivityWithDog: '',
-      dogName: '',
-      breed: '',
-      dogAge: '',
-      energyLevel: '',
-      weight: '',
-      neutered: '',
-      dogInterests: '',
+      dogName: '', //required
+      breed: '', //required
+      dogAge: 0, //required
+      energyLevel: 3,
+      weight: 0, //required
+      neutered: '', //required
+      dogInterests: [],
       dogBreed: '',
       dogAgeForPref: '',
       dogEnergyLevel: '',
       dogWeight: '',
-      distanceFromLocation: '',
+      distanceFromLocation: 5,
       userAge: '',
       userProfessionsPref: ''
     };
@@ -50,6 +51,14 @@ class Registration extends React.Component {
         userInterests: this.tempUserInterests
       })
     }
+
+    else if (e.target.name === "userEmail") {
+      let newEmail = e.target.value.toLowerCase()
+      this.setState({
+        userEmail: newEmail
+      })
+    }
+
     else if (e.target.name === "dogInterestsList") {
       this.tempDogInterests.push(e.target.value)
       this.setState({
@@ -57,7 +66,7 @@ class Registration extends React.Component {
       })
     }
     else if (e.target.name === "dogBreed") {
-      let newBreedsObj = createBreedsObjForPref();
+      let newBreedsObj = createObjForPref(BREEDS);
       newBreedsObj[e.target.value] = INITIAL_PREF_POINTS_BREED;
       this.setState({
         dogBreed: newBreedsObj
@@ -65,7 +74,7 @@ class Registration extends React.Component {
     }
 
     else if (e.target.name === "dogAgeForPref") {
-      let newAgesObj = createAgesObjForPref();
+      let newAgesObj = createObjForPref(DOG_AGES);
       newAgesObj[e.target.value] = INITIAL_PREF_POINTS_OTHER;
       this.setState({
         dogAgeForPref: newAgesObj
@@ -73,7 +82,7 @@ class Registration extends React.Component {
     }
 
     else if (e.target.name === "dogEnergyLevel") {
-      let newEnergyLevelsObj = createEnergyLevelObjForPref();
+      let newEnergyLevelsObj = createObjForPref2(MAX_DOG_ENERGY_LEVEL);
       newEnergyLevelsObj[e.target.value] = INITIAL_PREF_POINTS_OTHER;
       this.setState({
         dogEnergyLevel: newEnergyLevelsObj
@@ -81,7 +90,7 @@ class Registration extends React.Component {
     }
 
     else if (e.target.name === "dogWeight") {
-      let newWeightLevelsObj = createWeightObjForPref();
+      let newWeightLevelsObj = createObjForPref2(MAX_DOG_WEIGHT);
       newWeightLevelsObj[e.target.value] = INITIAL_PREF_POINTS_OTHER;
       this.setState({
         dogWeight: newWeightLevelsObj
@@ -89,7 +98,7 @@ class Registration extends React.Component {
     }
 
     else if (e.target.name === "userAge") {
-      let newUserAgePrefObj = createUserAgesObjForPref();
+      let newUserAgePrefObj = createObjForPref2(MAX_USER_AGE);
       newUserAgePrefObj[e.target.value] = INITIAL_PREF_POINTS_OTHER;
       this.setState({
         userAge: newUserAgePrefObj
@@ -97,14 +106,14 @@ class Registration extends React.Component {
     }
 
     else if (e.target.name === "userProfessionsPref") {
-      let newUserProfPrefObj = createProfessionsObjForPref();
+      let newUserProfPrefObj = createObjForPref(PROFESSIONS);
       newUserProfPrefObj[e.target.value] = INITIAL_PREF_POINTS_OTHER;
       this.setState({
         userProfessionsPref: newUserProfPrefObj
       })
     }
 
-    else if (e.target.name === "age" || e.target.name === "dogAge" || e.target.name === "energyLevel" || e.target.name === "weight" || e.target.name === "distanceFromLocation") {
+    else if (this.arrForNums.includes(e.target.name)) {
       this.setState({
         [e.target.name]: Number(e.target.value)
       })
@@ -127,13 +136,7 @@ class Registration extends React.Component {
   async onSubmit (e) {
     e.preventDefault();
     console.log('current state in Registration is: ',this.state)
-    let {firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userAge, userProfessionsPref} = this.state
-    userEmail = userEmail.toLowerCase()
-    this.props.registerUser(firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userAge, userProfessionsPref)
-    console.log('user in the store is now ', this.props.user)
-  }
-
-  componentDidMount() {
+    this.props.registerUser(this.state)
   }
 
   render() {
@@ -355,7 +358,7 @@ const mapState = state => (
 
 const mapDispatch = (dispatch) => {
   return {
-    registerUser: (firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userAge, userProfessionsPref) => dispatch(registerUser(firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userAge, userProfessionsPref))
+    registerUser: (userInfo) => dispatch(registerUser(userInfo))
   }
 }
 
