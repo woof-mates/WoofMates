@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer');
 const { User, Relationship, Dog, Preference, Userpref } = require('../db')
 const { getDistance }  = require('../../utils/mathFuncs') //used in testing console logs
 const { filterMatchesWithUserSpecifiedFilters } = require('../matchAlg/userFilters')
+const {findMatch} = require('../matchAlg/match')
 
 router.get('/:userId', async(req, res, next) => {
     // console.logs left in intentionally for testing purposes

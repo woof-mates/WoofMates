@@ -38,7 +38,7 @@ const findMatch = async (currUser, users) => {
       highestScore = currScore;
       bestMatch = possibleMatch;
     }
-    // console.log(`currScore ${currScore}`)
+    console.log(`currScore ${currScore}`)
   }
   return bestMatch;
 }
