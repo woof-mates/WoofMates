@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Session, Preference, Dog, Prompt } = require('../db/index');
+const { User, Session, Preference, Dog, Prompt, Userpref } = require('../db/index');
 const { saltAndHash } = require('../../utils/hashPasswordFunc');
 const { A_WEEK_IN_MILLISECONDS } = require('../../constants')
 
@@ -49,7 +49,7 @@ router.post('/register', async(req, res, next) => { // register a user (api/user
 
     const newSession = await Session.create()
 
-    const {firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userAge, userProfessionsPref, userLatitude, userLongitude} = req.body
+    const {firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, distanceFromLocation, userAgePrefMinRange, userProfessionsPref, userInterestsPref, userLatitude, userLongitude, isNeuteredDealbreaker} = req.body
 
     const hashedPassword = await saltAndHash(password)
 
@@ -61,11 +61,14 @@ router.post('/register', async(req, res, next) => { // register a user (api/user
 
     const bodyForPrompts = {userId: newUser.id, dogSpeak, favoriteActivityWithDog}
 
-    const bodyForPreferences = {userId: newUser.id, dogBreed, dogAgeForPref, dogEnergyLevel, dogWeight, distanceFromLocation, userAge, userProfession: userProfessionsPref}
+    const bodyForPreferences = {userId: newUser.id, distanceFromLocation, isNeuteredDealbreaker }
+
+    const bodyForUserprefs = {userId: newUser.id, dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref}
 
     await Dog.create(bodyForDogs)
     await Prompt.create(bodyForPrompts)
     await Preference.create(bodyForPreferences)
+    await Userpref.create(bodyForUserprefs)
 
     await newSession.setUser(newUser);
     res.cookie('sid', newSession.sid, {
