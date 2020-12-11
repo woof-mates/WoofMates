@@ -3,7 +3,8 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { registerUser } from '../store/user'
-import {PROFESSIONS, USER_INTERESTS, BREEDS, MAX_DISTANCES, DOG_INTERESTS, MAX_USER_AGE, DOG_AGE_PREFS, DOG_WEIGHT_PREFS, MIN_USER_AGE, AGE_RANGE } from '../../constants'
+import { PROFESSIONS, USER_INTERESTS, BREEDS, MAX_DISTANCES, DOG_INTERESTS, MAX_USER_AGE, DOG_AGE_PREFS, DOG_WEIGHT_PREFS, MIN_USER_AGE, AGE_RANGE } from '../../constants'
+import PhotoUpload from '../components/PhotoUpload'
 // import {createObjForPref, createObjForPref2} from '../../utils/preferencesObjFuncs'
 
 class Registration extends React.Component {
@@ -240,6 +241,8 @@ class Registration extends React.Component {
                 </option>
                 {USER_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
               </select>
+              <p />
+              Upload a picture of yourself! <PhotoUpload />
               <h3>Tell us more about your pup!</h3>
               Name:
               <input type="dogName" name = "dogName" onChange={this.onChange} />
