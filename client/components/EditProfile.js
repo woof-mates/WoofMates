@@ -42,63 +42,43 @@ class EditProfile extends React.Component {
   userOnChange (e) {
     if (e.target.name === "userInterestsList1") {
       this.tempUserInterests[0] = e.target.value
-      this.setState({
-        userInterests: this.tempUserInterests
-      })
     } else if (e.target.name === "userInterestsList2") {
       this.tempUserInterests[1] = e.target.value
-      this.setState({
-        userInterests: this.tempUserInterests
-      })
     } else if (e.target.name === "userInterestsList3") {
       this.tempUserInterests[2] = e.target.value
-      this.setState({
-        userInterests: this.tempUserInterests
-      })
-    } else {
-      this.setState({
-        [e.target.name]: e.target.value
-      })
     }
+    this.setState({
+      [e.target.name]: e.target.value
+    })
   }
 
   dogOnChange (e) {
-    let { dog } = this.state
-    for (let key in dog)  {
-      if (key === e.target.name) {
-        dog[key] = e.target.value
-      }
-    }
+    const { dog } = this.state
+
+    dog[e.target.name] = e.target.value
 
     if (e.target.name === "dogInterestsList1") {
       this.tempDogInterests[0] = e.target.value
       dog.dogInterests = this.tempDogInterests
-      this.setState({
-        dog
-      })
     } else if (e.target.name === "dogInterestsList2") {
       this.tempDogInterests[1] = e.target.value
       dog.dogInterests = this.tempDogInterests
-      this.setState({
-        dog
-      })
     } else if (e.target.name === "dogInterestsList3") {
       this.tempDogInterests[2] = e.target.value
       dog.dogInterests = this.tempDogInterests
-      this.setState({
-        dog
-      })
-    } else {
-      this.setState({
-        dog
-      })
     }
+    this.setState({
+      dog
+    })
   }
 
   async onSubmit (e) {
     e.preventDefault();
-    let userProfile = this.state
-    userProfile.userEmail = userProfile.userEmail.toLowerCase()
+    const { userEmail } = this.state
+    this.setState({
+      userEmail: userEmail.toLowerCase()
+    })
+    const userProfile = this.state
     this.props.updateUser(this.props.user.id, userProfile)
     console.log('user has been updated', this.props.user)
     this.props.closeEdit();
@@ -287,10 +267,8 @@ const mapState = state => (
   }
 )
 
-const mapDispatch = (dispatch) => {
-  return {
-    updateUser: (userId, userProfile ) => dispatch(editProfile(userId, userProfile))
-  }
-}
+const mapDispatch = (dispatch) => ({
+  updateUser: (userId, userProfile ) => dispatch(editProfile(userId, userProfile))
+})
 
 export default connect(mapState, mapDispatch)(EditProfile);

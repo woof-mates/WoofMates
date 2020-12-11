@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { login, logout } from '../store/user';
+import { login } from '../store/user';
 
 class Login extends Component {
     constructor(props){
@@ -8,7 +8,6 @@ class Login extends Component {
         this.state = {
             userEmail: '',
             password: '',
-            message: ''
         }
         this.setEmail = this.setEmail.bind(this)
         this.setPassword = this.setPassword.bind(this)
@@ -25,32 +24,26 @@ class Login extends Component {
 
     async submit(ev){
         ev.preventDefault();
-        const { login, logout, user } = this.props
-        if (!user.firstName) {
-            await login(this.state)
-            // need to reference props directly for this to work
-            if (this.props.user.firstName) {
-                this.setState({ userEmail: '', password: '', message: `Welcome ${this.props.user.firstName}!` })
-            }
-        }
-        else {
-            await logout(user.id)
-            this.setState( {message: 'You have been successfully logged out.'} )
-        }
+        const { login, setMessage } = this.props
+        await login(this.state)
+        setMessage(`Welcome `)
     }
     render(){
-        const { user } = this.props
         return (
             <>
                 <form onSubmit={this.submit}>
                     <input onChange={this.setEmail} value={this.state.userEmail} placeholder="email" />
                     <input onChange={this.setPassword} value={this.state.password} placeholder="password" type="password" />
+<<<<<<< HEAD
                     <button type="submit">{!user.firstName ? 'Log In' : 'Log Out'}</button>
                     <p>{this.state.message}</p>
                     {
                         user.firstName ? <div>Logged in as: {user.firstName}</div> : <div />
                     }
 
+=======
+                    <button type="submit">Log In</button>
+>>>>>>> 15e0a9551c8a3c343e680608b50d37ccb4a70d47
                 </form>
             </>
         )
@@ -65,7 +58,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     login: (loginInfo) => dispatch(login(loginInfo)),
-    logout: (userId) => dispatch(logout(userId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
