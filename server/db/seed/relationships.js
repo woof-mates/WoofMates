@@ -1,4 +1,3 @@
-const faker = require('faker')
 const {RELATIONSHIPS} = require('../../../constants')
 const {getRandomInt} = require('../../../utils/mathFuncs')
 
