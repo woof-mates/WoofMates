@@ -151,6 +151,14 @@ class Registration extends React.Component {
 
   render() {
     const {user} = this.props
+    let userAgePrefRanges = []
+    for (let minRange = MIN_USER_AGE; minRange < MAX_USER_AGE; minRange += AGE_RANGE + 1) {
+      userAgePrefRanges.push(
+      <option type="userAgePrefMinRange" name="userAgePrefMinRange" value={minRange} onChange={this.onChange}>
+        {minRange} - {minRange + AGE_RANGE}
+      </option>
+      )
+    }
     if (user.userEmail) {
       return (
         <Redirect to ="/" />
@@ -373,12 +381,14 @@ class Registration extends React.Component {
                 {USER_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
               </select>, 
               and is in the age range of 
-              {/* <select>
-                { for(let minRange = MIN_USER_AGE; minRange < MAX_USER_AGE; minRange += AGE_RANGE) {
+              <select>
+                {userAgePrefRanges}
+                {/* { for(let minRange = MIN_USER_AGE; minRange < MAX_USER_AGE; minRange += AGE_RANGE) {
+
                   (<option>`${minRange} - ${minRange + AGE_RANGE}`</option>)
-                }}
-                <input type="userAgePrefMinRange" name="userAgePrefMinRange" onChange={this.onChange} /> 
-              </select>. */}
+                }} */}
+                {/* <input type="userAgePrefMinRange" name="userAgePrefMinRange" onChange={this.onChange} />  */}
+              </select>.
               <p />
               <button className="submit" type="submit" onClick={this.onSubmit}>Register</button>
           </div>
