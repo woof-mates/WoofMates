@@ -8,6 +8,7 @@ const REGISTER_USER = 'REGISTER_USER';
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
 const UPDATE = 'UPDATE';
+const GET_USER = 'GET_USER'
 
 const _login = (user) => {
     return {
@@ -86,6 +87,19 @@ export const editProfile = (userId, updatedProfile) => async(dispatch) => {
   }
 }
 
+const _getUser = (user) => {
+  return {
+  type: GET_USER,
+  user
+}}
+
+export const getUser = () => {
+  return async(dispatch) => {
+      const res = await axios.get('/api/users/get-user')
+      dispatch(_getUser(res.data))
+  }
+}
+
 export default function userReducer (state = {}, action) {
   switch (action.type) {
       case UPDATE:
@@ -96,6 +110,8 @@ export default function userReducer (state = {}, action) {
         return action.user;
       case LOGOUT:
         return action.emptyUser;
+      case GET_USER:
+        return action.user
       default:
         return state
   }

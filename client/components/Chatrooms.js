@@ -54,25 +54,25 @@ class Chatrooms extends React.Component {
                 <div>
                     <h4>Matches: </h4>
                     <ul>
-                        {   
-                            matches.length ? 
+                        {
+                            matches.length ?
                                 matches.map(match => {
                                     const fullName = match.firstName + ' ' + match.lastName
                                     return (
                                         <li key={match.id} onClick={() => this.toMessage(match.id, fullName)}>{fullName}</li>
                                     )
                                 })
-                            : 
+                            :
                                 <div>
                                     <p>No Matches</p>
-                                    <Link to='/match'>Find Matches!</Link> 
+                                    <Link to='/match'>Find Matches!</Link>
                                 </div>
-                                
+
                         }
                     </ul>
                 </div>
             );
-        };
+        }
     }
 }
 

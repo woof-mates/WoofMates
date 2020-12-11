@@ -5,20 +5,41 @@ import { PROFESSIONS, USER_INTERESTS, BREEDS, DOG_INTERESTS} from '../../constan
 
 class EditProfile extends React.Component {
   constructor (props) {
-    super (props);
-    const {firstName, lastName, userEmail, age, profession, userImage1, userImage2, city, state, zipCode, userInterests, dog} = props.user;
-    this.state = {firstName, lastName, userEmail, age, profession, userImage1, userImage2, city, state, zipCode, userInterests, dog};
-
-    this.tempUserInterests = userInterests;
-    this.tempDogInterests = dog.dogInterests;
+    super(props);
+    this.state = {
+      firstName: '',
+      lastName: '',
+      userEmail: '',
+      city: '',
+      state: '',
+      zipCode: '',
+      age: '',
+      profession: '',
+      userInterests: '',
+      dog: {
+        dogInterests: []
+      }
+    }
+    this.tempUserInterests = [];
+    this.tempDogInterests = [];
 
     this.onSubmit = this.onSubmit.bind(this);
     this.userOnChange = this.userOnChange.bind(this);
     this.dogOnChange = this.dogOnChange.bind(this);
   }
 
+  componentDidMount(){
+    if (this.props.user){
+      // console.log(this.props.user)
+      const {firstName, lastName, userEmail, age, profession, userImage1, userImage2, city, state, zipCode, userInterests, dog} = this.props.user;
+      this.setState({firstName, lastName, userEmail, age, profession, userImage1, userImage2, city, state, zipCode, userInterests, dog});
+      this.tempUserInterests = userInterests;
+      this.tempDogInterests = dog.dogInterests;
+
+    }
+  }
+
   userOnChange (e) {
-    const { dog } = this.state
     if (e.target.name === "userInterestsList1") {
       this.tempUserInterests[0] = e.target.value
     } else if (e.target.name === "userInterestsList2") {
@@ -64,7 +85,6 @@ class EditProfile extends React.Component {
   }
 
   render() {
-    
     const {dog} = this.state
     return (
         <div id="updateContainer">
@@ -89,10 +109,10 @@ class EditProfile extends React.Component {
                 {PROFESSIONS.map(profession => (<option key = {profession} value={profession}>{profession}</option>))}
                 </select>
                 <p></p>
-                Photo1: 
+                Photo1:
                 <input value={this.state.userImage1} id="photo1" name = "photo1" onChange={this.userOnChange} />
                 <p></p>
-                Photo2: 
+                Photo2:
                 <input value={this.state.userImage2} id="photo2" name = "photo2" onChange={this.userOnChange} />
                 <p></p>
                 City:
@@ -178,7 +198,7 @@ class EditProfile extends React.Component {
             <div id="dogUpdateForm">
                 <h4>Dog</h4>
                 Name:
-                <input value={this.state.dog.dogName} id="dogName" name = "dogName" onChange={this.dogOnChange} />
+                <input value={dog.dogName} id="dogName" name = "dogName" onChange={this.dogOnChange} />
                 <p></p>
                 Breed:
                 <select id="breed" name="breed" onChange={this.dogOnChange}>
@@ -215,7 +235,7 @@ class EditProfile extends React.Component {
                 Dog's Interests 1:
                 <select id="dogInterestsList" name="dogInterestsList1" onChange={this.dogOnChange}>
                 <option value="none" selected disabled hidden>
-                {this.state.dog.dogInterests[0] || 'Select an Option'}</option>
+                {dog.dogInterests[0] || 'Select an Option'}</option>
                 {DOG_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
                 </select>
                 <p></p>
