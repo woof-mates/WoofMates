@@ -1,7 +1,6 @@
 /* eslint-disable max-statements */
 const faker = require('faker')
-
-const { USER_INTERESTS, PROFESSIONS, leftLongitudeUS, bottomLatitudeUS, lengthUS, widthUS, latitudeNY, longitudeNY } = require('../../../constants')
+const { USER_INTERESTS, PROFESSIONS, LATITUDE_NY, LONGITUDE_NY } = require('../../../constants')
 const { getRandomInt } = require('../../../utils/mathFuncs')
 const { saltAndHash } = require('../../../utils/hashPasswordFunc')
 
@@ -37,8 +36,8 @@ const createUsers = async (numUsers) => {
     profession.push(PROFESSIONS[getRandomInt(PROFESSIONS.length)])
     userInterests.push([USER_INTERESTS[getRandomInt(USER_INTERESTS.length)], USER_INTERESTS[getRandomInt(USER_INTERESTS.length)]])
     // currently seeding NY-area users so that there are more distance filter matches
-    userLatitude.push(latitudeNY + Math.random() * signs[getRandomInt(2)]) // +/- up to 1 latitude fron NY (1 lat = 69 miles)
-    userLongitude.push(longitudeNY + Math.random() * signs[getRandomInt(2)]) // +/- up to 1 longitude fron NY (1 long = 50 miles)
+    userLatitude.push(LATITUDE_NY + Math.random() * signs[getRandomInt(2)]) // +/- up to 1 latitude fron NY (1 lat = 69 miles)
+    userLongitude.push(LONGITUDE_NY + Math.random() * signs[getRandomInt(2)]) // +/- up to 1 longitude fron NY (1 long = 50 miles)
     // we would use the below if we did US wide
     // userLatitude.push(bottomLatitudeUS + getRandomInt(lengthUS))
     // userLongitude.push(leftLongitudeUS + getRandomInt(widthUS))

@@ -717,19 +717,20 @@ const DOG_WEIGHT_PREFS = [
   'Smaller'
 ]
 
-const mapQuestKey = '6k5vyVG6Y0JOyqDXbfyn4sHx3OVBruPw';
+const MAPQUEST_KEY = '6k5vyVG6Y0JOyqDXbfyn4sHx3OVBruPw';
 
 // http://en.wikipedia.org/wiki/Extreme_points_of_the_United_States#Westernmost
-const topLatitudeUS = 49.3457868  // north lat
-const leftLongitudeUS = -124.7844079 // west long
-const rightLongitudeUS = -66.9513812 // east long
-const bottomLatitudeUS =  24.7433195 // south lat
-const lengthUS = topLatitudeUS - bottomLatitudeUS
-const widthUS = -(leftLongitudeUS - rightLongitudeUS)
-const latitudeNY = 40.7128
-const longitudeNY = -74.0060
-const maxLatitudeDistanceFromNY = 1 // Each degree of latitude is approximately 69 miles apart
-const maxLongitudeDistanceFromNY = 1 // Each degree of longitude is approximately 50 miles apart
+const TOP_LATITUDE_US = 49.3457868  // north lat
+const LEFT_LONGITUDE_US = -124.7844079 // west long
+const RIGHT_LONGITUDE_US = -66.9513812 // east long
+const BOTTOM_LATITUDE_US =  24.7433195 // south lat
+const LENGTH_US = TOP_LATITUDE_US - BOTTOM_LATITUDE_US
+const WIDTH_US = -(LEFT_LONGITUDE_US - RIGHT_LONGITUDE_US)
+const LATITUDE_NY = 40.7128
+const LONGITUDE_NY = -74.0060
+const MAX_LATITUDE_FROM_NY = 1 // Each degree of latitude is approximately 69 miles apart
+const MAX_LONGITUDE_FROM_NY = 1 // Each degree of longitude is approximately 50 miles apart
 
+const A_WEEK_IN_MILLISECONDS = 1000 * 60 * 60 * 24 * 7;
 
-module.exports = { BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS, MAX_DOG_AGE, MAX_DOG_WEIGHT, MAX_USER_AGE, MAX_DISTANCE_FROM_USER,  DOG_AGES, DOG_WEIGHTS, INITIAL_PREF_POINTS_OTHER, INITIAL_PREF_POINTS_BREED, MAX_DOG_ENERGY_LEVEL, MAX_DISTANCES, DOG_INTERESTS, DOG_AGE_PREFS, DOG_WEIGHT_PREFS, mapQuestKey, topLatitudeUS, leftLongitudeUS, rightLongitudeUS, bottomLatitudeUS, lengthUS, widthUS, latitudeNY, longitudeNY }
+module.exports = { BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS, MAX_DOG_AGE, MAX_DOG_WEIGHT, MAX_USER_AGE, MAX_DISTANCE_FROM_USER,  DOG_AGES, DOG_WEIGHTS, INITIAL_PREF_POINTS_OTHER, INITIAL_PREF_POINTS_BREED, MAX_DOG_ENERGY_LEVEL, MAX_DISTANCES, DOG_AGE_PREFS, DOG_WEIGHT_PREFS, DOG_INTERESTS, MAPQUEST_KEY, TOP_LATITUDE_US, LEFT_LONGITUDE_US, RIGHT_LONGITUDE_US, BOTTOM_LATITUDE_US, LENGTH_US, WIDTH_US, LATITUDE_NY, LONGITUDE_NY, A_WEEK_IN_MILLISECONDS }
