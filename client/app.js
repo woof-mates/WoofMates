@@ -7,12 +7,9 @@ import Auth from './components/Auth'
 import Match from './components/Match'
 import Chatrooms from './components/Chatrooms'
 import Profile from './components/Profile'
-<<<<<<< HEAD
 import { connect } from 'react-redux'
 import {getUser} from './store/user'
-=======
 import VideoChatContainer from './components/VideoChat/VideoChatContainer'
->>>>>>> 15e0a9551c8a3c343e680608b50d37ccb4a70d47
 
 class App extends React.Component {
     async componentDidMount (){
