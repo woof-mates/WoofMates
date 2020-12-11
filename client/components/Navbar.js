@@ -34,7 +34,7 @@ class Navbar extends React.Component {
           <div id="LinkContainer">
               <Link to="/match">Find Your Match</Link>
           </div>
-          <button class = "logOutButton" onClick={this.onClick}>Log Out</button>
+          <button className = "logOutButton" onClick={this.onClick}>Log Out</button>
         </div>
       );
     }
@@ -55,10 +55,10 @@ class Navbar extends React.Component {
               <Link to="/match">Find Your Match</Link>
           </div>
           <div id="LinkContainer">
-              <button class="signInNavButton"><Link id="logOutButton" to="/login">Sign In</Link></button>
+              <button className="signInNavButton"><Link id="logOutButton" to="/login">Sign In</Link></button>
           </div>
           <div id="LinkContainer">
-              <button class="signUpNavButton"><Link to="/signUp">Sign Up</Link></button>
+              <button className="signUpNavButton"><Link to="/signUp">Sign Up</Link></button>
           </div>
         </div>
       )
