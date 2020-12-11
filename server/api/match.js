@@ -2,38 +2,20 @@
 const router = require('express').Router();
 const nodemailer = require('nodemailer');
 const { User, Relationship, Dog, Preference } = require('../db')
-const { getDistance }  = require('../../utils/mathFuncs')
+const { getDistance }  = require('../../utils/mathFuncs') //used in testing console logs
+const { filterMatchesWithUserSpecifiedFilters } = require('../matchAlg/userFilters')
 
 router.get('/:userId', async(req, res, next) => {
     // console.logs left in intentionally for testing purposes
     try {
         const { userId } = req.params
-        const { userLatitude, userLongitude } = req.query
+        // const { userLatitude, userLongitude } = req.query
 
-        const userPreferences = await Preference.findOne({
-            where: {
-                userId
-            }
-        });
-        const { distanceFromLocation, isNeuteredDealbreaker } = userPreferences;
-        console.log('user prefs: distance', distanceFromLocation, 'neutereddealbreaker', isNeuteredDealbreaker)
+        const currUser = (await User.findByPk(userId, { include: [Preference] })).dataValues
+
+        // const { distanceFromLocation, isNeuteredDealbreaker } = currUser.preference;
+        // console.log('user prefs: distance', distanceFromLocation, 'neutereddealbreaker', isNeuteredDealbreaker)
         const allUsers = await User.findAll({ include: Dog });
-
-        // function to filter matches with upfront user-specified filters
-        const filterMatchesWithUserSpecifiedFilters = (matchArray) => {
-            let filteredMatchArray = [];
-            for (let i = 0; i < matchArray.length; i++){
-                const match = matchArray[i]
-                // logs for debugging; can be deleted later
-                console.log('latlongs',userLatitude * 1, userLongitude * 1, match.userLatitude * 1, match.userLongitude * 1)
-                console.log('matchId', match.id, 'Userdistancefrommatch:', (getDistance(userLatitude * 1, userLongitude * 1, match.userLatitude * 1, match.userLongitude * 1)))
-                if (isNeuteredDealbreaker) console.log('neutered is a dealbreaker, matchDog is neutered:', match.dog.neutered)
-
-                if (getDistance(userLatitude * 1, userLongitude * 1, match.userLatitude * 1, match.userLongitude * 1) <= distanceFromLocation
-                && (isNeuteredDealbreaker && match.dog.neutered || isNeuteredDealbreaker === false)) filteredMatchArray.push(match)
-            }
-            return filteredMatchArray;
-        }
 
         // first find relationships with matches that have already liked this user
         let matchesAlreadyLikedUserRelationships = await Relationship.findAll({
@@ -50,17 +32,17 @@ router.get('/:userId', async(req, res, next) => {
                 acc.push(relp.userId)
                 return acc
             }, []);
-            console.log('matches already liked userIDs', matchesAlreadyLikedUserIds)
+            // console.log('matches already liked userIDs', matchesAlreadyLikedUserIds)
+
             // create array of Matches based on the match id array from above
             matchesAlreadyLikedUser = allUsers.filter(user => matchesAlreadyLikedUserIds.includes(user.id));
-            // filter these matches with user specified filters using function defined above
-            matchesAlreadyLikedUser = filterMatchesWithUserSpecifiedFilters(matchesAlreadyLikedUser)
-            console.log('matches already liked user after filtering:')
-            matchesAlreadyLikedUser.forEach(match => console.log(match.id))
+            // filter these matches with user specified filters using function
+            matchesAlreadyLikedUser = filterMatchesWithUserSpecifiedFilters(currUser, matchesAlreadyLikedUser)
+            // console.log('matches already liked user after filtering:')
+            // matchesAlreadyLikedUser.forEach(match => console.log(match.id))
         }
         // if after filtering by user-specified filters, matches still remain...
         if (matchesAlreadyLikedUser.length) {
-            console.log('here')
             // send one match at a time so algo can update with each decision by user
             // sending 1st element in matches array for now, but this would be sorted based on algorithm
             res.send(matchesAlreadyLikedUser[0])
@@ -88,14 +70,14 @@ router.get('/:userId', async(req, res, next) => {
             let unseenMatches = allUsers.filter(user => {
                 return (!matchesToExcludeId.includes(user.id) && user.id !== userId * 1)
             })
-            console.log('n of unseenmatchesbeforefilter', unseenMatches.length)
-            unseenMatches = filterMatchesWithUserSpecifiedFilters(unseenMatches)
+            // console.log('n of unseenmatchesbeforefilter', unseenMatches.length)
+            unseenMatches = filterMatchesWithUserSpecifiedFilters(currUser, unseenMatches)
 
-            console.log('showing filtered matches below, user prefs here: distance', distanceFromLocation, 'neutereddealbreaker', isNeuteredDealbreaker)
-            unseenMatches.forEach(match => {
-                console.log('FilteredMatchId:', match.id, 'userDistanceFromMatch:', getDistance(userLatitude * 1, userLongitude * 1, match.userLatitude * 1, match.userLongitude * 1))
-                if (isNeuteredDealbreaker) console.log('Neutered is a deal breaker, matchdog neutered:', match.dog.neutered)
-            })
+            // console.log('showing filtered matches below, user prefs here: distance', distanceFromLocation, 'neutereddealbreaker', isNeuteredDealbreaker)
+            // unseenMatches.forEach(match => {
+            //     console.log('FilteredMatchId:', match.id, 'userDistanceFromMatch:', getDistance(userLatitude * 1, userLongitude * 1, match.userLatitude * 1, match.userLongitude * 1))
+            //     if (isNeuteredDealbreaker) console.log('Neutered is a deal breaker, matchdog neutered:', match.dog.neutered)
+            // })
 
             // same as above, sending first of array for now
             // if (!unseenMatches.length) res.send( { message: 'You have no matches that fit your criteria. Try broadening it in your settings!'})
