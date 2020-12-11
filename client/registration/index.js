@@ -3,10 +3,9 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { registerUser } from '../store/user'
-import {INITIAL_PREF_POINTS_BREED, INITIAL_PREF_POINTS_OTHER, PROFESSIONS, DOG_WEIGHTS, USER_INTERESTS, BREEDS, DOG_AGES, MAX_DISTANCES, DOG_INTERESTS, MAX_DOG_ENERGY_LEVEL, MAX_DOG_WEIGHT, MAX_USER_AGE, DOG_AGE_PREFS, DOG_WEIGHT_PREFS, MIN_USER_AGE, AGE_RANGE } from '../../constants'
-import {createObjForPref, createObjForPref2} from '../../utils/preferencesObjFuncs'
+import {PROFESSIONS, USER_INTERESTS, BREEDS, MAX_DISTANCES, DOG_INTERESTS, MAX_USER_AGE, DOG_AGE_PREFS, DOG_WEIGHT_PREFS, MIN_USER_AGE, AGE_RANGE } from '../../constants'
+// import {createObjForPref, createObjForPref2} from '../../utils/preferencesObjFuncs'
 
-// start w line 376 - need to loop age ranges
 class Registration extends React.Component {
   constructor (props) {
     super(props)
@@ -42,7 +41,8 @@ class Registration extends React.Component {
       distanceFromLocation: 5,
       userAgePrefMinRange: null,
       userProfessionsPref: [],
-      userInterestsPref: []
+      userInterestsPref: [],
+      isNeuteredDealbreaker: null
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -69,45 +69,6 @@ class Registration extends React.Component {
         dogInterests: this.tempDogInterests
       })
     }
-    // else if (e.target.name === 'dogBreedPref') {
-    //   let newBreedsObj = createObjForPref(BREEDS);
-    //   newBreedsObj[e.target.value] = INITIAL_PREF_POINTS_BREED;
-    //   this.setState({
-    //     dogBreedPref: newBreedsObj
-    //   })
-    // }
-
-    // else if (e.target.name === 'dogAgePref') {
-    //   let newAgesObj = createObjForPref(DOG_AGES);
-    //   newAgesObj[e.target.value] = INITIAL_PREF_POINTS_OTHER;
-    //   this.setState({
-    //     dogAgePref: newAgesObj
-    //   })
-    // }
-
-    // else if (e.target.name === 'dogEnergyLevelPref') {
-    //   let newEnergyLevelsObj = createObjForPref2(MAX_DOG_ENERGY_LEVEL);
-    //   newEnergyLevelsObj[e.target.value] = INITIAL_PREF_POINTS_OTHER;
-    //   this.setState({
-    //     dogEnergyLevelPref: newEnergyLevelsObj
-    //   })
-    // }
-
-    // else if (e.target.name === 'dogWeightPref') {
-    //   let newWeightLevelsObj = createObjForPref2(MAX_DOG_WEIGHT);
-    //   newWeightLevelsObj[e.target.value] = INITIAL_PREF_POINTS_OTHER;
-    //   this.setState({
-    //     dogWeightPref: newWeightLevelsObj
-    //   })
-    // }
-
-    // else if (e.target.name === 'userAgePrefMinRange') {
-    //   let newUserAgePrefObj = createObjForPref2(MAX_USER_AGE);
-    //   newUserAgePrefObj[e.target.value] = INITIAL_PREF_POINTS_OTHER;
-    //   this.setState({
-    //     userAgePrefMinRange: newUserAgePrefObj
-    //   })
-    // }
 
     else if (e.target.name === 'userProfessionsPref') {
       this.tempUserProfessionPrefs.push(e.target.value)
@@ -151,7 +112,7 @@ class Registration extends React.Component {
 
   render() {
     const {user} = this.props
-    let userAgePrefRanges = []
+    let userAgePrefRanges = [ <option value="none" selected disabled hidden>Select an Option</option> ]
     for (let minRange = MIN_USER_AGE; minRange < MAX_USER_AGE; minRange += AGE_RANGE + 1) {
       userAgePrefRanges.push(
       <option type="userAgePrefMinRange" name="userAgePrefMinRange" value={minRange} onChange={this.onChange}>
@@ -325,6 +286,13 @@ class Registration extends React.Component {
                 <option value="none" selected disabled hidden>Select an Option</option>
                 {MAX_DISTANCES.map(distance => (<option key = {distance} value={distance}>{distance}</option>))}
               </select>
+              <p />
+              Does your new dog friend need to be neutered?
+              <select id="isNeuteredDealbreaker" name="isNeuteredDealbreaker" onChange={this.onChange}>
+                <option value="none" selected disabled hidden>Select an Option</option>
+                <option value={true}>I only want to be matched with neutered dogs</option>
+                <option value={false}>I can be matched with dogs regardless of neutered status</option>
+              </select>
 
               <h3>Spice up your profile</h3>
               <h4>Answer a few prompts to help personalize your profile and ensure matches</h4>
@@ -381,20 +349,13 @@ class Registration extends React.Component {
                 {USER_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
               </select>, 
               and is in the age range of 
-              <select>
-                {userAgePrefRanges}
-                {/* { for(let minRange = MIN_USER_AGE; minRange < MAX_USER_AGE; minRange += AGE_RANGE) {
-
-                  (<option>`${minRange} - ${minRange + AGE_RANGE}`</option>)
-                }} */}
-                {/* <input type="userAgePrefMinRange" name="userAgePrefMinRange" onChange={this.onChange} />  */}
-              </select>.
+              <select>{userAgePrefRanges}</select>.
               <p />
               <button className="submit" type="submit" onClick={this.onSubmit}>Register</button>
           </div>
         </div>
       )
-    };
+    }
   }
 }
 

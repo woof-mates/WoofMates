@@ -1,20 +1,8 @@
 import React from 'react';
 
-import firebase from 'firebase';
+import VideoChatContainer from './VideoChat/VideoChatContainer';
 
-const firebaseConfig = {
-    apiKey: "AIzaSyDZUsDKQ79fy2TRZJWfmiprYqHUdizGLlo",
-    authDomain: "dog-chat-74ccf.firebaseapp.com",
-    databaseURL: "https://dog-chat-74ccf.firebaseio.com",
-    projectId: "dog-chat-74ccf",
-    storageBucket: "dog-chat-74ccf.appspot.com",
-    messagingSenderId: "391829997647",
-    appId: "1:391829997647:web:d5de6332d455f8c3ab823a"
-};
-
-firebase.initializeApp(firebaseConfig);
-
-const db = firebase.database();
+import firebaseDB from './Firebase';
 
 class Chat extends React.Component {
     constructor(props) {
@@ -23,10 +11,13 @@ class Chat extends React.Component {
             chats: [],
             message: '',
             readError: null,
-            writeError: null
+            writeError: null,
+            videoChat: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.openVideo = this.openVideo.bind(this);
+        this.closeVideo = this.closeVideo.bind(this);
     }
 
     async componentDidMount() {
@@ -35,7 +26,7 @@ class Chat extends React.Component {
         });
 
         try {
-            db.ref(`${this.props.from}-${this.props.to}/chats`).on("value", snapshot => {
+            firebaseDB.ref(`${this.props.from}-${this.props.to}/chats`).on("value", snapshot => {
                 let chats = [];
                 snapshot.forEach(snap => {
                     chats.push(snap.val());
@@ -59,11 +50,11 @@ class Chat extends React.Component {
             writeError: null
         })
         try {
-            await db.ref(`${this.props.from}-${this.props.to}/chats`).push({
+            await firebaseDB.ref(`${this.props.from}-${this.props.to}/chats`).push({
                 message: this.state.message,
                 timestamp: Date.now()
             });
-            await db.ref(`${this.props.to}-${this.props.from}/chats`).push({
+            await firebaseDB.ref(`${this.props.to}-${this.props.from}/chats`).push({
                 message: this.state.message,
                 timestamp: Date.now()
             });
@@ -77,26 +68,49 @@ class Chat extends React.Component {
         })
     }
 
+    openVideo() {
+        this.setState({
+            videoChat: true
+        })
+    }
+
+    closeVideo() {
+        this.setState({
+            videoChat: false
+        })
+    }
+
     render() {
-        const { chats } = this.state;
-        return (
-            <div>
+        const { chats, videoChat } = this.state;
+
+        if (videoChat) {
+            return (
                 <div>
-                    {
-                        chats.map(chat => {
-                            return (
-                                <p key={chat.timestamp}>{chat.message}</p>
-                            )
-                        })
-                    }
+                    <VideoChatContainer fromName={this.props.fromName} toName={this.props.toName} closeVideo={this.closeVideo}/>
                 </div>
-                <form onSubmit={this.handleSubmit}>
-                    <input onChange={this.handleChange} value={this.state.message}></input>
-                    {this.state.writeError ? <p>{this.state.writeError}</p> : null}
-                    <button type="submit">Send</button>
-                </form>
-            </div>
-        )
+            )
+        } else {
+            return (
+                <div>
+                    <button onClick={this.props.closeChat}>Close Chat</button>
+                    <button onClick={this.openVideo}>Call</button>
+                    <div>
+                        {
+                            chats.map(chat => {
+                                return (
+                                    <p key={chat.timestamp}>{chat.message}</p>
+                                )
+                            })
+                        }
+                    </div>
+                    <form onSubmit={this.handleSubmit}>
+                        <input onChange={this.handleChange} value={this.state.message}></input>
+                        {this.state.writeError ? <p>{this.state.writeError}</p> : null}
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+            )
+        }
     }
 }
 
