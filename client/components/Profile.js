@@ -49,7 +49,7 @@ class Profile extends React.Component {
                         <div>Address: {user.city}, {user.state} {user.zipCode}</div>
                         <div>Age: {user.age}</div>
                         <div>Profession: {user.profession}</div>
-                        <div>Interests: 
+                        <div>Interests:
                             {user.userInterests.reduce((acc, interest, i) => {
                                     if (i === 0) return acc + interest
                                     else return acc + ', ' + interest
@@ -64,13 +64,13 @@ class Profile extends React.Component {
                         <div>Weight: {dog ? dog.weight: ''}</div>
                         <div>Age: {dog ? dog.dogAge: ''}</div>
                         <div>Energy Level: {dog ? dog.energyLevel : ''}</div>
-                        <div>Neutered: 
+                        <div>Neutered:
                             {
                                 dog ? dog.neutered ? ' Yes' : ' No'
                                 : ''
                             }
                         </div>
-                        <div>Interests: 
+                        <div>Interests:
                             {dog ? dog.dogInterests.reduce((acc, interest, i) => {
                                     if (i === 0) return acc + interest
                                     else return acc + ', ' + interest

@@ -1,30 +1,45 @@
 const router = require('express').Router();
 const { User, Session, Preference, Dog, Prompt } = require('../db/index');
 const { saltAndHash } = require('../../utils/hashPasswordFunc');
-const A_WEEK_IN_MILLISECONDS = require('../../constants')
+const { A_WEEK_IN_MILLISECONDS } = require('../../constants')
 
 router.get('/', async(req, res, next) => { // api/users
   try {
-    res.send(await User.findAll());
+    res.send(await User.findAll({
+      attributes: {
+        exclude: ['hashedPassword']
+      }
+    }));
   }
   catch (ex) {
-    next (ex)
+    next(ex)
+  }
+})
+
+router.get('/get-user', (req, res, next) => {
+  try {
+    res.send(req.user)
+  }
+  catch (err) {
+      next(err)
   }
 })
 
 router.get('/:userId', async(req, res, next) => { // single user profile
   try {
-    const userProfile = await User.findOne({
-      where: {
-        id: req.params.userId
-      },
-      include: [Preference, Dog]
-    });
-    console.log('backend', userProfile)
-    res.send(userProfile)
+      const userProfile = await User.findOne({
+        where: {
+          id: req.params.userId
+        },
+        include: [Preference, Dog],
+        attributes: {
+          exclude: ['hashedPassword']
+        }
+      });
+      res.send(userProfile)
   }
   catch (ex) {
-    next (ex)
+    next(ex)
   }
 })
 
@@ -73,10 +88,10 @@ router.post('/register', async(req, res, next) => { // register a user (api/user
   }
 })
 
-router.delete('/:userId', async(req,res,next) => { // delete a user (api/users)
+router.delete('/:userId', async(req, res, next) => { // delete a user (api/users)
   try {
-    await User.destroy({where: {id: req.params.userId}})
-    res.sendStatus(200)
+      await User.destroy({where: {id: req.params.userId}})
+      res.sendStatus(200)
   } catch (error) {
     console.log(error)
     res.sendStatus(500)
@@ -84,28 +99,29 @@ router.delete('/:userId', async(req,res,next) => { // delete a user (api/users)
 
 })
 
-router.put('/:userId', async(req,res,next) => { // update a user (api/users)
+router.put('/:userId', async(req, res, next) => { // update a user (api/users)
   try {
-    await Dog.update(req.body.dog, {
-      where: {
-        id: req.body.dog.id
-      }
-    })
-    const withoutDog = req.body;
-    delete withoutDog.dog
+      await Dog.update(req.body.dog, {
+        where: {
+          id: req.body.dog.id
+        }
+      })
+      const withoutDog = req.body;
+      delete withoutDog.dog
 
-    await User.update(withoutDog, {
-      where: {
-        id: req.params.userId
-      }
-    })
-    const updatedUser = await User.findOne({
-      where: {
-        id: req.params.userId
-      }
-    })
-    res.send(updatedUser);
-  } catch (error) {
+      await User.update(withoutDog, {
+        where: {
+          id: req.params.userId
+        }
+      })
+      const updatedUser = await User.findOne({
+        where: {
+          id: req.params.userId
+        }
+      })
+      res.send(updatedUser);
+    }
+    catch (error) {
     console.log(error)
     res.sendStatus(500)
   }

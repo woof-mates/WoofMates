@@ -7,10 +7,13 @@ import Auth from './components/Auth'
 import Match from './components/Match'
 import Chatrooms from './components/Chatrooms'
 import Profile from './components/Profile'
+import { connect } from 'react-redux'
+import {getUser} from './store/user'
+import VideoChatContainer from './components/VideoChat/VideoChatContainer'
 
 class App extends React.Component {
-    componentDidMount(){
-        console.log('hello world');
+    async componentDidMount (){
+        await this.props.getUser()
     }
 
     render() {
@@ -31,4 +34,13 @@ class App extends React.Component {
 }
 
 
-export default App;
+export default connect(
+    (state) => {
+      return {
+        user: state.user
+      }
+    },
+    (dispatch) => {return {
+      getUser: () => dispatch(getUser()),
+    }}
+    )(App)

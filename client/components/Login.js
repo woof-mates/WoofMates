@@ -35,6 +35,7 @@ class Login extends Component {
                     <input onChange={this.setEmail} value={this.state.userEmail} placeholder="email" />
                     <input onChange={this.setPassword} value={this.state.password} placeholder="password" type="password" />
                     <button type="submit">Log In</button>
+
                 </form>
             </>
         )
