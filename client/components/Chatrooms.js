@@ -34,8 +34,7 @@ class Chatrooms extends React.Component {
     }
 
     render() {
-        const { user } = this.props;
-        const { matches } = this.props;
+        const { user, matches } = this.props;
         const { messaging } = this.state;
         console.log(matches)
         if (!user.id) {
