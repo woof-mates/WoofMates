@@ -15,9 +15,7 @@ const getMatches = (userId) => async(dispatch) => {
         const { data } = await (axios.get(`/api/matches/${userId}`));
 
         //map through above 'matchId' to get the individual user info
-        const getAllMatches = await Promise.all(data.map(async(matchedId) => { 
-            return await axios.get(`api/users/${matchedId}`);
-        }));
+        const getAllMatches = await Promise.all(data.map(matchedId => axios.get(`api/users/${matchedId}`)));
         
         //map through to get user data for each
         const allMatches = getAllMatches.map(match => {
