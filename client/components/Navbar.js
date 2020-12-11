@@ -6,8 +6,8 @@ import {logout} from '../store/user'
 
 
 class Navbar extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.onClick = this.onClick.bind(this)
   }
 
