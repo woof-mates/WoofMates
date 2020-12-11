@@ -4,7 +4,7 @@ const {getRandomInt} = require('../../utils/mathFuncs')
 // const User = require('../db/models/User')
 //  const { User, Preference, Dog, Userpref} = require('../db')
 
-const findMatch = async (currUser, users) => {
+const findMatch = (currUser, users) => {
 // const findMatch = async (currUserId, user2Id) => {
 
   //use score to return dog with highest score
@@ -27,10 +27,10 @@ const findMatch = async (currUser, users) => {
     if (isUserSpecifiedPref) {
       const statedPreferences = currUser.userpref.dataValues;
       const userDog = currUser.dog.dataValues
-      const scoreStatedPrefs = await scorePreferences(statedPreferences, possibleMatch, userDog)
+      const scoreStatedPrefs = scorePreferences(statedPreferences, possibleMatch, userDog)
       statedPrefScore = scoreStatedPrefs;
     }
-    activityScore = await scoreActivity(possibleMatch, currUser)
+    activityScore = scoreActivity(possibleMatch, currUser)
     currScore = activityScore + statedPrefScore;
     // console.log(`activity score: ${activityScore}`)
     // console.log(`statedPrefScore: ${statedPrefScore}`)
