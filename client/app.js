@@ -4,6 +4,8 @@ import Registration from './registration/index'
 import Login from './components/Login'
 import Navbar from './components/Navbar'
 import Match from './components/match'
+import Auth from './components/Auth'
+import Match from './components/Match'
 import Chatrooms from './components/Chatrooms'
 import Profile from './components/Profile'
 
