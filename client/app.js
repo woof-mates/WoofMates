@@ -7,6 +7,7 @@ import Auth from './components/Auth'
 import Match from './components/Match'
 import Chatrooms from './components/Chatrooms'
 import Profile from './components/Profile'
+import VideoChatContainer from './components/VideoChat/VideoChatContainer'
 
 class App extends React.Component {
     componentDidMount(){
