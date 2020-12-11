@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { User, Session, Preference, Dog, Prompt } = require('../db/index');
 const { saltAndHash } = require('../../utils/hashPasswordFunc');
-const A_WEEK_IN_MILLISECONDS = require('../../constants')
+const { A_WEEK_IN_MILLISECONDS } = require('../../constants')
 
 router.get('/', async(req, res, next) => { // api/users
   try {
