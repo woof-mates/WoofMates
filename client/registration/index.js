@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { registerUser } from '../store/user'
 import { PROFESSIONS, USER_INTERESTS, BREEDS, MAX_DISTANCES, DOG_INTERESTS, MAX_USER_AGE, DOG_AGE_PREFS, DOG_WEIGHT_PREFS, MIN_USER_AGE, AGE_RANGE } from '../../constants'
-import PhotoUpload from '../components/PhotoUpload'
 import UserRegistration from './UserRegistration'
 import UserInfo from './UserInfo'
 import DogInfo from './DogInfo'
@@ -67,61 +66,61 @@ class Registration extends React.Component {
     this.setState({ step: this.state.step - 1 })
   }
 
-  onChange (e) {
-    if (e.target.name === 'userInterestsList') {
-      this.tempUserInterests.push(e.target.value)
-      this.setState({
-        userInterests: this.tempUserInterests
-      })
-    }
+  // onChange (e) {
+  //   if (e.target.name === 'userInterestsList') {
+  //     this.tempUserInterests.push(e.target.value)
+  //     this.setState({
+  //       userInterests: this.tempUserInterests
+  //     })
+  //   }
 
-    else if (e.target.name === 'userEmail') {
-      let newEmail = e.target.value.toLowerCase()
-      this.setState({
-        userEmail: newEmail
-      })
-    }
+  //   else if (e.target.name === 'userEmail') {
+  //     let newEmail = e.target.value.toLowerCase()
+  //     this.setState({
+  //       userEmail: newEmail
+  //     })
+  //   }
 
-    else if (e.target.name === 'dogInterestsList') {
-      this.tempDogInterests.push(e.target.value)
-      this.setState({
-        dogInterests: this.tempDogInterests
-      })
-    }
+  //   else if (e.target.name === 'dogInterestsList') {
+  //     this.tempDogInterests.push(e.target.value)
+  //     this.setState({
+  //       dogInterests: this.tempDogInterests
+  //     })
+  //   }
 
-    else if (e.target.name === 'userProfessionsPref') {
-      this.tempUserProfessionPrefs.push(e.target.value)
-      this.setState({
-        userProfessionsPref: this.tempUserProfessionPrefs
-      })
-    }
+  //   else if (e.target.name === 'userProfessionsPref') {
+  //     this.tempUserProfessionPrefs.push(e.target.value)
+  //     this.setState({
+  //       userProfessionsPref: this.tempUserProfessionPrefs
+  //     })
+  //   }
 
-    else if (e.target.name === 'userInterestsPref') {
-      this.tempUserInterestsPrefs.push(e.target.value)
-      this.setState({
-        userInterestsPref: this.tempUserInterestsPrefs
-      })
-    }
+  //   else if (e.target.name === 'userInterestsPref') {
+  //     this.tempUserInterestsPrefs.push(e.target.value)
+  //     this.setState({
+  //       userInterestsPref: this.tempUserInterestsPrefs
+  //     })
+  //   }
 
-    else if (this.arrForNums.includes(e.target.name)) {
-      this.setState({
-        [e.target.name]: Number(e.target.value)
-      })
-    }
+  //   else if (this.arrForNums.includes(e.target.name)) {
+  //     this.setState({
+  //       [e.target.name]: Number(e.target.value)
+  //     })
+  //   }
 
-    else if (e.target.name === 'neutered') {
-      let neuteredBool = (e.target.value === 'true')
-      this.setState({
-        [e.target.name]: neuteredBool
-      })
-    }
+  //   else if (e.target.name === 'neutered') {
+  //     let neuteredBool = (e.target.value === 'true')
+  //     this.setState({
+  //       [e.target.name]: neuteredBool
+  //     })
+  //   }
 
-    else {
-      this.setState({
-        [e.target.name]: e.target.value
-      })
-    }
-  }
+  //   else {
+  //     this.setState({
+  //       [e.target.name]: e.target.value
+  //     })
+  //   }
+  // }
 
   render() {
     const {user} = this.props
@@ -139,7 +138,7 @@ class Registration extends React.Component {
            {
             {
               0: <UserRegistration updateData={this.updateData} />,
-              1: <UserInfo updateData={this.updateData} goBack={this.goBack} photoUpload={this.photoUpload} />,
+              1: <UserInfo updateData={this.updateData} goBack={this.goBack} info={this.state} photoUpload={this.photoUpload} />,
               2: <DogInfo updateData={this.updateData} goBack={this.goBack} photoUpload={this.photoUpload} />,
               3: <DealbreakersPreferences updateData={this.updateData} goBack={this.goBack} />
             }[step]
