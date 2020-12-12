@@ -25,7 +25,7 @@ class App extends React.Component {
                         <Route path='/signUp' exact component={Registration}/>
                         <Route path='/profile' exact component={Profile}/>
                         <Route path='/chat' exact component={Chatrooms}/>
-                        <Route path='/login' exact component={Login}/>
+                        <Route path='/login' exact component={Auth}/>
                         <Route path='/match' exact component={Match}/>
                     </Switch>
             </Router>

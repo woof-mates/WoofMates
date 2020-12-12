@@ -87,7 +87,7 @@ class EditProfile extends React.Component {
   render() {
     const {dog} = this.state
     return (
-        <div id="updateContainer">
+        <div id="updateProfileContainer">
             <h3>Update Profile</h3>
             <div id="userUpdateForm">
                 <h4>User</h4>
