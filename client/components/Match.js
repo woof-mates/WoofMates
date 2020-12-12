@@ -40,31 +40,38 @@ class Match extends Component {
         if (!match.firstName) return null
         return (
         <>
-            <div>Owner Name and Age: {match.firstName}, age {match.age}</div>
-            <div>Dog Name, Age, and Breed: {match.dog.dogName}, age {match.dog.dogAge}, a {match.dog.breed}</div>
-            <div>Location: {match.city}, {match.state}, {matchDistanceFromUser} miles from you</div>
-            <br />
-            <div>Meet the Dog:
-                <div>Weight: {match.dog.weight}</div>
-                <div>Energy Level: {match.dog.energyLevel}</div>
-                <div>Neutered: {match.dog.neutered ? ' Yes' : ' No'}</div>
-                <div>Interests: {list(match.dog.dogInterests)}</div>
+            <div id="matchContainer">
+                <div id="matchBody">
+                <h3>Match</h3>
+                <div>Owner Name and Age: {match.firstName}, age {match.age}</div>
+                <div>Dog Name, Age, and Breed: {match.dog.dogName}, age {match.dog.dogAge}, a {match.dog.breed}</div>
+                <div>Location: {match.city}, {match.state}, {matchDistanceFromUser} miles from you</div>
+                <br />
+                <div>Meet the Dog:
+                    <div>Weight: {match.dog.weight}</div>
+                    <div>Energy Level: {match.dog.energyLevel}</div>
+                    <div>Neutered: {match.dog.neutered ? ' Yes' : ' No'}</div>
+                    <div>Interests: {list(match.dog.dogInterests)}</div>
+                </div>
+                <br />
+                <div>Meet the Owner:
+                    <div>Age: {match.age}</div>
+                    <div>Interests: {list(match.userInterests)}</div>
+                    <div>Profession: {match.profession}</div>
+                </div>
+                <img src={match.userImage1} />
+                <img src={match.userImage2} />
+                <img src={match.dogImage} />
+                <div id="matchButtonsContainer">
+                    <button className="acceptMatchButton" onClick={this.sendDecisionAndLoadNextMatch} value="like" type="submit">Like</button>
+                    <button className="rejectMatchButton" onClick={this.sendDecisionAndLoadNextMatch} value="reject" type="submit">Don't like</button>
+                </div>
+                {/* Match user ID for debugging purposes, will take out */}
+                <p>Match User Id: {match.id}</p>
+                <p>{this.state.message}</p>
+                { this.state.message.includes('you have matched') ? <Chatrooms matchedId = {match.id} /> : null}
+                </div>
             </div>
-            <br />
-            <div>Meet the Owner:
-                <div>Age: {match.age}</div>
-                <div>Interests: {list(match.userInterests)}</div>
-                <div>Profession: {match.profession}</div>
-            </div>
-            <img src={match.userImage1} />
-            <img src={match.userImage2} />
-            <img src={match.dogImage} />
-            <button onClick={this.sendDecisionAndLoadNextMatch} value="like" type="submit">Like</button>
-            <button onClick={this.sendDecisionAndLoadNextMatch} value="reject" type="submit">Don't like</button>
-            {/* Match user ID for debugging purposes, will take out */}
-            <p>Match User Id: {match.id}</p>
-            <p>{this.state.message}</p>
-            { this.state.message.includes('you have matched') ? <Chatrooms matchedId = {match.id} /> : null}
         </>
     )
     }

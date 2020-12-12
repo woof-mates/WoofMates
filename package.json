@@ -22,6 +22,7 @@
     "babel-eslint": "^10.1.0",
     "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
+    "classnames": "^2.2.6",
     "db-create": "^1.2.0",
     "eslint": "^7.14.0",
     "eslint-config-fullstack": "^6.0.0",
@@ -43,7 +44,8 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "sequelize": "^6.3.4",
-    "volleyball": "^1.5.1"
+    "volleyball": "^1.5.1",
+    "webrtc-adapter": "7.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
@@ -57,6 +59,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "chalk": "^4.1.0",
+    "dotenv-webpack": "^4.0.0",
     "nodemon": "^1.19.1",
     "webpack": "^3.12.0",
     "webpack-cli": "^4.1.0"

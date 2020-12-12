@@ -8,10 +8,13 @@ import Match from './components/Match'
 import Chatrooms from './components/Chatrooms'
 import Profile from './components/Profile'
 import Home from './components/Home'
+import { connect } from 'react-redux'
+import { getUser } from './store/user'
+
 
 class App extends React.Component {
-    componentDidMount(){
-        console.log('hello world');
+    async componentDidMount (){
+        await this.props.getUser()
     }
 
     render() {
@@ -23,13 +26,22 @@ class App extends React.Component {
                         <Route path='/signUp' exact component={Registration}/>
                         <Route path='/profile' exact component={Profile}/>
                         <Route path='/chat' exact component={Chatrooms}/>
-                        <Route path='/login' exact component={Login}/>
+                        <Route path='/login' exact component={Auth}/>
                         <Route path='/match' exact component={Match}/>
                     </Switch>
             </Router>
         );
-    };
-};
+    }
+}
 
 
-export default App;
+export default connect(
+    (state) => {
+      return {
+        user: state.user
+      }
+    },
+    (dispatch) => {return {
+      getUser: () => dispatch(getUser()),
+    }}
+    )(App)

@@ -1,11 +1,12 @@
 /* eslint-disable max-statements */
-const {BREEDS, MAX_DOG_AGE, MAX_DOG_WEIGHT, PROFESSIONS, USER_INTERESTS, MAX_USER_AGE, MAX_DISTANCE_FROM_USER} = require('../../../constants')
+const {BREEDS, MAX_DOG_AGE, MAX_DOG_WEIGHT, PROFESSIONS, USER_INTERESTS, MAX_USER_AGE, MAX_DISTANCE_FROM_USER, DOG_INTERESTS} = require('../../../constants')
 const {getRandomInt} = require('../../../utils/mathFuncs')
 const {setValObj, setNumericalObj} = require('../../../utils/dbFuncs')
 
 const createPreferences = (numUsers, numVotes) => {
   let dogBreeds = [];
   let dogAges = [];
+  let dogInterests = [];
   let dogEnergyLevels = [];
   let dogWeights = [];
   let isNeuteredDealbreaker = [];
@@ -20,6 +21,7 @@ const createPreferences = (numUsers, numVotes) => {
     dogAges.push(setNumericalObj(MAX_DOG_AGE, numVotes))
     dogEnergyLevels.push(setNumericalObj(5, numVotes))
     dogWeights.push(setNumericalObj(MAX_DOG_WEIGHT, numVotes))
+    dogInterests.push(setValObj(DOG_INTERESTS, numVotes))
     // first user as broad as possible for match testing purposes
     if (i === 0) isNeuteredDealbreaker.push(false)
     else isNeuteredDealbreaker.push(getRandomInt(2))
@@ -36,6 +38,7 @@ const createPreferences = (numUsers, numVotes) => {
     preferences[i].dogBreed = dogBreeds[i]
     preferences[i].dogAgeForPref = dogAges[i]
     preferences[i].dogEnergyLevel = dogEnergyLevels[i]
+    preferences[i].dogInterests = dogInterests[i]
     preferences[i].dogWeight = dogWeights[i]
     preferences[i].isNeuteredDealbreaker = isNeuteredDealbreaker[i]
     preferences[i].userInterests = userInterests[i]
