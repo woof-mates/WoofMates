@@ -1,7 +1,7 @@
 import React from 'react'
 import { HashRouter as Router, Route, Switch} from 'react-router-dom'
 import Registration from './registration/index'
-import Login from './components/Login'
+import Footer from './components/Footer'
 import Navbar from './components/Navbar'
 import Auth from './components/Auth'
 import Match from './components/Match'
@@ -28,6 +28,7 @@ class App extends React.Component {
                         <Route path='/login' exact component={Auth}/>
                         <Route path='/match' exact component={Match}/>
                     </Switch>
+                    <Footer />
             </Router>
         );
     }
