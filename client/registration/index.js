@@ -127,8 +127,8 @@ class Registration extends React.Component {
     }
     else {
       return (
-        <div id="signInContainer">
-          <div id="signInForm">
+        <div id="signUpContainer">
+          <div id="signUpForm">
             <h3>Registration Form</h3>
               First Name:
               <input type="firstName" name = "firstName" onChange={this.onChange} />
@@ -320,35 +320,35 @@ class Registration extends React.Component {
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5 (Highest)</option>
-              </select> energy level, and is 
+              </select> energy level, and is
               <select id="dogWeightPref" name="dogWeightPref" onChange={this.onChange}>
                 <option value="none" selected disabled hidden>Select an Option</option>
                 {DOG_WEIGHT_PREFS.map(weightPref => (<option key = {weightPref} value={weightPref}>{weightPref}</option>))}
               </select> in size compared to my dog.
               <br />
-              I'd like to be matched with a pet owner who works in 
+              I'd like to be matched with a pet owner who works in
               <select id="userProfessionsPref" name="userProfessionsPref" onChange={this.onChange}>
                 <option value="none" selected disabled hidden>Select an Option</option>
                 {PROFESSIONS.map(profession => (<option key = {profession} value={profession}>{profession}</option>))}
-              </select> 
-              or 
+              </select>
+              or
               <select id="userProfessionsPref" name="userProfessionsPref" onChange={this.onChange}>
                 <option value="none" selected disabled hidden>Select an Option</option>
                 {PROFESSIONS.map(profession => (<option key = {profession} value={profession}>{profession}</option>))}
               </select>,
-              has interests in 
+              has interests in
               <select id="userInterestsPref" name="userInterestsPref" onChange={this.onChange}>
                 <option value="none" selected disabled hidden>
                 Select an Option
                 </option>
                 {USER_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
               </select>
-               or 
+               or
               <select id="userInterestsPref" name="userInterestsPref" onChange={this.onChange}>
                 <option value="none" selected disabled hidden>Select an Option</option>
                 {USER_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
-              </select>, 
-              and is in the age range of 
+              </select>,
+              and is in the age range of
               <select>{userAgePrefRanges}</select>.
               <p />
               <button className="submit" type="submit" onClick={this.onSubmit}>Register</button>

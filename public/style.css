@@ -26,9 +26,7 @@ body {
   flex-direction: column;
 }
 
-#signInContainer {
-  padding: 1em;
-}
+
 
 #profileContainer {
   padding: 1em;
@@ -56,6 +54,38 @@ ul {
   list-style-type: none;
 }
 
+#profileContainer {
+  padding: 1em;
+}
+
+#profileBody {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  background-color: #dae7de;
+  margin: 20px;
+  width: 60%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#signUpContainer {
+  padding: 1em;
+}
+
+#signInContainer {
+  padding: 1em;
+}
+
+#matchContainer {
+  padding: 1em;
+}
+
+#updateProfileContainer {
+  padding: 1em;
+}
+
 #signInForm {
   display: flex;
   flex-direction: column;
@@ -68,7 +98,110 @@ ul {
   margin-right: auto;
 }
 
-.deleteRecipeButton {
+#chatBody {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  background-color: #dae7de;
+  margin: 20px;
+  width: 70%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#matchBody {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  background-color: #dae7de;
+  margin: 20px;
+  width: 70%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#signUpForm {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  background-color: #dae7de;
+  margin: 20px;
+  width: 60%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#userUpdateForm {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  background-color: #dae7de;
+  margin: 20px;
+  width: 60%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#dogUpdateForm {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  background-color: #dae7de;
+  margin: 20px;
+  width: 60%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#signUpContainer {
+  padding: 1em;
+}
+
+#chatContainer {
+  padding: 1em;
+}
+
+#matchButtonsContainer{
+  display: flex;
+  flex-direction: row;
+}
+
+#signUpForm {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  background-color: #dae7de;
+  margin: 20px;
+  width: 60%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rejectMatchButton {
+  text-align: center;
+  background-color:#ecaaaa;
+	border-radius:28px;
+	border:1px solid #f58787;
+	display:block;
+	cursor:pointer;
+	color: black;
+	font-family:Arial;
+	font-size:17px;
+	padding:12px 31px;
+	text-decoration:none;
+  text-shadow:0px 1px 0px #ecaaaa;
+  margin-left: auto;
+  margin-right: auto;
+  width: 150px;
+}
+
+.acceptMatchButton {
   text-align: center;
   background-color:#44c767;
 	border-radius:28px;
@@ -78,11 +211,12 @@ ul {
 	color:#ffffff;
 	font-family:Arial;
 	font-size:17px;
-	padding:16px 31px;
+	padding:12px 31px;
 	text-decoration:none;
   text-shadow:0px 1px 0px #2f6627;
   margin-left: auto;
   margin-right: auto;
+  width: 150px;
 }
 
 .logOutButton {
@@ -107,28 +241,28 @@ ul {
 	border:1px solid #18ab29;
 	display:block;
 	cursor:pointer;
-	color:#2f2235;
+	color: white;
 	font-family:Georgia;
 	font-size:small;
 	padding:12px 25px;
   text-decoration:none;
-  text-shadow:0px 1px 0px #2f6627;
+  text-shadow:0px 1px 0px #44c767;
   font-weight: 500;
 }
 
 .signUpNavButton {
   text-align: center;
+  color: white;
   background-color: #007fff;
 	border-radius:28px;
-	border:1px solid #5a45d1;
+	border:1px solid #007fff;
 	display:block;
 	cursor:pointer;
-	color:#2f2235;
 	font-family:Georgia;
 	font-size:small;
 	padding:12px 25px;
   text-decoration:none;
-  text-shadow:0px 1px 0px #481880;
+  text-shadow:0px 1px 0px #007fff;
   font-weight: 500;
 }
 

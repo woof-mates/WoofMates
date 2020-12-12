@@ -39,20 +39,25 @@ class Chatrooms extends React.Component {
         console.log(matches)
         if (!user.id) {
             return (
-                <div>
+                <div id="chatContainer">
+                    <div id="chatBody">
                     <Link to='/login'>Please Log In To Review Your Messages</Link>
+                    </div>
                 </div>
             );
         } else if (messaging !== 0) {
             return (
-                <div>
-                    <Chat from={user.id} to={messaging} fromName={`${user.firstName} ${user.lastName}`} toName={this.state.messagingToName} closeChat={this.closeChat}/>
+                <div id="chatContainer">
+                    <div id="chatBody">
+                        <Chat from={user.id} to={messaging} fromName={`${user.firstName} ${user.lastName}`} toName={this.state.messagingToName} closeChat={this.closeChat}/>
+                    </div>
                 </div>
             );
         } else {
             return (
-                <div>
-                    <h4>Matches: </h4>
+                <div id="chatContainer">
+                    <div id="chatBody">
+                    <h3>Matches: </h3>
                     <ul>
                         {
                             matches.length ?
@@ -70,6 +75,7 @@ class Chatrooms extends React.Component {
 
                         }
                     </ul>
+                    </div>
                 </div>
             );
         }

@@ -8,13 +8,29 @@ import {logout} from '../store/user'
 class Navbar extends React.Component {
   constructor(props) {
     super(props)
-    this.onClick = this.onClick.bind(this)
+    this.logout = this.logout.bind(this)
+    this.logIn = this.logIn.bind(this)
+    this.signUp = this.signUp.bind(this)
   }
 
-  onClick (e) {
+  componentDidMount () {
+    const {user} = this.props
+  }
+
+  logout (e) {
     e.preventDefault();
     this.props.logout(this.props.user.id)
     window.location.hash='/login'
+  }
+
+  logIn (e) {
+    e.preventDefault();
+    window.location.hash='/login'
+  }
+
+  signUp (e) {
+    e.preventDefault();
+    window.location.hash='/signUp'
   }
 
   render() {
@@ -34,7 +50,7 @@ class Navbar extends React.Component {
           <div id="LinkContainer">
               <Link to="/match">Find Your Match</Link>
           </div>
-          <button className = "logOutButton" onClick={this.onClick}>Log Out</button>
+          <button className = "logOutButton" onClick={this.logout}>Log Out</button>
         </div>
       );
     }
@@ -55,10 +71,10 @@ class Navbar extends React.Component {
               <Link to="/match">Find Your Match</Link>
           </div>
           <div id="LinkContainer">
-              <button className="signInNavButton"><Link id="logOutButton" to="/login">Sign In</Link></button>
+            <button className="signInNavButton" onClick={this.logIn}>Sign In </button>
           </div>
           <div id="LinkContainer">
-              <button className="signUpNavButton"><Link to="/signUp">Sign Up</Link></button>
+            <button className = "signUpNavButton" onClick={this.signUp}>Sign Up</button>
           </div>
         </div>
       )

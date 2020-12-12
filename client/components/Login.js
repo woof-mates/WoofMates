@@ -32,12 +32,14 @@ class Login extends Component {
         return (
             <>
                 <div id="signInContainer">
-                <form id="signInForm" onSubmit={this.submit}>
-                    <input onChange={this.setEmail} value={this.state.userEmail} placeholder="email" />
-                    <input onChange={this.setPassword} value={this.state.password} placeholder="password" type="password" />
-                    <button type="submit">Log In</button>
-
-                </form>
+                    <div id="signInForm">
+                        <h3>Sign In Here</h3>
+                        <form id="signInForm" onSubmit={this.submit}>
+                            <input onChange={this.setEmail} value={this.state.userEmail} placeholder="email" />
+                            <input onChange={this.setPassword} value={this.state.password} placeholder="password" type="password" />
+                            <button type="submit">Log In</button>
+                        </form>
+                    </div>
                 </div>
             </>
         )
