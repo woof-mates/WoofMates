@@ -154,7 +154,7 @@ export default class UserInfo extends Component{
                 {USER_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
                 </select>
                 <p />
-                Upload a picture of yourself! (png, jpg format)* <PhotoUpload type="owner" photoUpload={this.photoUpload} />
+                Upload a picture of yourself! (png, jpg format)* <PhotoUpload type="owner" action="Upload" photoUpload={this.photoUpload} />
                 <br />
                 {this.state.userImage1.length ? <img src={this.state.userImage1} width="150" /> : null }
 

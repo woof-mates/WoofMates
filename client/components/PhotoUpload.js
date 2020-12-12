@@ -18,7 +18,7 @@ export default class PhotoUpload extends Component{
     }
     render(){
         return (
-            <button id="upload_widget" onClick={this.getPhotoUrl}>Upload</button>
+            <button id="upload_widget" onClick={this.getPhotoUrl}>{this.props.action}</button>
         )
     }
 }
