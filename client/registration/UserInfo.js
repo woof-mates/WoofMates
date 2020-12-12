@@ -11,7 +11,6 @@ export default class UserInfo extends Component{
         this.tempUserInterestsPrefs = []
         this.tempUserProfessionPrefs = []
         this.state = {
-            step: 2,
             message: '',
             age: null,
             profession: '',
@@ -23,14 +22,12 @@ export default class UserInfo extends Component{
     this.photoUpload = this.photoUpload.bind(this);
     }
     sendData(){
-        const { userImage1 } = this.state
-        if (!userImage1.length) this.setState({ message: 'Please fill in all required fields' })
-        else this.props.updateData(this.state)
+      const { userImage1 } = this.state
+      if (!userImage1.length) this.setState({ message: 'Please fill in all required fields' })
+      else this.props.updateData(this.state)
     }
-    async photoUpload(photoObj){
-        console.log(photoObj)
-        await this.setState(photoObj)
-        console.log('picurl', this.state.userImage1)
+    photoUpload(photoObj){
+      this.setState(photoObj)
     }
     onChange (e) {
         if (e.target.name === 'userInterestsList') {
@@ -130,8 +127,8 @@ export default class UserInfo extends Component{
                 Upload a picture of yourself! (png, jpg format)* <PhotoUpload type="owner" action="Upload" photoUpload={this.photoUpload} />
                 <br />
                 {this.state.userImage1.length ? <img src={this.state.userImage1} width="150" /> : null }
-
                 <p>{this.state.message}</p>
+                <button onClick={this.props.goBack}>Back</button>
                 <button onClick={this.sendData}>Next</button>
             </div>
         )

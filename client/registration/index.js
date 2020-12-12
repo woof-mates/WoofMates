@@ -51,17 +51,22 @@ class Registration extends React.Component {
       userImage1: '',
       dogImage: ''
     };
-    // this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
-    // this.photoUpload = this.photoUpload.bind(this);
     this.updateData = this.updateData.bind(this);
+    this.goBack = this.goBack.bind(this);
   }
    async updateData(userInfo){
+    userInfo.step = this.state.step + 1
     console.log('incoming',userInfo)
     await this.setState(userInfo)
     console.log(this.state)
     if (this.state.step === 4) this.props.registerUser(this.state)
   }
+
+  goBack(){
+    this.setState({ step: this.state.step - 1 })
+  }
+
   onChange (e) {
     if (e.target.name === 'userInterestsList') {
       this.tempUserInterests.push(e.target.value)
@@ -118,18 +123,6 @@ class Registration extends React.Component {
     }
   }
 
-  // async photoUpload(photoObj){
-  //   console.log(photoObj)
-  //   await this.setState(photoObj)
-  //   console.log('picurl', this.state.userImage1)
-  // }
-
-  // onSubmit (e) {
-  //   e.preventDefault();
-  //   console.log('current state in Registration is: ', this.state)
-  //   this.props.registerUser(this.state)
-  // }
-
   render() {
     const {user} = this.props
     const { step } = this.state
@@ -146,9 +139,9 @@ class Registration extends React.Component {
            {
             {
               0: <UserRegistration updateData={this.updateData} />,
-              1: <UserInfo updateData={this.updateData} photoUpload={this.photoUpload} />,
-              2: <DogInfo updateData={this.updateData} photoUpload={this.photoUpload} />,
-              3: <DealbreakersPreferences updateData={this.updateData} />
+              1: <UserInfo updateData={this.updateData} goBack={this.goBack} photoUpload={this.photoUpload} />,
+              2: <DogInfo updateData={this.updateData} goBack={this.goBack} photoUpload={this.photoUpload} />,
+              3: <DealbreakersPreferences updateData={this.updateData} goBack={this.goBack} />
             }[step]
            }
           </div>
