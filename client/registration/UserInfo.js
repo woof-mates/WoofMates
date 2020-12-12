@@ -128,8 +128,10 @@ export default class UserInfo extends Component{
                 <br />
                 {this.state.userImage1.length ? <img src={this.state.userImage1} width="150" /> : null }
                 <p>{this.state.message}</p>
-                <button onClick={this.props.goBack}>Back</button>
-                <button onClick={this.sendData}>Next</button>
+                <div className="registration-buttons">
+                  <button onClick={this.props.goBack}>Back</button>
+                  <button onClick={this.sendData}>Next</button>
+                </div>
             </div>
         )
     }

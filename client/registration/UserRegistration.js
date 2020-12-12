@@ -18,33 +18,9 @@ export default class UserRegistration extends Component{
             city: '',
             state: '',
             zipCode: 0, //required
-        //   age: null,
-    //   profession: '',
-    //   userInterests: [],
-    //   dogSpeak: '',
-    //   favoriteActivityWithDog: '',
-    //   dogName: '', //required
-    //   breed: '', //required
-    //   dogAge: 0, //required
-    //   energyLevel: 3,
-    //   weight: 0, //required
-    //   neutered: '', //required
-    //   dogInterests: [],
-    //   dogBreedPref: '',
-    //   dogAgePref: '',
-    //   dogEnergyLevelPref: null,
-    //   dogWeightPref: '',
-    //   distanceFromLocation: 5,
-    //   userAgePrefMinRange: null,
-    //   userProfessionsPref: [],
-    //   userInterestsPref: [],
-    //   isNeuteredDealbreaker: null,
-    //   userImage1: '',
-    //   dogImage: ''
         };
     this.onChange = this.onChange.bind(this);
     this.sendData = this.sendData.bind(this);
-    // this.photoUpload = this.photoUpload.bind(this);
   }
     onChange (e) {
         if (e.target.name === 'userInterestsList') {
@@ -60,52 +36,54 @@ export default class UserRegistration extends Component{
             userEmail: newEmail
           })
         }
-    
+
         else if (e.target.name === 'dogInterestsList') {
           this.tempDogInterests.push(e.target.value)
           this.setState({
             dogInterests: this.tempDogInterests
           })
         }
-    
+
         else if (e.target.name === 'userProfessionsPref') {
           this.tempUserProfessionPrefs.push(e.target.value)
           this.setState({
             userProfessionsPref: this.tempUserProfessionPrefs
           })
         }
-    
+
         else if (e.target.name === 'userInterestsPref') {
           this.tempUserInterestsPrefs.push(e.target.value)
           this.setState({
             userInterestsPref: this.tempUserInterestsPrefs
           })
         }
-    
+
         else if (this.arrForNums.includes(e.target.name)) {
           this.setState({
             [e.target.name]: Number(e.target.value)
           })
         }
-    
+
         else if (e.target.name === 'neutered') {
           let neuteredBool = (e.target.value === 'true')
           this.setState({
             [e.target.name]: neuteredBool
           })
         }
-    
+
         else {
           this.setState({
             [e.target.name]: e.target.value
           })
         }
       }
+
     sendData(){
         const { firstName, userEmail, password, zipCode} = this.state
         if (!firstName.length || !userEmail.length || !password.length || !zipCode) this.setState({ message: 'Please fill in all required fields' })
         else this.props.updateData(this.state)
     }
+
     render(){
         return (
             <div>

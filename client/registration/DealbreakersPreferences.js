@@ -11,7 +11,6 @@ export default class DealbreakersPreferences extends Component{
         this.tempUserInterestsPrefs = []
         this.tempUserProfessionPrefs = []
         this.state = {
-            step: 4,
             message: '',
             dogBreedPref: '',
             dogAgePref: '',

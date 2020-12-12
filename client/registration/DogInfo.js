@@ -11,7 +11,6 @@ export default class DogInfo extends Component{
         this.tempUserInterestsPrefs = []
         this.tempUserProfessionPrefs = []
         this.state = {
-            step: 3,
             message: '',
             dogSpeak: '',
             favoriteActivityWithDog: '',
@@ -148,7 +147,10 @@ export default class DogInfo extends Component{
             <textarea name="favoriteActivityWithDog" rows="3" cols="50" wrap="hard" placeholder="" onChange={this.onChange} />
             <p />
             <p>{this.state.message}</p>
-            <button onClick={this.sendData}>Next</button>
+            <div className="registration-buttons">
+                  <button onClick={this.props.goBack}>Back</button>
+                  <button onClick={this.sendData}>Next</button>
+            </div>
         </div>
       )
     }
