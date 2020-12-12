@@ -13,6 +13,7 @@ const AGE_RANGE = 9;
 const MAX_DOG_ENERGY_LEVEL = 5;
 
 const INITIAL_PREF_POINTS_BREED = 100000;
+
 const INITIAL_PREF_POINTS_OTHER = 20;
 
 const ENERGY_LEVELS = ['Very Low', 'Low', 'Medium', 'High', 'Very High']
@@ -22,7 +23,7 @@ const RELATIONSHIPS = ['UserLikedMatch', 'MatchRejectedUser', 'Matched', 'UserRe
 const DOG_INTERESTS = ['Walks','Fetch and other games','Treats!','Playing in the dog park', 'Dancing','Eating','Chasing','Giving you kisses']
 
 const DOG_AGES = [
-  1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
 ]
 
 const MAX_DISTANCES = [

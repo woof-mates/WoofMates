@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 const { BOOLEAN, JSON} = Sequelize;
-const {BREEDS, MAX_DOG_AGE, MAX_DOG_WEIGHT, PROFESSIONS, USER_INTERESTS, MAX_USER_AGE, MAX_DISTANCE_FROM_USER} = require('../../../constants')
+const {BREEDS, MAX_DOG_AGE, MAX_DOG_WEIGHT, PROFESSIONS, USER_INTERESTS, MAX_USER_AGE, MAX_DISTANCE_FROM_USER, DOG_INTERESTS} = require('../../../constants')
 const {setValObj, setNumericalObj} = require('../../../utils/dbFuncs');
 const { INTEGER } = require('sequelize');
 
@@ -11,6 +11,7 @@ const weightObj = setNumericalObj(MAX_DOG_WEIGHT, 0);
 const userAgeObj = setNumericalObj(MAX_USER_AGE, 0);
 const userProfessionObj = setValObj(PROFESSIONS, 0);
 const userInterestObj = setValObj(USER_INTERESTS, 0);
+const dogInterestsObj = setValObj(DOG_INTERESTS, 0)
 
 const Preference = db.define('preference', {
     dogBreed: {
@@ -40,6 +41,14 @@ const Preference = db.define('preference', {
     dogWeight: {
       type: JSON,
       defaultValue: weightObj,
+      allowNull: false,
+      validate: {
+          notEmpty: true
+      }
+    },
+    dogInterests: {
+      type: JSON,
+      defaultValue: dogInterestsObj,
       allowNull: false,
       validate: {
           notEmpty: true
