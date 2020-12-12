@@ -5,7 +5,8 @@ import { Redirect } from 'react-router-dom'
 import { registerUser } from '../store/user'
 import { PROFESSIONS, USER_INTERESTS, BREEDS, MAX_DISTANCES, DOG_INTERESTS, MAX_USER_AGE, DOG_AGE_PREFS, DOG_WEIGHT_PREFS, MIN_USER_AGE, AGE_RANGE } from '../../constants'
 import PhotoUpload from '../components/PhotoUpload'
-// import {createObjForPref, createObjForPref2} from '../../utils/preferencesObjFuncs'
+import Step1 from './Step1'
+import Step2 from './Step2'
 
 class Registration extends React.Component {
   constructor (props) {
@@ -16,6 +17,7 @@ class Registration extends React.Component {
     this.tempUserInterestsPrefs = []
     this.tempUserProfessionPrefs = []
     this.state = {
+      step: 0,
       firstName: '', //required
       lastName: '',
       userEmail: '', //required
@@ -49,9 +51,14 @@ class Registration extends React.Component {
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.photoUpload = this.photoUpload.bind(this);
+    // this.photoUpload = this.photoUpload.bind(this);
+    this.updateData = this.updateData.bind(this);
   }
-
+   async updateData(userInfo){
+    console.log('incoming',userInfo)
+    await this.setState(userInfo)
+    console.log(this.state)
+  }
   onChange (e) {
     if (e.target.name === 'userInterestsList') {
       this.tempUserInterests.push(e.target.value)
@@ -108,11 +115,11 @@ class Registration extends React.Component {
     }
   }
 
-  async photoUpload(photoObj){
-    console.log(photoObj)
-    await this.setState(photoObj)
-    console.log('picurl', this.state.userImage1)
-  }
+  // async photoUpload(photoObj){
+  //   console.log(photoObj)
+  //   await this.setState(photoObj)
+  //   console.log('picurl', this.state.userImage1)
+  // }
 
   onSubmit (e) {
     e.preventDefault();
@@ -122,6 +129,7 @@ class Registration extends React.Component {
 
   render() {
     const {user} = this.props
+    const { step } = this.state
     let userAgePrefRanges = [ <option value="none" selected disabled hidden>Select an Option</option> ]
     for (let minRange = MIN_USER_AGE; minRange < MAX_USER_AGE; minRange += AGE_RANGE + 1) {
       userAgePrefRanges.push(
@@ -139,8 +147,13 @@ class Registration extends React.Component {
       return (
         <div id="signUpContainer">
           <div id="signUpForm">
-            <h3>Registration Form</h3>
-              First Name:
+           {
+            {
+              0: <Step1 updateData={this.updateData} />,
+              1: <Step2 updateData={this.updateData} photoUpload={this.photoUpload} />
+            }[step]
+           }
+              {/* First Name:
               <input type="firstName" name = "firstName" onChange={this.onChange} />
               <p />
               Last Name:
@@ -215,8 +228,8 @@ class Registration extends React.Component {
               <p />
               Zip code:
               <input type="zipCode" name = "zipCode" onChange={this.onChange} />
-              <p />
-              <h3>A bit more about you...</h3>
+              <p /> */}
+              {/* <h3>A bit more about you...</h3>
               Age: <input type="age" name = "age" onChange={this.onChange} />
               <p />
               Profession:
@@ -252,7 +265,7 @@ class Registration extends React.Component {
               </select>
               <p />
               Upload a picture of yourself! (png, jpg format) <PhotoUpload type="owner" photoUpload={this.photoUpload} />
-              {this.state.userImage1.length ? <img src={this.state.userImage1} width="150" /> : null }
+              {this.state.userImage1.length ? <img src={this.state.userImage1} width="150" /> : null } */}
               <h3>Tell us more about your dog!</h3>
               Name:
               <input type="dogName" name = "dogName" onChange={this.onChange} />
@@ -297,38 +310,37 @@ class Registration extends React.Component {
               Upload a picture of your dog! (png, jpg format) <PhotoUpload type="dog" photoUpload={this.photoUpload} />
               {this.state.dogImage.length ? <img src={this.state.dogImage} width="150" /> : null }
               <p />
-              Maximum distance between you and your new pup friends:
+
+              <h3>Tell us your dealbreakers and preferences!</h3>
+              <h4>Answer a few prompts to help personalize your profile and ensure matches</h4>
+              Maximum distance between you and your new dog friends:
               <select id="distanceFromLocation" name="distanceFromLocation" onChange={this.onChange}>
                 <option value="none" selected disabled hidden>Select an Option</option>
                 {MAX_DISTANCES.map(distance => (<option key = {distance} value={distance}>{distance}</option>))}
               </select>
               <p />
-              Does your new dog friend need to be neutered?
+              Does your new dog friend need to be neutered?*
               <select id="isNeuteredDealbreaker" name="isNeuteredDealbreaker" onChange={this.onChange}>
                 <option value="none" selected disabled hidden>Select an Option</option>
                 <option value={true}>I only want to be matched with neutered dogs</option>
                 <option value={false}>I can be matched with dogs regardless of neutered status</option>
               </select>
-
-              <h3>Spice up your profile</h3>
-              <h4>Answer a few prompts to help personalize your profile and ensure matches</h4>
-              If your dog could speak it would say....
-              <br />
-              <textarea name="dogSpeak" rows="3" cols="50" wrap="hard" placeholder="" onChange={this.onChange} />
               <p />
-              Your favorite thing to do with your pup is...
-              <br />
-              <textarea name="favoriteActivityWithDog" rows="3" cols="50" wrap="hard" placeholder="" onChange={this.onChange} />
-              <h3>Last step: tell us your preferences!</h3>
-              In an ideal world, I'd like to be matched with a
+              In an ideal world, I'd like to be matched with a dog with the below characteristics:
+              <p />
+              Breed: 
               <select id="dogBreedPref" name="dogBreedPref" onChange={this.onChange}>
                 <option value="none" selected disabled hidden>Select an Option</option>
                 {BREEDS.map(breed => (<option key={breed} value={breed}>{breed}</option>))}
-              </select> breed dog, who is
+              </select> 
+              <br />
+              Age compared to my dog: 
               <select id="dogAgePref" name="dogAgePref" onChange={this.onChange}>
                 <option value="none" selected disabled hidden>Select an Option</option>
                 {DOG_AGE_PREFS.map(agePref => (<option key = {agePref} value={agePref}>{agePref}</option>))}
-              </select> in age compared to my dog, has
+              </select>
+              <br />
+              Energy level:
               <select id="dogEnergyLevelPref" name="dogEnergyLevelPref" onChange={this.onChange}>
                 <option value="none" selected disabled hidden>Select an Option</option>
                 <option value="1">1 (Lowest)</option>
@@ -336,36 +348,49 @@ class Registration extends React.Component {
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5 (Highest)</option>
-              </select> energy level, and is
+              </select>
+              <br />
+              Size compared to my dog: 
               <select id="dogWeightPref" name="dogWeightPref" onChange={this.onChange}>
                 <option value="none" selected disabled hidden>Select an Option</option>
                 {DOG_WEIGHT_PREFS.map(weightPref => (<option key = {weightPref} value={weightPref}>{weightPref}</option>))}
               </select> in size compared to my dog.
+              <p />
+              In an ideal world, I'd like to be matched with a pet owner with the below characteristics:
               <br />
-              I'd like to be matched with a pet owner who works in
+              Works in (choose up to 2): 
               <select id="userProfessionsPref" name="userProfessionsPref" onChange={this.onChange}>
                 <option value="none" selected disabled hidden>Select an Option</option>
                 {PROFESSIONS.map(profession => (<option key = {profession} value={profession}>{profession}</option>))}
               </select>
-              or
               <select id="userProfessionsPref" name="userProfessionsPref" onChange={this.onChange}>
                 <option value="none" selected disabled hidden>Select an Option</option>
                 {PROFESSIONS.map(profession => (<option key = {profession} value={profession}>{profession}</option>))}
               </select>,
-              has interests in
+              <br />
+              Has interests in (choose up to 2): 
               <select id="userInterestsPref" name="userInterestsPref" onChange={this.onChange}>
                 <option value="none" selected disabled hidden>
                 Select an Option
                 </option>
                 {USER_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
               </select>
-               or
               <select id="userInterestsPref" name="userInterestsPref" onChange={this.onChange}>
                 <option value="none" selected disabled hidden>Select an Option</option>
                 {USER_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
-              </select>,
-              and is in the age range of
+              </select>
+              <br />
+              In the age range of: 
               <select>{userAgePrefRanges}</select>.
+              <p />
+              <h3>Spice up your profile</h3>
+              If your dog could speak it would say....
+              <br />
+              <textarea name="dogSpeak" rows="3" cols="50" wrap="hard" placeholder="" onChange={this.onChange} />
+              <p />
+              Your favorite thing to do with your pup is...
+              <br />
+              <textarea name="favoriteActivityWithDog" rows="3" cols="50" wrap="hard" placeholder="" onChange={this.onChange} />
               <p />
               <button className="submit" type="submit" onClick={this.onSubmit}>Register</button>
           </div>
