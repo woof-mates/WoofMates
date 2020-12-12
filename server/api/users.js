@@ -2,10 +2,6 @@ const router = require('express').Router();
 const { User, Session, Preference, Dog, Prompt, Userpref } = require('../db/index');
 const { saltAndHash } = require('../../utils/hashPasswordFunc');
 const { A_WEEK_IN_MILLISECONDS } = require('../../constants')
-// const multer = require("multer");
-// const cloudinary = require("cloudinary");
-// const cloudinaryStorage = require("multer-storage-cloudinary");
-// const CLOUDINARY_KEY = process.env.CLOUDINARY_KEY
 
 router.get('/', async(req, res, next) => { // api/users
   try {

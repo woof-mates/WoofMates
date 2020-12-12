@@ -45,7 +45,6 @@ export const registerUser = (userInfo) => {
 
       // const newUser = (await axios.post('/api/users/register', {firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, distanceFromLocation, userAgePrefMinRange, userProfessionsPref, userInterestsPref, isNeuteredDealbreaker, userLatitude, userLongitude })).data
       const newUser = (await axios.post('/api/users/register', userInfo)).data
-
       dispatch(registerAUser(newUser))
     }
     catch (error) {
