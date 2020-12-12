@@ -1,7 +1,6 @@
 import React from 'react'
 import { HashRouter as Router, Route, Switch} from 'react-router-dom'
 import Registration from './registration/index'
-import Login from './components/Login'
 import Navbar from './components/Navbar'
 import Auth from './components/Auth'
 import Match from './components/Match'
@@ -22,11 +21,11 @@ class App extends React.Component {
                 <Navbar></Navbar>
                     <Switch>
                         <Route path='/' exact />
-                        <Route path='/signUp' exact component={Registration}/>
-                        <Route path='/profile' exact component={Profile}/>
-                        <Route path='/chat' exact component={Chatrooms}/>
-                        <Route path='/login' exact component={Auth}/>
-                        <Route path='/match' exact component={Match}/>
+                        <Route path='/signUp' exact component={Registration} />
+                        <Route path='/profile' exact component={Profile} />
+                        <Route path='/chat' exact component={Chatrooms} />
+                        <Route path='/login' exact component={Auth} />
+                        <Route path='/match' exact component={Match} />
                     </Switch>
             </Router>
         );

@@ -3,7 +3,8 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { registerUser } from '../store/user'
-import {PROFESSIONS, USER_INTERESTS, BREEDS, MAX_DISTANCES, DOG_INTERESTS, MAX_USER_AGE, DOG_AGE_PREFS, DOG_WEIGHT_PREFS, MIN_USER_AGE, AGE_RANGE } from '../../constants'
+import { PROFESSIONS, USER_INTERESTS, BREEDS, MAX_DISTANCES, DOG_INTERESTS, MAX_USER_AGE, DOG_AGE_PREFS, DOG_WEIGHT_PREFS, MIN_USER_AGE, AGE_RANGE } from '../../constants'
+import PhotoUpload from '../components/PhotoUpload'
 // import {createObjForPref, createObjForPref2} from '../../utils/preferencesObjFuncs'
 
 class Registration extends React.Component {
@@ -42,10 +43,13 @@ class Registration extends React.Component {
       userAgePrefMinRange: null,
       userProfessionsPref: [],
       userInterestsPref: [],
-      isNeuteredDealbreaker: null
+      isNeuteredDealbreaker: null,
+      userImage1: '',
+      dogImage: ''
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.photoUpload = this.photoUpload.bind(this);
   }
 
   onChange (e) {
@@ -102,6 +106,10 @@ class Registration extends React.Component {
         [e.target.name]: e.target.value
       })
     }
+  }
+
+  photoUpload(photoObj){
+    this.setState(photoObj)
   }
 
   onSubmit (e) {
@@ -240,7 +248,10 @@ class Registration extends React.Component {
                 </option>
                 {USER_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
               </select>
-              <h3>Tell us more about your pup!</h3>
+              <p />
+              Upload a picture of yourself! (png, jpg format) <PhotoUpload type="owner" action="Upload" photoUpload={this.photoUpload} />
+              {this.state.userImage1.length ? <img src={this.state.userImage1} width="150" /> : null }
+              <h3>Tell us more about your dog!</h3>
               Name:
               <input type="dogName" name = "dogName" onChange={this.onChange} />
               <p />
@@ -280,6 +291,9 @@ class Registration extends React.Component {
                 <option value="none" selected disabled hidden>Select an Option</option>
                 {DOG_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
               </select>
+              <p />
+              Upload a picture of your dog! (png, jpg format) <PhotoUpload type="dog" action="Upload" photoUpload={this.photoUpload} />
+              {this.state.dogImage.length ? <img src={this.state.dogImage} width="150" /> : null }
               <p />
               Maximum distance between you and your new pup friends:
               <select id="distanceFromLocation" name="distanceFromLocation" onChange={this.onChange}>
