@@ -3,11 +3,12 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { registerUser } from '../store/user'
-import { PROFESSIONS, USER_INTERESTS, BREEDS, MAX_DISTANCES, DOG_INTERESTS, MAX_USER_AGE, DOG_AGE_PREFS, DOG_WEIGHT_PREFS, MIN_USER_AGE, AGE_RANGE } from '../../constants'
+// import { PROFESSIONS, USER_INTERESTS, BREEDS, MAX_DISTANCES, DOG_INTERESTS, MAX_USER_AGE, DOG_AGE_PREFS, DOG_WEIGHT_PREFS, MIN_USER_AGE, AGE_RANGE } from '../../constants'
 import UserRegistration from './UserRegistration'
 import UserInfo from './UserInfo'
 import DogInfo from './DogInfo'
 import DealbreakersPreferences from './DealbreakersPreferences'
+import ProgressBar from './ProgressBar'
 
 class Registration extends React.Component {
   constructor (props) {
@@ -84,9 +85,10 @@ class Registration extends React.Component {
     else {
       return (
         <div id="signUpContainer">
+          <ProgressBar />
           <div id="signUpForm">
             <p>Fields marked with * are required</p>
-            <p>{this.state.message}</p>
+            <p className="error">{this.state.message}</p>
            {
             {
               0: <UserRegistration updateData={this.updateData} info={this.state} />,
