@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class Step1 extends Component{
+export default class UserRegistration extends Component{
     constructor(props){
         super(props)
         this.arrForNums = ['age', 'dogAge', 'energyLevel', 'weight', 'distanceFromLocation']

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PhotoUpload from '../components/PhotoUpload'
 import { PROFESSIONS, USER_INTERESTS, BREEDS, MAX_DISTANCES, DOG_INTERESTS, MAX_USER_AGE, DOG_AGE_PREFS, DOG_WEIGHT_PREFS, MIN_USER_AGE, AGE_RANGE } from '../../constants'
 
-export default class Step2 extends Component{
+export default class UserInfo extends Component{
     constructor(props){
         super(props)
         this.arrForNums = ['age', 'dogAge', 'energyLevel', 'weight', 'distanceFromLocation']
@@ -50,8 +50,9 @@ export default class Step2 extends Component{
     }
     sendData(){
         const { userImage1 } = this.state
-        if (!userImage1.length) this.setState({ message: 'Please fill in all required fields' })
-        else this.props.updateData(this.state)
+        // if (!userImage1.length) this.setState({ message: 'Please fill in all required fields' })
+        // else this.props.updateData(this.state)
+        this.props.updateData(this.state)
     }
     async photoUpload(photoObj){
         console.log(photoObj)
@@ -128,6 +129,7 @@ export default class Step2 extends Component{
                 </select>
                 <p />
                 Your interests (select up to 3):
+                <p />
                 Interest 1:
                 <select id="userInterestsList" name="userInterestsList" onChange={this.onChange}>
                 <option value="none" selected disabled hidden>

@@ -5,8 +5,9 @@ import { Redirect } from 'react-router-dom'
 import { registerUser } from '../store/user'
 import { PROFESSIONS, USER_INTERESTS, BREEDS, MAX_DISTANCES, DOG_INTERESTS, MAX_USER_AGE, DOG_AGE_PREFS, DOG_WEIGHT_PREFS, MIN_USER_AGE, AGE_RANGE } from '../../constants'
 import PhotoUpload from '../components/PhotoUpload'
-import Step1 from './Step1'
-import Step2 from './Step2'
+import UserRegistration from './UserRegistration'
+import UserInfo from './UserInfo'
+import DogInfo from './DogInfo'
 
 class Registration extends React.Component {
   constructor (props) {
@@ -149,8 +150,9 @@ class Registration extends React.Component {
           <div id="signUpForm">
            {
             {
-              0: <Step1 updateData={this.updateData} />,
-              1: <Step2 updateData={this.updateData} photoUpload={this.photoUpload} />
+              0: <UserRegistration updateData={this.updateData} />,
+              1: <UserInfo updateData={this.updateData} photoUpload={this.photoUpload} />,
+              2: <DogInfo updateData={this.updateData} photoUpload={this.photoUpload} />
             }[step]
            }
               {/* First Name:
@@ -266,7 +268,7 @@ class Registration extends React.Component {
               <p />
               Upload a picture of yourself! (png, jpg format) <PhotoUpload type="owner" photoUpload={this.photoUpload} />
               {this.state.userImage1.length ? <img src={this.state.userImage1} width="150" /> : null } */}
-              <h3>Tell us more about your dog!</h3>
+              {/* <h3>Tell us more about your dog!</h3>
               Name:
               <input type="dogName" name = "dogName" onChange={this.onChange} />
               <p />
@@ -310,7 +312,7 @@ class Registration extends React.Component {
               Upload a picture of your dog! (png, jpg format) <PhotoUpload type="dog" photoUpload={this.photoUpload} />
               {this.state.dogImage.length ? <img src={this.state.dogImage} width="150" /> : null }
               <p />
-
+ */}
               <h3>Tell us your dealbreakers and preferences!</h3>
               <h4>Answer a few prompts to help personalize your profile and ensure matches</h4>
               Maximum distance between you and your new dog friends:
