@@ -108,10 +108,8 @@ class Registration extends React.Component {
     }
   }
 
-  async photoUpload(photoObj){
-    console.log(photoObj)
-    await this.setState(photoObj)
-    console.log('picurl', this.state.userImage1)
+  photoUpload(photoObj){
+    this.setState(photoObj)
   }
 
   onSubmit (e) {
@@ -251,7 +249,7 @@ class Registration extends React.Component {
                 {USER_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
               </select>
               <p />
-              Upload a picture of yourself! (png, jpg format) <PhotoUpload type="owner" photoUpload={this.photoUpload} />
+              Upload a picture of yourself! (png, jpg format) <PhotoUpload type="owner" action="Upload" photoUpload={this.photoUpload} />
               {this.state.userImage1.length ? <img src={this.state.userImage1} width="150" /> : null }
               <h3>Tell us more about your dog!</h3>
               Name:
@@ -294,7 +292,7 @@ class Registration extends React.Component {
                 {DOG_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
               </select>
               <p />
-              Upload a picture of your dog! (png, jpg format) <PhotoUpload type="dog" photoUpload={this.photoUpload} />
+              Upload a picture of your dog! (png, jpg format) <PhotoUpload type="dog" action="Upload" photoUpload={this.photoUpload} />
               {this.state.dogImage.length ? <img src={this.state.dogImage} width="150" /> : null }
               <p />
               Maximum distance between you and your new pup friends:
