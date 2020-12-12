@@ -11,7 +11,6 @@ export default class DealbreakersPreferences extends Component{
         this.tempUserInterestsPrefs = []
         this.tempUserProfessionPrefs = []
         this.state = {
-            message: '',
             dogBreedPref: '',
             dogAgePref: '',
             dogEnergyLevelPref: null,
@@ -28,7 +27,7 @@ export default class DealbreakersPreferences extends Component{
     }
     sendData(){
       const { isNeuteredDealbreaker } = this.state
-      if (isNeuteredDealbreaker === null) this.setState({ message: 'Please fill in all required fields' })
+      if (isNeuteredDealbreaker === null) alert('Please fill in all required fields! Fields marked with * are required.')
       else this.props.updateData(this.state)
     }
     photoUpload(photoObj){
@@ -102,17 +101,17 @@ export default class DealbreakersPreferences extends Component{
         <div>
             <h3>Tell us your dealbreakers and preferences!</h3>
             <h4>Answer a few prompts to help personalize your matches...or leave it to our magic behind the scenes!</h4>
-            Maximum distance between you and your new dog friends:
-            <select id="distanceFromLocation" name="distanceFromLocation" onChange={this.onChange}>
-                <option value="none" selected disabled hidden>Select an Option</option>
-                {MAX_DISTANCES.map(distance => (<option key = {distance} value={distance}>{distance}</option>))}
-            </select>
-            <p />
             Does your new dog friend need to be neutered?*
             <select id="isNeuteredDealbreaker" name="isNeuteredDealbreaker" onChange={this.onChange}>
                 <option value="none" selected disabled hidden>Select an Option</option>
                 <option value={true}>I only want to be matched with neutered dogs</option>
                 <option value={false}>I can be matched with dogs regardless of neutered status</option>
+            </select>
+            <p />
+            Maximum distance between you and your new dog friends:
+            <select id="distanceFromLocation" name="distanceFromLocation" onChange={this.onChange}>
+                <option value="none" selected disabled hidden>Select an Option</option>
+                {MAX_DISTANCES.map(distance => (<option key = {distance} value={distance}>{distance}</option>))}
             </select>
             <p />
             In an ideal world, I'd like to be matched with a dog with the below characteristics:
@@ -172,8 +171,10 @@ export default class DealbreakersPreferences extends Component{
             In the age range of: 
             <select type="userAgePrefMinRange" name="userAgePrefMinRange" onChange={this.onChange}>{userAgePrefRanges}</select>
             <p />
-            <button className="submit" type="submit" onClick={this.sendData}>Register</button>
-            <p>{this.state.message}</p>
+            <div className="registration-buttons">
+              <button onClick={this.props.goBack}>Back</button>
+              <button className="submit" type="submit" onClick={this.sendData}>Register</button>
+            </div>
         </div>
       )
     }

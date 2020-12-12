@@ -36,7 +36,7 @@ class Registration extends React.Component {
       dogAge: 0, //required
       energyLevel: 3,
       weight: 0, //required
-      neutered: '', //required
+      neutered: null, //required
       dogInterests: [],
       dogBreedPref: '',
       dogAgePref: '',
@@ -48,7 +48,8 @@ class Registration extends React.Component {
       userInterestsPref: [],
       isNeuteredDealbreaker: null,
       userImage1: '',
-      dogImage: ''
+      dogImage: '',
+      message: ''
     };
     // this.onChange = this.onChange.bind(this);
     this.updateData = this.updateData.bind(this);
@@ -59,7 +60,13 @@ class Registration extends React.Component {
     console.log('incoming',userInfo)
     await this.setState(userInfo)
     console.log(this.state)
-    if (this.state.step === 4) this.props.registerUser(this.state)
+    if (this.state.step === 4) {
+      await this.props.registerUser(this.state)
+      if (!this.props.user.userEmail) {
+        this.goBack();
+        this.setState( {message: 'There was an error with your registration. Please check your inputs and resubmit.'} )
+      }
+    }
   }
 
   goBack(){
@@ -79,6 +86,7 @@ class Registration extends React.Component {
         <div id="signUpContainer">
           <div id="signUpForm">
             <p>Fields marked with * are required</p>
+            <p>{this.state.message}</p>
            {
             {
               0: <UserRegistration updateData={this.updateData} info={this.state} />,

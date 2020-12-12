@@ -12,7 +12,6 @@ export default class UserInfo extends Component{
         // this.tempUserInterestsPrefs = []
         // this.tempUserProfessionPrefs = []
         this.state = {
-            message: '',
             age: null,
             profession: '',
             userInterests: [],
@@ -24,9 +23,9 @@ export default class UserInfo extends Component{
     }
     sendData(){
       const { userImage1 } = this.state
-      // if (!userImage1.length) this.setState({ message: 'Please fill in all required fields' })
-      // else this.props.updateData(this.state)
-      this.props.updateData(this.state)
+      if (!userImage1.length) alert('Please fill in all required fields! Fields marked with * are required.')
+      else this.props.updateData(this.state)
+      // this.props.updateData(this.state)
     }
     photoUpload(photoObj){
       this.setState(photoObj)
@@ -37,16 +36,13 @@ export default class UserInfo extends Component{
     }
     onChange (e) {
       if (e.target.name.includes('userInterestsList')) {
-        if (this.state.userInterests.length) {
-          if (e.target.name === "userInterestsList1") {
-            this.tempUserInterests[0] = e.target.value
-          } else if (e.target.name === "userInterestsList2") {
-            this.tempUserInterests[1] = e.target.value
-          } else if (e.target.name === "userInterestsList3") {
-            this.tempUserInterests[2] = e.target.value
-          }
+        if (e.target.name === "userInterestsList1") {
+          this.tempUserInterests[0] = e.target.value
+        } else if (e.target.name === "userInterestsList2") {
+          this.tempUserInterests[1] = e.target.value
+        } else if (e.target.name === "userInterestsList3") {
+          this.tempUserInterests[2] = e.target.value
         }
-        else this.tempUserInterests.push(e.target.value)
         this.setState({
           userInterests: this.tempUserInterests
         })
@@ -143,7 +139,6 @@ export default class UserInfo extends Component{
                 Upload a picture of yourself! (png, jpg format)* <PhotoUpload type="owner" action="Upload" photoUpload={this.photoUpload} />
                 <br />
                 {userImage1 ? <img src={userImage1} width="150" /> : null }
-                <p>{this.state.message}</p>
                 <div className="registration-buttons">
                   <button onClick={this.props.goBack}>Back</button>
                   <button onClick={this.sendData}>Next</button>

@@ -9,7 +9,6 @@ export default class UserRegistration extends Component{
         this.tempUserInterestsPrefs = []
         this.tempUserProfessionPrefs = []
         this.state = {
-            message: '',
             firstName: '', //required
             lastName: '',
             userEmail: '', //required
@@ -82,7 +81,7 @@ export default class UserRegistration extends Component{
 
     sendData(){
         const { firstName, userEmail, password, zipCode} = this.state
-        if (!firstName.length || !userEmail.length || !password.length || !zipCode) this.setState({ message: 'Please fill in all required fields' })
+        if (!firstName.length || !userEmail.length || !password.length || !zipCode) alert('Please fill in all required fields! Fields marked with * are required.')
         else this.props.updateData(this.state)
     }
 
@@ -168,7 +167,6 @@ export default class UserRegistration extends Component{
                 Zip code*: 
                 <input type="zipCode" name = "zipCode" onChange={this.onChange} value={zipCode ? zipCode : null } />
                 <p />
-                <p>{this.state.message}</p>
                 <button onClick={this.sendData}>Next</button>
             </div>
         )
