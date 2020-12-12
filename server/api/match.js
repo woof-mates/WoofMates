@@ -137,7 +137,7 @@ router.post('/email', async (req, res, next) => {
         });
         // send mail with defined transport object
         const info = await transporter.sendMail({
-        from: '"WoofMates 🐶" <graceshockers@gmail.com>',
+        from: '"WoofMates 🐶" <woofmates.matching@gmail.com>',
         to: matchEmail,
         subject: 'You have a new match!!',
         html: matchEmailText,

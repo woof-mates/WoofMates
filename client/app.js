@@ -10,7 +10,6 @@ import Chatrooms from './components/Chatrooms'
 import Profile from './components/Profile'
 import { connect } from 'react-redux'
 import {getUser} from './store/user'
-import VideoChatContainer from './components/VideoChat/VideoChatContainer'
 
 class App extends React.Component {
     async componentDidMount (){
