@@ -50,7 +50,7 @@ class Registration extends React.Component {
       userImage1: '',
       dogImage: ''
     };
-    this.onChange = this.onChange.bind(this);
+    // this.onChange = this.onChange.bind(this);
     this.updateData = this.updateData.bind(this);
     this.goBack = this.goBack.bind(this);
   }
@@ -65,62 +65,6 @@ class Registration extends React.Component {
   goBack(){
     this.setState({ step: this.state.step - 1 })
   }
-
-  // onChange (e) {
-  //   if (e.target.name === 'userInterestsList') {
-  //     this.tempUserInterests.push(e.target.value)
-  //     this.setState({
-  //       userInterests: this.tempUserInterests
-  //     })
-  //   }
-
-  //   else if (e.target.name === 'userEmail') {
-  //     let newEmail = e.target.value.toLowerCase()
-  //     this.setState({
-  //       userEmail: newEmail
-  //     })
-  //   }
-
-  //   else if (e.target.name === 'dogInterestsList') {
-  //     this.tempDogInterests.push(e.target.value)
-  //     this.setState({
-  //       dogInterests: this.tempDogInterests
-  //     })
-  //   }
-
-  //   else if (e.target.name === 'userProfessionsPref') {
-  //     this.tempUserProfessionPrefs.push(e.target.value)
-  //     this.setState({
-  //       userProfessionsPref: this.tempUserProfessionPrefs
-  //     })
-  //   }
-
-  //   else if (e.target.name === 'userInterestsPref') {
-  //     this.tempUserInterestsPrefs.push(e.target.value)
-  //     this.setState({
-  //       userInterestsPref: this.tempUserInterestsPrefs
-  //     })
-  //   }
-
-  //   else if (this.arrForNums.includes(e.target.name)) {
-  //     this.setState({
-  //       [e.target.name]: Number(e.target.value)
-  //     })
-  //   }
-
-  //   else if (e.target.name === 'neutered') {
-  //     let neuteredBool = (e.target.value === 'true')
-  //     this.setState({
-  //       [e.target.name]: neuteredBool
-  //     })
-  //   }
-
-  //   else {
-  //     this.setState({
-  //       [e.target.name]: e.target.value
-  //     })
-  //   }
-  // }
 
   render() {
     const {user} = this.props
@@ -137,10 +81,10 @@ class Registration extends React.Component {
             <p>Fields marked with * are required</p>
            {
             {
-              0: <UserRegistration updateData={this.updateData} />,
+              0: <UserRegistration updateData={this.updateData} info={this.state} />,
               1: <UserInfo updateData={this.updateData} goBack={this.goBack} info={this.state} photoUpload={this.photoUpload} />,
-              2: <DogInfo updateData={this.updateData} goBack={this.goBack} photoUpload={this.photoUpload} />,
-              3: <DealbreakersPreferences updateData={this.updateData} goBack={this.goBack} />
+              2: <DogInfo updateData={this.updateData} goBack={this.goBack} info={this.state} photoUpload={this.photoUpload} />,
+              3: <DealbreakersPreferences updateData={this.updateData} info={this.state} goBack={this.goBack} />
             }[step]
            }
           </div>

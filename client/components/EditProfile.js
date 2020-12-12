@@ -267,7 +267,7 @@ class EditProfile extends React.Component {
                 {DOG_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
                 </select>
                 <p />
-                Dog's Interests 2:
+                Dog's Interests 3:
                 <select id="dogInterestsList" name="dogInterestsList3" onChange={this.dogOnChange}>
                   <option value="none" selected disabled hidden>
                     {this.state.dog.dogInterests[2] || 'Select an Option'}

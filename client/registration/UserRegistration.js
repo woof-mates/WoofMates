@@ -9,7 +9,6 @@ export default class UserRegistration extends Component{
         this.tempUserInterestsPrefs = []
         this.tempUserProfessionPrefs = []
         this.state = {
-            step: 1,
             message: '',
             firstName: '', //required
             lastName: '',
@@ -22,61 +21,64 @@ export default class UserRegistration extends Component{
     this.onChange = this.onChange.bind(this);
     this.sendData = this.sendData.bind(this);
   }
-    onChange (e) {
-        if (e.target.name === 'userInterestsList') {
-          this.tempUserInterests.push(e.target.value)
-          this.setState({
-            userInterests: this.tempUserInterests
-          })
-        }
-
-        else if (e.target.name === 'userEmail') {
-          let newEmail = e.target.value.toLowerCase()
-          this.setState({
-            userEmail: newEmail
-          })
-        }
-
-        else if (e.target.name === 'dogInterestsList') {
-          this.tempDogInterests.push(e.target.value)
-          this.setState({
-            dogInterests: this.tempDogInterests
-          })
-        }
-
-        else if (e.target.name === 'userProfessionsPref') {
-          this.tempUserProfessionPrefs.push(e.target.value)
-          this.setState({
-            userProfessionsPref: this.tempUserProfessionPrefs
-          })
-        }
-
-        else if (e.target.name === 'userInterestsPref') {
-          this.tempUserInterestsPrefs.push(e.target.value)
-          this.setState({
-            userInterestsPref: this.tempUserInterestsPrefs
-          })
-        }
-
-        else if (this.arrForNums.includes(e.target.name)) {
-          this.setState({
-            [e.target.name]: Number(e.target.value)
-          })
-        }
-
-        else if (e.target.name === 'neutered') {
-          let neuteredBool = (e.target.value === 'true')
-          this.setState({
-            [e.target.name]: neuteredBool
-          })
-        }
-
-        else {
-          this.setState({
-            [e.target.name]: e.target.value
-          })
-        }
+  componentDidMount(){
+    this.setState(this.props.info)
+  }
+  onChange (e) {
+      if (e.target.name === 'userInterestsList') {
+        this.tempUserInterests.push(e.target.value)
+        this.setState({
+          userInterests: this.tempUserInterests
+        })
       }
+
+      else if (e.target.name === 'userEmail') {
+        let newEmail = e.target.value.toLowerCase()
+        this.setState({
+          userEmail: newEmail
+        })
+      }
+
+      else if (e.target.name === 'dogInterestsList') {
+        this.tempDogInterests.push(e.target.value)
+        this.setState({
+          dogInterests: this.tempDogInterests
+        })
+      }
+
+      else if (e.target.name === 'userProfessionsPref') {
+        this.tempUserProfessionPrefs.push(e.target.value)
+        this.setState({
+          userProfessionsPref: this.tempUserProfessionPrefs
+        })
+      }
+
+      else if (e.target.name === 'userInterestsPref') {
+        this.tempUserInterestsPrefs.push(e.target.value)
+        this.setState({
+          userInterestsPref: this.tempUserInterestsPrefs
+        })
+      }
+
+      else if (this.arrForNums.includes(e.target.name)) {
+        this.setState({
+          [e.target.name]: Number(e.target.value)
+        })
+      }
+
+      else if (e.target.name === 'neutered') {
+        let neuteredBool = (e.target.value === 'true')
+        this.setState({
+          [e.target.name]: neuteredBool
+        })
+      }
+
+      else {
+        this.setState({
+          [e.target.name]: e.target.value
+        })
+      }
+    }
 
     sendData(){
         const { firstName, userEmail, password, zipCode} = this.state
@@ -85,26 +87,28 @@ export default class UserRegistration extends Component{
     }
 
     render(){
-        return (
+      const { firstName, lastName, userEmail, city, state, zipCode } = this.state
+      console.log(firstName, lastName, userEmail, city, state, zipCode)
+      return (
             <div>
                 <h3>User Registration</h3>
                 First Name*: 
-                <input type="firstName" name = "firstName" onChange={this.onChange} />
+                <input type="firstName" name = "firstName" onChange={this.onChange} value={firstName ? firstName : null} />
                 <p />
                 Last Name: 
-                <input type="lastName" name = "lastName" onChange={this.onChange} />
+                <input type="lastName" name = "lastName" onChange={this.onChange} value={lastName ? lastName : null} />
                 <p />
                 Email*: 
-                <input type="email" name = "userEmail" onChange={this.onChange} />
+                <input type="email" name = "userEmail" onChange={this.onChange} value={userEmail ? userEmail : null} />
                 <p />
                 Password*: 
                 <input type="password" name = "password" onChange={this.onChange} />
                 <p />
                 City: 
-                <input type="city" name = "city" onChange={this.onChange} />
+                <input type="city" name = "city" onChange={this.onChange} value={city ? city : null} />
                 <p />
                 State:
-                <select id="stateList" name="state" onChange={this.onChange}>
+                <select id="stateList" name="state" onChange={this.onChange} value={state ? state : null} >
                 <option value="none" selected disabled hidden>
                 Select an Option
                 </option>
@@ -162,7 +166,7 @@ export default class UserRegistration extends Component{
                 </select>
                 <p />
                 Zip code*: 
-                <input type="zipCode" name = "zipCode" onChange={this.onChange} />
+                <input type="zipCode" name = "zipCode" onChange={this.onChange} value={zipCode ? zipCode : null } />
                 <p />
                 <p>{this.state.message}</p>
                 <button onClick={this.sendData}>Next</button>
