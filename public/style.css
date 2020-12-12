@@ -33,6 +33,7 @@ body {
 #profileContainer {
   padding: 1em;
   padding-bottom: 126px;
+  min-height: 480px;
   /* display: flex;
   flex-direction: column; */
 }
@@ -71,17 +72,25 @@ ul {
 
 #signUpContainer {
   padding: 1em;
+  min-height: 480px;
 }
 
 #signInContainer {
   padding: 1em;
-  height: calc(100%-206px);
   padding-bottom: 126px;
+  min-height: 480px;
 }
 
 #matchContainer {
   padding: 1em;
   padding-bottom: 126px;
+  min-height: 480px;
+}
+
+#homePageContainer {
+  padding: 1em;
+  padding-bottom: 126px;
+  min-height: 480px;
 }
 
 #footerContainer {
@@ -240,6 +249,7 @@ h1 {
 #updateProfileContainer {
   padding: 1em;
   padding-bottom: 126px;
+  min-height: 480px;
 }
 
 #signInForm {
@@ -328,11 +338,13 @@ h1 {
 #signUpContainer {
   padding: 1em;
   padding-bottom: 126px;
+  min-height: 480px;
 }
 
 #chatContainer {
   padding: 1em;
   padding-bottom: 126px;
+  min-height: 480px;
 }
 
 #matchButtonsContainer{

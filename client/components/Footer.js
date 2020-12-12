@@ -47,7 +47,7 @@ const Footer = () => {
                 100 Broadway,
                 <br></br>New York, NY 10019
                 <br></br>
-                <Link id="contactUsFooterLink" to="/">hello@fullstackacademy.com</Link>
+                <a href= "mailto:hello@fullstackacademy.com" id="contactUsFooterLink">hello@fullstackacademy.com</a>
               </div>
             </div>
             <div className="FooterLinkItems">
