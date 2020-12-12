@@ -318,10 +318,12 @@ ul {
 
 }
 
-#profileBody > .imgContainer {
+#profileBody > img {
   padding: 1em;
   margin: 20px;
   width: 80%;
+  border-radius: 15px;
+
   text-align: center;
   display: block;
   margin-left: auto;
@@ -331,7 +333,6 @@ ul {
 .imgContainer > img {
   padding-right: 10%;
   padding-left: 10%;
-  border-radius: 15px
 
 
 }

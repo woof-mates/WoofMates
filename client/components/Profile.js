@@ -3,6 +3,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import EditProfile from './EditProfile';
+import { Button } from '@material-ui/core'
+import DogInfo from './Profile/DogInfo'
 
 class Profile extends React.Component {
     constructor(props) {
@@ -29,6 +31,9 @@ class Profile extends React.Component {
     render() {
         const { user } = this.props;
         const { dog } = this.props.user;
+        if (!user || !dog){
+            return <div>Loading</div>
+        }
 
         if (!user.id) {
             return (
@@ -40,54 +45,34 @@ class Profile extends React.Component {
             return <EditProfile closeEdit={this.closeEdit} />;
         } else {
             return (
-                //take our <br> lines after CSS
+                <>
+                <Button onClick={this.openEdit} variant = "contained" color = "primary">Edit Profile</Button>
                 <div id="profileContainer">
                     <div id="profileBody">
-                        <h3>{user.firstName}</h3>
-                        <button onClick={this.openEdit}>Edit Profile</button>
-                        <br />
-                        <div className = "imgContainer">
-                            <img src={user.userImage1} width={300} height={250} />
+                        <h3>{user.firstName} and {user.dog.dogName}</h3>
+                        <img src={user.userImage1} />
+                        <div className = "userInfoBox">
+                            <div>Owner Name and Age: {user.firstName}, age {user.age}</div>
+                            <div>Location: {user.city}, {user.state}</div>
                         </div>
-                        <div>Name: {user.firstName} {user.lastName}</div>
-                        <div>Email: {user.userEmail}</div>
-                        <div>Address: {user.city}, {user.state} {user.zipCode}</div>
-                        <div>Age: {user.age}</div>
-                        <div>Profession: {user.profession}</div>
-                        <div>Interests:
-                            {user.userInterests.reduce((acc, interest, i) => {
-                                    if (i === 0) return acc + interest
-                                    else return acc + ', ' + interest
-                                }, '')
-                            }
-                        </div>
-                        <h3>Dog Profile</h3>
+                        <DogInfo dog = {dog} />
                         <br />
-                        <div className = "imgContainer">
-                            <img src={user.dogImage} width={300} height={250} />
+                        <div>Meet the Dog:
+                            <div>Interests: {user.dog.dogInterests[0]}</div>
+                        </div>
+                        <br />
+                        <div>Meet the Owner:
+                            <div>Age: {user.age}</div>
+                            <div>Interests: {user.userInterests[0]}</div>
+                            <div>Profession: {user.profession}</div>
                         </div>
 
-                        <div>Name: {dog ? dog.dogName : ''}</div>
-                        <div>Breed: {dog ? dog.breed : ''}</div>
-                        <div>Weight: {dog ? dog.weight : ''}</div>
-                        <div>Age: {dog ? dog.dogAge : ''}</div>
-                        <div>Energy Level: {dog ? dog.energyLevel : ''}</div>
-                        <div>Neutered:
-                            {
-                                dog ? dog.neutered ? ' Yes' : ' No'
-                                : ''
-                            }
-                        </div>
-                        <div>Interests:
-                            {dog ? dog.dogInterests.reduce((acc, interest, i) => {
-                                    if (i === 0) return acc + interest
-                                    else return acc + ', ' + interest
-                                }, '')
-                                : ''
-                            }
-                        </div>
+                        <img src={user.userImage2} />
+                        <img src={user.dogImage} />
                     </div>
+
                 </div>
+                </>
             );
         }
     }
