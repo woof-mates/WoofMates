@@ -43,10 +43,13 @@ class Registration extends React.Component {
       userAgePrefMinRange: null,
       userProfessionsPref: [],
       userInterestsPref: [],
-      isNeuteredDealbreaker: null
+      isNeuteredDealbreaker: null,
+      userImage1: '',
+      dogImage: ''
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.photoUpload = this.photoUpload.bind(this);
   }
 
   onChange (e) {
@@ -103,6 +106,12 @@ class Registration extends React.Component {
         [e.target.name]: e.target.value
       })
     }
+  }
+
+  async photoUpload(photoObj){
+    console.log(photoObj)
+    await this.setState(photoObj)
+    console.log('picurl', this.state.userImage1)
   }
 
   onSubmit (e) {
@@ -242,7 +251,8 @@ class Registration extends React.Component {
                 {USER_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
               </select>
               <p />
-              Upload a picture of yourself! <PhotoUpload />
+              Upload a picture of yourself! <PhotoUpload type="owner" photoUpload={this.photoUpload} />
+              {this.state.userImage1.length ? <img src={this.state.userImage1} width="150" /> : null }
               <h3>Tell us more about your pup!</h3>
               Name:
               <input type="dogName" name = "dogName" onChange={this.onChange} />
@@ -283,6 +293,9 @@ class Registration extends React.Component {
                 <option value="none" selected disabled hidden>Select an Option</option>
                 {DOG_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
               </select>
+              <p />
+              Upload a picture of your dog! <PhotoUpload type="dog" photoUpload={this.photoUpload} />
+              {this.state.dogImage.length ? <img src={this.state.dogImage} width="150" /> : null }
               <p />
               Maximum distance between you and your new pup friends:
               <select id="distanceFromLocation" name="distanceFromLocation" onChange={this.onChange}>

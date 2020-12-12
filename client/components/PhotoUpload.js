@@ -3,22 +3,26 @@ import { Image, Video, Transformation, CloudinaryContext } from 'cloudinary-reac
 
 const cloudName = 'woofmates'
 const uploadPreset = 'woofmates'
-
 export default class PhotoUpload extends Component{
-    // createUploadWidget(){
-    //     const uploadWidget = cloudinary.createUploadWidget({
-    //         cloudName, uploadPreset, cropping: true}, 
-    //         (error, result) => { console.log(error, result) })
-    //     return uploadWidget
-    // }
+    constructor(props){
+        super(props)
+        this.getPhotoUrl = this.getPhotoUrl.bind(this)
+    }
+    getPhotoUrl(){
+        let uploadWidget = cloudinary.openUploadWidget({cloudName, uploadPreset, cropping: true},
+            (error, result) => { if (!error && result && result.event === 'success') {
+                // console.log(result.info.secure_url);
+                let imageUrl = result.info.secure_url
+                if (this.props.type === 'owner') this.props.photoUpload({ userImage1: imageUrl })
+                else this.props.photoUpload({ dogImage: imageUrl })
+            }
+        })
+    }
     render(){
-        const uploadWidget = cloudinary.createUploadWidget({cloudName, uploadPreset, cropping: true},
-            (error, result) => { console.log(error, result) })
         return (
             <>
-            <button id="upload_widget" onClick={uploadWidget.open}>Upload</button>
+            <button id="upload_widget" onClick={this.getPhotoUrl}>Upload</button>
             </>
         )
-
     }
 }
