@@ -142,6 +142,7 @@ class Registration extends React.Component {
       return (
         <div id="signUpContainer">
           <div id="signUpForm">
+            <p>Fields marked with * are required</p>
            {
             {
               0: <UserRegistration updateData={this.updateData} />,

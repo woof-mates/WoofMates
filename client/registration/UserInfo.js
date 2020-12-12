@@ -13,36 +13,10 @@ export default class UserInfo extends Component{
         this.state = {
             step: 2,
             message: '',
-            // firstName: '', //required
-            // lastName: '',
-            // userEmail: '', //required
-            // password: '', //required
-            // city: '',
-            // state: '',
-            // zipCode: 0, //required
             age: null,
             profession: '',
             userInterests: [],
-    //   dogSpeak: '',
-    //   favoriteActivityWithDog: '',
-    //   dogName: '', //required
-    //   breed: '', //required
-    //   dogAge: 0, //required
-    //   energyLevel: 3,
-    //   weight: 0, //required
-    //   neutered: '', //required
-    //   dogInterests: [],
-    //   dogBreedPref: '',
-    //   dogAgePref: '',
-    //   dogEnergyLevelPref: null,
-    //   dogWeightPref: '',
-    //   distanceFromLocation: 5,
-    //   userAgePrefMinRange: null,
-    //   userProfessionsPref: [],
-    //   userInterestsPref: [],
-    //   isNeuteredDealbreaker: null,
             userImage1: '',
-    //   dogImage: ''
         };
     this.onChange = this.onChange.bind(this);
     this.sendData = this.sendData.bind(this);
@@ -50,9 +24,8 @@ export default class UserInfo extends Component{
     }
     sendData(){
         const { userImage1 } = this.state
-        // if (!userImage1.length) this.setState({ message: 'Please fill in all required fields' })
-        // else this.props.updateData(this.state)
-        this.props.updateData(this.state)
+        if (!userImage1.length) this.setState({ message: 'Please fill in all required fields' })
+        else this.props.updateData(this.state)
     }
     async photoUpload(photoObj){
         console.log(photoObj)

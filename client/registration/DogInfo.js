@@ -13,35 +13,15 @@ export default class DogInfo extends Component{
         this.state = {
             step: 3,
             message: '',
-            // firstName: '', //required
-            // lastName: '',
-            // userEmail: '', //required
-            // password: '', //required
-            // city: '',
-            // state: '',
-            // zipCode: 0, //required
-            // age: null,
-            // profession: '',
-            // userInterests: [],
-    //   dogSpeak: '',
-    //   favoriteActivityWithDog: '',
+            dogSpeak: '',
+            favoriteActivityWithDog: '',
             dogName: '', //required
             breed: '', //required
             dogAge: 0, //required
             energyLevel: 3,
             weight: 0, //required
-            neutered: '', //required
+            neutered: null, //required
             dogInterests: [],
-    //   dogBreedPref: '',
-    //   dogAgePref: '',
-    //   dogEnergyLevelPref: null,
-    //   dogWeightPref: '',
-    //   distanceFromLocation: 5,
-    //   userAgePrefMinRange: null,
-    //   userProfessionsPref: [],
-    //   userInterestsPref: [],
-    //   isNeuteredDealbreaker: null,
-            // userImage1: '',
             dogImage: ''
         };
     this.onChange = this.onChange.bind(this);
@@ -50,7 +30,7 @@ export default class DogInfo extends Component{
     }
     sendData(){
       const { dogName, breed, dogAge, weight, neutered } = this.state
-      if (!dogName || !breed || !dogAge || !weight || !neutered) this.setState({ message: 'Please fill in all required fields' })
+      if (!dogName || !breed || !dogAge || !weight || neutered === null) this.setState({ message: 'Please fill in all required fields' })
       else this.props.updateData(this.state)
     }
     photoUpload(photoObj){
@@ -155,9 +135,17 @@ export default class DogInfo extends Component{
             {DOG_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
             </select>
             <p />
-            Upload a picture of your dog! (png, jpg format) <PhotoUpload type="dog" action="Upload" photoUpload={this.photoUpload} />
+            Upload a picture of your dog! (png, jpg format)* <PhotoUpload type="dog" action="Upload" photoUpload={this.photoUpload} />
             <br />
             {this.state.dogImage.length ? <img src={this.state.dogImage} width="150" /> : null }
+            <p />
+            If your dog could speak it would say....
+            <br />
+            <textarea name="dogSpeak" rows="3" cols="50" wrap="hard" placeholder="" onChange={this.onChange} />
+            <p />
+            Your favorite thing to do with your pup is...
+            <br />
+            <textarea name="favoriteActivityWithDog" rows="3" cols="50" wrap="hard" placeholder="" onChange={this.onChange} />
             <p />
             <p>{this.state.message}</p>
             <button onClick={this.sendData}>Next</button>
