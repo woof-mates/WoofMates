@@ -42,15 +42,19 @@ class Match extends Component {
         <>
             <div id="matchContainer">
                 <div id="matchBody">
-                <h3>Match</h3>
-                <div>Owner Name and Age: {match.firstName}, age {match.age}</div>
-                <div>Dog Name, Age, and Breed: {match.dog.dogName}, age {match.dog.dogAge}, a {match.dog.breed}</div>
+                <h3>{match.firstName} and {match.dog.dogName}</h3>
+                <div className = "userInfoBox">
+                    <div>Owner Name and Age: {match.firstName}, age {match.age}</div>
                 <div>Location: {match.city}, {match.state}, {matchDistanceFromUser} miles from you</div>
-                <br />
-                <div>Meet the Dog:
+                </div>
+                <div className = "dogInfoBox">
+                    <div>Dog Name, Age, and Breed: {match.dog.dogName}, age {match.dog.dogAge}, a {match.dog.breed}</div>
                     <div>Weight: {match.dog.weight}</div>
                     <div>Energy Level: {match.dog.energyLevel}</div>
                     <div>Neutered: {match.dog.neutered ? ' Yes' : ' No'}</div>
+                </div>
+                <br />
+                <div>Meet the Dog:
                     <div>Interests: {list(match.dog.dogInterests)}</div>
                 </div>
                 <br />

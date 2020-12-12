@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -17,13 +18,13 @@ class Profile extends React.Component {
         this.setState({
             edit: true
         });
-    };
+    }
 
     closeEdit(){
         this.setState({
             edit: false
         });
-    };
+    }
 
     render() {
         const { user } = this.props;
@@ -32,18 +33,22 @@ class Profile extends React.Component {
         if (!user.id) {
             return (
                 <div>
-                    <Link to='/login'>Please Log In To Review Your Profile</Link>
+                    <Link to="/login">Please Log In To Review Your Profile</Link>
                 </div>
             );
         } else if (this.state.edit) {
-            return <EditProfile closeEdit={this.closeEdit}/>;
+            return <EditProfile closeEdit={this.closeEdit} />;
         } else {
             return (
                 //take our <br> lines after CSS
                 <div id="profileContainer">
-                    <div id='profileBody'><h3>User Profile</h3><br></br>
-                        <div onClick={this.openEdit}>Edit Profile</div>
-                        <img src={user.userImage1} width={300} height={250}></img>
+                    <div id="profileBody">
+                        <h3>{user.firstName}</h3>
+                        <button onClick={this.openEdit}>Edit Profile</button>
+                        <br />
+                        <div className = "imgContainer">
+                            <img src={user.userImage1} width={300} height={250} />
+                        </div>
                         <div>Name: {user.firstName} {user.lastName}</div>
                         <div>Email: {user.userEmail}</div>
                         <div>Address: {user.city}, {user.state} {user.zipCode}</div>
@@ -56,13 +61,16 @@ class Profile extends React.Component {
                                 }, '')
                             }
                         </div>
-                    </div><br></br>
-                    <div id='profileBody'><h3>Dog Profile</h3><br></br>
-                        <img src={user.dogImage} width={300} height={250}></img>
+                        <h3>Dog Profile</h3>
+                        <br />
+                        <div className = "imgContainer">
+                            <img src={user.dogImage} width={300} height={250} />
+                        </div>
+
                         <div>Name: {dog ? dog.dogName : ''}</div>
-                        <div>Breed: {dog ? dog.breed: ''}</div>
-                        <div>Weight: {dog ? dog.weight: ''}</div>
-                        <div>Age: {dog ? dog.dogAge: ''}</div>
+                        <div>Breed: {dog ? dog.breed : ''}</div>
+                        <div>Weight: {dog ? dog.weight : ''}</div>
+                        <div>Age: {dog ? dog.dogAge : ''}</div>
                         <div>Energy Level: {dog ? dog.energyLevel : ''}</div>
                         <div>Neutered:
                             {
@@ -81,9 +89,9 @@ class Profile extends React.Component {
                     </div>
                 </div>
             );
-        };
-    };
-};
+        }
+    }
+}
 
 const mapStateToProps = (state) => {
     return {
