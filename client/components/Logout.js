@@ -16,9 +16,9 @@ class Logout extends Component {
     render() {
         return (
             <>
-                <form onSubmit={this.submit}>
+                {/* <form onSubmit={this.submit}>
                     <button type="submit">Log out</button>
-                </form>
+                </form> */}
             </>
         )
     }
