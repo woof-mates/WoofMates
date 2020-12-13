@@ -9,7 +9,7 @@ import Home from './components/Home'
 import Chatrooms from './components/Chatrooms'
 import Profile from './components/Profile'
 import { connect } from 'react-redux'
-import {getUser} from './store/user'
+import { getUser } from './store/user'
 
 class App extends React.Component {
     async componentDidMount (){
@@ -21,7 +21,7 @@ class App extends React.Component {
             <Router>
                 <Navbar></Navbar>
                     <Switch>
-                        <Route path='/' exact component = {Home}/>
+                        <Route path='/' exact component={Home}/>
                         <Route path='/signUp' exact component={Registration}/>
                         <Route path='/profile' exact component={Profile}/>
                         <Route path='/chat' exact component={Chatrooms}/>
