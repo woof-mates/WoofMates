@@ -27,6 +27,12 @@ class Slideshow extends React.Component {
     componentDidMount(){
       setInterval(this.autoSlide, 4500)
     }
+
+    componentWillUnmount() {
+      this.setState({
+        currentImage: 0
+      })
+    }
     
     render() {
       const { currentImage } = this.state
