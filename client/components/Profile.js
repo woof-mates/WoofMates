@@ -6,7 +6,7 @@ import EditProfile from './EditProfile';
 import { Button } from '@material-ui/core'
 import DogInfo from './Profile/DogInfo'
 import UserInfo from './Profile/UserInfo'
-
+import TabBar from './Profile/TabBar'
 class Profile extends React.Component {
     constructor(props) {
         super(props);
@@ -43,11 +43,16 @@ class Profile extends React.Component {
                 </div>
             );
         } else if (this.state.edit) {
-            return <EditProfile closeEdit={this.closeEdit} />;
+            return (
+            <>
+                <TabBar tabNumber = {0} openEdit = {this.openEdit} closeEdit = {this.closeEdit}/>
+                <EditProfile closeEdit={this.closeEdit} />
+            </>
+            )
         } else {
             return (
                 <>
-                <Button onClick={this.openEdit} variant = "contained" color = "primary">Edit Profile</Button>
+                <TabBar tabNumber = {1} openEdit = {this.openEdit} closeEdit = {this.closeEdit}/>
                 <div id="profileContainer">
                     <div id="profileBody">
                         <h3>{user.firstName} and {user.dog.dogName}</h3>
@@ -70,6 +75,7 @@ class Profile extends React.Component {
 const mapStateToProps = (state) => {
     return {
         user: state.user,
+        edit: state.profile
     };
 };
 

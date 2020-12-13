@@ -35,7 +35,6 @@ class EditProfile extends React.Component {
       this.setState({firstName, lastName, userEmail, age, profession, userImage1, userImage2, city, state, zipCode, userInterests, dog});
       this.tempUserInterests = userInterests;
       this.tempDogInterests = dog.dogInterests;
-
     }
   }
 
@@ -254,7 +253,6 @@ class EditProfile extends React.Component {
                 </select>
                 <p></p>
                 <button className="submit" id="submit" onClick={this.onSubmit}>Update</button>
-                <button onClick={this.props.closeEdit}>Cancel</button>
             </div>
         </div>
     )
