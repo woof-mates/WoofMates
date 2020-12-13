@@ -38,8 +38,8 @@ class Profile extends React.Component {
 
         if (!user.id) {
             return (
-                <div>
-                    <Link to="/login">Please Log In To Review Your Profile</Link>
+                <div id="profileContainer">
+                    <Link to='/login'>Please Log In To Review Your Profile</Link>
                 </div>
             );
         } else if (this.state.edit) {

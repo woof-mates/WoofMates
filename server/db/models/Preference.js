@@ -56,7 +56,6 @@ const Preference = db.define('preference', {
     },
     isNeuteredDealbreaker: {
         type: BOOLEAN,
-        defaultValue: false,
         allowNull: false
     },
     userInterests: {
