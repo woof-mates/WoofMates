@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import EditProfile from './EditProfile';
 import { Button } from '@material-ui/core'
 import DogInfo from './Profile/DogInfo'
+import UserInfo from './Profile/UserInfo'
 
 class Profile extends React.Component {
     constructor(props) {
@@ -51,27 +52,15 @@ class Profile extends React.Component {
                     <div id="profileBody">
                         <h3>{user.firstName} and {user.dog.dogName}</h3>
                         <img src={user.userImage1} />
-                        <div className = "userInfoBox">
-                            <div>Owner Name and Age: {user.firstName}, age {user.age}</div>
-                            <div>Location: {user.city}, {user.state}</div>
-                        </div>
-                        <DogInfo dog = {dog} />
-                        <br />
-                        <div>Meet the Dog:
-                            <div>Interests: {user.dog.dogInterests[0]}</div>
-                        </div>
-                        <br />
-                        <div>Meet the Owner:
-                            <div>Age: {user.age}</div>
-                            <div>Interests: {user.userInterests[0]}</div>
-                            <div>Profession: {user.profession}</div>
-                        </div>
-
                         <img src={user.userImage2} />
                         <img src={user.dogImage} />
                     </div>
-
+                    <div id="infoBody">
+                        <UserInfo user = {user} />
+                        <DogInfo dog = {dog} />
+                    </div>
                 </div>
+
                 </>
             );
         }

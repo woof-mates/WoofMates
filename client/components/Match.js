@@ -5,6 +5,8 @@ import { getMatch, sendDecision, sendEmailToMatch } from '../store/match';
 import { getDistance }  from '../../utils/mathFuncs'
 import Chatrooms from './Chatrooms'
 import { list } from '../../utils/frontEndFuncs'
+import DogInfo from './Profile/DogInfo'
+import UserInfo from './Profile/UserInfo'
 
 class Match extends Component {
     constructor(props){
@@ -40,29 +42,9 @@ class Match extends Component {
         if (!match.firstName) return null
         return (
         <>
-            <div id="matchContainer">
-                <div id="matchBody">
+        <div id="profileContainer">
+            <div id="profileBody">
                 <h3>{match.firstName} and {match.dog.dogName}</h3>
-                <div className = "userInfoBox">
-                    <div>Owner Name and Age: {match.firstName}, age {match.age}</div>
-                <div>Location: {match.city}, {match.state}, {matchDistanceFromUser} miles from you</div>
-                </div>
-                <div className = "dogInfoBox">
-                    <div>Dog Name, Age, and Breed: {match.dog.dogName}, age {match.dog.dogAge}, a {match.dog.breed}</div>
-                    <div>Weight: {match.dog.weight}</div>
-                    <div>Energy Level: {match.dog.energyLevel}</div>
-                    <div>Neutered: {match.dog.neutered ? ' Yes' : ' No'}</div>
-                </div>
-                <br />
-                <div>Meet the Dog:
-                    <div>Interests: {list(match.dog.dogInterests)}</div>
-                </div>
-                <br />
-                <div>Meet the Owner:
-                    <div>Age: {match.age}</div>
-                    <div>Interests: {list(match.userInterests)}</div>
-                    <div>Profession: {match.profession}</div>
-                </div>
                 <img src={match.userImage1} />
                 <img src={match.userImage2} />
                 <img src={match.dogImage} />
@@ -71,11 +53,15 @@ class Match extends Component {
                     <button className="rejectMatchButton" onClick={this.sendDecisionAndLoadNextMatch} value="reject" type="submit">Don't like</button>
                 </div>
                 {/* Match user ID for debugging purposes, will take out */}
-                <p>Match User Id: {match.id}</p>
+                {/* <p>Match User Id: {match.id}</p> */}
                 <p>{this.state.message}</p>
                 { this.state.message.includes('you have matched') ? <Chatrooms matchedId = {match.id} /> : null}
-                </div>
             </div>
+            <div id="infoBody">
+                <UserInfo user = {match} />
+                <DogInfo dog = {match.dog} />
+            </div>
+        </div>
         </>
     )
     }
