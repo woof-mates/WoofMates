@@ -71,11 +71,12 @@ class Registration extends React.Component {
   }
 
   goBack(){
+    this.props.handleBack();
     this.setState({ step: this.state.step - 1 })
   }
 
   render() {
-    const {user} = this.props
+    const { user, handleNext, handleBack } = this.props
     const { step } = this.state
     if (user.userEmail) {
       return (
@@ -85,16 +86,16 @@ class Registration extends React.Component {
     else {
       return (
         <div id="signUpContainer">
-          <ProgressBar />
+          {/* <ProgressBar /> */}
           <div id="signUpForm">
             <p>Fields marked with * are required</p>
             <p className="error">{this.state.message}</p>
            {
             {
-              0: <UserRegistration updateData={this.updateData} info={this.state} />,
-              1: <UserInfo updateData={this.updateData} goBack={this.goBack} info={this.state} photoUpload={this.photoUpload} />,
-              2: <DogInfo updateData={this.updateData} goBack={this.goBack} info={this.state} photoUpload={this.photoUpload} />,
-              3: <DealbreakersPreferences updateData={this.updateData} info={this.state} goBack={this.goBack} />
+              0: <UserRegistration updateData={this.updateData} info={this.state} handleNext={handleNext} handleBack={handleBack} />,
+              1: <UserInfo updateData={this.updateData} goBack={this.goBack} info={this.state} handleNext={handleNext} handleBack={handleBack} photoUpload={this.photoUpload} />,
+              2: <DogInfo updateData={this.updateData} goBack={this.goBack} info={this.state} handleNext={handleNext} handleBack={handleBack} photoUpload={this.photoUpload} />,
+              3: <DealbreakersPreferences updateData={this.updateData} goBack={this.goBack} info={this.state} handleNext={handleNext} handleBack={handleBack} />
             }[step]
            }
           </div>

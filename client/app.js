@@ -10,6 +10,7 @@ import Chatrooms from './components/Chatrooms'
 import Profile from './components/Profile'
 import { connect } from 'react-redux'
 import {getUser} from './store/user'
+import ProgressBar from './registration/ProgressBar'
 
 class App extends React.Component {
     async componentDidMount (){
@@ -22,7 +23,7 @@ class App extends React.Component {
                 <Navbar></Navbar>
                     <Switch>
                         <Route path='/' exact component = {Home}/>
-                        <Route path='/signUp' exact component={Registration}/>
+                        <Route path='/signUp' exact component={ProgressBar}/>
                         <Route path='/profile' exact component={Profile}/>
                         <Route path='/chat' exact component={Chatrooms}/>
                         <Route path='/login' exact component={Auth}/>

@@ -81,13 +81,19 @@ export default class UserRegistration extends Component{
 
     sendData(){
         const { firstName, userEmail, password, zipCode} = this.state
-        if (!firstName.length || !userEmail.length || !password.length || !zipCode) alert('Please fill in all required fields! Fields marked with * are required.')
-        else this.props.updateData(this.state)
+        const { updateData, handleNext, handleBack } = this.props
+        if (!firstName.length || !userEmail.length || !password.length || !zipCode) {
+          alert('Please fill in all required fields! Fields marked with * are required.')
+        }
+        else {
+          updateData(this.state)
+          handleNext()
+        }
     }
 
     render(){
       const { firstName, lastName, userEmail, city, state, zipCode } = this.state
-      console.log(firstName, lastName, userEmail, city, state, zipCode)
+      // console.log(firstName, lastName, userEmail, city, state, zipCode)
       return (
             <div>
                 <h3>User Registration</h3>
