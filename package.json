@@ -35,10 +35,15 @@
     "pg-hstore": "^2.3.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-icons": "^4.1.0",
     "react-redux": "^7.1.0",
     "react-router": "^5.0.1",
     "react-router-dom": "^4.4.0-beta.8",
+<<<<<<< HEAD
     "react-slideshow-image": "^3.4.2",
+=======
+    "react-scroll": "^1.8.1",
+>>>>>>> 4af7b8042e26304c7653a9343c4a7e482771d849
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",

@@ -1,33 +1,41 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Slideshow from './Slideshow';
-import GetStarted from './GetStarted';
+import HomeLandingPage from './HomeLandingPage';
 
-class Home extends React.Component {
-    constructor(props) {
+class Home extends Component {
+    constructor(props){
         super(props);
     }
 
-    render() {
-        return (
-            <div className='slideshowContainer'>
-                <div className='slideTitle'>
-                    <h2>Discover Dog Owners and Their Best-Friend</h2>
-                    <img width={50} height={50} src={'/images/pawprint.jpg'} />
-                </div>
-                <div>
-                    <Slideshow/>
-                </div>
-                <div className='getStarted'>
-                    <GetStarted/>
-                </div>
+    componentDidMount() {
+      const {user} = this.props
+    }
+
+    render(){
+      const {user} = this.props
+        if (user.firstName) {
+          return (
+            <div id="homePageContainer">Welcome, {user.firstName}!</div>
+          )
+        }
+        else {
+          return (
+            <div id="homePageContainer">
+                <HomeLandingPage/>
             </div>
-        )
-    };
+            )
+          }
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.user
+    }
 };
 
-const mapStateToProps = (state) => ({
-    user: state.user,
+const mapDispatchToProps = (dispatch) => ({
+    //login: (loginInfo) => dispatch(login(loginInfo)),
 });
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -39,16 +39,16 @@ class Navbar extends React.Component {
       return (
         <div id="NavbarContainer">
           <div id="LinkContainer">
-              <Link to="/">Home</Link>
+              <Link id="NavbarLink" to="/">Home</Link>
           </div>
           <div id="LinkContainer">
-              <Link to="/profile">My Profile</Link>
+              <Link id="NavbarLink" to="/profile">My Profile</Link>
           </div>
           <div id="LinkContainer">
-              <Link to="/chat">Chat</Link>
+              <Link id="NavbarLink" to="/chat">Chat</Link>
           </div>
           <div id="LinkContainer">
-              <Link to="/match">Find Your Match</Link>
+              <Link id="NavbarLink" to="/match">Find Your Match</Link>
           </div>
           <button className = "logOutButton" onClick={this.logout}>Log Out</button>
         </div>
@@ -59,16 +59,16 @@ class Navbar extends React.Component {
       return (
         <div id="NavbarContainer">
           <div id="LinkContainer">
-              <Link to="/">Home</Link>
+              <Link id="NavbarLink" to="/">Home</Link>
           </div>
           <div id="LinkContainer">
-              <Link to="/profile">My Profile</Link>
+              <Link id="NavbarLink" to="/profile">My Profile</Link>
           </div>
           <div id="LinkContainer">
-              <Link to="/chat">Chat</Link>
+              <Link id="NavbarLink" to="/chat">Chat</Link>
           </div>
           <div id="LinkContainer">
-              <Link to="/match">Find Your Match</Link>
+              <Link id="NavbarLink" to="/match">Find Your Match</Link>
           </div>
           <div id="LinkContainer">
             <button className="signInNavButton" onClick={this.logIn}>Sign In </button>
