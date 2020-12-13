@@ -505,6 +505,15 @@ h1 {
   font-weight: bold;
 }
 
+#NavbarTitleLink {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.5rem;
+  margin-bottom: 0.0rem;
+  font-style: oblique;
+  font-weight: bold;
+}
+
 #NavbarLogoPic {
   width: 106px;
   height: 80px;
@@ -541,7 +550,7 @@ h1 {
   width: 200px
 } */
 
-.slideshow { 
+.slideshow {
   margin: auto;
   width: 60%;
   border: 3px;
