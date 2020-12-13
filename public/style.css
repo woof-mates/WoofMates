@@ -163,6 +163,12 @@ h1 {
 
 #NavbarLink {
   color: white;
+  text-decoration: none;
+}
+
+#NavbarLink:hover {
+  color: #01bf71;
+  transition: 0.3s ease-out;
 }
 
 #FooterLink {
