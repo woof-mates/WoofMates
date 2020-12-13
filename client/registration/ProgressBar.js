@@ -1,15 +1,64 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { ThemeProvider } from '@material-ui/styles';
+
 import Registration from './index'
+
+// const theme = createMuiTheme({
+//     palette: {
+//       primary: {
+//         // Purple and green play nicely together.
+//         main: purple[500],
+//       },
+//       secondary: {
+//         // This is green.A700 as hex.
+//         main: '#11cb5f',
+//       },
+//     },
+//   });
+   
+const theme = createMuiTheme({
+    stepper: {
+        iconColor: '#DAE7DE' // or logic to change color
+    },
+    overrides: {
+        MuiStepIcon: {
+         root: {
+             color: '#DAE7DE',
+           '&$completed': {
+             color: '#44C767',
+           },
+           '&$active': {
+             color: '#44C767',
+           },
+           '&$disabled': {
+            color: '#DAE7DE',
+          },
+         },
+         active: {},
+         completed: {},
+         disabled: {}
+       },
+    },
+    palette: {
+        primary: {
+          main: '#DAE7DE',
+        },
+        secondary: {
+          main: '#44C767',
+        },
+    },
+})
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
+    // color: '#E6E6ED',
   },
   backButton: {
     marginRight: theme.spacing(1),
@@ -18,6 +67,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
+  active: {
+      color: '#44C767'
+  }
 }));
 
 function getSteps() {
@@ -56,13 +108,15 @@ export default function ProgressBar() {
 
   return (
     <div className={classes.root}>
-      <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
+        <ThemeProvider theme={theme}>
+            <Stepper activeStep={activeStep} alternativeLabel>
+            {steps.map((label) => (
+            <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+            </Step>
+            ))}
+            </Stepper>
+        </ThemeProvider>
       <Registration handleNext={handleNext} handleBack={handleBack} />
       <div>
         {activeStep === steps.length ? (

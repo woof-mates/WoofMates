@@ -96,7 +96,7 @@ export default class UserRegistration extends Component{
       // console.log(firstName, lastName, userEmail, city, state, zipCode)
       return (
             <div>
-                <h3>User Registration</h3>
+                <h3>Welcome!</h3>
                 First Name*: 
                 <input type="firstName" name = "firstName" onChange={this.onChange} value={firstName ? firstName : null} />
                 <p />
