@@ -273,30 +273,6 @@ ul {
   width: 150px;
 }
 
-#matchBody {
-  display: flex;
-  flex-direction: column;
-  padding: 1em;
-  background-color: #dae7de;
-  margin: 20px;
-  width: 70%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  border-radius: 15px;
-}
-
-#matchBody > img {
-  padding: 1em;
-  margin: 20px;
-  width: 70%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 15px;
-  border: 5px;
-}
 /* ///////////End of Match Component/////////////// */
 
 /* ///////////Profile Component/////////////// */

@@ -3,10 +3,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import EditProfile from './EditProfile';
-import { Button } from '@material-ui/core'
 import DogInfo from './Profile/DogInfo'
 import UserInfo from './Profile/UserInfo'
 import TabBar from './Profile/TabBar'
+
 class Profile extends React.Component {
     constructor(props) {
         super(props);
@@ -75,7 +75,6 @@ class Profile extends React.Component {
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        edit: state.profile
     };
 };
 
