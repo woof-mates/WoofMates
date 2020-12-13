@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import Slideshow from './Slideshow';
+import GetStarted from './GetStarted';
 
 class Home extends React.Component {
     constructor(props) {
@@ -9,13 +10,16 @@ class Home extends React.Component {
 
     render() {
         return (
-            <div>
-                <div>Discover Other Owners and Their Best-Friend</div>
+            <div className='slideshowContainer'>
+                <div className='slideTitle'>
+                    <h2>Discover Dog Owners and Their Best-Friend</h2>
+                    <img width={50} height={50} src={'/images/pawprint.jpg'} />
+                </div>
                 <div>
-                    <img className={"mySlides fade"}  width={650} height={400} src="/images/Slideshow1.jpg"/>
-                    <img className={"mySlides fade"} width={650} height={400} src="/images/Slideshow2.jpg"/>
-                    <img className={"mySlides fade"} width={650} height={400} src="/images/Slideshow3.jpg"/>
-                    <img className={"mySlides fade"} width={650} height={400} src="/images/Slideshow4.jpg"/>
+                    <Slideshow/>
+                </div>
+                <div className='getStarted'>
+                    <GetStarted/>
                 </div>
             </div>
         )
