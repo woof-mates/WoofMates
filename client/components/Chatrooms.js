@@ -57,14 +57,16 @@ class Chatrooms extends React.Component {
             return (
                 <div id="chatContainer">
                     <div id="chatBody">
-                    <h3>Matches: </h3>
+                    <h3>Woof-Mates: </h3>
                     <ul>
                         {
                             matches.length ?
                                 matches.map(match => {
                                     const fullName = match.firstName + ' ' + match.lastName
                                     return (
-                                        <li key={match.id} onClick={() => this.toMessage(match.id, fullName)}>{fullName}</li>
+                                        <li key={match.id} onClick={() => this.toMessage(match.id, fullName)}>
+                                            <img width={20} height={20} src='/images/dogIcon.png'></img> {fullName}
+                                        </li>
                                     )
                                 })
                             :
