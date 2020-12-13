@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import HomeLandingPage from './HomeLandingPage';
 
 class Home extends Component {
     constructor(props){
@@ -19,7 +20,9 @@ class Home extends Component {
         }
         else {
           return (
-            <div id="homePageContainer">Home page landing content goes here</div>
+            <div id="homePageContainer">
+                <HomeLandingPage/>
+            </div>
             )
           }
     }
