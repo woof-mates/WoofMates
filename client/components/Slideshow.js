@@ -28,10 +28,11 @@ class Slideshow extends React.Component {
       setInterval(this.autoSlide, 4500)
     }
 
+    //to fix warning/bug of unmounting components setting state
     componentWillUnmount() {
-      this.setState({
-        currentImage: 0
-      })
+      this.setState = (state) => {
+        return;
+      }
     }
     
     render() {
