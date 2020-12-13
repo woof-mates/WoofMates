@@ -3,6 +3,7 @@ import React from 'react';
 import VideoChatContainer from './VideoChat/VideoChatContainer';
 
 import firebaseDB from './Firebase';
+import classnames from 'classnames';
 
 class Chat extends React.Component {
     constructor(props) {
@@ -52,11 +53,15 @@ class Chat extends React.Component {
         try {
             await firebaseDB.ref(`${this.props.from}-${this.props.to}/chats`).push({
                 message: this.state.message,
-                timestamp: Date.now()
+                timestamp: Date.now(),
+                from: this.props.fromName,
+                to: this.props.toName
             });
             await firebaseDB.ref(`${this.props.to}-${this.props.from}/chats`).push({
                 message: this.state.message,
-                timestamp: Date.now()
+                timestamp: Date.now(),
+                from: this.props.fromName,
+                to: this.props.toName
             });
         } catch (error) {
             this.setState({
@@ -90,23 +95,26 @@ class Chat extends React.Component {
                 </div>
             )
         } else {
+            console.log(chats)
             return (
                 <div>
-                    <button onClick={this.props.closeChat}>Close Chat</button>
-                    <button onClick={this.openVideo}>Call</button>
+                    <div id='chatButtons'>
+                        <button onClick={this.openVideo}>Call</button>
+                        <button onClick={this.props.closeChat}>Close Chat</button>
+                    </div>
                     <div>
                         {
                             chats.map(chat => {
                                 return (
-                                    <p key={chat.timestamp}>{chat.message}</p>
+                                    <p className={classnames({sender: this.props.fromName === chat.from})} key={chat.timestamp}><span className='messages'>{chat.message}</span></p>
                                 )
                             })
                         }
                     </div>
                     <form onSubmit={this.handleSubmit}>
-                        <input onChange={this.handleChange} value={this.state.message}></input>
+                        <button style={{float: 'right'}} type="submit">Send</button>
+                        <input style={{float: 'right'}} onChange={this.handleChange} value={this.state.message}></input>
                         {this.state.writeError ? <p>{this.state.writeError}</p> : null}
-                        <button type="submit">Send</button>
                     </form>
                 </div>
             )

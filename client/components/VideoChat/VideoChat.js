@@ -34,11 +34,11 @@ class VideoChat extends React.Component {
             <div className={classnames('videos', { active: this.state.isLoggedIn })}>
                 <div>
                     <label>{this.state.username}</label><br></br>
-                    <video width={500} height={400} ref={this.props.setLocalVideoRef} autoPlay playsInline></video>
+                    <video width={475} height={400} ref={this.props.setLocalVideoRef} autoPlay playsInline></video>
                 </div>
                 <div>
                     <label>{this.props.connectedUser}</label><br></br> 
-                    <video width={500} height={400} ref={this.props.setRemoteVideoRef} autoPlay playsInline></video>
+                    <video width={475} height={400} ref={this.props.setRemoteVideoRef} autoPlay playsInline></video>
                 </div>
             </div>
         )
@@ -48,7 +48,7 @@ class VideoChat extends React.Component {
         return (
             <section id='container'>
                 <button onClick={this.onStartCallClicked} id='call-btn' className='btn btn-primary'>Start Call</button>
-
+                <button onClick={this.props.closeVideo} id='call-btn' className='btn btn-primary'>Close Call</button>
                 {this.renderVideos()}
             </section>
         )
