@@ -8,7 +8,6 @@ import Match from './components/Match'
 import Home from './components/Home'
 import Chatrooms from './components/Chatrooms'
 import Profile from './components/Profile'
-import Home from './components/Home'
 import { connect } from 'react-redux'
 import { getUser } from './store/user'
 
