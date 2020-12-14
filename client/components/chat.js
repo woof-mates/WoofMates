@@ -56,7 +56,7 @@ class Chat extends React.Component {
         const minutes = today.getMinutes() < 10 ? `0${today.getMinutes()}` : today.getMinutes();
         const seconds = today.getSeconds() < 10 ? `0${today.getSeconds()}` : today.getSeconds();
         const ampm = today.getHours() < 12 ? ' AM' : ' PM'
-        const time = hours + ":" + minutes + ":" + seconds + ampm;
+        const time = hours + ":" + minutes + ampm;
         try {
             await firebaseDB.ref(`${this.props.from}-${this.props.to}/chats`).push({
                 message: this.state.message,
@@ -113,11 +113,11 @@ class Chat extends React.Component {
                             <SpeakerNotesOffIcon />
                         </IconButton>
                     </div>
-                    <div>
+                    <div id="ChatBody">
                         {
                             chats.map(chat => {
                                 return (
-                                    <p className={classnames({sender: this.props.fromName === chat.from})} key={chat.timestamp}>
+                                    <p className={classnames({recipient: this.props.fromName !== chat.from}, {sender: this.props.fromName === chat.from})} key={chat.timestamp}>
                                         <span className='messages'>{chat.message}</span>
                                         <span className='timestamp'>{chat.timestamp}</span>
                                     </p>
@@ -125,9 +125,9 @@ class Chat extends React.Component {
                             })
                         }
                     </div>
-                    <form onSubmit={this.handleSubmit}>
-                        <button style={{float: 'right'}} type="submit">Send</button>
-                        <input style={{float: 'right'}} onChange={this.handleChange} value={this.state.message}></input>
+                    <form id = "chatTypeMessageForm" onSubmit={this.handleSubmit}>
+                        <input id="chatTextInputField" style={{float: 'right'}} onChange={this.handleChange} value={this.state.message}></input>
+                        <button id="chatSendButton" style={{float: 'right'}} type="submit">Send</button>
                         {this.state.writeError ? <p>{this.state.writeError}</p> : null}
                     </form>
                 </div>
