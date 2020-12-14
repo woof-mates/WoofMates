@@ -28,27 +28,6 @@ body {
   flex-direction: column;
 }
 
-
-
-#profileContainer {
-  padding: 1em;
-  padding-bottom: 126px;
-  min-height: 480px;
-  /* display: flex;
-  flex-direction: column; */
-}
-
-#userProfile {
-  padding: 1em;
-  background-color: #E6E6ED;
-  /* display: flex;
-  flex-direction: column; */
-  width: 40%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 h3 {
   text-align: center;
   font-weight: bold;
@@ -56,18 +35,6 @@ h3 {
 
 ul {
   list-style-type: none;
-}
-
-#profileBody {
-  display: flex;
-  flex-direction: column;
-  padding: 1em;
-  background-color: #e2f7e8;
-  margin: 20px;
-  width: 60%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 #signUpContainer {
@@ -293,18 +260,6 @@ h1 {
   margin-right: auto;
 }
 
-#matchBody {
-  display: flex;
-  flex-direction: column;
-  padding: 1em;
-  background-color: #dae7de;
-  margin: 20px;
-  width: 70%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 #signUpForm {
   display: flex;
   flex-direction: column;
@@ -368,42 +323,6 @@ h1 {
   display: block;
   margin-left: auto;
   margin-right: auto;
-}
-
-.rejectMatchButton {
-  text-align: center;
-  background-color:#ecaaaa;
-	border-radius:28px;
-	border:1px solid #f58787;
-	display:block;
-	cursor:pointer;
-	color: black;
-	font-family:Arial;
-	font-size:17px;
-	padding:12px 31px;
-	text-decoration:none;
-  text-shadow:0px 1px 0px #ecaaaa;
-  margin-left: auto;
-  margin-right: auto;
-  width: 150px;
-}
-
-.acceptMatchButton {
-  text-align: center;
-  background-color:#44c767;
-	border-radius:28px;
-	border:1px solid #18ab29;
-	display:block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:17px;
-	padding:12px 31px;
-	text-decoration:none;
-  text-shadow:0px 1px 0px #2f6627;
-  margin-left: auto;
-  margin-right: auto;
-  width: 150px;
 }
 
 .logOutButton {
@@ -555,6 +474,99 @@ h1 {
   height: 200px;
   width: 200px
 } */
+/* ////////////////////////// */
+/* ///////////Match Component/////////////// */
+
+.rejectMatchButton {
+  text-align: center;
+  background-color:#ecaaaa;
+	border-radius:28px;
+	border:1px solid #f58787;
+	display:block;
+	cursor:pointer;
+	color: black;
+	font-family:Arial;
+	font-size:17px;
+	padding:12px 31px;
+	text-decoration:none;
+  text-shadow:0px 1px 0px #ecaaaa;
+  margin-left: auto;
+  margin-right: auto;
+  width: 150px;
+}
+
+.acceptMatchButton {
+  text-align: center;
+  background-color:#44c767;
+	border-radius:28px;
+	border:1px solid #18ab29;
+	display:block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:12px 31px;
+	text-decoration:none;
+  text-shadow:0px 1px 0px #2f6627;
+  margin-left: auto;
+  margin-right: auto;
+  width: 150px;
+}
+
+/* ///////////End of Match Component/////////////// */
+
+/* ///////////Profile Component/////////////// */
+#profileContainer {
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 126px;
+  min-height: 480px;
+}
+
+#profileBody {
+  display: flex;
+  flex-direction: column;
+  flex-grow:3;
+  padding: 1em;
+  background-color: #dae7de;
+  margin: 20px;
+  width: 60%;
+  display: block;
+  border-radius: 15px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+#profileBody > img {
+  padding: 1em;
+  margin: 20px;
+  width: 80%;
+  border-radius: 15px;
+
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.imgContainer > img {
+  padding-right: 10%;
+  padding-left: 10%;
+}
+
+.infoContainer{
+  margin: 20px;
+  text-align: center;
+
+  border-radius: 15px;
+  width: 80%;
+  background-color: white;
+  padding: .5rem;
+  box-shadow: 0 0 1px 0 ;
+}
+
+
+/* ///////////End of Profile Component/////////////// */
 
 .slideshow {
   margin: auto;
