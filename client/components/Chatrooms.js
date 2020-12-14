@@ -3,6 +3,9 @@ import Chat from './Chat';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { getMatches } from '../store/matches';
+import IconButton from '@material-ui/core/IconButton';
+import ChatIcon from '@material-ui/icons/Chat';
+import PersonIcon from '@material-ui/icons/Person';
 
 class Chatrooms extends React.Component {
     constructor(props) {
@@ -60,9 +63,15 @@ class Chatrooms extends React.Component {
                                             matches.map(match => {
                                                 const fullName = match.firstName + ' ' + match.lastName
                                                 return (
-                                                    <li key={match.id} onClick={() => this.toMessage(match.id, fullName)}>
+                                                    <li key={match.id}>
                                                         <img width={20} height={20} src='/images/dogIcon.png'></img> {fullName}
-                                                    </li>
+                                                        <IconButton onClick={() => this.toMessage(match.id, fullName)} >
+                                                            <ChatIcon/>
+                                                        </IconButton>
+                                                        <IconButton>
+                                                            <PersonIcon/>
+                                                        </IconButton>
+                                                    </li>                                                 
                                                 )
                                             })
                                         :

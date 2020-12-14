@@ -3,6 +3,9 @@ import React from 'react';
 import firebase from 'firebase';
 import 'firebase/database';
 import classnames from 'classnames';
+import IconButton from '@material-ui/core/IconButton';
+import PhoneIcon from '@material-ui/icons/Phone';
+import CallEndIcon from '@material-ui/icons/CallEnd';
 
 class VideoChat extends React.Component {
     constructor(props) {
@@ -47,8 +50,14 @@ class VideoChat extends React.Component {
     render() {
         return (
             <section id='container'>
-                <button onClick={this.onStartCallClicked} id='call-btn' className='btn btn-primary'>Start Call</button>
-                <button onClick={this.props.closeVideo} id='call-btn' className='btn btn-primary'>Close Call</button>
+                {/* <button onClick={this.onStartCallClicked} id='call-btn' className='btn btn-primary'>Start Call</button>
+                <button onClick={this.props.closeVideo} id='call-btn' className='btn btn-primary'>Close Call</button> */}
+                <IconButton onClick={this.onStartCallClicked} >
+                    <PhoneIcon/>
+                </IconButton>
+                <IconButton onClick={this.props.closeVideo}>
+                    <CallEndIcon/>
+                </IconButton>
                 {this.renderVideos()}
             </section>
         )

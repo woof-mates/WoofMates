@@ -1,9 +1,10 @@
 import React from 'react';
-
 import VideoChatContainer from './VideoChat/VideoChatContainer';
-
 import firebaseDB from './Firebase';
 import classnames from 'classnames';
+import IconButton from '@material-ui/core/IconButton';
+import PhoneIcon from '@material-ui/icons/Phone';
+import SpeakerNotesOffIcon from '@material-ui/icons/SpeakerNotesOff';
 
 class Chat extends React.Component {
     constructor(props) {
@@ -99,8 +100,12 @@ class Chat extends React.Component {
             return (
                 <div>
                     <div id='chatButtons'>
-                        <button onClick={this.openVideo}>Call</button>
-                        <button onClick={this.props.closeChat}>Close Chat</button>
+                        <IconButton onClick={this.openVideo} >
+                            <PhoneIcon />
+                        </IconButton>
+                        <IconButton onClick={this.props.closeChat}>
+                            <SpeakerNotesOffIcon />
+                        </IconButton>
                     </div>
                     <div>
                         {
