@@ -1,6 +1,6 @@
 import { createMuiTheme }  from '@material-ui/core/styles'
 
-const theme = createMuiTheme({
+const regTheme = createMuiTheme({
     typography: {
         fontFamily: 'Georgia, Times New Roman, Times, serif',
     },
@@ -24,5 +24,5 @@ const theme = createMuiTheme({
       },
 })
 
-export default theme;
+export default regTheme;
 

@@ -3,6 +3,7 @@ const faker = require('faker')
 const { USER_INTERESTS, PROFESSIONS, LATITUDE_NY, LONGITUDE_NY } = require('../../../constants')
 const { getRandomInt } = require('../../../utils/mathFuncs')
 const { saltAndHash } = require('../../../utils/hashPasswordFunc')
+const axios = require('axios')
 
 const createUsers = async (numUsers) => {
   let firstNames = [];
@@ -23,12 +24,14 @@ const createUsers = async (numUsers) => {
   const signs = [-1, 1]
 
   for (let i = 0; i < numUsers;i++){
+    let dogImage1 = await axios.get('https://dog.ceo/api/breeds/image/random')
+    let dogImage2 = await axios.get('https://dog.ceo/api/breeds/image/random')
     firstNames.push(faker.name.firstName())
     lastNames.push(faker.name.lastName())
     userEmails.push(faker.internet.email().toLowerCase())
-    userImages1.push(`https://placedog.net/500/280/sepia?id=${i}`)
+    userImages1.push(dogImage1.data.message)
     userImages2.push(faker.image.people())
-    dogImages.push(`https://placedog.net/500/280/sepia?id=${i}`)
+    dogImages.push(dogImage2.data.message)
     zipCodes.push(parseInt(faker.address.zipCode()))
     city.push(faker.address.city())
     state.push(faker.address.stateAbbr())

@@ -4,22 +4,18 @@ import PhotoUpload from '../components/PhotoUpload'
 import { BREEDS, DOG_INTERESTS } from '../../constants'
 
 import TextField from '@material-ui/core/TextField';
-import { withStyles, ThemeProvider } from '@material-ui/core/styles';
-import theme from '../../public/muiTheme'
+import { withStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 
-const styles = theme => ({
+const styles = {
   root: {
     '& .MuiTextField-root': {
-      margin: theme.spacing(1),
+      margin: 10,
       width: 200,
     },
   },
-  textField: {
-    fontFamily: 'Georgia, Times New Roman, Times, serif',
-  }
-});
+};
 
 class DogInfo extends Component{
     constructor(props){
@@ -127,7 +123,6 @@ class DogInfo extends Component{
       const { dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogImage } = this.state
       const { classes } = this.props;
       return (
-      <ThemeProvider theme={theme}>
         <div className={classes.root} noValidate autoComplete="off">
             <h3>Tell us more about your dog!</h3>
             <TextField required label="Dog's Name" name = "dogName" onChange={this.onChange} value={dogName || null} />
@@ -176,13 +171,10 @@ class DogInfo extends Component{
             </div>
             <p />
             <div className="registration-buttons">
-            <ThemeProvider theme={theme}>
               <Button className="back-button" variant="contained" color="secondary" onClick={this.props.goBack}>Back</Button>
               <Button className="next-button" variant="contained" color="secondary" onClick={this.sendData}>Next</Button>
-            </ThemeProvider>
             </div>
         </div>
-      </ThemeProvider>
     )
   }
 }

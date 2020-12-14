@@ -4,22 +4,18 @@ import PhotoUpload from '../components/PhotoUpload'
 import { PROFESSIONS, USER_INTERESTS } from '../../constants'
 
 import TextField from '@material-ui/core/TextField';
-import { withStyles, ThemeProvider } from '@material-ui/core/styles';
-import theme from '../../public/muiTheme'
+import { withStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 
-const styles = theme => ({
+const styles = {
   root: {
     '& .MuiTextField-root': {
-      margin: theme.spacing(1),
+      margin: 10,
       width: 200,
     },
   },
-  textField: {
-    fontFamily: 'Georgia, Times New Roman, Times, serif',
-  }
-});
+};
 
 class UserInfo extends Component{
     constructor(props){
@@ -119,38 +115,34 @@ class UserInfo extends Component{
       const { age, profession, userInterests, userImage1 } = this.state
       const { classes } = this.props
         return (
-          <ThemeProvider theme={theme}>
-            <div className={classes.root} noValidate autoComplete="off">
-            <h3>A bit more about you...</h3>
-                <TextField label="Age" type="number" name = "age" onChange={this.onChange} value={age ? age : null} />
-                <TextField select id="profession" label="Profession" name="profession" onChange={this.onChange} value={profession ? profession : '' }>
-                  {PROFESSIONS.map(profession => (<MenuItem key = {profession} value={profession}>{profession}</MenuItem>))}
-                </TextField>
-                <p />
-                Your interests (select up to 3):
-                <br />
-                <TextField select label="Interest" className="userInterestsList" name="userInterestsList1" onChange={this.onChange} value={userInterests[0] || ''}>
-                  {USER_INTERESTS.map(interest => (<MenuItem key = {interest} value={interest}>{interest}</MenuItem>))}
-                </TextField>
-                <TextField select label="Interest" className="userInterestsList" name="userInterestsList2" onChange={this.onChange} value={userInterests[1] || ''}>
-                  {USER_INTERESTS.map(interest => (<MenuItem key = {interest} value={interest}>{interest}</MenuItem>))}
-                </TextField>
-                <TextField select label="Interest" id="userInterestsList" name="userInterestsList3" onChange={this.onChange} value={userInterests[2] || ''}>
-                  {USER_INTERESTS.map(interest => (<MenuItem key = {interest} value={interest}>{interest}</MenuItem>))}
-                </TextField>
-                <p />
-                Upload a picture of yourself! (png, jpg format)* <PhotoUpload type="owner" action="Upload" photoUpload={this.photoUpload} />
-                <br />
-                {userImage1 ? <img src={userImage1} width="150" /> : null }
-                <p />
-                <div className="registration-buttons">
-                <ThemeProvider theme={theme}>
-                  <Button className="back-button" variant="contained" color="secondary" onClick={this.props.goBack}>Back</Button>
-                  <Button className="next-button" variant="contained" color="secondary" onClick={this.sendData}>Next</Button>
-                </ThemeProvider>
-                </div>
-            </div>
-          </ThemeProvider>
+          <div className={classes.root} noValidate autoComplete="off">
+          <h3>A bit more about you...</h3>
+              <TextField label="Age" type="number" name = "age" onChange={this.onChange} value={age ? age : null} />
+              <TextField select id="profession" label="Profession" name="profession" onChange={this.onChange} value={profession ? profession : '' }>
+                {PROFESSIONS.map(profession => (<MenuItem key = {profession} value={profession}>{profession}</MenuItem>))}
+              </TextField>
+              <p />
+              Your interests (select up to 3):
+              <br />
+              <TextField select label="Interest" className="userInterestsList" name="userInterestsList1" onChange={this.onChange} value={userInterests[0] || ''}>
+                {USER_INTERESTS.map(interest => (<MenuItem key = {interest} value={interest}>{interest}</MenuItem>))}
+              </TextField>
+              <TextField select label="Interest" className="userInterestsList" name="userInterestsList2" onChange={this.onChange} value={userInterests[1] || ''}>
+                {USER_INTERESTS.map(interest => (<MenuItem key = {interest} value={interest}>{interest}</MenuItem>))}
+              </TextField>
+              <TextField select label="Interest" id="userInterestsList" name="userInterestsList3" onChange={this.onChange} value={userInterests[2] || ''}>
+                {USER_INTERESTS.map(interest => (<MenuItem key = {interest} value={interest}>{interest}</MenuItem>))}
+              </TextField>
+              <p />
+              Upload a picture of yourself! (png, jpg format)* <PhotoUpload type="owner" action="Upload" photoUpload={this.photoUpload} />
+              <br />
+              {userImage1 ? <img src={userImage1} width="150" /> : null }
+              <p />
+              <div className="registration-buttons">
+                <Button className="back-button" variant="contained" color="secondary" onClick={this.props.goBack}>Back</Button>
+                <Button className="next-button" variant="contained" color="secondary" onClick={this.sendData}>Next</Button>
+              </div>
+          </div>
         )
     }
 }

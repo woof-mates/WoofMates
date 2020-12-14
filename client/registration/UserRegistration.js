@@ -1,21 +1,30 @@
 import React, { Component } from 'react'
 import TextField from '@material-ui/core/TextField';
 import { withStyles, ThemeProvider } from '@material-ui/core/styles';
-import theme from '../../public/muiTheme'
+import regTheme from '../../public/muiTheme'
 import { Button } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 
-const styles = theme => ({
+// const styles = regTheme => ({
+//   root: {
+//     '& .MuiTextField-root': {
+//       margin: regTheme.spacing(3),
+//       width: 200,
+//     },
+//   },
+//   textField: {
+//     fontFamily: 'Georgia, Times New Roman, Times, serif',
+//   }
+// });
+
+const styles = {
   root: {
     '& .MuiTextField-root': {
-      margin: theme.spacing(3),
+      margin: 10,
       width: 200,
     },
   },
-  textField: {
-    fontFamily: 'Georgia, Times New Roman, Times, serif',
-  }
-});
+};
 
 class UserRegistration extends Component{
     constructor(props){
@@ -112,7 +121,7 @@ class UserRegistration extends Component{
       const { firstName, lastName, userEmail, city, state, zipCode } = this.state
       const { classes } = this.props
       return (
-        <ThemeProvider theme={theme}>
+        // <ThemeProvider theme={regTheme}>
             <div className={classes.root} noValidate autoComplete="off">
                 <h3>Welcome! Create an Account:</h3>
                 <TextField required label="First Name" name="firstName" onChange={this.onChange} value={firstName ? firstName : null} />
@@ -178,12 +187,12 @@ class UserRegistration extends Component{
                 <TextField required label="Zip Code" type="number" name ="zipCode" onChange={this.onChange} value={zipCode ? zipCode : null } width={1/3}/>
                 <p />
                 <div className="registration-buttons">
-                  <ThemeProvider theme={theme}>
+                  {/* <ThemeProvider theme={regTheme}> */}
                     <Button className="next-button" variant="contained" color="secondary" onClick={this.sendData}>Next</Button>
-                  </ThemeProvider>
+                  {/* </ThemeProvider> */}
                 </div>
             </div>
-        </ThemeProvider>
+        // </ThemeProvider>
         )
     }
 }

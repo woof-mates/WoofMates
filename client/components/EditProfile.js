@@ -276,7 +276,6 @@ class EditProfile extends React.Component {
                 </select>
                 <p />
                 <button className="submit" id="submit" onClick={this.onSubmit}>Update</button>
-                <button onClick={this.props.closeEdit}>Cancel</button>
             </div>
         </div>
     )
