@@ -670,14 +670,13 @@ h1 {
 
 #chatMessages {
   background: white;
-  width: 50%;
+  width: 55%;
   border-width: 1px;
   border-color: black;
   border-style: solid;
   padding: 0.5rem;
   border-radius: 20px;
 }
-
 
 .sender {
   text-align: right;
