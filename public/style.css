@@ -38,8 +38,16 @@ ul {
 }
 
 #signUpContainer {
-  padding: 1em;
+  /* padding: 0em 4em; */
+  padding-top: 2em;
+  padding-bottom: 2em;
   min-height: 480px;
+  justify-content: center;
+  background-color: #dae7de;
+  margin: auto;
+  margin-bottom: 80px;
+  width: 80%;
+  /* margin-bottom: 20px */
 }
 
 #signInContainer {
@@ -262,14 +270,15 @@ h1 {
 
 #signUpForm {
   display: flex;
-  flex-direction: column;
-  padding: 1em;
-  background-color: #dae7de;
-  margin: 20px;
-  width: 60%;
+  /* flex-direction: column; */
+  /* padding: 1em; */
+  /* margin: 20px; */
+  width: 80%;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  align-items: center;
+  /* padding-top: 4em; */
 }
 
 #userUpdateForm {
@@ -296,12 +305,6 @@ h1 {
   margin-right: auto;
 }
 
-#signUpContainer {
-  padding: 1em;
-  padding-bottom: 126px;
-  min-height: 480px;
-}
-
 #chatContainer {
   padding: 1em;
   padding-bottom: 126px;
@@ -313,7 +316,7 @@ h1 {
   flex-direction: row;
 }
 
-#signUpForm {
+/* #signUpForm {
   display: flex;
   flex-direction: column;
   padding: 1em;
@@ -323,7 +326,7 @@ h1 {
   display: block;
   margin-left: auto;
   margin-right: auto;
-}
+} */
 
 .logOutButton {
   text-align: center;
@@ -568,6 +571,34 @@ h1 {
 
 /* ///////////End of Profile Component/////////////// */
 
+.next-button {
+  float: right;
+  color: white;
+}
+
+/* Stepper class */
+.MuiPaper-root.MuiStepper-root.MuiStepper-horizontal.MuiStepper-alternativeLabel.MuiPaper-elevation0 {
+  margin: 0px;
+}
+
+#prompts {
+  display: flex;
+  justify-content: space-between
+}
+
+.registration-buttons {
+  margin-bottom: 10px;
+  margin-top: 50px
+}
+
+/* div[class^=UserRegistration-root] {
+  width: 100%;
+  height: 100%;
+  align-self: center;
+  padding: 2em 0em;
+  margin: auto;
+  background-color: green;
+} */
 .slideshow {
   margin: auto;
   width: 60%;
@@ -597,6 +628,9 @@ h1 {
   padding-bottom: 15px;
 }
 
+.error {
+  color: red;
+}
 
 #chatRooms {
   display: flex;

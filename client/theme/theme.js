@@ -3,12 +3,15 @@ import { red } from '@material-ui/core/colors';
 
 // Create a theme instance.
 const theme = createMuiTheme({
+  typography: {
+    fontFamily: 'Georgia, Times New Roman, Times, serif',
+  },
   palette: {
     primary: {
-      main: '#2f2235',
+      main: '#DAE7DE',
     },
     secondary: {
-      main: '#19857b',
+      main: '#2f2235',
     },
     error: {
       main: red.A400,
@@ -17,7 +20,17 @@ const theme = createMuiTheme({
       default: '#fff',
     },
   },
-  spacing:1
+  spacing: 1,
+  overrides: {
+    MuiInput: {
+      input: {
+        "&::placeholder": {
+            fontFamily: 'Georgia, Times New Roman, Times, serif',
+        },
+      }
+    }
+  },
+
 });
 
 export default theme;
