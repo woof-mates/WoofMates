@@ -8,6 +8,7 @@ import UserRegistration from '../registration/UserRegistration'
 import UserInfo from '../registration/UserInfo'
 import DogInfo from '../registration/DogInfo'
 import DealbreakersPreferences from '../registration/DealbreakersPreferences'
+import { Button } from '@material-ui/core';
 
 // on change could update the state rather than next button
 // bring back the cancel / change button on edit component
@@ -153,8 +154,9 @@ class EditProfile extends React.Component {
             <UserInfo updateData={this.updateData} goBack={this.goBack} info={this.state} photoUpload={this.photoUpload} type="edit" />
             <DogInfo updateData={this.updateData} goBack={this.goBack} info={this.state} photoUpload={this.photoUpload} type="edit" />
             <DealbreakersPreferences updateData={this.updateData} goBack={this.goBack} info={this.state} type="edit" />
+            <Button className="submit-button" type="submit" variant="contained" color="secondary" onClick={this.onSubmit}>Update</Button>
           </div>
-          <button className="submit" type="submit" onClick={this.onSubmit}>Update</button>
+          {/* <button onClick={this.props.closeEdit}>Cancel</button> */}
         </div>
     )
   }

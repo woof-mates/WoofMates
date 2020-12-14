@@ -631,3 +631,11 @@ h1 {
 .error {
   color: red;
 }
+/* 
+.submit-button {
+  float: right
+} */
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-contained.submit-button.MuiButton-containedSecondary {
+  float: right
+}
