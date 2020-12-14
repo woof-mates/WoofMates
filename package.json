@@ -4,13 +4,13 @@
   "description": "Woof-Mates",
   "main": "index.js",
   "scripts": {
-    "start": "npm run seed && webpack --mode=production && node server/index.js",
+    "start": "npm run build && node server/index.js",
     "start-seed": "npm run seed & npm run start-server & npm run build-watch",
     "start-dev": "npm run start-server & npm run build-watch",
     "build-watch": "webpack",
     "start-server": "nodemon --watch server -e js,html server/index.js",
     "seed": "node server/db/seed/seed.js",
-    "postinstall": "npm run build-watch"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
