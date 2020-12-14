@@ -1,21 +1,8 @@
 import React, { Component } from 'react'
 import TextField from '@material-ui/core/TextField';
-import { withStyles, ThemeProvider } from '@material-ui/core/styles';
-import regTheme from '../../public/muiTheme'
+import { withStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
-
-// const styles = regTheme => ({
-//   root: {
-//     '& .MuiTextField-root': {
-//       margin: regTheme.spacing(3),
-//       width: 200,
-//     },
-//   },
-//   textField: {
-//     fontFamily: 'Georgia, Times New Roman, Times, serif',
-//   }
-// });
 
 const styles = {
   root: {

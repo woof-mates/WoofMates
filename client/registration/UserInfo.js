@@ -139,7 +139,7 @@ class UserInfo extends Component{
               {userImage1 ? <img src={userImage1} width="150" /> : null }
               <p />
               <div className="registration-buttons">
-                <Button className="back-button" variant="contained" color="secondary" onClick={this.props.goBack}>Back</Button>
+                <Button className="back-button" variant="contained" color="secondary" onClick={() => this.props.goBack(this.state)}>Back</Button>
                 <Button className="next-button" variant="contained" color="secondary" onClick={this.sendData}>Next</Button>
               </div>
           </div>

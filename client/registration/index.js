@@ -54,15 +54,16 @@ class Registration extends React.Component {
     if (this.state.step === 4) {
       await this.props.registerUser(this.state)
       if (!this.props.user.userEmail) {
-        this.goBack();
+        this.goBack(this.state);
         this.setState( {message: 'There was an error with your registration. Please check your inputs and resubmit.'} )
       }
     }
   }
 
-  goBack(){
+  goBack(userInfo){
     this.props.handleBack();
-    this.setState({ step: this.state.step - 1 })
+    userInfo.step = this.state.step - 1
+    this.setState(userInfo)
   }
 
   render() {

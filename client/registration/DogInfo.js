@@ -138,7 +138,7 @@ class DogInfo extends Component{
               <MenuItem value="4">4</MenuItem>
               <MenuItem value="5">5 (Highest)</MenuItem>
             </TextField>
-            <TextField required label="Weight" type="number" name = "weight" onChange={this.onChange} value={weight || null} />
+            <TextField required label="Weight (lbs)" type="number" name = "weight" onChange={this.onChange} value={weight || null} />
             <TextField required select label="Neutered?" id="neutered" name="neutered" onChange={this.onChange} value={neutered === null ? '' : neutered ? 'true' : 'false'}>
               <MenuItem value="false">No</MenuItem>
               <MenuItem value="true">Yes</MenuItem>
@@ -171,7 +171,7 @@ class DogInfo extends Component{
             </div>
             <p />
             <div className="registration-buttons">
-              <Button className="back-button" variant="contained" color="secondary" onClick={this.props.goBack}>Back</Button>
+              <Button className="back-button" variant="contained" color="secondary" onClick={() => this.props.goBack(this.state)}>Back</Button>
               <Button className="next-button" variant="contained" color="secondary" onClick={this.sendData}>Next</Button>
             </div>
         </div>
