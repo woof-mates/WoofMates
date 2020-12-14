@@ -1,21 +1,9 @@
+/* eslint-disable complexity */
 import React, { Component } from 'react'
 import TextField from '@material-ui/core/TextField';
-import { withStyles, ThemeProvider } from '@material-ui/core/styles';
-import regTheme from '../../public/muiTheme'
+import { withStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
-
-// const styles = regTheme => ({
-//   root: {
-//     '& .MuiTextField-root': {
-//       margin: regTheme.spacing(3),
-//       width: 200,
-//     },
-//   },
-//   textField: {
-//     fontFamily: 'Georgia, Times New Roman, Times, serif',
-//   }
-// });
 
 const styles = {
   root: {
@@ -103,6 +91,8 @@ class UserRegistration extends Component{
           [e.target.name]: e.target.value
         })
       }
+
+      if (this.props.type === 'edit') this.props.updateData(this.state)
     }
 
     sendData(){
@@ -119,7 +109,7 @@ class UserRegistration extends Component{
 
     render(){
       const { firstName, lastName, userEmail, city, state, zipCode } = this.state
-      const { classes } = this.props
+      const { classes, type } = this.props
       return (
         // <ThemeProvider theme={regTheme}>
             <div className={classes.root} noValidate autoComplete="off">
@@ -187,9 +177,10 @@ class UserRegistration extends Component{
                 <TextField required label="Zip Code" type="number" name ="zipCode" onChange={this.onChange} value={zipCode ? zipCode : null } width={1/3}/>
                 <p />
                 <div className="registration-buttons">
-                  {/* <ThemeProvider theme={regTheme}> */}
+                  { type === 'edit' ?
+                    null :
                     <Button className="next-button" variant="contained" color="secondary" onClick={this.sendData}>Next</Button>
-                  {/* </ThemeProvider> */}
+                  }
                 </div>
             </div>
         // </ThemeProvider>

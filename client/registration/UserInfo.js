@@ -110,10 +110,12 @@ class UserInfo extends Component{
           [e.target.name]: e.target.value
         })
       }
+
+      if (this.props.type === 'edit') this.props.updateData(this.state)
     }
     render(){
       const { age, profession, userInterests, userImage1 } = this.state
-      const { classes } = this.props
+      const { classes, type } = this.props
         return (
           <div className={classes.root} noValidate autoComplete="off">
           <h3>A bit more about you...</h3>
@@ -138,10 +140,12 @@ class UserInfo extends Component{
               <br />
               {userImage1 ? <img src={userImage1} width="150" /> : null }
               <p />
+              { type === 'edit' ? null :
               <div className="registration-buttons">
                 <Button className="back-button" variant="contained" color="secondary" onClick={this.props.goBack}>Back</Button>
                 <Button className="next-button" variant="contained" color="secondary" onClick={this.sendData}>Next</Button>
               </div>
+              }
           </div>
         )
     }

@@ -118,10 +118,12 @@ class DogInfo extends Component{
           [e.target.name]: e.target.value
         })
       }
+
+      if (this.props.type === 'edit') this.props.updateData(this.state)
     }
     render(){
       const { dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogImage } = this.state
-      const { classes } = this.props;
+      const { classes, type } = this.props;
       return (
         <div className={classes.root} noValidate autoComplete="off">
             <h3>Tell us more about your dog!</h3>
@@ -170,10 +172,12 @@ class DogInfo extends Component{
               </div>
             </div>
             <p />
-            <div className="registration-buttons">
-              <Button className="back-button" variant="contained" color="secondary" onClick={this.props.goBack}>Back</Button>
-              <Button className="next-button" variant="contained" color="secondary" onClick={this.sendData}>Next</Button>
-            </div>
+            { type === 'edit' ? null :
+              <div className="registration-buttons">
+                <Button className="back-button" variant="contained" color="secondary" onClick={this.props.goBack}>Back</Button>
+                <Button className="next-button" variant="contained" color="secondary" onClick={this.sendData}>Next</Button>
+              </div>
+            }
         </div>
     )
   }
