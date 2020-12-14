@@ -7,7 +7,7 @@
     "start": "npm run start-dev",
     "start-seed": "npm run seed & npm run start-server & npm run build-watch",
     "start-dev": "npm run start-server & npm run build-watch",
-    "build-watch": "webpack -w",
+    "build-watch": "webpack",
     "start-server": "nodemon --watch server -e js,html server/index.js",
     "seed": "node server/db/seed/seed.js",
     "postinstall": "npm run build-watch"
