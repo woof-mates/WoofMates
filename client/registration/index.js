@@ -3,7 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { registerUser } from '../store/user'
-// import { PROFESSIONS, USER_INTERESTS, BREEDS, MAX_DISTANCES, DOG_INTERESTS, MAX_USER_AGE, DOG_AGE_PREFS, DOG_WEIGHT_PREFS, MIN_USER_AGE, AGE_RANGE } from '../../constants'
 import UserRegistration from './UserRegistration'
 import UserInfo from './UserInfo'
 import DogInfo from './DogInfo'
@@ -12,11 +11,6 @@ import DealbreakersPreferences from './DealbreakersPreferences'
 class Registration extends React.Component {
   constructor (props) {
     super(props)
-    this.arrForNums = ['age', 'dogAge', 'energyLevel', 'weight', 'distanceFromLocation']
-    this.tempUserInterests = []
-    this.tempDogInterests = []
-    this.tempUserInterestsPrefs = []
-    this.tempUserProfessionPrefs = []
     this.state = {
       step: 0,
       firstName: '', //required
@@ -51,15 +45,12 @@ class Registration extends React.Component {
       dogImage: '',
       message: ''
     };
-    // this.onChange = this.onChange.bind(this);
     this.updateData = this.updateData.bind(this);
     this.goBack = this.goBack.bind(this);
   }
    async updateData(userInfo){
     userInfo.step = this.state.step + 1
-    console.log('incoming',userInfo)
     await this.setState(userInfo)
-    console.log(this.state)
     if (this.state.step === 4) {
       await this.props.registerUser(this.state)
       if (!this.props.user.userEmail) {
@@ -75,7 +66,7 @@ class Registration extends React.Component {
   }
 
   render() {
-    const { user, handleNext, handleBack } = this.props
+    const { user, handleNext } = this.props
     const { step } = this.state
     if (user.userEmail) {
       return (
@@ -85,15 +76,14 @@ class Registration extends React.Component {
     else {
       return (
         <div id="signUpContainer">
-          {/* <ProgressBar /> */}
           <div id="signUpForm">
             <p className="error">{this.state.message}</p>
            {
             {
-              0: <UserRegistration updateData={this.updateData} info={this.state} handleNext={handleNext} handleBack={handleBack} />,
-              1: <UserInfo updateData={this.updateData} goBack={this.goBack} info={this.state} handleNext={handleNext} handleBack={handleBack} photoUpload={this.photoUpload} />,
-              2: <DogInfo updateData={this.updateData} goBack={this.goBack} info={this.state} handleNext={handleNext} handleBack={handleBack} photoUpload={this.photoUpload} />,
-              3: <DealbreakersPreferences updateData={this.updateData} goBack={this.goBack} info={this.state} handleNext={handleNext} handleBack={handleBack} />
+              0: <UserRegistration updateData={this.updateData} info={this.state} handleNext={handleNext} />,
+              1: <UserInfo updateData={this.updateData} goBack={this.goBack} info={this.state} handleNext={handleNext} photoUpload={this.photoUpload} />,
+              2: <DogInfo updateData={this.updateData} goBack={this.goBack} info={this.state} handleNext={handleNext} photoUpload={this.photoUpload} />,
+              3: <DealbreakersPreferences updateData={this.updateData} goBack={this.goBack} info={this.state} handleNext={handleNext} />
             }[step]
            }
           </div>
