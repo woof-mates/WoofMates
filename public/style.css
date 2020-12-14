@@ -631,3 +631,41 @@ h1 {
 .error {
   color: red;
 }
+
+#chatRooms {
+  display: flex;
+}
+
+#chatList {
+  width: 50%;
+}
+
+#chatMessages {
+  width: 50%;
+  border-width: 1px;
+  border-color: black;
+  border-style: solid;
+}
+
+.sender {
+  text-align: right;
+}
+.sender .messages { 
+  background: #648eff
+}
+
+.messages {
+  position: relative;
+  background: #fff;
+  border-width: 15px;
+  border-radius: 40px;
+  padding: 3.5px;
+}
+
+#chatButtons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+
