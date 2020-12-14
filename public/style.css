@@ -1,5 +1,5 @@
 #NavbarContainer {
-  background-color:#553739;
+  background-color:#2f2235;
   display: flex;
   justify-content: space-evenly;
   height: 80px;
@@ -61,10 +61,10 @@ ul {
 }
 
 #footerContainer {
-  background: #553739;
+  background: #2f2235;
   position: absolute;
   width: 100%;
-  bottom: 0;
+  bottom: 0px;
   height: 126px;
 }
 
@@ -130,6 +130,12 @@ h1 {
 
 #NavbarLink {
   color: white;
+  text-decoration: none;
+}
+
+#NavbarLink:hover {
+  color: #01bf71;
+  transition: 0.3s ease-out;
 }
 
 #FooterLink {
@@ -404,6 +410,43 @@ h1 {
   align-items: center;
   flex-direction: row;
   padding: 0 1rem;
+}
+
+#NavbarLogoContainer {
+  height: 80px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+  padding: 0 1rem;
+}
+
+#NavbarTitleContainer {
+  color: #fff;
+  display: flex;
+  justify-self: flex-start;
+  align-items: center;
+  text-decoration: none;
+  margin-bottom: 0px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  font-style: oblique;
+  font-weight: bold;
+}
+
+#NavbarTitleLink {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.5rem;
+  margin-bottom: 0.0rem;
+  font-style: oblique;
+  font-weight: bold;
+}
+
+#NavbarLogoPic {
+  width: 106px;
+  height: 80px;
+  object-fit: contain;
 }
 
 #LinkItem {

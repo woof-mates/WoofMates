@@ -17,10 +17,10 @@ class Auth extends Component {
     }
     render() {
         return (
-            <>
+            <div id="signInContainer">
                 {this.props.user.firstName ? <Logout setMessage={this.setMessage} /> : <Login setMessage={this.setMessage} />}
                 <p>{this.state.message}</p>
-            </>
+            </div>
         )
     }
 }

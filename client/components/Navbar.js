@@ -38,6 +38,12 @@ class Navbar extends React.Component {
     if (user.firstName) {
       return (
         <div id="NavbarContainer">
+          <div id="NavbarTitleContainer">
+            <Link id="NavbarTitleLink" to="/">Woofmates</Link>
+          </div>
+          <div id="NavbarLogoContainer">
+            <img id="NavbarLogoPic" src="https://cdn.shopify.com/s/files/1/0667/0685/files/tintin_and_snowy_by_genus_rattus-d4jxohy_large.png?9525775607535621580"></img>
+          </div>
           <div id="LinkContainer">
               <Link id="NavbarLink" to="/">Home</Link>
           </div>
@@ -58,6 +64,12 @@ class Navbar extends React.Component {
     else {
       return (
         <div id="NavbarContainer">
+          <div id="NavbarTitleContainer">
+            <Link id="NavbarTitleLink" to="/">Woofmates</Link>
+          </div>
+          <div id="NavbarLogoContainer">
+            <img id="NavbarLogoPic" src="https://cdn.shopify.com/s/files/1/0667/0685/files/tintin_and_snowy_by_genus_rattus-d4jxohy_large.png?9525775607535621580"></img>
+          </div>
           <div id="LinkContainer">
               <Link id="NavbarLink" to="/">Home</Link>
           </div>
