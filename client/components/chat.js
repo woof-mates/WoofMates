@@ -52,7 +52,11 @@ class Chat extends React.Component {
             writeError: null
         })
         const today = new Date();
-        const time = (today.getHours() % 12) + ":" + today.getMinutes() + ":" + today.getSeconds();
+        const hours = (today.getHours() % 12) < 10 ? `0${today.getHours() % 12}` : today.getHours();
+        const minutes = today.getMinutes() < 10 ? `0${today.getMinutes()}` : today.getMinutes();
+        const seconds = today.getSeconds() < 10 ? `0${today.getSeconds()}` : today.getSeconds();
+        const ampm = today.getHours() < 12 ? ' AM' : ' PM'
+        const time = hours + ":" + minutes + ":" + seconds + ampm;
         try {
             await firebaseDB.ref(`${this.props.from}-${this.props.to}/chats`).push({
                 message: this.state.message,
