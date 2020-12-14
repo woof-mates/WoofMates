@@ -107,7 +107,7 @@ class Chat extends React.Component {
                             <SpeakerNotesOffIcon />
                         </IconButton>
                     </div>
-                    <div>
+                    <div id="ChatBody">
                         {
                             chats.map(chat => {
                                 return (
@@ -116,9 +116,9 @@ class Chat extends React.Component {
                             })
                         }
                     </div>
-                    <form onSubmit={this.handleSubmit}>
-                        <button style={{float: 'right'}} type="submit">Send</button>
-                        <input style={{float: 'right'}} onChange={this.handleChange} value={this.state.message}></input>
+                    <form id = "chatTypeMessageForm" onSubmit={this.handleSubmit}>
+                        <input id="chatTextInputField" style={{float: 'right'}} onChange={this.handleChange} value={this.state.message}></input>
+                        <button id="chatSendButton" style={{float: 'right'}} type="submit">Send</button>
                         {this.state.writeError ? <p>{this.state.writeError}</p> : null}
                     </form>
                 </div>
