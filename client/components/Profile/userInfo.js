@@ -33,7 +33,7 @@ const UserInfo = ({user}) => {
         <ListItem>
           <ListItemAvatar>
             <Avatar>
-              <LocationOnIcon/>
+              <LocationOnIcon />
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary={`${user.city}, ${user.state}`} secondary = "Location"/>

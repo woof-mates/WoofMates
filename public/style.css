@@ -435,7 +435,6 @@ h1 {
   height: 200px;
   width: 200px
 } */
-<<<<<<< HEAD
 /* ////////////////////////// */
 /* ///////////Match Component/////////////// */
 
@@ -527,9 +526,8 @@ h1 {
 
 
 /* ///////////End of Profile Component/////////////// */
-=======
 
-.slideshow { 
+.slideshow {
   margin: auto;
   width: 60%;
   border: 3px;
@@ -557,4 +555,3 @@ h1 {
   z-index: 9;
   padding-bottom: 15px;
 }
->>>>>>> 6ebe508c19e094ccf13918acc8d8f8f34d8f0008

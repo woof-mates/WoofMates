@@ -39,11 +39,12 @@ class Match extends Component {
     render(){
         let { match, user } = this.props;
         let matchDistanceFromUser = parseInt(getDistance(user.userLatitude, user.userLongitude, match.userLatitude, match.userLongitude))
-        if (!match.firstName) return (
+        if (!match.firstName) {
+            return (
             <div id="matchContainer">
                 Please log in to see your matches
             </div>
-        )
+        )}
         else {
             return (
         <>
