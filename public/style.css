@@ -311,6 +311,7 @@ h1 {
 #matchButtonsContainer{
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
 }
 
 #signUpForm {
@@ -519,52 +520,45 @@ h1 {
 #profileContainer {
   padding: 1em;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   padding-bottom: 126px;
   min-height: 480px;
+  text-align: center;
 }
 
 #profileBody {
-  display: flex;
-  flex-direction: column;
-  flex-grow:3;
+  flex-grow:5;
   padding: 1em;
   background-color: #dae7de;
+  max-width: 40rem;
   margin: 20px;
-  width: 60%;
   display: block;
   border-radius: 15px;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
-#profileBody > img {
+.MuiPaper-outlined {
   padding: 1em;
   margin: 20px;
-  width: 80%;
+  width: 75%;
   border-radius: 15px;
-
-  text-align: center;
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
-.imgContainer > img {
-  padding-right: 10%;
-  padding-left: 10%;
-}
-
 .infoContainer{
   margin: 20px;
-  text-align: center;
-
   border-radius: 15px;
-  width: 80%;
   background-color: white;
   padding: .5rem;
   box-shadow: 0 0 1px 0 ;
 }
 
+#infoBody{
+  flex-grow:4;
+  max-width: 30rem;
+}
 
 /* ///////////End of Profile Component/////////////// */
 

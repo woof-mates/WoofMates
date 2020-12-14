@@ -31,7 +31,7 @@ router.get('/:userId', async(req, res, next) => { // single user profile
         where: {
           id: req.params.userId
         },
-        include: [Preference, Dog],
+        include: [Preference, Dog, Prompt],
         attributes: {
           exclude: ['hashedPassword']
         }

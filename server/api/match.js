@@ -1,7 +1,7 @@
 /* eslint-disable max-statements */
 const router = require('express').Router();
 const nodemailer = require('nodemailer');
-const { User, Relationship, Dog, Preference, Userpref } = require('../db')
+const { User, Relationship, Dog, Preference, Userpref, Prompt } = require('../db')
 const { getDistance }  = require('../../utils/mathFuncs') //used in testing console logs
 const { filterMatchesWithUserSpecifiedFilters } = require('../matchAlg/userFilters')
 const {findMatch} = require('../matchAlg/match')
@@ -16,7 +16,7 @@ router.get('/:userId', async(req, res, next) => {
 
         // const { distanceFromLocation, isNeuteredDealbreaker } = currUser.preference;
         // console.log('user prefs: distance', distanceFromLocation, 'neutereddealbreaker', isNeuteredDealbreaker)
-        const allUsers = await User.findAll({ include: Dog });
+        const allUsers = await User.findAll({ include: [Dog, Prompt] });
 
         // first find relationships with matches that have already liked this user
         let matchesAlreadyLikedUserRelationships = await Relationship.findAll({
@@ -47,6 +47,7 @@ router.get('/:userId', async(req, res, next) => {
             // send one match at a time so algo can update with each decision by user
             // sending 1st element in matches array for now, but this would be sorted based on algorithm
             const bestMatch = await findMatch(currUser, matchesAlreadyLikedUser)
+            bestMatch.dataValues["liked"] = true;
             res.send(bestMatch)
             }
         // if there are no filtered matches that have already liked this user...
@@ -84,6 +85,7 @@ router.get('/:userId', async(req, res, next) => {
             // same as above, sending first of array for now
             // if (!unseenMatches.length) res.send( { message: 'You have no matches that fit your criteria. Try broadening it in your settings!'})
             const bestMatch = await findMatch(currUser, unseenMatches)
+            bestMatch.dataValues["liked"] = false;
             res.send(bestMatch)
         }
     } catch (err) { next(err) }

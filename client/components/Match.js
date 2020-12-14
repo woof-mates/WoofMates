@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { getMatch, sendDecision, sendEmailToMatch } from '../store/match';
 import { getDistance }  from '../../utils/mathFuncs'
 import Chatrooms from './Chatrooms'
-import { list } from '../../utils/frontEndFuncs'
 import DogInfo from './Profile/DogInfo'
 import UserInfo from './Profile/UserInfo'
+import {Button} from '@material-ui/core'
+import Cards from './Profile/Cards'
 
 class Match extends Component {
     constructor(props){
@@ -38,6 +39,7 @@ class Match extends Component {
     }
     render(){
         let { match, user } = this.props;
+        console.log(match)
         let matchDistanceFromUser = parseInt(getDistance(user.userLatitude, user.userLongitude, match.userLatitude, match.userLongitude))
         if (!match.firstName) {
             return (
@@ -51,12 +53,11 @@ class Match extends Component {
         <div id="profileContainer">
             <div id="profileBody">
                 <h3>{match.firstName} and {match.dog.dogName}</h3>
-                <img src={match.userImage1} />
-                <img src={match.userImage2} />
-                <img src={match.dogImage} />
+                {match.liked ? <p>Liked!</p> : <p />}
+                <Cards user = {match} />
                 <div id="matchButtonsContainer">
-                    <button className="acceptMatchButton" onClick={this.sendDecisionAndLoadNextMatch} value="like" type="submit">Like</button>
-                    <button className="rejectMatchButton" onClick={this.sendDecisionAndLoadNextMatch} value="reject" type="submit">Don't like</button>
+                    <Button className="rejectMatchButton" onClick={this.sendDecisionAndLoadNextMatch} value="reject" variant="contained" color="primary" type="submit">Don't like</Button>
+                    <Button className="acceptMatchButton" onClick={this.sendDecisionAndLoadNextMatch} value="like" variant="contained" color="primary" type="submit">Like</Button>
                 </div>
                 {/* Match user ID for debugging purposes, will take out */}
                 {/* <p>Match User Id: {match.id}</p> */}

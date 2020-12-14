@@ -6,6 +6,7 @@ import EditProfile from './EditProfile';
 import DogInfo from './Profile/DogInfo'
 import UserInfo from './Profile/UserInfo'
 import TabBar from './Profile/TabBar'
+import Cards from './Profile/Cards'
 
 class Profile extends React.Component {
     constructor(props) {
@@ -56,9 +57,7 @@ class Profile extends React.Component {
                 <div id="profileContainer">
                     <div id="profileBody">
                         <h3>{user.firstName} and {user.dog.dogName}</h3>
-                        <img src={user.userImage1} />
-                        <img src={user.userImage2} />
-                        <img src={user.dogImage} />
+                        <Cards user = {user} />
                     </div>
                     <div id="infoBody">
                         <UserInfo user = {user} />
