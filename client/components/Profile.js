@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import EditProfile from './EditProfile';
 import DogInfo from './Profile/DogInfo'
-import UserInfo from './Profile/UserInfo'
+import UserInfo from './Profile/userInfo'
 import TabBar from './Profile/TabBar'
 
 class Profile extends React.Component {

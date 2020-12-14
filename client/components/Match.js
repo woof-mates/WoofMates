@@ -6,7 +6,7 @@ import { getDistance }  from '../../utils/mathFuncs'
 import Chatrooms from './Chatrooms'
 import { list } from '../../utils/frontEndFuncs'
 import DogInfo from './Profile/DogInfo'
-import UserInfo from './Profile/UserInfo'
+import UserInfo from './Profile/userInfo'
 
 class Match extends Component {
     constructor(props){
