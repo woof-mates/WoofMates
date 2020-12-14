@@ -51,16 +51,18 @@ class Chat extends React.Component {
         this.setState({
             writeError: null
         })
+        const today = new Date();
+        const time = (today.getHours() % 12) + ":" + today.getMinutes() + ":" + today.getSeconds();
         try {
             await firebaseDB.ref(`${this.props.from}-${this.props.to}/chats`).push({
                 message: this.state.message,
-                timestamp: Date.now(),
+                timestamp: time,
                 from: this.props.fromName,
                 to: this.props.toName
             });
             await firebaseDB.ref(`${this.props.to}-${this.props.from}/chats`).push({
                 message: this.state.message,
-                timestamp: Date.now(),
+                timestamp: time,
                 from: this.props.fromName,
                 to: this.props.toName
             });
@@ -111,7 +113,10 @@ class Chat extends React.Component {
                         {
                             chats.map(chat => {
                                 return (
-                                    <p className={classnames({sender: this.props.fromName === chat.from})} key={chat.timestamp}><span className='messages'>{chat.message}</span></p>
+                                    <p className={classnames({sender: this.props.fromName === chat.from})} key={chat.timestamp}>
+                                        <span className='messages'>{chat.message}</span>
+                                        <span className='timestamp'>{chat.timestamp}</span>
+                                    </p>
                                 )
                             })
                         }
