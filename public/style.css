@@ -260,8 +260,6 @@ h1 {
   margin-right: auto;
 }
 
-
-
 #signUpForm {
   display: flex;
   flex-direction: column;
@@ -326,8 +324,6 @@ h1 {
   margin-left: auto;
   margin-right: auto;
 }
-
-
 
 .logOutButton {
   text-align: center;
@@ -524,6 +520,8 @@ h1 {
   padding: 1em;
   display: flex;
   justify-content: space-between;
+  padding-bottom: 126px;
+  min-height: 480px;
 }
 
 #profileBody {
