@@ -9,19 +9,6 @@ import { ThemeProvider } from '@material-ui/styles';
 
 import Registration from './index'
 
-// const theme = createMuiTheme({
-//     palette: {
-//       primary: {
-//         // Purple and green play nicely together.
-//         main: purple[500],
-//       },
-//       secondary: {
-//         // This is green.A700 as hex.
-//         main: '#11cb5f',
-//       },
-//     },
-//   });
-   
 const theme = createMuiTheme({
     stepper: {
         iconColor: '#DAE7DE' // or logic to change color
@@ -44,14 +31,6 @@ const theme = createMuiTheme({
          completed: {},
          disabled: {}
        },
-    },
-    palette: {
-        primary: {
-          main: '#DAE7DE',
-        },
-        secondary: {
-          main: '#44C767',
-        },
     },
 })
 

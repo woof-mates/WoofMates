@@ -8,7 +8,6 @@ import UserRegistration from './UserRegistration'
 import UserInfo from './UserInfo'
 import DogInfo from './DogInfo'
 import DealbreakersPreferences from './DealbreakersPreferences'
-import ProgressBar from './ProgressBar'
 
 class Registration extends React.Component {
   constructor (props) {
@@ -88,7 +87,6 @@ class Registration extends React.Component {
         <div id="signUpContainer">
           {/* <ProgressBar /> */}
           <div id="signUpForm">
-            <p>Fields marked with * are required</p>
             <p className="error">{this.state.message}</p>
            {
             {

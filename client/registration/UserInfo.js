@@ -1,16 +1,31 @@
 /* eslint-disable complexity */
 import React, { Component } from 'react'
 import PhotoUpload from '../components/PhotoUpload'
-import { PROFESSIONS, USER_INTERESTS, BREEDS, MAX_DISTANCES, DOG_INTERESTS, MAX_USER_AGE, DOG_AGE_PREFS, DOG_WEIGHT_PREFS, MIN_USER_AGE, AGE_RANGE } from '../../constants'
+import { PROFESSIONS, USER_INTERESTS } from '../../constants'
 
-export default class UserInfo extends Component{
+import TextField from '@material-ui/core/TextField';
+import { withStyles, ThemeProvider } from '@material-ui/core/styles';
+import theme from '../../public/muiTheme'
+import { Button } from '@material-ui/core';
+import MenuItem from '@material-ui/core/MenuItem';
+
+const styles = theme => ({
+  root: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: 200,
+    },
+  },
+  textField: {
+    fontFamily: 'Georgia, Times New Roman, Times, serif',
+  }
+});
+
+class UserInfo extends Component{
     constructor(props){
         super(props)
         this.arrForNums = ['age', 'dogAge', 'energyLevel', 'weight', 'distanceFromLocation']
         this.tempUserInterests = []
-        // this.tempDogInterests = []
-        // this.tempUserInterestsPrefs = []
-        // this.tempUserProfessionPrefs = []
         this.state = {
             age: null,
             profession: '',
@@ -23,9 +38,14 @@ export default class UserInfo extends Component{
     }
     sendData(){
       const { userImage1 } = this.state
-      if (!userImage1.length) alert('Please fill in all required fields! Fields marked with * are required.')
-      else this.props.updateData(this.state)
-      // this.props.updateData(this.state)
+      const { updateData, handleNext } = this.props
+      if (!userImage1.length) {
+        alert('Please fill in all required fields! Fields marked with * are required.')
+      }
+      else {
+        updateData(this.state)
+        handleNext()
+     }
     }
     photoUpload(photoObj){
       this.setState(photoObj)
@@ -97,53 +117,42 @@ export default class UserInfo extends Component{
     }
     render(){
       const { age, profession, userInterests, userImage1 } = this.state
+      const { classes } = this.props
         return (
-            <div>
+          <ThemeProvider theme={theme}>
+            <div className={classes.root} noValidate autoComplete="off">
             <h3>A bit more about you...</h3>
-                Age: <input type="age" name = "age" onChange={this.onChange} value={age ? age : null} />
-                <p />
-                Profession:
-                <select id="profession" name="profession" onChange={this.onChange} >
-                <option value="none" selected disabled hidden>
-                  {profession ? profession : 'Select an Option' }
-                </option>
-                {PROFESSIONS.map(profession => (<option key = {profession} value={profession}>{profession}</option>))}
-                </select>
+                <TextField label="Age" type="number" name = "age" onChange={this.onChange} value={age ? age : null} />
+                <TextField select id="profession" label="Profession" name="profession" onChange={this.onChange} value={profession ? profession : '' }>
+                  {PROFESSIONS.map(profession => (<MenuItem key = {profession} value={profession}>{profession}</MenuItem>))}
+                </TextField>
                 <p />
                 Your interests (select up to 3):
-                <p />
-                Interest 1:
-                <select id="userInterestsList" name="userInterestsList1" onChange={this.onChange}>
-                <option value="none" selected disabled hidden>
-                  {userInterests[0] || 'Select an Option'}
-                </option>
-                {USER_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
-                </select>
-                <p />
-                Interest 2:
-                <select id="userInterestsList" name="userInterestsList2" onChange={this.onChange}>
-                <option value="none" selected disabled hidden>
-                  {userInterests[1] || 'Select an Option'}
-                </option>
-                {USER_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
-                </select>
-                <p />
-                Interest 3:
-                <select id="userInterestsList" name="userInterestsList3" onChange={this.onChange}>
-                <option value="none" selected disabled hidden>
-                  {userInterests[2] || 'Select an Option'}
-                </option>
-                {USER_INTERESTS.map(interest => (<option key = {interest} value={interest}>{interest}</option>))}
-                </select>
+                <br />
+                <TextField select label="Interest" className="userInterestsList" name="userInterestsList1" onChange={this.onChange} value={userInterests[0] || ''}>
+                  {USER_INTERESTS.map(interest => (<MenuItem key = {interest} value={interest}>{interest}</MenuItem>))}
+                </TextField>
+                <TextField select label="Interest" className="userInterestsList" name="userInterestsList2" onChange={this.onChange} value={userInterests[1] || ''}>
+                  {USER_INTERESTS.map(interest => (<MenuItem key = {interest} value={interest}>{interest}</MenuItem>))}
+                </TextField>
+                <TextField select label="Interest" id="userInterestsList" name="userInterestsList3" onChange={this.onChange} value={userInterests[2] || ''}>
+                  {USER_INTERESTS.map(interest => (<MenuItem key = {interest} value={interest}>{interest}</MenuItem>))}
+                </TextField>
                 <p />
                 Upload a picture of yourself! (png, jpg format)* <PhotoUpload type="owner" action="Upload" photoUpload={this.photoUpload} />
                 <br />
                 {userImage1 ? <img src={userImage1} width="150" /> : null }
+                <p />
                 <div className="registration-buttons">
-                  <button onClick={this.props.goBack}>Back</button>
-                  <button onClick={this.sendData}>Next</button>
+                <ThemeProvider theme={theme}>
+                  <Button className="back-button" variant="contained" color="secondary" onClick={this.props.goBack}>Back</Button>
+                  <Button className="next-button" variant="contained" color="secondary" onClick={this.sendData}>Next</Button>
+                </ThemeProvider>
                 </div>
             </div>
+          </ThemeProvider>
         )
     }
 }
+
+export default withStyles(styles)(UserInfo);
