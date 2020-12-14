@@ -4,6 +4,7 @@
   "description": "Woof-Mates",
   "main": "index.js",
   "scripts": {
+    "start": "npm run start-dev",
     "start-seed": "npm run seed & npm run start-server & npm run build-watch",
     "start-dev": "npm run start-server & npm run build-watch",
     "build-watch": "webpack -w",
