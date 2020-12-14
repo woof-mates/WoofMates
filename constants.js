@@ -721,7 +721,7 @@ const DOG_WEIGHT_PREFS = [
   'Smaller'
 ]
 
-const MAPQUEST_KEY = process.env.MAPQUEST_KEY;
+const MAPQUEST_KEY = process.env.REACT_APP_MAPQUEST_KEY;
 
 // http://en.wikipedia.org/wiki/Extreme_points_of_the_United_States#Westernmost
 const TOP_LATITUDE_US = 49.3457868  // north lat
