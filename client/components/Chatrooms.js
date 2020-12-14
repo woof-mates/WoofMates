@@ -1,21 +1,26 @@
 import React from 'react';
 import Chat from './Chat';
+import ViewMatchedProfile from './ViewMatchedProfile'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { getMatches } from '../store/matches';
 import IconButton from '@material-ui/core/IconButton';
 import ChatIcon from '@material-ui/icons/Chat';
 import PersonIcon from '@material-ui/icons/Person';
+import axios from 'axios';
 
 class Chatrooms extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             messaging: this.props.matchedId ? this.props.matchedId : 0,
-            messagingToName: ''
+            messagingToName: '',
+            viewProfile: false,
+            matchedUser: {}
         };
         this.toMessage = this.toMessage.bind(this);
         this.closeChat = this.closeChat.bind(this);
+        this.viewProfile = this.viewProfile.bind(this);
     }
 
     componentDidMount() {
@@ -36,10 +41,26 @@ class Chatrooms extends React.Component {
             messagingToName: name
         });
     }
+    
+
+    async viewProfile(matchId) {
+        const matchedUser = await (axios.get(`/api/users/${matchId}`))
+        this.setState({
+            viewProfile: true,
+            matchedUser: matchedUser.data
+        });
+    }
+
+    closeProfileView() {
+        this.setState({
+            viewProfile: false,
+            matchedUser: {}
+        });
+    }
 
     render() {
         const { user, matches } = this.props;
-        const { messaging } = this.state;
+        const { messaging, viewProfile, matchedUser } = this.state;
         console.log(matches)
         if (!user.id) {
             return (
@@ -49,6 +70,10 @@ class Chatrooms extends React.Component {
                     </div>
                 </div>
             );
+        } else if (viewProfile) {
+            return (
+                <ViewMatchedProfile user={matchedUser} closeProfileView={this.closeProfileView}/>
+            ) 
         } else {
             return (
                 <div id="chatContainer">
@@ -68,7 +93,7 @@ class Chatrooms extends React.Component {
                                                         <IconButton onClick={() => this.toMessage(match.id, fullName)} >
                                                             <ChatIcon/>
                                                         </IconButton>
-                                                        <IconButton>
+                                                        <IconButton onClick={() => this.viewProfile(match.id)}>
                                                             <PersonIcon/>
                                                         </IconButton>
                                                     </li>                                                 
