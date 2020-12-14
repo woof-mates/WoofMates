@@ -1,10 +1,9 @@
 /* eslint-disable complexity */
 import React from 'react';
-import { Link } from 'react-router-dom';
-import EditProfile from './EditProfile';
 import DogInfo from './Profile/DogInfo'
 import UserInfo from './Profile/UserInfo'
-import TabBar from './Profile/TabBar'
+import IconButton from '@material-ui/core/IconButton';
+import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 
 class ViewMatchedProfile extends React.Component {
     constructor(props) {
@@ -12,12 +11,14 @@ class ViewMatchedProfile extends React.Component {
     }
 
     render() {
-        const { user } = this.props;
+        const { user, closeProfileView } = this.props;
         const { dog } = this.props.user;
         return (
             <div id="profileContainer">
-                
                 <div id="profileBody">
+                    <IconButton onClick={closeProfileView} >
+                        <KeyboardReturnIcon/>
+                    </IconButton>
                     <h3>{user.firstName} and {user.dog.dogName}</h3>
                     <img src={user.userImage1} />
                     <img src={user.userImage2} />

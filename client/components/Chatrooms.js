@@ -21,6 +21,7 @@ class Chatrooms extends React.Component {
         this.toMessage = this.toMessage.bind(this);
         this.closeChat = this.closeChat.bind(this);
         this.viewProfile = this.viewProfile.bind(this);
+        this.closeProfileView = this.closeProfileView.bind(this);
     }
 
     componentDidMount() {
