@@ -9,7 +9,8 @@
     "start-dev": "npm run start-server & npm run build-watch",
     "build-watch": "webpack -w",
     "start-server": "nodemon --watch server -e js,html server/index.js",
-    "seed": "node server/db/seed/seed.js"
+    "seed": "node server/db/seed/seed.js",
+    "postinstall": "webpack"
   },
   "repository": {
     "type": "git",
