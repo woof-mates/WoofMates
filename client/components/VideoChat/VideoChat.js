@@ -50,8 +50,6 @@ class VideoChat extends React.Component {
     render() {
         return (
             <section id='container'>
-                {/* <button onClick={this.onStartCallClicked} id='call-btn' className='btn btn-primary'>Start Call</button>
-                <button onClick={this.props.closeVideo} id='call-btn' className='btn btn-primary'>Close Call</button> */}
                 <IconButton onClick={this.onStartCallClicked} >
                     <PhoneIcon/>
                 </IconButton>
