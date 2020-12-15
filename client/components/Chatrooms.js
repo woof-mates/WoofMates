@@ -92,12 +92,12 @@ class Chatrooms extends React.Component {
                                                     <li key={match.id}>
                                                         <img width={20} height={20} src='/images/dogIcon.png'></img> {fullName}
                                                         <IconButton onClick={() => this.toMessage(match.id, fullName)} >
-                                                            <ChatIcon/>
+                                                            <ChatIcon title="Chat with your match"/>
                                                         </IconButton>
                                                         <IconButton onClick={() => this.viewProfile(match.id)}>
-                                                            <PersonIcon/>
+                                                            <PersonIcon title="View their profile"/>
                                                         </IconButton>
-                                                    </li>                                                 
+                                                    </li>
                                                 )
                                             })
                                         :
@@ -109,7 +109,7 @@ class Chatrooms extends React.Component {
                                     }
                                 </ul>
                             </div>
-                            { messaging!== 0 ? 
+                            { messaging!== 0 ?
                                 <div id='chatMessages'>
                                     <div>
                                         <Chat from={user.id} to={messaging} fromName={`${user.firstName} ${user.lastName}`} toName={this.state.messagingToName} closeChat={this.closeChat}/>
@@ -117,7 +117,7 @@ class Chatrooms extends React.Component {
                                 </div>
                                 :
                                 <div></div>
-                            } 
+                            }
                         </div>
                     </div>
                 </div>

@@ -640,18 +640,73 @@ h1 {
   width: 50%;
 }
 
+#chatTextInputField {
+  width: 100%;
+}
+
+#chatTypeMessageForm {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+}
+
+#chatSendButton {
+  display: right;
+  text-align: center;
+  background-color:#44c767;
+	border-radius:28px;
+	border:1px solid #18ab29;
+	display:flex;
+	cursor:pointer;
+	color: white;
+	font-family:Georgia;
+	font-size:medium;
+	padding:5px 5px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #44c767;
+  font-weight: 500;
+  margin-left: 10px;
+}
+
 #chatMessages {
-  width: 50%;
+  background: white;
+  width: 55%;
   border-width: 1px;
   border-color: black;
   border-style: solid;
+  padding: 0.5rem;
+  border-radius: 20px;
+}
+
+.recipient {
+  text-align: left;
+  display: flex
+}
+.recipient .messages {
+  background: #e6e6ec;
+  padding: 0.4rem;
+  color: black;
+  margin-right: 0.2rem;
+}
+
+.recipient .timestamp {
+  color: grey;
+  display: flex;
+  align-items: center;
 }
 
 .sender {
   text-align: right;
 }
-.sender .messages { 
-  background: #648eff
+.sender .messages {
+  background: #648eff;
+  padding: 0.4rem;
+  color: white;
+  margin-right: 0.2rem;
+}
+
+.sender .timestamp {
+  color: grey;
 }
 
 .messages {

@@ -51,16 +51,22 @@ class Chat extends React.Component {
         this.setState({
             writeError: null
         })
+        const today = new Date();
+        const hours = (today.getHours() % 12) < 10 ? `0${today.getHours() % 12}` : today.getHours();
+        const minutes = today.getMinutes() < 10 ? `0${today.getMinutes()}` : today.getMinutes();
+        const seconds = today.getSeconds() < 10 ? `0${today.getSeconds()}` : today.getSeconds();
+        const ampm = today.getHours() < 12 ? ' AM' : ' PM'
+        const time = hours + ":" + minutes + ampm;
         try {
             await firebaseDB.ref(`${this.props.from}-${this.props.to}/chats`).push({
                 message: this.state.message,
-                timestamp: Date.now(),
+                timestamp: time,
                 from: this.props.fromName,
                 to: this.props.toName
             });
             await firebaseDB.ref(`${this.props.to}-${this.props.from}/chats`).push({
                 message: this.state.message,
-                timestamp: Date.now(),
+                timestamp: time,
                 from: this.props.fromName,
                 to: this.props.toName
             });
@@ -107,18 +113,21 @@ class Chat extends React.Component {
                             <SpeakerNotesOffIcon />
                         </IconButton>
                     </div>
-                    <div>
+                    <div id="ChatBody">
                         {
                             chats.map(chat => {
                                 return (
-                                    <p className={classnames({sender: this.props.fromName === chat.from})} key={chat.timestamp}><span className='messages'>{chat.message}</span></p>
+                                    <p className={classnames({recipient: this.props.fromName !== chat.from}, {sender: this.props.fromName === chat.from})} key={chat.timestamp}>
+                                        <span className='messages'>{chat.message}</span>
+                                        <span className='timestamp'>{chat.timestamp}</span>
+                                    </p>
                                 )
                             })
                         }
                     </div>
-                    <form onSubmit={this.handleSubmit}>
-                        <button style={{float: 'right'}} type="submit">Send</button>
-                        <input style={{float: 'right'}} onChange={this.handleChange} value={this.state.message}></input>
+                    <form id = "chatTypeMessageForm" onSubmit={this.handleSubmit}>
+                        <input id="chatTextInputField" style={{float: 'right'}} onChange={this.handleChange} value={this.state.message}></input>
+                        <button id="chatSendButton" style={{float: 'right'}} type="submit">Send</button>
                         {this.state.writeError ? <p>{this.state.writeError}</p> : null}
                     </form>
                 </div>
