@@ -115,9 +115,6 @@ router.put('/:userId', async(req, res, next) => { // update a user (api/users)
       isNeuteredDealbreaker, distanceFromLocation,
       dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref
     } = req.body;
-    // const { dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests } = 
-    // const { isNeuteredDealbreaker, distanceFromLocation } = this.props.user.preference
-    // const { dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref } = this.props.user.userpref
     const userUpdates = { firstName, lastName, userEmail, age, profession, userImage1, dogImage, city, state, zipCode, userInterests }
     const dogUpdates = { dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests }
     const preferenceUpdates = { isNeuteredDealbreaker, distanceFromLocation }
@@ -145,25 +142,6 @@ router.put('/:userId', async(req, res, next) => { // update a user (api/users)
         userId
       }
     })
-
-    // await Dog.update(req.body.dog, {
-    //     where: {
-    //       id: req.body.dog.id
-    //     }
-    //   })
-    //   const withoutDog = req.body;
-    //   delete withoutDog.dog
-
-    //   await User.update(withoutDog, {
-    //     where: {
-    //       id: req.params.userId
-    //     }
-    //   })
-    //   const updatedUser = await User.findOne({
-    //     where: {
-    //       id: req.params.userId
-    //     }
-    //   })
       res.send(updatedUser);
     }
     catch (error) {

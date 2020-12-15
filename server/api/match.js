@@ -1,7 +1,7 @@
 /* eslint-disable max-statements */
 const router = require('express').Router();
 const nodemailer = require('nodemailer');
-const { User, Relationship, Dog, Preference, Userpref } = require('../db')
+const { User, Relationship, Dog, Preference, Userpref, Prompt } = require('../db')
 const { getDistance }  = require('../../utils/mathFuncs') //used in testing console logs
 const { filterMatchesWithUserSpecifiedFilters } = require('../matchAlg/userFilters')
 const {findMatch} = require('../matchAlg/match')
@@ -12,11 +12,11 @@ router.get('/:userId', async(req, res, next) => {
         const { userId } = req.params
         // const { userLatitude, userLongitude } = req.query
 
-        const currUser = (await User.findByPk(userId, { include: [Preference, Userpref, Dog] })).dataValues
+        const currUser = (await User.findByPk(userId, { include: {all: true} })).dataValues
 
         // const { distanceFromLocation, isNeuteredDealbreaker } = currUser.preference;
         // console.log('user prefs: distance', distanceFromLocation, 'neutereddealbreaker', isNeuteredDealbreaker)
-        const allUsers = await User.findAll({ include: Dog });
+        const allUsers = await User.findAll({ include: {all: true} });
 
         // first find relationships with matches that have already liked this user
         let matchesAlreadyLikedUserRelationships = await Relationship.findAll({
@@ -25,7 +25,6 @@ router.get('/:userId', async(req, res, next) => {
                 result: 'UserLikedMatch'
             }
         });
-
         let matchesAlreadyLikedUser = [];
         if (matchesAlreadyLikedUserRelationships.length) {
             // create an array that contains ids of matches that already liked this user
@@ -47,6 +46,7 @@ router.get('/:userId', async(req, res, next) => {
             // send one match at a time so algo can update with each decision by user
             // sending 1st element in matches array for now, but this would be sorted based on algorithm
             const bestMatch = await findMatch(currUser, matchesAlreadyLikedUser)
+            bestMatch.dataValues.liked = true;
             res.send(bestMatch)
             }
         // if there are no filtered matches that have already liked this user...
@@ -80,11 +80,16 @@ router.get('/:userId', async(req, res, next) => {
             //     console.log('FilteredMatchId:', match.id, 'userDistanceFromMatch:', getDistance(userLatitude * 1, userLongitude * 1, match.userLatitude * 1, match.userLongitude * 1))
             //     if (isNeuteredDealbreaker) console.log('Neutered is a deal breaker, matchdog neutered:', match.dog.neutered)
             // })
-
             // same as above, sending first of array for now
-            // if (!unseenMatches.length) res.send( { message: 'You have no matches that fit your criteria. Try broadening it in your settings!'})
-            const bestMatch = await findMatch(currUser, unseenMatches)
-            res.send(bestMatch)
+            if (!unseenMatches.length) {
+                res.send( { message: 'You have no matches that fit your criteria. Try broadening it in your settings!'})
+            }
+            else {
+                const bestMatch = await findMatch(currUser, unseenMatches)
+                bestMatch.dataValues.liked = false;
+                res.send(bestMatch)
+            }
+
         }
     } catch (err) { next(err) }
 })
@@ -95,11 +100,12 @@ router.put('/:userId', async(req, res, next) => {
         const { decision, matchId } = req.body
         // console.log(decision, 'userid', userId, 'matchId', matchId)
         // first check to see if match has already liked user
+
         const existingRelationship = await Relationship.findOne({
             where:
                 {
                     userId: matchId,
-                    matchId: userId
+                    matchId: parseInt(userId)
                 }
         })
         if (existingRelationship) {
@@ -110,7 +116,9 @@ router.put('/:userId', async(req, res, next) => {
                 await existingRelationship.update({ result: 'MatchRejectedUser' })
             }
             res.send(existingRelationship);
+
         }
+
         // if match has not yet seen user, create a new relationship
         else {
                 const result = decision === 'like' ? 'UserLikedMatch' : 'UserRejectedMatch'
