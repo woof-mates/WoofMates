@@ -678,6 +678,23 @@ h1 {
   border-radius: 20px;
 }
 
+.recipient {
+  text-align: left;
+  display: flex
+}
+.recipient .messages {
+  background: #e6e6ec;
+  padding: 0.4rem;
+  color: black;
+  margin-right: 0.2rem;
+}
+
+.recipient .timestamp {
+  color: grey;
+  display: flex;
+  align-items: center;
+}
+
 .sender {
   text-align: right;
 }
