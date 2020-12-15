@@ -15,7 +15,9 @@ class Home extends Component {
       const {user} = this.props
         if (user.firstName) {
           return (
-            <div id="homePageContainer">Welcome, {user.firstName}!</div>
+            <div id="homePageContainer">
+              <HomeLandingPage/>
+            </div>
           )
         }
         else {

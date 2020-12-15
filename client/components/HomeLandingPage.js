@@ -9,13 +9,15 @@ class HomeLandingPage extends React.Component {
     }
 
     render() {
+        const { user } = this.props
         return (
             <div className='slideshowContainer'>
+                { user.id ? <div className='welcome'>Welcome, {user.firstName}!</div> : ''}
                 <div className='slideTitle'>
                     <h2>Discover Dog Owners and Their Best-Friend</h2>
                     <img width={50} height={50} src={'/images/pawprint.jpg'} />
                 </div>
-                <div>
+                <div className='slideshow'>
                     <Slideshow/>
                 </div>
                 <div className='getStarted'>
