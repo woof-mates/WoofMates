@@ -134,12 +134,12 @@ class DogInfo extends Component{
               <div className="prompt">
                 If your dog could speak it would say...
                 <br />
-                <textarea name="dogSpeak" rows="3" cols="50" wrap="hard" placeholder="" onChange={this.onChange} value={dogSpeak || null} />
+                <textarea name="dogSpeak" className="prompt-text" rows="3" cols="50" wrap="hard" placeholder="" onChange={this.onChange} value={dogSpeak || null} />
               </div>
               <div className="prompt">
                 Your favorite thing to do with your pup is...
                 <br />
-                <textarea name="favoriteActivityWithDog" rows="3" cols="50" wrap="hard" placeholder="" onChange={this.onChange} value={favoriteActivityWithDog || null} />
+                <textarea name="favoriteActivityWithDog" className="prompt-text" rows="3" cols="50" wrap="hard" placeholder="" onChange={this.onChange} value={favoriteActivityWithDog || null} />
               </div>
             </div>
             <p />
