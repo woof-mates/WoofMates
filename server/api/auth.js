@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Session, Dog } = require('../db');
+const { User, Session, Dog, Preference, Prompt, Userpref } = require('../db');
 const bcrypt = require('bcrypt');
 const { A_WEEK_IN_MILLISECONDS } = require('../../constants');
 
@@ -10,7 +10,10 @@ router.post('/login', async(req, res, next) => {
             where: {
                 userEmail,
             },
-            include: {all: true}
+            include: {all: true},
+            attributes: {
+                exclude: ['hashedPassword']
+            }
         })
         // if userEmail has an account...
         if (user) {
@@ -25,7 +28,16 @@ router.post('/login', async(req, res, next) => {
                     maxAge: A_WEEK_IN_MILLISECONDS,
                     path: '/',
                 });
-                res.status(200).send(user)
+                const userWithExistingSession = await User.findOne({
+                    where: {
+                      id: user.id
+                    },
+                    include: [Session, Dog, Preference, Prompt, Userpref],
+                    attributes: {
+                        exclude: ['hashedPassword']
+                    }
+                  })
+                res.status(200).send(userWithExistingSession)
             }
             // if user does not have a session, create a new session for the user
             else {
@@ -41,6 +53,9 @@ router.post('/login', async(req, res, next) => {
                       id: user.id
                     },
                     include: {all: true},
+                    attributes: {
+                        exclude: ['hashedPassword']
+                    }
                   })
                 res.status(201).send(userWithNewSession)
             }

@@ -16,7 +16,6 @@ MatchMetric.belongsTo(User);
 User.belongsToMany(User, { as: 'match', through: Relationship });
 Prompt.belongsTo(User);
 User.hasOne(Prompt);
-
 Preference.belongsTo(User);
 User.hasOne(Preference);
 Userpref.belongsTo(User);
