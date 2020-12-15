@@ -61,8 +61,14 @@ class Match extends Component {
         <div id="profileContainer">
             <div id="profileBody">
                 <h3>{match.firstName} and {match.dog.dogName}
-                {match.liked ? <img id = "userLikedMatch" src = '/images/heartImage.png' /> : <img />}
                 </h3>
+                {match.liked ?
+                <div id = "userLikedMatch">
+                    <img  src = '/images/heartImage.png' />
+                    <div>This user liked you!</div>
+                </div>
+                : <div />
+                }
                 <Cards user = {match} />
                 <div id="matchButtonsContainer">
                     <Button className="rejectMatchButton" onClick={() => {this.sendDecisionAndLoadNextMatch('reject')}} variant="contained" color="secondary" type="submit">Don't like</Button>

@@ -563,10 +563,9 @@ h1 {
   max-width: 30rem;
 }
 
-#userLikedMatch{
+#userLikedMatch > img{}
   width: 20px;
   height: 20px;
-  text-align:right;
 }
 
 /* ///////////End of Profile Component/////////////// */
