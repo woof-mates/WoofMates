@@ -65,8 +65,8 @@ class Match extends Component {
                 </h3>
                 <Cards user = {match} />
                 <div id="matchButtonsContainer">
-                    <Button className="rejectMatchButton" onClick={() => {this.sendDecisionAndLoadNextMatch('reject')}} variant="contained" color="primary" type="submit">Don't like</Button>
-                    <Button className="acceptMatchButton" onClick={() => {this.sendDecisionAndLoadNextMatch('like')}} variant="contained" color="primary" type="submit">Like</Button>
+                    <Button className="rejectMatchButton" onClick={() => {this.sendDecisionAndLoadNextMatch('reject')}} variant="contained" color="secondary" type="submit">Don't like</Button>
+                    <Button className="acceptMatchButton" onClick={() => {this.sendDecisionAndLoadNextMatch('like')}} variant="contained" color="secondary" type="submit">Like</Button>
                 </div>
                 {/* Match user ID for debugging purposes, will take out */}
                 {/* <p>Match User Id: {match.id}</p> */}
