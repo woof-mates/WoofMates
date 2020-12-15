@@ -48,9 +48,10 @@ class UserInfo extends Component{
     }
     componentDidMount(){
       this.tempUserInterests = this.props.info.userInterests;
-      this.setState(this.props.info)
+      const { age, profession, userInterests, userImage1 } = this.props.info
+      this.setState({ age, profession, userInterests, userImage1 })
     }
-    onChange (e) {
+    async onChange (e) {
       if (e.target.name.includes('userInterestsList')) {
         if (e.target.name === "userInterestsList1") {
           this.tempUserInterests[0] = e.target.value
@@ -59,61 +60,25 @@ class UserInfo extends Component{
         } else if (e.target.name === "userInterestsList3") {
           this.tempUserInterests[2] = e.target.value
         }
-        this.setState({
+        await this.setState({
           userInterests: this.tempUserInterests
         })
       }
-
-      else if (e.target.name === 'userEmail') {
-        let newEmail = e.target.value.toLowerCase()
-        this.setState({
-          userEmail: newEmail
-        })
-      }
-
-      else if (e.target.name === 'dogInterestsList') {
-        this.tempDogInterests.push(e.target.value)
-        this.setState({
-          dogInterests: this.tempDogInterests
-        })
-      }
-
-      else if (e.target.name === 'userProfessionsPref') {
-        this.tempUserProfessionPrefs.push(e.target.value)
-        this.setState({
-          userProfessionsPref: this.tempUserProfessionPrefs
-        })
-      }
-
-      else if (e.target.name === 'userInterestsPref') {
-        this.tempUserInterestsPrefs.push(e.target.value)
-        this.setState({
-          userInterestsPref: this.tempUserInterestsPrefs
-        })
-      }
-
       else if (this.arrForNums.includes(e.target.name)) {
-        this.setState({
+        await this.setState({
           [e.target.name]: Number(e.target.value)
         })
       }
-
-      else if (e.target.name === 'neutered') {
-        let neuteredBool = (e.target.value === 'true')
-        this.setState({
-          [e.target.name]: neuteredBool
-        })
-      }
-
       else {
-        this.setState({
+        await this.setState({
           [e.target.name]: e.target.value
         })
       }
+      if (this.props.type === 'edit') this.props.updateData(this.state)
     }
     render(){
       const { age, profession, userInterests, userImage1 } = this.state
-      const { classes } = this.props
+      const { classes, type } = this.props
         return (
           <div className={classes.root} noValidate autoComplete="off">
           <h3>A bit more about you...</h3>
@@ -138,10 +103,12 @@ class UserInfo extends Component{
               <br />
               {userImage1 ? <img src={userImage1} width="150" /> : null }
               <p />
+              { type === 'edit' ? null :
               <div className="registration-buttons">
                 <Button className="back-button" variant="contained" color="secondary" onClick={() => this.props.goBack(this.state)}>Back</Button>
                 <Button className="next-button" variant="contained" color="secondary" onClick={this.sendData}>Next</Button>
               </div>
+              }
           </div>
         )
     }

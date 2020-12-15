@@ -22,7 +22,6 @@ const findMatch = (currUser, users) => {
   if (random < 8) {
     isUserSpecifiedPref = true;
   }
-
   for (let possibleMatch of users){
     if (isUserSpecifiedPref) {
       const statedPreferences = currUser.userpref.dataValues;
@@ -38,7 +37,7 @@ const findMatch = (currUser, users) => {
       highestScore = currScore;
       bestMatch = possibleMatch;
     }
-    console.log(`currScore ${currScore}`)
+    // console.log(`currScore ${currScore}`)
   }
   return bestMatch;
 }

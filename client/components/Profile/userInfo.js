@@ -54,7 +54,7 @@ const UserInfo = ({user}) => {
               <FavoriteBorderIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary={interest} secondary = "Interests?"/>
+          <ListItemText primary={interest} secondary = "Interests"/>
         </ListItem>
           )
         })}
