@@ -20,8 +20,6 @@ class DealbreakersPreferences extends Component{
   constructor(props){
     super(props)
     this.arrForNums = ['age', 'dogAge', 'energyLevel', 'weight', 'distanceFromLocation']
-    this.tempUserInterests = []
-    this.tempDogInterests = []
     this.tempUserInterestsPrefs = []
     this.tempUserProfessionPrefs = []
     this.state = {
@@ -38,79 +36,51 @@ class DealbreakersPreferences extends Component{
     this.onChange = this.onChange.bind(this);
     this.sendData = this.sendData.bind(this);
   }
+
   sendData(){
     const { isNeuteredDealbreaker } = this.state
     if (isNeuteredDealbreaker === null) alert('Please fill in all required fields! Fields marked with * are required.')
     else this.props.updateData(this.state)
   }
+
   componentDidMount(){
     this.tempUserProfessionPrefs = this.props.info.userProfessionsPref;
     this.tempUserInterestsPrefs = this.props.info.userInterestsPref;
-    this.setState(this.props.info)
+    const { isNeuteredDealbreaker, distanceFromLocation, dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref } = this.props.info
+    this.setState({ isNeuteredDealbreaker, distanceFromLocation, dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref })
   }
-  onChange (e) {
-    if (e.target.name === 'userInterestsList') {
-      this.tempUserInterests.push(e.target.value)
-      this.setState({
-        userInterests: this.tempUserInterests
-      })
-    }
 
-    else if (e.target.name === 'userEmail') {
-      let newEmail = e.target.value.toLowerCase()
-      this.setState({
-        userEmail: newEmail
-      })
-    }
-
-    else if (e.target.name === 'dogInterestsList') {
-      this.tempDogInterests.push(e.target.value)
-      this.setState({
-        dogInterests: this.tempDogInterests
-      })
-    }
-
-    else if (e.target.name.includes('userProfessionsPref')) {
+  async onChange (e) {
+    if (e.target.name.includes('userProfessionsPref')) {
       if (e.target.name === "userProfessionsPref1") {
         this.tempUserProfessionPrefs[0] = e.target.value
       } else if (e.target.name === "userProfessionsPref2") {
         this.tempUserProfessionPrefs[1] = e.target.value
       }
-      this.setState({
+      await this.setState({
         userProfessionsPref: this.tempUserProfessionPrefs
       })
     }
-
     else if (e.target.name.includes('userInterestsPref')) {
       if (e.target.name === "userInterestsPref1") {
         this.tempUserInterestsPrefs[0] = e.target.value
       } else if (e.target.name === "userInterestsPref2") {
         this.tempUserInterestsPrefs[1] = e.target.value
       }
-      this.setState({
+      await this.setState({
         userInterestsPref: this.tempUserInterestsPrefs
       })
     }
-
     else if (this.arrForNums.includes(e.target.name)) {
-      this.setState({
+      await this.setState({
         [e.target.name]: Number(e.target.value)
       })
     }
-
-    else if (e.target.name === 'neutered') {
-      let neuteredBool = (e.target.value === 'true')
-      this.setState({
-        [e.target.name]: neuteredBool
-      })
-    }
-
     else {
-      this.setState({
+      await this.setState({
         [e.target.name]: e.target.value
       })
     }
-
     if (this.props.type === 'edit') this.props.updateData(this.state)
   }
 

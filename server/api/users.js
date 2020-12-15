@@ -31,7 +31,7 @@ router.get('/:userId', async(req, res, next) => { // single user profile
         where: {
           id: req.params.userId
         },
-        include: [Preference, Dog],
+        include: [Session, Dog, Preference, Prompt, Userpref],
         attributes: {
           exclude: ['hashedPassword']
         }
@@ -79,7 +79,10 @@ router.post('/register', async(req, res, next) => { // register a user (api/user
       where: {
         id: newUser.id
       },
-      include: [Session, Dog]
+      include: [Session, Dog, Preference, Prompt, Userpref],
+      attributes: {
+        exclude: ['hashedPassword']
+      }
     })
     res.status(201).send(newUserWithSession)
   }
@@ -104,24 +107,63 @@ router.delete('/:userId', async(req, res, next) => { // delete a user (api/users
 
 router.put('/:userId', async(req, res, next) => { // update a user (api/users)
   try {
-      await Dog.update(req.body.dog, {
-        where: {
-          id: req.body.dog.id
-        }
-      })
-      const withoutDog = req.body;
-      delete withoutDog.dog
+    console.log(req.body)
+    const userId = req.params.userId
+    const {
+      firstName, lastName, userEmail, age, profession, userImage1, dogImage, city, state, zipCode, userInterests,
+      dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, 
+      isNeuteredDealbreaker, distanceFromLocation,
+      dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref
+    } = req.body;
+    // const { dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests } = 
+    // const { isNeuteredDealbreaker, distanceFromLocation } = this.props.user.preference
+    // const { dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref } = this.props.user.userpref
+    const userUpdates = { firstName, lastName, userEmail, age, profession, userImage1, dogImage, city, state, zipCode, userInterests }
+    const dogUpdates = { dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests }
+    const preferenceUpdates = { isNeuteredDealbreaker, distanceFromLocation }
+    const userprefUpdates = { dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref }
 
-      await User.update(withoutDog, {
-        where: {
-          id: req.params.userId
-        }
-      })
-      const updatedUser = await User.findOne({
-        where: {
-          id: req.params.userId
-        }
-      })
+    const updatedUser = await User.findByPk(userId, {
+      include: [Session, Dog, Preference, Prompt, Userpref],
+      attributes: {
+        exclude: ['hashedPassword']
+      }
+    })
+    await updatedUser.update(userUpdates)
+    await Dog.update(dogUpdates, {
+      where: {
+        userId
+      }
+    })
+    await Preference.update(preferenceUpdates, {
+      where: {
+        userId
+      }
+    })
+    await Userpref.update(userprefUpdates, {
+      where: {
+        userId
+      }
+    })
+
+    // await Dog.update(req.body.dog, {
+    //     where: {
+    //       id: req.body.dog.id
+    //     }
+    //   })
+    //   const withoutDog = req.body;
+    //   delete withoutDog.dog
+
+    //   await User.update(withoutDog, {
+    //     where: {
+    //       id: req.params.userId
+    //     }
+    //   })
+    //   const updatedUser = await User.findOne({
+    //     where: {
+    //       id: req.params.userId
+    //     }
+    //   })
       res.send(updatedUser);
     }
     catch (error) {

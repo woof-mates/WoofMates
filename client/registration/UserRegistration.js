@@ -18,10 +18,6 @@ class UserRegistration extends Component{
     constructor(props){
         super(props)
         this.arrForNums = ['age', 'dogAge', 'energyLevel', 'weight', 'distanceFromLocation']
-        this.tempUserInterests = []
-        this.tempDogInterests = []
-        this.tempUserInterestsPrefs = []
-        this.tempUserProfessionPrefs = []
         this.state = {
             firstName: '', //required
             lastName: '',
@@ -35,63 +31,28 @@ class UserRegistration extends Component{
     this.sendData = this.sendData.bind(this);
   }
   componentDidMount(){
-    this.setState(this.props.info)
+    const { firstName, lastName, userEmail, city, state, zipCode } = this.props.info
+    this.setState({ firstName, lastName, userEmail, city, state, zipCode })
   }
-  onChange (e) {
-      if (e.target.name === 'userInterestsList') {
-        this.tempUserInterests.push(e.target.value)
-        this.setState({
-          userInterests: this.tempUserInterests
-        })
-      }
-
-      else if (e.target.name === 'userEmail') {
+  async onChange (e) {
+      if (e.target.name === 'userEmail') {
         let newEmail = e.target.value.toLowerCase()
-        this.setState({
+        await this.setState({
           userEmail: newEmail
         })
       }
 
-      else if (e.target.name === 'dogInterestsList') {
-        this.tempDogInterests.push(e.target.value)
-        this.setState({
-          dogInterests: this.tempDogInterests
-        })
-      }
-
-      else if (e.target.name === 'userProfessionsPref') {
-        this.tempUserProfessionPrefs.push(e.target.value)
-        this.setState({
-          userProfessionsPref: this.tempUserProfessionPrefs
-        })
-      }
-
-      else if (e.target.name === 'userInterestsPref') {
-        this.tempUserInterestsPrefs.push(e.target.value)
-        this.setState({
-          userInterestsPref: this.tempUserInterestsPrefs
-        })
-      }
-
       else if (this.arrForNums.includes(e.target.name)) {
-        this.setState({
+        await this.setState({
           [e.target.name]: Number(e.target.value)
         })
       }
 
-      else if (e.target.name === 'neutered') {
-        let neuteredBool = (e.target.value === 'true')
-        this.setState({
-          [e.target.name]: neuteredBool
-        })
-      }
-
       else {
-        this.setState({
+        await this.setState({
           [e.target.name]: e.target.value
         })
       }
-
       if (this.props.type === 'edit') this.props.updateData(this.state)
     }
 
@@ -111,7 +72,6 @@ class UserRegistration extends Component{
       const { firstName, lastName, userEmail, city, state, zipCode } = this.state
       const { classes, type } = this.props
       return (
-        // <ThemeProvider theme={regTheme}>
             <div className={classes.root} noValidate autoComplete="off">
                 <h3>Welcome! Create an Account:</h3>
                 <TextField required label="First Name" name="firstName" onChange={this.onChange} value={firstName ? firstName : null} />
@@ -183,7 +143,6 @@ class UserRegistration extends Component{
                   }
                 </div>
             </div>
-        // </ThemeProvider>
         )
     }
 }

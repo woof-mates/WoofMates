@@ -21,10 +21,7 @@ class DogInfo extends Component{
     constructor(props){
         super(props)
         this.arrForNums = ['age', 'dogAge', 'energyLevel', 'weight', 'distanceFromLocation']
-        this.tempUserInterests = []
         this.tempDogInterests = []
-        this.tempUserInterestsPrefs = []
-        this.tempUserProfessionPrefs = []
         this.state = {
             dogSpeak: '',
             favoriteActivityWithDog: '',
@@ -41,6 +38,7 @@ class DogInfo extends Component{
     this.sendData = this.sendData.bind(this);
     this.photoUpload = this.photoUpload.bind(this);
     }
+
     sendData(){
       const { dogName, breed, dogAge, weight, neutered, dogImage } = this.state
       const { updateData, handleNext } = this.props
@@ -52,75 +50,48 @@ class DogInfo extends Component{
         handleNext();
       }
     }
+
     photoUpload(photoObj){
       this.setState(photoObj)
     }
+
     componentDidMount(){
       this.tempDogInterests = this.props.info.dogInterests;
-      this.setState(this.props.info)
+      const { dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogImage } = this.props.info
+      this.setState({ dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogImage } )
     }
-    onChange (e) {
-      if (e.target.name === 'userInterestsList') {
-        this.tempUserInterests.push(e.target.value)
-        this.setState({
-          userInterests: this.tempUserInterests
-        })
-      }
 
-      else if (e.target.name === 'userEmail') {
-        let newEmail = e.target.value.toLowerCase()
-        this.setState({
-          userEmail: newEmail
-        })
-      }
-
-      else if (e.target.name.includes('dogInterestsList')) {
+    async onChange (e) {
+      if (e.target.name.includes('dogInterestsList')) {
         if (e.target.name === "dogInterestsList1") {
           this.tempDogInterests[0] = e.target.value
         } else if (e.target.name === "dogInterestsList2") {
           this.tempDogInterests[1] = e.target.value
         }
-        this.setState({
+        await this.setState({
           dogInterests: this.tempDogInterests
         })
       }
-
-      else if (e.target.name === 'userProfessionsPref') {
-        this.tempUserProfessionPrefs.push(e.target.value)
-        this.setState({
-          userProfessionsPref: this.tempUserProfessionPrefs
-        })
-      }
-
-      else if (e.target.name === 'userInterestsPref') {
-        this.tempUserInterestsPrefs.push(e.target.value)
-        this.setState({
-          userInterestsPref: this.tempUserInterestsPrefs
-        })
-      }
-
       else if (this.arrForNums.includes(e.target.name)) {
-        this.setState({
+        await this.setState({
           [e.target.name]: Number(e.target.value)
         })
       }
-
       else if (e.target.name === 'neutered') {
         let neuteredBool = (e.target.value === 'true')
-        this.setState({
+        await this.setState({
           [e.target.name]: neuteredBool
         })
         console.log('neutered', this.state.neutered)
       }
-
       else {
-        this.setState({
+        await this.setState({
           [e.target.name]: e.target.value
         })
       }
-
       if (this.props.type === 'edit') this.props.updateData(this.state)
     }
+
     render(){
       const { dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogImage } = this.state
       const { classes, type } = this.props;
