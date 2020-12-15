@@ -21,10 +21,10 @@ class Match extends Component {
         const { getMatch, user } = this.props;
         getMatch(user.id, user.userLatitude, user.userLongitude)
     }
-    async sendDecisionAndLoadNextMatch(ev){
+    async sendDecisionAndLoadNextMatch(decision){
         try {
             const { getMatch, user, match, sendDecision, sendEmailToMatch } = this.props;
-            const matchResult = await sendDecision(user.id, match.id, ev.target.value);
+            const matchResult = await sendDecision(user.id, match.id, decision);
             if (matchResult.result === 'Matched') {
                 // saving current match in variable before calling getMatch again. email takes too long to send with await.
                 sendEmailToMatch(user, match)
@@ -39,25 +39,34 @@ class Match extends Component {
     }
     render(){
         let { match, user } = this.props;
-        console.log(match)
         let matchDistanceFromUser = parseInt(getDistance(user.userLatitude, user.userLongitude, match.userLatitude, match.userLongitude))
-        if (!match.firstName) {
+
+        if (match.message) {
+            return (
+            <div id="matchContainer">
+                {match.message}
+            </div>
+            )
+        }
+        if (!match.message && !match.firstName ) {
             return (
             <div id="matchContainer">
                 Please log in to see your matches
             </div>
         )}
+
         else {
             return (
         <>
         <div id="profileContainer">
             <div id="profileBody">
-                <h3>{match.firstName} and {match.dog.dogName}</h3>
-                {match.liked ? <p>Liked!</p> : <p />}
+                <h3>{match.firstName} and {match.dog.dogName}
+                {match.liked ? <img id = "userLikedMatch" src = '/images/heartImage.png' /> : <img />}
+                </h3>
                 <Cards user = {match} />
                 <div id="matchButtonsContainer">
-                    <Button className="rejectMatchButton" onClick={this.sendDecisionAndLoadNextMatch} value="reject" variant="contained" color="primary" type="submit">Don't like</Button>
-                    <Button className="acceptMatchButton" onClick={this.sendDecisionAndLoadNextMatch} value="like" variant="contained" color="primary" type="submit">Like</Button>
+                    <Button className="rejectMatchButton" onClick={() => {this.sendDecisionAndLoadNextMatch('reject')}} variant="contained" color="primary" type="submit">Don't like</Button>
+                    <Button className="acceptMatchButton" onClick={() => {this.sendDecisionAndLoadNextMatch('like')}} variant="contained" color="primary" type="submit">Like</Button>
                 </div>
                 {/* Match user ID for debugging purposes, will take out */}
                 {/* <p>Match User Id: {match.id}</p> */}

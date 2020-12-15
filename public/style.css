@@ -560,6 +560,12 @@ h1 {
   max-width: 30rem;
 }
 
+#userLikedMatch{
+  width: 20px;
+  height: 20px;
+  text-align:right;
+}
+
 /* ///////////End of Profile Component/////////////// */
 
 .slideshow {

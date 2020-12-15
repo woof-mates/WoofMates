@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { User, Session, Dog } = require('../db');
 const bcrypt = require('bcrypt');
-const { A_WEEK_IN_MILLISECONDS } = require('../../constants')
+const { A_WEEK_IN_MILLISECONDS } = require('../../constants');
 
 router.post('/login', async(req, res, next) => {
     try {
@@ -10,7 +10,7 @@ router.post('/login', async(req, res, next) => {
             where: {
                 userEmail,
             },
-            include: [Session, Dog],
+            include: {all: true}
         })
         // if userEmail has an account...
         if (user) {
@@ -40,7 +40,7 @@ router.post('/login', async(req, res, next) => {
                     where: {
                       id: user.id
                     },
-                    include: [Session, Dog],
+                    include: {all: true},
                   })
                 res.status(201).send(userWithNewSession)
             }

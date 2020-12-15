@@ -33,9 +33,6 @@ class Profile extends React.Component {
     render() {
         const { user } = this.props;
         const { dog } = this.props.user;
-        if (!user || !dog){
-            return <div>Loading</div>
-        }
 
         if (!user.id) {
             return (
