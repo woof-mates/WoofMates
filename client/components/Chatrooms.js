@@ -3,12 +3,16 @@ import Chat from './Chat';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { getMatches } from '../store/matches';
+import IconButton from '@material-ui/core/IconButton';
+import ChatIcon from '@material-ui/icons/Chat';
+import PersonIcon from '@material-ui/icons/Person';
 
 class Chatrooms extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            messaging: this.props.matchedId ? this.props.matchedId : 0
+            messaging: this.props.matchedId ? this.props.matchedId : 0,
+            messagingToName: ''
         };
         this.toMessage = this.toMessage.bind(this);
         this.closeChat = this.closeChat.bind(this);
@@ -45,36 +49,50 @@ class Chatrooms extends React.Component {
                     </div>
                 </div>
             );
-        } else if (messaging !== 0) {
-            return (
-                <div id="chatContainer">
-                    <div id="chatBody">
-                        <Chat from={user.id} to={messaging} fromName={`${user.firstName} ${user.lastName}`} toName={this.state.messagingToName} closeChat={this.closeChat}/>
-                    </div>
-                </div>
-            );
         } else {
             return (
                 <div id="chatContainer">
                     <div id="chatBody">
-                    <h3>Matches: </h3>
-                    <ul>
-                        {
-                            matches.length ?
-                                matches.map(match => {
-                                    const fullName = match.firstName + ' ' + match.lastName
-                                    return (
-                                        <li key={match.id} onClick={() => this.toMessage(match.id, fullName)}>{fullName}</li>
-                                    )
-                                })
-                            :
-                                <div>
-                                    <p>No Matches</p>
-                                    <Link to='/match'>Find Matches!</Link>
-                                </div>
+                        <h3>Chat</h3>
+                        <div id='chatRooms'>
+                            <div id='chatList'>
+                                <h4>Woof-Mates:</h4>
+                                <ul>
+                                    {
+                                        matches.length ?
+                                            matches.map(match => {
+                                                const fullName = match.firstName + ' ' + match.lastName
+                                                return (
+                                                    <li key={match.id}>
+                                                        <img width={20} height={20} src='/images/dogIcon.png'></img> {fullName}
+                                                        <IconButton onClick={() => this.toMessage(match.id, fullName)} >
+                                                            <ChatIcon title="Chat with your match"/>
+                                                        </IconButton>
+                                                        <IconButton>
+                                                            <PersonIcon title="View their profile"/>
+                                                        </IconButton>
+                                                    </li>
+                                                )
+                                            })
+                                        :
+                                            <div>
+                                                <p>No Matches</p>
+                                                <Link to='/match'>Find Matches!</Link>
+                                            </div>
 
-                        }
-                    </ul>
+                                    }
+                                </ul>
+                            </div>
+                            { messaging!== 0 ?
+                                <div id='chatMessages'>
+                                    <div>
+                                        <Chat from={user.id} to={messaging} fromName={`${user.firstName} ${user.lastName}`} toName={this.state.messagingToName} closeChat={this.closeChat}/>
+                                    </div>
+                                </div>
+                                :
+                                <div></div>
+                            }
+                        </div>
                     </div>
                 </div>
             );

@@ -38,8 +38,16 @@ ul {
 }
 
 #signUpContainer {
-  padding: 1em;
+  /* padding: 0em 4em; */
+  padding-top: 2em;
+  padding-bottom: 2em;
   min-height: 480px;
+  justify-content: center;
+  background-color: #dae7de;
+  margin: auto;
+  margin-bottom: 80px;
+  width: 80%;
+  /* margin-bottom: 20px */
 }
 
 #signInContainer {
@@ -262,14 +270,15 @@ h1 {
 
 #signUpForm {
   display: flex;
-  flex-direction: column;
-  padding: 1em;
-  background-color: #dae7de;
-  margin: 20px;
-  width: 60%;
+  /* flex-direction: column; */
+  /* padding: 1em; */
+  /* margin: 20px; */
+  width: 80%;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  align-items: center;
+  /* padding-top: 4em; */
 }
 
 #userUpdateForm {
@@ -296,12 +305,6 @@ h1 {
   margin-right: auto;
 }
 
-#signUpContainer {
-  padding: 1em;
-  padding-bottom: 126px;
-  min-height: 480px;
-}
-
 #chatContainer {
   padding: 1em;
   padding-bottom: 126px;
@@ -314,7 +317,7 @@ h1 {
   justify-content: space-around;
 }
 
-#signUpForm {
+/* #signUpForm {
   display: flex;
   flex-direction: column;
   padding: 1em;
@@ -324,7 +327,7 @@ h1 {
   display: block;
   margin-left: auto;
   margin-right: auto;
-}
+} */
 
 .logOutButton {
   text-align: center;
@@ -568,6 +571,34 @@ h1 {
 
 /* ///////////End of Profile Component/////////////// */
 
+.next-button {
+  float: right;
+  color: white;
+}
+
+/* Stepper class */
+.MuiPaper-root.MuiStepper-root.MuiStepper-horizontal.MuiStepper-alternativeLabel.MuiPaper-elevation0 {
+  margin: 0px;
+}
+
+#prompts {
+  display: flex;
+  justify-content: space-between
+}
+
+.registration-buttons {
+  margin-bottom: 10px;
+  margin-top: 50px
+}
+
+/* div[class^=UserRegistration-root] {
+  width: 100%;
+  height: 100%;
+  align-self: center;
+  padding: 2em 0em;
+  margin: auto;
+  background-color: green;
+} */
 .slideshow {
   margin: auto;
   width: 60%;
@@ -596,3 +627,100 @@ h1 {
   z-index: 9;
   padding-bottom: 15px;
 }
+
+.error {
+  color: red;
+}
+
+#chatRooms {
+  display: flex;
+}
+
+#chatList {
+  width: 50%;
+}
+
+#chatTextInputField {
+  width: 100%;
+}
+
+#chatTypeMessageForm {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+}
+
+#chatSendButton {
+  display: right;
+  text-align: center;
+  background-color:#44c767;
+	border-radius:28px;
+	border:1px solid #18ab29;
+	display:flex;
+	cursor:pointer;
+	color: white;
+	font-family:Georgia;
+	font-size:medium;
+	padding:5px 5px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #44c767;
+  font-weight: 500;
+  margin-left: 10px;
+}
+
+#chatMessages {
+  background: white;
+  width: 55%;
+  border-width: 1px;
+  border-color: black;
+  border-style: solid;
+  padding: 0.5rem;
+  border-radius: 20px;
+}
+
+.recipient {
+  text-align: left;
+  display: flex
+}
+.recipient .messages {
+  background: #e6e6ec;
+  padding: 0.4rem;
+  color: black;
+  margin-right: 0.2rem;
+}
+
+.recipient .timestamp {
+  color: grey;
+  display: flex;
+  align-items: center;
+}
+
+.sender {
+  text-align: right;
+}
+.sender .messages {
+  background: #648eff;
+  padding: 0.4rem;
+  color: white;
+  margin-right: 0.2rem;
+}
+
+.sender .timestamp {
+  color: grey;
+}
+
+.messages {
+  position: relative;
+  background: #fff;
+  border-width: 15px;
+  border-radius: 40px;
+  padding: 3.5px;
+}
+
+#chatButtons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+
