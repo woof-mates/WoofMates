@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { getMatch, sendDecision, sendEmailToMatch } from '../store/match';
 import { getDistance }  from '../../utils/mathFuncs'
 import Chatrooms from './Chatrooms'
-import { list } from '../../utils/frontEndFuncs'
 import DogInfo from './Profile/DogInfo'
 import UserInfo from './Profile/UserInfo'
+import {Button} from '@material-ui/core'
+import Cards from './Profile/Cards'
 
 class Match extends Component {
     constructor(props){
@@ -20,10 +21,10 @@ class Match extends Component {
         const { getMatch, user } = this.props;
         getMatch(user.id, user.userLatitude, user.userLongitude)
     }
-    async sendDecisionAndLoadNextMatch(ev){
+    async sendDecisionAndLoadNextMatch(decision){
         try {
             const { getMatch, user, match, sendDecision, sendEmailToMatch } = this.props;
-            const matchResult = await sendDecision(user.id, match.id, ev.target.value);
+            const matchResult = await sendDecision(user.id, match.id, decision);
             if (matchResult.result === 'Matched') {
                 // saving current match in variable before calling getMatch again. email takes too long to send with await.
                 sendEmailToMatch(user, match)
@@ -39,24 +40,39 @@ class Match extends Component {
     render(){
         let { match, user } = this.props;
         let matchDistanceFromUser = parseInt(getDistance(user.userLatitude, user.userLongitude, match.userLatitude, match.userLongitude))
-        if (!match.firstName) {
+
+        if (match.message) {
+            return (
+            <div id="matchContainer">
+                {match.message}
+            </div>
+            )
+        }
+        if (!match.message && !match.firstName ) {
             return (
             <div id="matchContainer">
                 Please log in to see your matches
             </div>
         )}
+
         else {
             return (
         <>
         <div id="profileContainer">
             <div id="profileBody">
-                <h3>{match.firstName} and {match.dog.dogName}</h3>
-                <img src={match.userImage1} />
-                <img src={match.userImage2} />
-                <img src={match.dogImage} />
+                <h3>{match.firstName} and {match.dog.dogName}
+                </h3>
+                {match.liked ?
+                <div id = "userLikedMatch">
+                    <img  src = '/images/heartImage.png' />
+                    <div>This user liked you!</div>
+                </div>
+                : <div />
+                }
+                <Cards user = {match} />
                 <div id="matchButtonsContainer">
-                    <button className="acceptMatchButton" onClick={this.sendDecisionAndLoadNextMatch} value="like" type="submit">Like</button>
-                    <button className="rejectMatchButton" onClick={this.sendDecisionAndLoadNextMatch} value="reject" type="submit">Don't like</button>
+                    <Button className="rejectMatchButton" onClick={() => {this.sendDecisionAndLoadNextMatch('reject')}} variant="contained" color="secondary" type="submit">Don't like</Button>
+                    <Button className="acceptMatchButton" onClick={() => {this.sendDecisionAndLoadNextMatch('like')}} variant="contained" color="secondary" type="submit">Like</Button>
                 </div>
                 {/* Match user ID for debugging purposes, will take out */}
                 {/* <p>Match User Id: {match.id}</p> */}

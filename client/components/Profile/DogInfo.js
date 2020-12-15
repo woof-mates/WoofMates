@@ -3,9 +3,9 @@ import {List, ListItem, ListItemAvatar, Avatar, ListItemText} from '@material-ui
 import CakeIcon from '@material-ui/icons/Cake';
 import BatteryFullIcon from '@material-ui/icons/BatteryFull';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
-import FaceIcon from '@material-ui/icons/Face';
 import CloseIcon from '@material-ui/icons/Close';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import PetsIcon from '@material-ui/icons/Pets';
 
 const DogInfo = ({dog}) => {
   if (!dog){
@@ -18,7 +18,7 @@ const DogInfo = ({dog}) => {
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <FaceIcon />
+            <PetsIcon />
           </Avatar>
         </ListItemAvatar>
         <ListItemText primary={dog.dogName} secondary = "Name"/>
@@ -70,7 +70,7 @@ const DogInfo = ({dog}) => {
               <FavoriteBorderIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary={interest} secondary = "Interests?"/>
+          <ListItemText primary={interest} secondary = "Interests"/>
         </ListItem>
           )
         })}
