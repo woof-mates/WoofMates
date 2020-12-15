@@ -11,9 +11,6 @@ router.post('/login', async(req, res, next) => {
                 userEmail,
             },
             include: {all: true},
-            attributes: {
-                exclude: ['hashedPassword']
-            }
         })
         // if userEmail has an account...
         if (user) {
