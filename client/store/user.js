@@ -58,7 +58,7 @@ export const login = (loginInfo) => async(dispatch) => {
       const { data } = await (axios.post('/api/auth/login', loginInfo))
       dispatch(_login(data))
   } catch (err) {
-      alert('User and password do not match');
+      alert('Email and password do not match. Please try again.');
       console.error(err);
   }
 };

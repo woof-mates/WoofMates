@@ -238,7 +238,7 @@ h1 {
   margin: 0 auto;
   flex-direction: column;
   padding: 1em;
-  background-color: #dae7de;
+  /* background-color: #dae7de; */
   margin: 20px;
   width: 60%;
   display: block;
