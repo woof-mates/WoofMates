@@ -105,6 +105,7 @@ class VideoChatContainer extends React.Component {
 
     render() {
         return <VideoChat
+            closeVideo={this.props.closeVideo}
             fromName={this.props.fromName}
             toName={this.props.toName}
             startCall={this.startCall}

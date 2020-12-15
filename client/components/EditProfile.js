@@ -94,14 +94,15 @@ class EditProfile extends React.Component {
     if ( !firstName ) return null;
     return (
         <div id="updateProfileContainer">
-          <h3>Update Profile</h3>
           <div id="userUpdateForm">
             <p className="error">{this.state.message}</p>
             <UserRegistration updateData={this.updateData} info={this.state} type="edit" />
             <UserInfo updateData={this.updateData} goBack={this.goBack} info={this.state} photoUpload={this.photoUpload} type="edit" />
             <DogInfo updateData={this.updateData} goBack={this.goBack} info={this.state} photoUpload={this.photoUpload} type="edit" />
             <DealbreakersPreferences updateData={this.updateData} goBack={this.goBack} info={this.state} type="edit" />
-            <Button className="submit-button" type="submit" variant="contained" color="secondary" onClick={this.onSubmit}>Update</Button>
+            <div className="submit-button">
+              <Button type="submit" variant="contained" color="secondary" onClick={this.onSubmit}>Update</Button>
+            </div>
           </div>
         </div>
     )

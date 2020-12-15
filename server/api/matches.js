@@ -16,7 +16,7 @@ router.get('/:userId', async(req,res,next) => {
                 result: 'Matched'
             }
         });
-        
+        console.log(allMatches)
         //if userId === userId, then send the matchId
         //if matchId === userId, then send the userId
         

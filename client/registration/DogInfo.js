@@ -111,7 +111,7 @@ class DogInfo extends Component{
               <MenuItem value="4">4</MenuItem>
               <MenuItem value="5">5 (Highest)</MenuItem>
             </TextField>
-            <TextField required label="Weight" type="number" name = "weight" onChange={this.onChange} value={weight || null} />
+            <TextField required label="Weight (lbs)" type="number" name = "weight" onChange={this.onChange} value={weight || null} />
             <TextField required select label="Neutered?" id="neutered" name="neutered" onChange={this.onChange} value={neutered === null ? '' : neutered ? 'true' : 'false'}>
               <MenuItem value="false">No</MenuItem>
               <MenuItem value="true">Yes</MenuItem>
