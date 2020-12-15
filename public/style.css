@@ -563,7 +563,7 @@ h1 {
   max-width: 30rem;
 }
 
-#userLikedMatch > img{}
+#userLikedMatch > img{
   width: 20px;
   height: 20px;
 }
