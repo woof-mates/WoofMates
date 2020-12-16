@@ -37,7 +37,7 @@ class VideoChat extends React.Component {
             <div className={classnames('videos', { active: this.state.isLoggedIn })}>
                 <div>
                     <label>{this.state.username}</label><br></br>
-                    <video width={475} height={400} ref={this.props.setLocalVideoRef} autoPlay playsInline></video>
+                    <video muted width={475} height={400} ref={this.props.setLocalVideoRef} autoPlay playsInline></video>
                 </div>
                 <div>
                     <label>{this.props.connectedUser}</label><br></br> 
