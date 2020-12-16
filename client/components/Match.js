@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getMatch, sendDecision, sendEmailToMatch } from '../store/match';
+import { Link } from 'react-router-dom'
 import { getDistance }  from '../../utils/mathFuncs'
 import Chatrooms from './Chatrooms'
 import DogInfo from './Profile/DogInfo'
@@ -50,9 +51,11 @@ class Match extends Component {
         }
         if (!match.message && !match.firstName ) {
             return (
-            <div id="matchContainer">
-                Please log in to see your matches
-            </div>
+                <div id="chatContainer">
+                    <div id="chatBody">
+                        <Link id="notLoggedInMessage" to='/login'>Please Log In To Start Seeing Matches</Link>
+                    </div>
+                </div>
         )}
 
         else {
