@@ -40,7 +40,7 @@ const User = db.define('user', {
     },
     userImage2: {
         type: STRING,
-        defaultValue: '/images/notFound.png'
+        defaultValue: ''
     },
     dogImage: {
         type: STRING,

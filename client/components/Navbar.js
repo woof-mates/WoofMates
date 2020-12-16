@@ -8,13 +8,29 @@ import {logout} from '../store/user'
 class Navbar extends React.Component {
   constructor(props) {
     super(props)
-    this.onClick = this.onClick.bind(this)
+    this.logout = this.logout.bind(this)
+    this.logIn = this.logIn.bind(this)
+    this.signUp = this.signUp.bind(this)
   }
 
-  onClick (e) {
+  componentDidMount () {
+    const {user} = this.props
+  }
+
+  logout (e) {
     e.preventDefault();
     this.props.logout(this.props.user.id)
     window.location.hash='/login'
+  }
+
+  logIn (e) {
+    e.preventDefault();
+    window.location.hash='/login'
+  }
+
+  signUp (e) {
+    e.preventDefault();
+    window.location.hash='/signUp'
   }
 
   render() {
@@ -22,19 +38,25 @@ class Navbar extends React.Component {
     if (user.firstName) {
       return (
         <div id="NavbarContainer">
-          <div id="LinkContainer">
-              <Link to="/">Home</Link>
+          <div id="NavbarTitleContainer">
+            <Link id="NavbarTitleLink" to="/">Woofmates</Link>
+          </div>
+          <div id="NavbarLogoContainer">
+            <img id="NavbarLogoPic" src="https://cdn.shopify.com/s/files/1/0667/0685/files/tintin_and_snowy_by_genus_rattus-d4jxohy_large.png?9525775607535621580"></img>
           </div>
           <div id="LinkContainer">
-              <Link to="/profile">My Profile</Link>
+              <Link id="NavbarLink" to="/">Home</Link>
           </div>
           <div id="LinkContainer">
-              <Link to="/chat">Chat</Link>
+              <Link id="NavbarLink" to="/profile">My Profile</Link>
           </div>
           <div id="LinkContainer">
-              <Link to="/match">Find Your Match</Link>
+              <Link id="NavbarLink" to="/chat">Chat</Link>
           </div>
-          <button class = "logOutButton" onClick={this.onClick}>Log Out</button>
+          <div id="LinkContainer">
+              <Link id="NavbarLink" to="/match">Find Your Match</Link>
+          </div>
+          <button className = "logOutButton" onClick={this.logout}>Log Out</button>
         </div>
       );
     }
@@ -42,23 +64,29 @@ class Navbar extends React.Component {
     else {
       return (
         <div id="NavbarContainer">
-          <div id="LinkContainer">
-              <Link to="/">Home</Link>
+          <div id="NavbarTitleContainer">
+            <Link id="NavbarTitleLink" to="/">Woofmates</Link>
+          </div>
+          <div id="NavbarLogoContainer">
+            <img id="NavbarLogoPic" src="https://cdn.shopify.com/s/files/1/0667/0685/files/tintin_and_snowy_by_genus_rattus-d4jxohy_large.png?9525775607535621580"></img>
           </div>
           <div id="LinkContainer">
-              <Link to="/profile">My Profile</Link>
+              <Link id="NavbarLink" to="/">Home</Link>
           </div>
           <div id="LinkContainer">
-              <Link to="/chat">Chat</Link>
+              <Link id="NavbarLink" to="/profile">My Profile</Link>
           </div>
           <div id="LinkContainer">
-              <Link to="/match">Find Your Match</Link>
+              <Link id="NavbarLink" to="/chat">Chat</Link>
           </div>
           <div id="LinkContainer">
-              <button class="signInNavButton"><Link id="logOutButton" to="/login">Sign In</Link></button>
+              <Link id="NavbarLink" to="/match">Find Your Match</Link>
           </div>
           <div id="LinkContainer">
-              <button class="signUpNavButton"><Link to="/signUp">Sign Up</Link></button>
+            <button className="signInNavButton" onClick={this.logIn}>Sign In </button>
+          </div>
+          <div id="LinkContainer">
+            <button className = "signUpNavButton" onClick={this.signUp}>Sign Up</button>
           </div>
         </div>
       )

@@ -1,9 +1,10 @@
 /* eslint-disable max-statements */
 const router = require('express').Router();
 const nodemailer = require('nodemailer');
-const { User, Relationship, Dog, Preference } = require('../db')
+const { User, Relationship, Dog, Preference, Userpref, Prompt } = require('../db')
 const { getDistance }  = require('../../utils/mathFuncs') //used in testing console logs
 const { filterMatchesWithUserSpecifiedFilters } = require('../matchAlg/userFilters')
+const {findMatch} = require('../matchAlg/match')
 
 router.get('/:userId', async(req, res, next) => {
     // console.logs left in intentionally for testing purposes
@@ -11,11 +12,11 @@ router.get('/:userId', async(req, res, next) => {
         const { userId } = req.params
         // const { userLatitude, userLongitude } = req.query
 
-        const currUser = (await User.findByPk(userId, { include: [Preference] })).dataValues
+        const currUser = (await User.findByPk(userId, { include: {all: true} })).dataValues
 
         // const { distanceFromLocation, isNeuteredDealbreaker } = currUser.preference;
         // console.log('user prefs: distance', distanceFromLocation, 'neutereddealbreaker', isNeuteredDealbreaker)
-        const allUsers = await User.findAll({ include: Dog });
+        const allUsers = await User.findAll({ include: {all: true} });
 
         // first find relationships with matches that have already liked this user
         let matchesAlreadyLikedUserRelationships = await Relationship.findAll({
@@ -24,7 +25,6 @@ router.get('/:userId', async(req, res, next) => {
                 result: 'UserLikedMatch'
             }
         });
-
         let matchesAlreadyLikedUser = [];
         if (matchesAlreadyLikedUserRelationships.length) {
             // create an array that contains ids of matches that already liked this user
@@ -45,7 +45,9 @@ router.get('/:userId', async(req, res, next) => {
         if (matchesAlreadyLikedUser.length) {
             // send one match at a time so algo can update with each decision by user
             // sending 1st element in matches array for now, but this would be sorted based on algorithm
-            res.send(matchesAlreadyLikedUser[0])
+            const bestMatch = await findMatch(currUser, matchesAlreadyLikedUser)
+            bestMatch.dataValues.liked = true;
+            res.send(bestMatch)
             }
         // if there are no filtered matches that have already liked this user...
         else {
@@ -78,10 +80,16 @@ router.get('/:userId', async(req, res, next) => {
             //     console.log('FilteredMatchId:', match.id, 'userDistanceFromMatch:', getDistance(userLatitude * 1, userLongitude * 1, match.userLatitude * 1, match.userLongitude * 1))
             //     if (isNeuteredDealbreaker) console.log('Neutered is a deal breaker, matchdog neutered:', match.dog.neutered)
             // })
-
             // same as above, sending first of array for now
-            // if (!unseenMatches.length) res.send( { message: 'You have no matches that fit your criteria. Try broadening it in your settings!'})
-            res.send(unseenMatches[0])
+            if (!unseenMatches.length) {
+                res.send( { message: 'You have no matches that fit your criteria. Try broadening it in your settings!'})
+            }
+            else {
+                const bestMatch = await findMatch(currUser, unseenMatches)
+                bestMatch.dataValues.liked = false;
+                res.send(bestMatch)
+            }
+
         }
     } catch (err) { next(err) }
 })
@@ -90,13 +98,14 @@ router.put('/:userId', async(req, res, next) => {
     try {
         const { userId } = req.params
         const { decision, matchId } = req.body
-        console.log(decision, 'userid', userId, 'matchId', matchId)
+        // console.log(decision, 'userid', userId, 'matchId', matchId)
         // first check to see if match has already liked user
+
         const existingRelationship = await Relationship.findOne({
             where:
                 {
                     userId: matchId,
-                    matchId: userId
+                    matchId: parseInt(userId)
                 }
         })
         if (existingRelationship) {
@@ -107,7 +116,9 @@ router.put('/:userId', async(req, res, next) => {
                 await existingRelationship.update({ result: 'MatchRejectedUser' })
             }
             res.send(existingRelationship);
+
         }
+
         // if match has not yet seen user, create a new relationship
         else {
                 const result = decision === 'like' ? 'UserLikedMatch' : 'UserRejectedMatch'
@@ -124,7 +135,7 @@ router.put('/:userId', async(req, res, next) => {
 router.post('/email', async (req, res, next) => {
     try {
         const { matchEmail, matchEmailText } = req.body;
-        console.log(matchEmail, matchEmailText)
+        // console.log(matchEmail, matchEmailText)
         const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -134,13 +145,13 @@ router.post('/email', async (req, res, next) => {
         });
         // send mail with defined transport object
         const info = await transporter.sendMail({
-        from: '"WoofMates 🐶" <graceshockers@gmail.com>',
+        from: '"WoofMates 🐶" <woofmates.matching@gmail.com>',
         to: matchEmail,
         subject: 'You have a new match!!',
         html: matchEmailText,
         });
 
-        console.log('Message sent: %s', info.messageId);
+        // console.log('Message sent: %s', info.messageId);
         res.sendStatus(200);
     } catch (err) { next(err); }
 });

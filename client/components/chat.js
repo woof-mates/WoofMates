@@ -1,20 +1,10 @@
 import React from 'react';
-
-import firebase from 'firebase';
-
-const firebaseConfig = {
-    apiKey: "AIzaSyDZUsDKQ79fy2TRZJWfmiprYqHUdizGLlo",
-    authDomain: "dog-chat-74ccf.firebaseapp.com",
-    databaseURL: "https://dog-chat-74ccf.firebaseio.com",
-    projectId: "dog-chat-74ccf",
-    storageBucket: "dog-chat-74ccf.appspot.com",
-    messagingSenderId: "391829997647",
-    appId: "1:391829997647:web:d5de6332d455f8c3ab823a"
-};
-
-firebase.initializeApp(firebaseConfig);
-
-const db = firebase.database();
+import VideoChatContainer from './VideoChat/VideoChatContainer';
+import firebaseDB from './Firebase';
+import classnames from 'classnames';
+import IconButton from '@material-ui/core/IconButton';
+import PhoneIcon from '@material-ui/icons/Phone';
+import SpeakerNotesOffIcon from '@material-ui/icons/SpeakerNotesOff';
 
 class Chat extends React.Component {
     constructor(props) {
@@ -23,10 +13,13 @@ class Chat extends React.Component {
             chats: [],
             message: '',
             readError: null,
-            writeError: null
+            writeError: null,
+            videoChat: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.openVideo = this.openVideo.bind(this);
+        this.closeVideo = this.closeVideo.bind(this);
     }
 
     async componentDidMount() {
@@ -35,7 +28,7 @@ class Chat extends React.Component {
         });
 
         try {
-            db.ref(`${this.props.from}-${this.props.to}/chats`).on("value", snapshot => {
+            firebaseDB.ref(`${this.props.from}-${this.props.to}/chats`).on("value", snapshot => {
                 let chats = [];
                 snapshot.forEach(snap => {
                     chats.push(snap.val());
@@ -58,14 +51,24 @@ class Chat extends React.Component {
         this.setState({
             writeError: null
         })
+        const today = new Date();
+        const hours = (today.getHours() % 12) < 10 ? `0${today.getHours() % 12}` : today.getHours();
+        const minutes = today.getMinutes() < 10 ? `0${today.getMinutes()}` : today.getMinutes();
+        const seconds = today.getSeconds() < 10 ? `0${today.getSeconds()}` : today.getSeconds();
+        const ampm = today.getHours() < 12 ? ' AM' : ' PM'
+        const time = hours + ":" + minutes + ampm;
         try {
-            await db.ref(`${this.props.from}-${this.props.to}/chats`).push({
+            await firebaseDB.ref(`${this.props.from}-${this.props.to}/chats`).push({
                 message: this.state.message,
-                timestamp: Date.now()
+                timestamp: time,
+                from: this.props.fromName,
+                to: this.props.toName
             });
-            await db.ref(`${this.props.to}-${this.props.from}/chats`).push({
+            await firebaseDB.ref(`${this.props.to}-${this.props.from}/chats`).push({
                 message: this.state.message,
-                timestamp: Date.now()
+                timestamp: time,
+                from: this.props.fromName,
+                to: this.props.toName
             });
         } catch (error) {
             this.setState({
@@ -77,26 +80,59 @@ class Chat extends React.Component {
         })
     }
 
+    openVideo() {
+        this.setState({
+            videoChat: true
+        })
+    }
+
+    closeVideo() {
+        this.setState({
+            videoChat: false
+        })
+    }
+
     render() {
-        const { chats } = this.state;
-        return (
-            <div>
+        const { chats, videoChat } = this.state;
+
+        if (videoChat) {
+            return (
                 <div>
-                    {
-                        chats.map(chat => {
-                            return (
-                                <p key={chat.timestamp}>{chat.message}</p>
-                            )
-                        })
-                    }
+                    <VideoChatContainer fromName={this.props.fromName} toName={this.props.toName} closeVideo={this.closeVideo}/>
                 </div>
-                <form onSubmit={this.handleSubmit}>
-                    <input onChange={this.handleChange} value={this.state.message}></input>
-                    {this.state.writeError ? <p>{this.state.writeError}</p> : null}
-                    <button type="submit">Send</button>
-                </form>
-            </div>
-        )
+            )
+        } else {
+            console.log(chats)
+            return (
+                <div>
+                    <div id='chatButtons'>
+                        <IconButton onClick={this.openVideo} >
+                            <PhoneIcon />
+                        </IconButton>
+                        <IconButton onClick={this.props.closeChat}>
+                            <SpeakerNotesOffIcon />
+                        </IconButton>
+                    </div>
+                    <div id="ChatBody">
+                        {
+                            chats.map(chat => {
+                                return (
+                                    <p className={classnames({recipient: this.props.fromName !== chat.from}, {sender: this.props.fromName === chat.from})} key={chat.timestamp}>
+                                        <span className='messages'>{chat.message}</span>
+                                        <span className='timestamp'>{chat.timestamp}</span>
+                                    </p>
+                                )
+                            })
+                        }
+                    </div>
+                    <form id = "chatTypeMessageForm" onSubmit={this.handleSubmit}>
+                        <input id="chatTextInputField" style={{float: 'right'}} onChange={this.handleChange} value={this.state.message}></input>
+                        <button id="chatSendButton" style={{float: 'right'}} type="submit">Send</button>
+                        {this.state.writeError ? <p>{this.state.writeError}</p> : null}
+                    </form>
+                </div>
+            )
+        }
     }
 }
 

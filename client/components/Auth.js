@@ -7,20 +7,26 @@ class Auth extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            message: ''
+            message: '',
         }
         this.setMessage = this.setMessage.bind(this)
     }
     setMessage(message){
-        if (message === 'Welcome ') message += `${this.props.user.firstName}!`
+        if (message.includes('Login')) {
+            if (this.props.user.firstName) {
+                this.props.history.push({
+                    pathname: '/match'
+                })
+            }
+        }
         this.setState({ message })
     }
     render() {
         return (
-            <>
+            <div id="signInContainer">
                 {this.props.user.firstName ? <Logout setMessage={this.setMessage} /> : <Login setMessage={this.setMessage} />}
                 <p>{this.state.message}</p>
-            </>
+            </div>
         )
     }
 }
