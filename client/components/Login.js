@@ -31,7 +31,6 @@ class Login extends Component {
         ev.preventDefault();
         const { login, setMessage } = this.props
         const user = await login(this.state)
-        console.log('user', user, this.props.user)
         setMessage('Login attempted')
     }
     render(){
