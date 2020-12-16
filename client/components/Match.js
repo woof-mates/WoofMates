@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getMatch, sendDecision, sendEmailToMatch } from '../store/match';
+import { Link } from 'react-router-dom'
 import { getDistance }  from '../../utils/mathFuncs'
 import Chatrooms from './Chatrooms'
 import DogInfo from './Profile/DogInfo'
@@ -41,17 +42,28 @@ class Match extends Component {
         let { match, user } = this.props;
         let matchDistanceFromUser = parseInt(getDistance(user.userLatitude, user.userLongitude, match.userLatitude, match.userLongitude))
 
-        if (match.message) {
+        if (!user) {
+            return (
+                <div id="chatContainer">
+                    <div id="chatBody">
+                        <Link id="notLoggedInMessage" to='/login'>Please Log In To See Matches</Link>
+                    </div>
+                </div>
+            )
+        }
+
+        else if (match.message) {
             return (
             <div id="matchContainer">
                 {match.message}
             </div>
             )
         }
-        if (!match.message && !match.firstName ) {
+
+        else if (!match.message && !match.firstName ) {
             return (
-            <div id="matchContainer">
-                Loading...
+            <div id="chatContainer">
+                Loading....
             </div>
         )}
 
