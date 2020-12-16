@@ -42,20 +42,29 @@ class Match extends Component {
         let { match, user } = this.props;
         let matchDistanceFromUser = parseInt(getDistance(user.userLatitude, user.userLongitude, match.userLatitude, match.userLongitude))
 
-        if (match.message) {
+        if (!user) {
+            return (
+                <div id="chatContainer">
+                    <div id="chatBody">
+                        <Link id="notLoggedInMessage" to='/login'>Please Log In To See Matches</Link>
+                    </div>
+                </div>
+            )
+        }
+
+        else if (match.message) {
             return (
             <div id="matchContainer">
                 {match.message}
             </div>
             )
         }
-        if (!match.message && !match.firstName ) {
+
+        else if (!match.message && !match.firstName ) {
             return (
-                <div id="chatContainer">
-                    <div id="chatBody">
-                        <Link id="notLoggedInMessage" to='/login'>Please Log In To Start Seeing Matches</Link>
-                    </div>
-                </div>
+            <div id="chatContainer">
+                Loading....
+            </div>
         )}
 
         else {
