@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import Login from './Login'
 import Logout from './Logout'
-import { Redirect } from 'react-router-dom'
-import { useHistory } from 'react-router-dom';
 
 class Auth extends Component {
     constructor(props) {
@@ -14,10 +12,12 @@ class Auth extends Component {
         this.setMessage = this.setMessage.bind(this)
     }
     setMessage(message){
-        if (message.includes('Welcome')) {
-            this.props.history.push({
-                pathname: '/match'
-            })
+        if (message.includes('Login')) {
+            if (this.props.user.firstName) {
+                this.props.history.push({
+                    pathname: '/match'
+                })
+            }
         }
         this.setState({ message })
     }

@@ -30,8 +30,9 @@ class Login extends Component {
     async submit(ev){
         ev.preventDefault();
         const { login, setMessage } = this.props
-        await login(this.state)
-        setMessage('Welcome!')
+        const user = await login(this.state)
+        console.log('user', user, this.props.user)
+        setMessage('Login attempted')
     }
     render(){
         return (

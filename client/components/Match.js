@@ -51,7 +51,7 @@ class Match extends Component {
         if (!match.message && !match.firstName ) {
             return (
             <div id="matchContainer">
-                Please log in to see your matches
+                Loading...
             </div>
         )}
 
