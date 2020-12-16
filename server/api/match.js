@@ -135,7 +135,7 @@ router.put('/:userId', async(req, res, next) => {
 router.post('/email', async (req, res, next) => {
     try {
         const { matchEmail, matchEmailText } = req.body;
-        // console.log(matchEmail, matchEmailText)
+        console.log(matchEmail)
         const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {

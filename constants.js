@@ -512,7 +512,6 @@ const BREEDS =    [
 
 const USER_INTERESTS = [
   '3D printing',
-  'Scrapbook',
   'Amateur radio',
   'Acting',
   'Air sports',

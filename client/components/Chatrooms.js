@@ -62,7 +62,6 @@ class Chatrooms extends React.Component {
     render() {
         const { user, matches } = this.props;
         const { messaging, viewProfile, matchedUser } = this.state;
-        console.log(matches)
         if (!user.id) {
             return (
                 <div id="chatContainer">
@@ -75,13 +74,14 @@ class Chatrooms extends React.Component {
             return (
                 <ViewMatchedProfile user={matchedUser} closeProfileView={this.closeProfileView}/>
             )
-        } else {
+        }
+        else {
             return (
                 <div id="chatContainer">
                     <div id="chatBody">
-                        <h3>Chat</h3>
-                        <div id='chatRooms'>
-                            <div id='chatList'>
+                        <h3>Chat With Your Matches!</h3>
+                        <div id="chatRooms">
+                            <div id="chatList">
                                 <h4>Woof-Mates:</h4>
                                 <ul>
                                     {
@@ -116,7 +116,7 @@ class Chatrooms extends React.Component {
                                     </div>
                                 </div>
                                 :
-                                <div></div>
+                                <div />
                             }
                         </div>
                     </div>

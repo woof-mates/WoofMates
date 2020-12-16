@@ -146,7 +146,7 @@ class DogInfo extends Component{
             <p />
             { type === 'edit' ? null :
               <div className="registration-buttons">
-                <Button className="back-button" variant="contained" color="secondary" onClick={this.props.goBack}>Back</Button>
+                <Button className="back-button" variant="contained" color="secondary" onClick={() => this.props.goBack(this.state)}>Back</Button>
                 <Button className="next-button" variant="contained" color="secondary" onClick={this.sendData}>Next</Button>
               </div>
             }
