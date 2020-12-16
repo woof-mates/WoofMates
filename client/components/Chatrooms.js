@@ -42,7 +42,7 @@ class Chatrooms extends React.Component {
             messagingToName: name
         });
     }
-    
+
 
     async viewProfile(matchId) {
         const matchedUser = await (axios.get(`/api/users/${matchId}`))
@@ -67,14 +67,14 @@ class Chatrooms extends React.Component {
             return (
                 <div id="chatContainer">
                     <div id="chatBody">
-                    <Link to='/login'>Please Log In To Review Your Messages</Link>
+                    <Link id="notLoggedInMessage" to='/login'>Please Log In To Start Chatting</Link>
                     </div>
                 </div>
             );
         } else if (viewProfile) {
             return (
                 <ViewMatchedProfile user={matchedUser} closeProfileView={this.closeProfileView}/>
-            ) 
+            )
         } else {
             return (
                 <div id="chatContainer">

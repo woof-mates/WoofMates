@@ -36,8 +36,10 @@ class Profile extends React.Component {
 
         if (!user.id) {
             return (
-                <div id="profileContainer">
-                    <Link to='/login'>Please Log In To Review Your Profile</Link>
+                <div id="chatContainer">
+                    <div id="chatBody">
+                        <Link id="notLoggedInMessage" to='/login'>Please Log In To See Your Profile</Link>
+                    </div>
                 </div>
             );
         } else if (this.state.edit) {
