@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { getDistance }  from '../../utils/mathFuncs'
 import Chatrooms from './Chatrooms'
 import DogInfo from './Profile/DogInfo'
-import UserInfo from './Profile/UserInfo'
+import UserInfo from './Profile/userInfo'
 import {Button} from '@material-ui/core'
 import Cards from './Profile/Cards'
 

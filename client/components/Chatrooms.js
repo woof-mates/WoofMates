@@ -1,5 +1,5 @@
 import React from 'react';
-import Chat from './Chat';
+import Chat from './chat';
 import ViewMatchedProfile from './ViewMatchedProfile'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
