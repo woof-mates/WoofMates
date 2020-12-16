@@ -38,8 +38,8 @@ class Slideshow extends React.Component {
     render() {
       const { currentImage } = this.state
       return (
-        <div className='slideshow'>
-          <img width={850} height={550} src={slideImages[currentImage]} />
+        <div>
+          <img width={1100} height={700} src={slideImages[currentImage]} />
         </div>
       )
     }
