@@ -22,6 +22,7 @@ const findMatch = (currUser, users) => {
   if (random < 8) {
     isUserSpecifiedPref = true;
   }
+  console.log('user specified pref used', isUserSpecifiedPref)
   for (let possibleMatch of users){
     if (isUserSpecifiedPref) {
       const statedPreferences = currUser.userpref.dataValues;

@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable guard-for-in */
 
-//Need to add UserAge and DogInterests
+const { AGE_RANGE } = require('../../constants')
 const VOTES_FOR_STATED_PREF = 100000000
 
 const WEIGHTS_FOR_ALGO = {
@@ -43,13 +43,12 @@ const MATCH_USERPREF_WITH_USER = {
 const scoreActivity = (possibleMatch, currUser) => {
   const dog2 = possibleMatch.dog.dataValues
   const userSwipingActivity = currUser.preference.dataValues
-  // console.log('in scoreActivity function, user passed in for evalution as a match is: ', user2)
   //calculate how much user1 will like user2
     let total = 0;
     for (let trait in MATCH_PREF_WITH_SWIPING_ACT){
       switch (trait) {
         case 'dogBreed':
-            total += (parseInt(userSwipingActivity.dogBreed[possibleMatch.dog.dataValues.breed]) * WEIGHTS_FOR_ALGO[trait])
+          total += (parseInt(userSwipingActivity.dogBreed[possibleMatch.dog.dataValues.breed]) * WEIGHTS_FOR_ALGO[trait])
           break;
         case 'dogAgeForPref':
           total += (parseInt(userSwipingActivity.dogAgeForPref[possibleMatch.dog.dataValues.dogAge]) * WEIGHTS_FOR_ALGO[trait])
@@ -83,8 +82,6 @@ const scoreActivity = (possibleMatch, currUser) => {
     return total;
 }
 
-// userAgePrefMinRange
-
 const scorePreferences = (statedPreferences, possibleMatch, userDog) => {
   const dog2 = possibleMatch.dog.dataValues
   const usersDog = userDog
@@ -92,7 +89,6 @@ const scorePreferences = (statedPreferences, possibleMatch, userDog) => {
     let total = 0;
     for (let key in statedPreferences){
       let statedPreference = statedPreferences[key];
-      // console.log(key)
       switch (key) {
         case 'dogBreedPref':
           if (statedPreference === dog2[MATCH_USERPREF_WITH_DOG[key]]){total += VOTES_FOR_STATED_PREF}
@@ -123,19 +119,23 @@ const scorePreferences = (statedPreferences, possibleMatch, userDog) => {
           }
           break;
         case 'userProfessionsPref':
-          for (let profession of statedPreference){
-            if (profession === possibleMatch[MATCH_USERPREF_WITH_USER[key]]){total += VOTES_FOR_STATED_PREF}
+          if (statedPreference) {
+            for (let profession of statedPreference){
+              if (profession === possibleMatch[MATCH_USERPREF_WITH_USER[key]]){total += VOTES_FOR_STATED_PREF}
+            }
           }
           break;
         case 'userAgePrefMinRange':
-          if (possibleMatch[MATCH_USERPREF_WITH_USER[key]] > statedPreference[key] && possibleMatch[MATCH_USERPREF_WITH_USER[key]] <= (statedPreference[key] + 9)) {
+          if (possibleMatch[MATCH_USERPREF_WITH_USER[key]] > statedPreference && possibleMatch[MATCH_USERPREF_WITH_USER[key]] <= (statedPreference + AGE_RANGE)) {
             total += VOTES_FOR_STATED_PREF
           }
           break;
         case 'userInterestsPref':
-          for (let interest of possibleMatch[MATCH_USERPREF_WITH_USER[key]]){
-            for (let statedInterest of statedPreference){
-              if (statedInterest === interest){total += VOTES_FOR_STATED_PREF}
+          if (statedPreference) {
+            for (let interest of possibleMatch[MATCH_USERPREF_WITH_USER[key]]){
+              for (let statedInterest of statedPreference){
+                if (statedInterest === interest){total += VOTES_FOR_STATED_PREF}
+              }
             }
           }
           break;
