@@ -1,13 +1,14 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Auth from '../client/components/Auth'
-import Navbar from '../client/components/Navbar'
-import App from '../client/app'
-import { Provider } from 'react-redux'
-import store from '../client/store'
 import Enzyme, { shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+
 import { MemoryRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
+
+import Auth from '../client/components/Auth'
+import App from '../client/app'
+import store from '../client/store'
 
 Enzyme.configure({ adapter: new Adapter() });
 
