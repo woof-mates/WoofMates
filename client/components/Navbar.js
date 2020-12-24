@@ -74,15 +74,6 @@ class Navbar extends React.Component {
               <Link id="NavbarLink" to="/">Home</Link>
           </div>
           <div id="LinkContainer">
-              <Link id="NavbarLink" to="/profile">My Profile</Link>
-          </div>
-          <div id="LinkContainer">
-              <Link id="NavbarLink" to="/chat">Chat</Link>
-          </div>
-          <div id="LinkContainer">
-              <Link id="NavbarLink" to="/match">Find Your Match</Link>
-          </div>
-          <div id="LinkContainer">
             <button className="signInNavButton" onClick={this.logIn}>Sign In </button>
           </div>
           <div id="LinkContainer">
