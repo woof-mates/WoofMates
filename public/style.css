@@ -532,6 +532,14 @@ h1 {
   text-align: center;
 }
 
+#writeTestimonialContainer {
+  display: flex;
+  padding: 1em;
+  text-align: center;
+  min-width: 240px;
+  flex-direction: column;
+}
+
 #testimonialsContainer {
   padding: 1em;
   display: flex;
