@@ -9,11 +9,12 @@ const _getTestimonials = (testimonials) => {
     }
 };
 
-const getTestimonials = () => {
+export const getTestimonials = () => {
   return async(dispatch) => {
-    const data = await axios.get('/api/testimonials');
-    console.log(testimonials[0])
-    dispatch(_getTestimonials(data));
+    try {
+      const { data } = await axios.get('/api/testimonials')
+      dispatch(_getTestimonials(data));
+    } catch (err) {console.error(err)}
   }
 };
 
@@ -24,6 +25,4 @@ export default function testimonialsReducer(state = [], action) {
         default:
             return state
     }
-};
-
-export { getTestimonials };
+}

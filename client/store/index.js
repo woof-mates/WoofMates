@@ -10,7 +10,7 @@ const reducer = combineReducers({
     user: userReducer,
     match: matchReducer,
     matches: matchesReducer,
-    testimonials: testimonialsReducer
+    testimonials: testimonialsReducer,
 });
 
 const store = createStore(reducer, applyMiddleware(logger,thunkMiddleware));
