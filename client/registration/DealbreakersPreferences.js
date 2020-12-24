@@ -31,7 +31,7 @@ class DealbreakersPreferences extends Component{
       userAgePrefMinRange: null,
       userProfessionsPref: [],
       userInterestsPref: [],
-      isNeuteredDealbreaker: null,
+      isNeuteredDealbreaker: undefined,
     };
     this.onChange = this.onChange.bind(this);
     this.sendData = this.sendData.bind(this);
@@ -52,9 +52,9 @@ class DealbreakersPreferences extends Component{
 
   async onChange (e) {
     if (e.target.name.includes('userProfessionsPref')) {
-      if (e.target.name === "userProfessionsPref1") {
+      if (e.target.name === 'userProfessionsPref1') {
         this.tempUserProfessionPrefs[0] = e.target.value
-      } else if (e.target.name === "userProfessionsPref2") {
+      } else if (e.target.name === 'userProfessionsPref2') {
         this.tempUserProfessionPrefs[1] = e.target.value
       }
       await this.setState({
@@ -62,9 +62,9 @@ class DealbreakersPreferences extends Component{
       })
     }
     else if (e.target.name.includes('userInterestsPref')) {
-      if (e.target.name === "userInterestsPref1") {
+      if (e.target.name === 'userInterestsPref1') {
         this.tempUserInterestsPrefs[0] = e.target.value
-      } else if (e.target.name === "userInterestsPref2") {
+      } else if (e.target.name === 'userInterestsPref2') {
         this.tempUserInterestsPrefs[1] = e.target.value
       }
       await this.setState({
@@ -100,7 +100,7 @@ class DealbreakersPreferences extends Component{
         <h3>Tell us your dealbreakers and preferences!</h3>
         <h4>Answer a few prompts to help personalize your matches...or leave it to our magic behind the scenes!</h4>
         Does your new dog friend need to be neutered?*
-        <TextField required select id="isNeuteredDealbreaker" name="isNeuteredDealbreaker" onChange={this.onChange} value={isNeuteredDealbreaker === null ? '' : isNeuteredDealbreaker}>
+        <TextField required select id="isNeuteredDealbreaker" name="isNeuteredDealbreaker" onChange={this.onChange} value={isNeuteredDealbreaker === undefined ? '' : isNeuteredDealbreaker}>
           <MenuItem value={true}>I only want to be matched with neutered dogs</MenuItem>
           <MenuItem value={false}>I can be matched with dogs regardless of neutered status</MenuItem>
         </TextField>
@@ -116,7 +116,7 @@ class DealbreakersPreferences extends Component{
           {BREEDS.map(breed => (<MenuItem key={breed} value={breed}>{breed}</MenuItem>))}
         </TextField> 
         <TextField select label="Age vs. my dog" id="dogAgePref" name="dogAgePref" onChange={this.onChange} value={dogAgePref || ''}>
-          {DOG_AGE_PREFS.map(agePref => (<MenuItem key = {agePref} value={agePref}>{agePref}</MenuItem>))}
+          {DOG_AGE_PREFS.map(agePref => (<MenuItem key ={agePref} value={agePref}>{agePref}</MenuItem>))}
         </TextField>
         <TextField select label="Energy level" id="dogEnergyLevelPref" name="dogEnergyLevelPref" onChange={this.onChange} value={dogEnergyLevelPref || ''}>
           <MenuItem value="1">1 (Lowest)</MenuItem>

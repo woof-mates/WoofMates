@@ -6,33 +6,34 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { ThemeProvider } from '@material-ui/styles';
+import theme from '../theme/theme'
 
 import Registration from './index'
 
-const theme = createMuiTheme({
-    stepper: {
-        iconColor: '#DAE7DE' // or logic to change color
-    },
-    overrides: {
-        MuiStepIcon: {
-         root: {
-             color: '#DAE7DE',
-           '&$completed': {
-             color: '#44C767',
-           },
-           '&$active': {
-             color: '#44C767',
-           },
-           '&$disabled': {
-            color: '#DAE7DE',
-          },
-         },
-         active: {},
-         completed: {},
-         disabled: {}
-       },
-    },
-})
+// const theme = createMuiTheme({
+//     stepper: {
+//       iconColor: '#DAE7DE'
+//     },
+//     overrides: {
+//       MuiStepIcon: {
+//         root: {
+//           color: '#DAE7DE',
+//           '&$completed': {
+//             color: '#44C767',
+//           },
+//           '&$active': {
+//             color: '#44C767',
+//           },
+//           '&$disabled': {
+//           color: '#DAE7DE',
+//           },
+//         },
+//       active: {},
+//       completed: {},
+//       disabled: {}
+//     },
+//   },
+// })
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -87,7 +88,7 @@ export default function ProgressBar() {
 
   return (
     <div className={classes.root}>
-        <ThemeProvider theme={theme}>
+        {/* <ThemeProvider theme={theme}> */}
             <Stepper activeStep={activeStep} alternativeLabel>
             {steps.map((label) => (
             <Step key={label}>
@@ -95,7 +96,7 @@ export default function ProgressBar() {
             </Step>
             ))}
             </Stepper>
-        </ThemeProvider>
+        {/* </ThemeProvider> */}
       <Registration handleNext={handleNext} handleBack={handleBack} />
       <div>
         {activeStep === steps.length ? (
