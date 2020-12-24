@@ -532,6 +532,15 @@ h1 {
   text-align: center;
 }
 
+#testimonialsContainer {
+  padding: 1em;
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 126px;
+  min-height: 480px;
+  text-align: center;
+}
+
 #profileBody {
   flex-grow:5;
   padding: 1em;

@@ -1,41 +1,42 @@
 import React from "react";
 import { connect } from 'react-redux'
-import { HashRouter as Router, Link, Switch, Route }
-from 'react-router-dom';
+import axios from 'axios';
 import {getTestimonials} from '../store/testimonials'
 
 
 class Testimonials extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      testimonials: [],
+    }
   }
 
-  componentDidMount () {
-    getTestimonials()
-    const {user, testimonials} = this.props
+  async componentDidMount () {
+    // getTestimonials()
+    const testimonials = (await axios.get('/api/testimonials')).data
+    this.setState ({
+      testimonials
+    })
   }
 
   render() {
-    const {user, testimonials} = this.props
+    const {user} = this.props
+    const {testimonials} = this.state
     if (user.firstName) {
       return (
-        <div id="profileContainer">
-          <div id="writeTestimonialContainer">
-            <h3>I can write my review here</h3>
-          </div>
-          <div id="testimonialListContainer">
-            {/* {testimonials.map(testimonial => <div id="singleTestimonial">{testimonial.reviewTitle}</div>)} */}
-          </div>
+        <div id="testimonialsContainer">
+            I can write my review here
+            {testimonials.map(testimonial => {return (<div id="singleTestimonial">{testimonial.reviewTitle}</div>)})}
         </div>
       );
     }
 
     else {
       return (
-        <div id="profileContainer">
-          <h1>Testimonials</h1>
-          <h3>Testimonial List</h3>
-            {testimonials.map(testimonial => <div id="singleTestimonial">{testimonial.reviewTitle}</div>)}
+        <div id="testimonialsContainer">
+          Testimonial List
+            {testimonials.map(testimonial => {return (<div id="singleTestimonial">{testimonial.reviewTitle}</div>)})}
         </div>
       )
     }

@@ -11,8 +11,9 @@ const _getTestimonials = (testimonials) => {
 
 const getTestimonials = () => {
   return async(dispatch) => {
-    const testimonials = (await axios.get('/api/testimonials')).data;
-    dispatch(_getTestimonials(testimonials));
+    const data = await axios.get('/api/testimonials');
+    console.log(testimonials[0])
+    dispatch(_getTestimonials(data));
   }
 };
 
