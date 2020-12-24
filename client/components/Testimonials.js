@@ -34,9 +34,11 @@ class Testimonials extends React.Component {
 
     else {
       return (
-        <div id="testimonialsContainer">
-          Testimonial List
+        <div id="testimonialsTitle">
+          <h3>Testimonials</h3>
+          <div id="testimonialsContainer">
             {testimonials.map(testimonial => {return (<div id="singleTestimonial">{testimonial.reviewTitle}</div>)})}
+          </div>
         </div>
       )
     }
