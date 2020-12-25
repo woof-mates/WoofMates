@@ -1,16 +1,20 @@
 import React from "react";
 import { connect } from 'react-redux'
 import axios from 'axios';
-import { getTestimonials } from '../store/testimonials'
+import { getTestimonials, postTestimonial } from '../store/testimonials'
 import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select'
-
+import MenuItem from '@material-ui/core/MenuItem';
+import { Button } from '@material-ui/core';
 
 class Testimonials extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       testimonials: [],
+      reviewTitle: '',
+      numberOfStars: 5,
+      reviewBody: '',
+      userId: ''
     }
   }
 
@@ -18,20 +22,31 @@ class Testimonials extends React.Component {
     this.props.getTestimonials()
     // const testimonials = (await axios.get('/api/testimonials')).data
     this.setState ({
-      reviewTitle: '',
-      numberOfStars: '',
-      reviewBody: '',
       userId: this.props.user.id
     })
     this.createReview = this.createReview.bind(this)
+    this.sendTestimonial = this.sendTestimonial.bind(this)
   }
 
   createReview (ev) {
-    this.setState({
-      [ev.target.name]: ev.target.value,
-      userId: this.props.user.id
-    })
-    console.log(this.state)
+    if (ev.target.name === 'numberOfStars') {
+      this.setState({
+        numberOfStars: Number(ev.target.value)
+      })
+    }
+    else {
+      this.setState({
+        [ev.target.name]: ev.target.value,
+        userId: this.props.user.id
+      })
+    }
+    // console.log(this.state)
+  }
+
+  sendTestimonial (e) {
+    e.preventDefault()
+    //const {userId, reviewTitle, reviewBody, numberOfStars} = this.state
+    this.props.postTestimonial(this.state)
   }
 
   render() {
@@ -73,10 +88,17 @@ class Testimonials extends React.Component {
               name="reviewBody"
               autoComplete="reviewBody"
               className="reviewBody" onChange={this.createReview}
-              />
-              <Select
-              
-              />
+              /> <br></br>
+              <TextField select label="Star Rating" id="numberOfStars" name="numberOfStars" onChange={this.createReview} variant="filled" required value={5}>
+                <MenuItem value="1">1 (Lowest)</MenuItem>
+                <MenuItem value="2">2</MenuItem>
+                <MenuItem value="3">3 (Default)</MenuItem>
+                <MenuItem value="4">4</MenuItem>
+                <MenuItem value="5">5 (Highest)</MenuItem>
+              </TextField>
+              <div className="testimonial-buttons">
+                <Button className="testimonial-submit-button" variant="contained" color="secondary" onClick={this.sendTestimonial}>Submit Feedback</Button>
+              </div>
             </div>
             <div id="testimonialsContainer">
               {testimonials.map(testimonial => {return (<div id="singleTestimonial">{testimonial.reviewTitle}</div>)})}
@@ -136,7 +158,8 @@ const mapState = state => (
 
 const mapDispatchToProps = (dispatch) => (
   {
-    getTestimonials: () => dispatch(getTestimonials())
+    getTestimonials: () => dispatch(getTestimonials()),
+    postTestimonial: (reviewInfo) => dispatch(postTestimonial(reviewInfo))
   }
 )
 
