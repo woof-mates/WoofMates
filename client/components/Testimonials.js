@@ -101,7 +101,18 @@ class Testimonials extends React.Component {
               </div>
             </div>
             <div id="testimonialsContainer">
-              {testimonials.map(testimonial => {return (<div id="singleTestimonial">{testimonial.reviewTitle}</div>)})}
+              {testimonials.map(testimonial => {return (
+              <div id="singleTestimonial">
+                <div id="testimonialReviewTitle">
+                  {testimonial.reviewTitle}
+                </div>
+                <div id="testimonialReviewStars">
+                  {testimonial.numberOfStars}
+                </div>
+                <div id="singleTestimonialBody">
+                  {testimonial.reviewBody}
+                </div>
+              </div>)})}
             </div>
         </div>
       );
