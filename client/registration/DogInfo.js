@@ -41,7 +41,7 @@ class DogInfo extends Component{
   sendData(){
     const { dogName, breed, dogAge, weight, neutered, dogImage } = this.state
     const { updateData, handleNext } = this.props
-    if (!dogName || !breed || dogAge === undefined || !weight || !dogImage || neutered === undefined) {
+    if (!dogName || !breed || !dogAge || !weight || !dogImage || neutered === null) {
       alert('Please fill in all required fields! Fields marked with * are required.')
     }
     else {
@@ -79,7 +79,6 @@ class DogInfo extends Component{
       await this.setState({
         [e.target.name]: neuteredBool
       })
-      console.log('neutered', this.state.neutered)
     }
     else {
       await this.setState({
@@ -98,7 +97,7 @@ class DogInfo extends Component{
         <TextField required select label="Breed" id="breed" name="breed" onChange={this.onChange} value={breed}>
           {BREEDS.map(breedName => (<MenuItem key={breedName} value={breedName}>{breedName}</MenuItem>))}
         </TextField>
-        <TextField required type="number" label="Dog's Age" name="dogAge" onChange={this.onChange} value={typeof dogAge === 'undefined' ? '' : dogAge} />
+        <TextField required type="number" label="Dog's Age (1 ~)" name="dogAge" onChange={this.onChange} value={dogAge || ''} />
         <p />
         <TextField select label="Energy Level" id="energyLevel" name="energyLevel" onChange={this.onChange} value={energyLevel}>
           <MenuItem value="1">1 (Lowest)</MenuItem>
@@ -108,7 +107,7 @@ class DogInfo extends Component{
           <MenuItem value="5">5 (Highest)</MenuItem>
         </TextField>
         <TextField required label="Weight (lbs)" type="number" name = "weight" onChange={this.onChange} value={weight || ''} />
-        <TextField required select label="Neutered?" id="neutered" name="neutered" onChange={this.onChange} value={typeof neutered === 'undefined' ? '' : neutered ? 'true' : 'false'}>
+        <TextField required select label="Neutered?" id="neutered" name="neutered" onChange={this.onChange} value={neutered === null ? '' : neutered ? 'true' : 'false'}>
           <MenuItem value="false">No</MenuItem>
           <MenuItem value="true">Yes</MenuItem>
         </TextField>
