@@ -1,8 +1,4 @@
 import React from 'react';
-
-import firebase from 'firebase';
-import 'firebase/database';
-import classnames from 'classnames';
 import IconButton from '@material-ui/core/IconButton';
 import PhoneIcon from '@material-ui/icons/Phone';
 import CallEndIcon from '@material-ui/icons/CallEnd';
@@ -11,38 +7,25 @@ class VideoChat extends React.Component {
     constructor(props) {
         super (props);
         this.state = {
-            isLoggedIn: false,
+            startCall: false,
             userToCall: this.props.toName,
             username: this.props.fromName
         }
 
-        this.onStartCallClicked = this.onStartCallClicked.bind(this);
         this.renderVideos = this.renderVideos.bind(this);
     }
     
-
-    async componentDidMount() {
-        await this.props.onLogin(this.state.username);
-        this.setState({
-            isLoggedIn: true
-        });
-    }
-
-    onStartCallClicked() {
-        this.props.startCall(this.state.username, this.state.userToCall)
-    }
-
     renderVideos() {
         return (
-            <div className={classnames('videos', { active: this.state.isLoggedIn })}>
-                <div>
-                    <label>{this.state.username}</label><br></br>
-                    <video muted width={475} height={400} ref={this.props.setLocalVideoRef} autoPlay playsInline></video>
-                </div>
-                <div>
-                    <label>{this.props.connectedUser}</label><br></br> 
-                    <video width={475} height={400} ref={this.props.setRemoteVideoRef} autoPlay playsInline></video>
-                </div>
+            <div>
+                <div className='video-grid' id='video'>
+                    <div className='video-view'>
+                        <div id='local_stream' className='video-placeholder'></div>
+                        <div id='local_video_info' className='video-profile hide'></div>
+                        <div id='video_autoplay_local' className='video_autoplay_local'></div>
+                    </div>
+                </div> 
+
             </div>
         )
     }
@@ -50,10 +33,10 @@ class VideoChat extends React.Component {
     render() {
         return (
             <section id='container'>
-                <IconButton onClick={this.onStartCallClicked} >
+                <IconButton >
                     <PhoneIcon/>
                 </IconButton>
-                <IconButton onClick={this.props.closeVideo}>
+                <IconButton >
                     <CallEndIcon/>
                 </IconButton>
                 {this.renderVideos()}
