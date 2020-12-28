@@ -1,4 +1,5 @@
-import AgoraRTC from "agora-rtc-sdk-ng"
+import AgoraRTC from 'agora-rtc-sdk-ng';
+
 
 const rtc = { 
     client: null,
@@ -13,7 +14,7 @@ const option = {
     appID: '9fd5c87c7e6a4e659acff6443d6edbeb',
     channel: 'DogMates',
     uid: null,
-    token: null
+    token: '0069fd5c87c7e6a4e659acff6443d6edbebIACVikO5YwSABmHAldK+RXPXMA4MFDKC9sbG8B/QDKDigOZjfQEAAAAAEADAccLptkvqXwEAAQC2S+pf'
 }
 
 const addView = (id, show) => {
