@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
+import ProfileInputButtons from './ProfileInputButtons'
 
 const styles = {
   root: {
@@ -35,21 +36,22 @@ class DealbreakersPreferences extends Component{
     };
     this.onChange = this.onChange.bind(this);
     this.sendData = this.sendData.bind(this);
+    this.goBack = this.goBack.bind(this);
   }
-
   sendData(){
     const { isNeuteredDealbreaker } = this.state
     if (isNeuteredDealbreaker === null) alert('Please fill in all required fields! Fields marked with * are required.')
     else this.props.updateData(this.state)
   }
-
+  goBack(){
+    this.props.goBack(this.state)
+  }
   componentDidMount(){
     this.tempUserProfessionPrefs = this.props.info.userProfessionsPref;
     this.tempUserInterestsPrefs = this.props.info.userInterestsPref;
     const { isNeuteredDealbreaker, distanceFromLocation, dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref } = this.props.info
     this.setState({ isNeuteredDealbreaker, distanceFromLocation, dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref })
   }
-
   async onChange (e) {
     if (e.target.name.includes('userProfessionsPref')) {
       if (e.target.name === 'userProfessionsPref1') {
@@ -83,7 +85,6 @@ class DealbreakersPreferences extends Component{
     }
     if (this.props.type === 'edit') this.props.updateData(this.state)
   }
-
   render(){
     const { isNeuteredDealbreaker, distanceFromLocation, dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref } = this.state
     const { classes, type } = this.props;
@@ -131,17 +132,14 @@ class DealbreakersPreferences extends Component{
         <p />
         In an ideal world, I'd like to be matched with a <strong>pet owner </strong> with the below characteristics:
         <p />
-        Works in (choose up to 2): 
-        <br />
+        Works in (choose up to 2):<br />
         <TextField select label="Profession" className="userProfessionsPref" name="userProfessionsPref1" onChange={this.onChange} value={userProfessionsPref[0] || ''}>
             {PROFESSIONS.map(profession => (<MenuItem key = {profession} value={profession}>{profession}</MenuItem>))}
         </TextField>
         <TextField select label="Profession"  className="userProfessionsPref" name="userProfessionsPref2" onChange={this.onChange} value={userProfessionsPref[1] || ''}>
             {PROFESSIONS.map(profession => (<MenuItem key = {profession} value={profession}>{profession}</MenuItem>))}
-        </TextField>
-        <br />
-        Has interests in (choose up to 2): 
-        <br />
+        </TextField><br />
+        Has interests in (choose up to 2):<br />
         <TextField select label="Interest" className="userInterestsPref" name="userInterestsPref1" onChange={this.onChange} value={userInterestsPref[0] || ''}>
           {USER_INTERESTS.map(interest => (<MenuItem key = {interest} value={interest}>{interest}</MenuItem>))}
         </TextField>
@@ -153,12 +151,7 @@ class DealbreakersPreferences extends Component{
           {userAgePrefRanges}
         </TextField>
         <p />
-        { type === 'edit' ? null :
-          <div className="registration-buttons">
-            <Button className="back-button" variant="contained" color="secondary" onClick={() => this.props.goBack(this.state)}>Back</Button>
-            <Button className="next-button submit" variant="contained" color="secondary" onClick={this.sendData} type="submit">Register</Button>
-          </div>
-        }
+        <ProfileInputButtons type={type} stage={2} sendData={this.sendData} goBack={this.goBack} />
       </div>
     )
   }

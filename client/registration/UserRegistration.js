@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
+import ProfileInputButtons from './ProfileInputButtons'
 import { STATES } from '../../constants'
 
 const styles = {
@@ -84,12 +84,13 @@ class UserRegistration extends Component{
         </TextField>
         <TextField required label="Zip Code" type="number" name ="zipCode" onChange={this.onChange} value={zipCode ? zipCode : undefined } width={1/3}/>
         <p />
-        <div className="registration-buttons">
+        <ProfileInputButtons type={type} stage={0} sendData={this.sendData} />
+        {/* <div className="registration-buttons">
           { type === 'edit' ?
             null :
             <Button className="next-button" variant="contained" color="secondary" onClick={this.sendData}>Next</Button>
           }
-        </div>
+        </div> */}
       </div>
     )
   }

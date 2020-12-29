@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PhotoUpload from '../components/PhotoUpload'
+import ProfileInputButtons from './ProfileInputButtons'
 import { PROFESSIONS, USER_INTERESTS } from '../../constants'
 
 import TextField from '@material-ui/core/TextField';
@@ -26,10 +27,11 @@ class UserInfo extends Component{
       profession: '',
       userInterests: [],
       userImage1: '',
-  };
-  this.onChange = this.onChange.bind(this);
-  this.sendData = this.sendData.bind(this);
-  this.photoUpload = this.photoUpload.bind(this);
+    };
+    this.onChange = this.onChange.bind(this);
+    this.sendData = this.sendData.bind(this);
+    this.photoUpload = this.photoUpload.bind(this);
+    this.goBack = this.goBack.bind(this);
   }
   sendData(){
     const { userImage1 } = this.state
@@ -41,6 +43,9 @@ class UserInfo extends Component{
       updateData(this.state)
       handleNext()
     }
+  }
+  goBack(){
+    this.props.goBack(this.state)
   }
   async photoUpload(photoObj){
     await this.setState(photoObj)
@@ -103,12 +108,7 @@ class UserInfo extends Component{
         <br />
         {userImage1 ? <img src={userImage1} width="150" /> : null }
         <p />
-        { type === 'edit' ? null :
-        <div className="registration-buttons">
-          <Button className="back-button" variant="contained" color="secondary" onClick={() => this.props.goBack(this.state)}>Back</Button>
-          <Button className="next-button" variant="contained" color="secondary" onClick={this.sendData}>Next</Button>
-        </div>
-        }
+        <ProfileInputButtons type={type} stage={1} sendData={this.sendData} goBack={this.goBack} />
       </div>
     )
   }

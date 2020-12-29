@@ -1,6 +1,7 @@
-/* eslint-disable complexity */
 import React, { Component } from 'react'
 import PhotoUpload from '../components/PhotoUpload'
+import Prompts from './Prompts'
+import ProfileInputButtons from './ProfileInputButtons'
 import { BREEDS, DOG_INTERESTS } from '../../constants'
 
 import TextField from '@material-ui/core/TextField';
@@ -37,6 +38,7 @@ class DogInfo extends Component{
     this.onChange = this.onChange.bind(this);
     this.sendData = this.sendData.bind(this);
     this.photoUpload = this.photoUpload.bind(this);
+    this.goBack = this.goBack.bind(this);
   }
   sendData(){
     const { dogName, breed, dogAge, weight, neutered, dogImage } = this.state
@@ -49,6 +51,9 @@ class DogInfo extends Component{
       handleNext();
     }
   }
+  goBack(){
+    this.props.goBack(this.state)
+  }
   async photoUpload(photoObj){
     await this.setState(photoObj)
     if (this.props.type === 'edit') this.props.updateData(this.state)
@@ -60,9 +65,9 @@ class DogInfo extends Component{
   }
   async onChange (e) {
     if (e.target.name.includes('dogInterestsList')) {
-      if (e.target.name === "dogInterestsList1") {
+      if (e.target.name === 'dogInterestsList1') {
         this.tempDogInterests[0] = e.target.value
-      } else if (e.target.name === "dogInterestsList2") {
+      } else if (e.target.name === 'dogInterestsList2') {
         this.tempDogInterests[1] = e.target.value
       }
       await this.setState({
@@ -72,12 +77,6 @@ class DogInfo extends Component{
     else if (this.arrForNums.includes(e.target.name)) {
       await this.setState({
         [e.target.name]: Number(e.target.value)
-      })
-    }
-    else if (e.target.name === 'neutered') {
-      let neuteredBool = (e.target.value === 'true')
-      await this.setState({
-        [e.target.name]: neuteredBool
       })
     }
     else {
@@ -107,9 +106,9 @@ class DogInfo extends Component{
           <MenuItem value="5">5 (Highest)</MenuItem>
         </TextField>
         <TextField required label="Weight (lbs)" type="number" name = "weight" onChange={this.onChange} value={weight || ''} />
-        <TextField required select label="Neutered?" id="neutered" name="neutered" onChange={this.onChange} value={neutered === null ? '' : neutered ? 'true' : 'false'}>
-          <MenuItem value="false">No</MenuItem>
-          <MenuItem value="true">Yes</MenuItem>
+        <TextField required select label="Neutered?" id="neutered" name="neutered" onChange={this.onChange} value={neutered === undefined ? '' : neutered}>
+          <MenuItem value={false}>No</MenuItem>
+          <MenuItem value={true}>Yes</MenuItem>
         </TextField>
         <p />
         Your dog's primary interests (select up to 2):
@@ -125,25 +124,9 @@ class DogInfo extends Component{
         <br />
         {dogImage ? <img src={dogImage} width="150" /> : null }
         <p />
-        <div id="prompts">
-          <div className="prompt">
-            If your dog could speak it would say...
-            <br />
-            <textarea name="dogSpeak" className="prompt-text" rows="3" cols="50" wrap="hard" placeholder="" onChange={this.onChange} value={dogSpeak || ''} />
-          </div>
-          <div className="prompt">
-            Your favorite thing to do with your pup is...
-            <br />
-            <textarea name="favoriteActivityWithDog" className="prompt-text" rows="3" cols="50" wrap="hard" placeholder="" onChange={this.onChange} value={favoriteActivityWithDog || ''} />
-          </div>
-        </div>
+        <Prompts onChange={this.onChange} dogSpeak={dogSpeak} favoriteActivityWithDog={favoriteActivityWithDog} />
         <p />
-        { type === 'edit' ? null :
-          <div className="registration-buttons">
-            <Button className="back-button" variant="contained" color="secondary" onClick={() => this.props.goBack(this.state)}>Back</Button>
-            <Button className="next-button" variant="contained" color="secondary" onClick={this.sendData}>Next</Button>
-          </div>
-        }
+        <ProfileInputButtons type={type} stage={2} sendData={this.sendData} goBack={this.goBack} />
       </div>
     )
   }
