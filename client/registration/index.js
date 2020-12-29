@@ -58,13 +58,11 @@ class Registration extends React.Component {
       }
     }
   }
-
   goBack(userInfo){
     this.props.handleBack();
     userInfo.step = this.state.step - 1
     this.setState(userInfo)
   }
-
   render() {
     const { user, handleNext } = this.props
     const { step } = this.state
@@ -93,16 +91,12 @@ class Registration extends React.Component {
   }
 }
 
-const mapState = state => (
-  {
-    user: state.user
-  }
-)
+const mapState = state => ({
+  user: state.user
+})
 
-const mapDispatch = (dispatch) => {
-  return {
-    registerUser: (userInfo) => dispatch(registerUser(userInfo))
-  }
-}
+const mapDispatch = dispatch => ({
+  registerUser: (userInfo) => dispatch(registerUser(userInfo))
+})
 
 export default connect(mapState, mapDispatch)(Registration);

@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import PhotoUpload from '../components/PhotoUpload'
 import ProfileInputButtons from './ProfileInputButtons'
-import { PROFESSIONS, USER_INTERESTS } from '../../constants'
+import { PROFESSIONS } from '../../constants'
+import UserInterests from './UserInterests'
 
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = {
@@ -92,17 +92,8 @@ class UserInfo extends Component{
           {PROFESSIONS.map(professionName => (<MenuItem key = {professionName} value={professionName}>{professionName}</MenuItem>))}
         </TextField>
         <p />
-        Your interests (select up to 3):
-        <br />
-        <TextField select label="Interest" className="userInterestsList" name="userInterestsList1" onChange={this.onChange} value={userInterests[0] || ''}>
-          {USER_INTERESTS.map(interest => (<MenuItem key = {interest} value={interest}>{interest}</MenuItem>))}
-        </TextField>
-        <TextField select label="Interest" className="userInterestsList" name="userInterestsList2" onChange={this.onChange} value={userInterests[1] || ''}>
-          {USER_INTERESTS.map(interest => (<MenuItem key = {interest} value={interest}>{interest}</MenuItem>))}
-        </TextField>
-        <TextField select label="Interest" id="userInterestsList" name="userInterestsList3" onChange={this.onChange} value={userInterests[2] || ''}>
-          {USER_INTERESTS.map(interest => (<MenuItem key = {interest} value={interest}>{interest}</MenuItem>))}
-        </TextField>
+        Your interests (select up to 3):<br />
+        <UserInterests onChange={this.onChange} userInterests={userInterests} />
         <p />
         Upload a picture of yourself! (png, jpg format)* <PhotoUpload type="owner" action="Upload" photoUpload={this.photoUpload} />
         <br />

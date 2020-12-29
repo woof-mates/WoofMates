@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import PhotoUpload from '../components/PhotoUpload'
 import Prompts from './Prompts'
 import ProfileInputButtons from './ProfileInputButtons'
+import DogInterests from './DogInterests'
 import { BREEDS, DOG_INTERESTS } from '../../constants'
 
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = {
@@ -111,17 +111,16 @@ class DogInfo extends Component{
           <MenuItem value={true}>Yes</MenuItem>
         </TextField>
         <p />
-        Your dog's primary interests (select up to 2):
-        <br />
-        <TextField select label="Dog interest" id="dogInterestsList" name="dogInterestsList1" onChange={this.onChange} value={dogInterests[0] || ''}>
+        Your dog's primary interests (select up to 2):<br />
+        <DogInterests onChange={this.onChange} dogInterests={dogInterests} />
+        {/* <TextField select label="Dog interest" id="dogInterestsList" name="dogInterestsList1" onChange={this.onChange} value={dogInterests[0] || ''}>
           {DOG_INTERESTS.map(interest => (<MenuItem key = {interest} value={interest}>{interest}</MenuItem>))}
         </TextField>
         <TextField select label="Dog interest" id="dogInterestsList" name="dogInterestsList2" onChange={this.onChange} value={dogInterests[1] || ''}>
           {DOG_INTERESTS.map(interest => (<MenuItem key = {interest} value={interest}>{interest}</MenuItem>))}
-        </TextField>
+        </TextField> */}
         <p />
-        Upload a picture of your dog! (png, jpg format)* <PhotoUpload type="dog" action="Upload" photoUpload={this.photoUpload} />
-        <br />
+        Upload a picture of your dog! (png, jpg format)* <PhotoUpload type="dog" action="Upload" photoUpload={this.photoUpload} /><br />
         {dogImage ? <img src={dogImage} width="150" /> : null }
         <p />
         <Prompts onChange={this.onChange} dogSpeak={dogSpeak} favoriteActivityWithDog={favoriteActivityWithDog} />

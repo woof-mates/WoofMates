@@ -85,12 +85,6 @@ class UserRegistration extends Component{
         <TextField required label="Zip Code" type="number" name ="zipCode" onChange={this.onChange} value={zipCode ? zipCode : undefined } width={1/3}/>
         <p />
         <ProfileInputButtons type={type} stage={0} sendData={this.sendData} />
-        {/* <div className="registration-buttons">
-          { type === 'edit' ?
-            null :
-            <Button className="next-button" variant="contained" color="secondary" onClick={this.sendData}>Next</Button>
-          }
-        </div> */}
       </div>
     )
   }

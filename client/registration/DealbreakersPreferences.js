@@ -4,9 +4,9 @@ import { PROFESSIONS, USER_INTERESTS, BREEDS, MAX_DISTANCES, MAX_USER_AGE, DOG_A
 
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 import ProfileInputButtons from './ProfileInputButtons'
+import UserInterests from './UserInterests'
 
 const styles = {
   root: {
@@ -63,10 +63,10 @@ class DealbreakersPreferences extends Component{
         userProfessionsPref: this.tempUserProfessionPrefs
       })
     }
-    else if (e.target.name.includes('userInterestsPref')) {
-      if (e.target.name === 'userInterestsPref1') {
+    else if (e.target.name.includes('userInterestsList')) {
+      if (e.target.name === 'userInterestsList1') {
         this.tempUserInterestsPrefs[0] = e.target.value
-      } else if (e.target.name === 'userInterestsPref2') {
+      } else if (e.target.name === 'userInterestsList2') {
         this.tempUserInterestsPrefs[1] = e.target.value
       }
       await this.setState({
@@ -111,11 +111,10 @@ class DealbreakersPreferences extends Component{
           {MAX_DISTANCES.map(distance => (<MenuItem key = {distance} value={distance}>{distance}</MenuItem>))}
         </TextField>
         <p />
-        In an ideal world, I'd like to be matched with a <strong>dog</strong> with the below characteristics:
-        <br />
+        In an ideal world, I'd like to be matched with a <strong>dog</strong> with the below characteristics:<br />
         <TextField select label="Breed" id="dogBreedPref" name="dogBreedPref" onChange={this.onChange} value={dogBreedPref || ''}>
           {BREEDS.map(breed => (<MenuItem key={breed} value={breed}>{breed}</MenuItem>))}
-        </TextField> 
+        </TextField>
         <TextField select label="Age vs. my dog" id="dogAgePref" name="dogAgePref" onChange={this.onChange} value={dogAgePref || ''}>
           {DOG_AGE_PREFS.map(agePref => (<MenuItem key ={agePref} value={agePref}>{agePref}</MenuItem>))}
         </TextField>
@@ -140,13 +139,7 @@ class DealbreakersPreferences extends Component{
             {PROFESSIONS.map(profession => (<MenuItem key = {profession} value={profession}>{profession}</MenuItem>))}
         </TextField><br />
         Has interests in (choose up to 2):<br />
-        <TextField select label="Interest" className="userInterestsPref" name="userInterestsPref1" onChange={this.onChange} value={userInterestsPref[0] || ''}>
-          {USER_INTERESTS.map(interest => (<MenuItem key = {interest} value={interest}>{interest}</MenuItem>))}
-        </TextField>
-        <TextField select label="Interest" className="userInterestsPref" name="userInterestsPref2" onChange={this.onChange} value={userInterestsPref[1] || ''}>
-          {USER_INTERESTS.map(interest => (<MenuItem key = {interest} value={interest}>{interest}</MenuItem>))}
-        </TextField>
-        <br />
+        <UserInterests onChange={this.onChange} userInterests={userInterestsPref} type="preferences" /><br />
         <TextField select label="Age Range" type="userAgePrefMinRange" name="userAgePrefMinRange" onChange={this.onChange} value={userAgePrefMinRange || ''}>
           {userAgePrefRanges}
         </TextField>
