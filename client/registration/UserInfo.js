@@ -47,9 +47,10 @@ class UserInfo extends Component{
   goBack(){
     this.props.goBack(this.state)
   }
-  async photoUpload(photoObj){
-    await this.setState(photoObj)
-    if (this.props.type === 'edit') this.props.updateData(this.state)
+  photoUpload(photoObj){
+    this.setState(photoObj, function(){
+      if (this.props.type === 'edit') this.props.updateData(this.state)
+    })
   }
   componentDidMount(){
     this.tempUserInterests = this.props.info.userInterests;
