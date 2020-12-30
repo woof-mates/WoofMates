@@ -52,47 +52,32 @@ class DealbreakersPreferences extends Component{
     const { isNeuteredDealbreaker, distanceFromLocation, dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref } = this.props.info
     this.setState({ isNeuteredDealbreaker, distanceFromLocation, dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref })
   }
-  async onChange (e) {
+  onChange (e) {
+    let userInput = {}
     if (e.target.name.includes('userProfessionsPref')) {
-      if (e.target.name === 'userProfessionsPref1') {
-        this.tempUserProfessionPrefs[0] = e.target.value
-      } else if (e.target.name === 'userProfessionsPref2') {
-        this.tempUserProfessionPrefs[1] = e.target.value
-      }
-      await this.setState({
-        userProfessionsPref: this.tempUserProfessionPrefs
-      })
+      if (e.target.name === 'userProfessionsPref1') this.tempUserProfessionPrefs[0] = e.target.value
+      else if (e.target.name === 'userProfessionsPref2') this.tempUserProfessionPrefs[1] = e.target.value
+      userInput = { userProfessionsPref: this.tempUserProfessionPrefs }
     }
     else if (e.target.name.includes('userInterestsList')) {
-      if (e.target.name === 'userInterestsList1') {
-        this.tempUserInterestsPrefs[0] = e.target.value
-      } else if (e.target.name === 'userInterestsList2') {
-        this.tempUserInterestsPrefs[1] = e.target.value
-      }
-      await this.setState({
-        userInterestsPref: this.tempUserInterestsPrefs
-      })
+      if (e.target.name === 'userInterestsList1') this.tempUserInterestsPrefs[0] = e.target.value
+      else if (e.target.name === 'userInterestsList2') this.tempUserInterestsPrefs[1] = e.target.value
+      userInput = { userInterestsPref: this.tempUserInterestsPrefs };
     }
-    else if (this.arrForNums.includes(e.target.name)) {
-      await this.setState({
-        [e.target.name]: Number(e.target.value)
-      })
-    }
-    else {
-      await this.setState({
-        [e.target.name]: e.target.value
-      })
-    }
-    if (this.props.type === 'edit') this.props.updateData(this.state)
+    else if (this.arrForNums.includes(e.target.name)) userInput = { [e.target.name]: Number(e.target.value) }
+    else userInput = { [e.target.name]: e.target.value };
+    this.setState(userInput, function(){
+      if (this.props.type === 'edit') this.props.updateData(userInput)
+    })
   }
   render(){
     const { isNeuteredDealbreaker, distanceFromLocation, dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref } = this.state
     const { classes, type } = this.props;
-    let userAgePrefRanges = [ <MenuItem value="none" selected disabled hidden>Select an MenuItem</MenuItem> ]
+    let userAgePrefRanges = [ <MenuItem key={0} value="none" selected disabled hidden>Select an MenuItem</MenuItem> ]
     for (let minRange = MIN_USER_AGE; minRange < MAX_USER_AGE; minRange += AGE_RANGE + 1) {
       userAgePrefRanges.push(
         <MenuItem key={minRange} value={minRange}>
-        {minRange} - {minRange + AGE_RANGE}
+          {minRange} - {minRange + AGE_RANGE}
         </MenuItem>
       )
     }
@@ -108,7 +93,7 @@ class DealbreakersPreferences extends Component{
         <p />
         Maximum distance (miles) between you and your new dog friends:
         <TextField select id="distanceFromLocation" name="distanceFromLocation" onChange={this.onChange} value={distanceFromLocation || 5}>
-          {MAX_DISTANCES.map(distance => (<MenuItem key = {distance} value={distance}>{distance}</MenuItem>))}
+          {MAX_DISTANCES.map(distance => (<MenuItem key={distance} value={distance}>{distance}</MenuItem>))}
         </TextField>
         <p />
         In an ideal world, I'd like to be matched with a <strong>dog</strong> with the below characteristics:<br />
@@ -119,24 +104,24 @@ class DealbreakersPreferences extends Component{
           {DOG_AGE_PREFS.map(agePref => (<MenuItem key ={agePref} value={agePref}>{agePref}</MenuItem>))}
         </TextField>
         <TextField select label="Energy level" id="dogEnergyLevelPref" name="dogEnergyLevelPref" onChange={this.onChange} value={dogEnergyLevelPref || ''}>
-          <MenuItem value="1">1 (Lowest)</MenuItem>
-          <MenuItem value="2">2</MenuItem>
-          <MenuItem value="3">3</MenuItem>
-          <MenuItem value="4">4</MenuItem>
-          <MenuItem value="5">5 (Highest)</MenuItem>
+          <MenuItem key={1} value="1">1 (Lowest)</MenuItem>
+          <MenuItem key={2} value="2">2</MenuItem>
+          <MenuItem key={3} value="3">3</MenuItem>
+          <MenuItem key={4} value="4">4</MenuItem>
+          <MenuItem key={5} value="5">5 (Highest)</MenuItem>
         </TextField>
         <TextField select label="Size vs. my dog" id="dogWeightPref" name="dogWeightPref" onChange={this.onChange} value={dogWeightPref || ''}>
-          {DOG_WEIGHT_PREFS.map(weightPref => (<MenuItem key = {weightPref} value={weightPref}>{weightPref}</MenuItem>))}
+          {DOG_WEIGHT_PREFS.map(weightPref => (<MenuItem key={weightPref} value={weightPref}>{weightPref}</MenuItem>))}
         </TextField>
         <p />
         In an ideal world, I'd like to be matched with a <strong>pet owner </strong> with the below characteristics:
         <p />
         Works in (choose up to 2):<br />
         <TextField select label="Profession" className="userProfessionsPref" name="userProfessionsPref1" onChange={this.onChange} value={userProfessionsPref[0] || ''}>
-            {PROFESSIONS.map(profession => (<MenuItem key = {profession} value={profession}>{profession}</MenuItem>))}
+            {PROFESSIONS.map(profession => (<MenuItem key={profession} value={profession}>{profession}</MenuItem>))}
         </TextField>
         <TextField select label="Profession"  className="userProfessionsPref" name="userProfessionsPref2" onChange={this.onChange} value={userProfessionsPref[1] || ''}>
-            {PROFESSIONS.map(profession => (<MenuItem key = {profession} value={profession}>{profession}</MenuItem>))}
+            {PROFESSIONS.map(profession => (<MenuItem key={profession} value={profession}>{profession}</MenuItem>))}
         </TextField><br />
         Has interests in (choose up to 2):<br />
         <UserInterests onChange={this.onChange} userInterests={userInterestsPref} type="preferences" /><br />
@@ -144,7 +129,7 @@ class DealbreakersPreferences extends Component{
           {userAgePrefRanges}
         </TextField>
         <p />
-        <ProfileInputButtons type={type} stage={2} sendData={this.sendData} goBack={this.goBack} />
+        <ProfileInputButtons type={type} stage={3} sendData={this.sendData} goBack={this.goBack} />
       </div>
     )
   }

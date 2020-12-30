@@ -63,28 +63,18 @@ class DogInfo extends Component{
     const { dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogImage } = this.props.info
     this.setState({ dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogImage })
   }
-  async onChange (e) {
+  onChange (e) {
+    let userInput = {}
     if (e.target.name.includes('dogInterestsList')) {
-      if (e.target.name === 'dogInterestsList1') {
-        this.tempDogInterests[0] = e.target.value
-      } else if (e.target.name === 'dogInterestsList2') {
-        this.tempDogInterests[1] = e.target.value
-      }
-      await this.setState({
-        dogInterests: this.tempDogInterests
-      })
+      if (e.target.name === 'dogInterestsList1') this.tempDogInterests[0] = e.target.value
+      else if (e.target.name === 'dogInterestsList2') this.tempDogInterests[1] = e.target.value
+      userInput = { dogInterests: this.tempDogInterests };
     }
-    else if (this.arrForNums.includes(e.target.name)) {
-      await this.setState({
-        [e.target.name]: Number(e.target.value)
-      })
-    }
-    else {
-      await this.setState({
-        [e.target.name]: e.target.value
-      })
-    }
-    if (this.props.type === 'edit') this.props.updateData(this.state)
+    else if (this.arrForNums.includes(e.target.name)) userInput = { [e.target.name]: Number(e.target.value) }
+    else userInput = { [e.target.name]: e.target.value }
+    this.setState(userInput, function(){
+      if (this.props.type === 'edit') this.props.updateData(userInput)
+    })
   }
   render(){
     const { dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogImage } = this.state
@@ -112,7 +102,7 @@ class DogInfo extends Component{
         </TextField>
         <p />
         Your dog's primary interests (select up to 2):<br />
-        <DogInterests onChange={this.onChange} dogInterests={dogInterests} />
+        <DogInterests onChange={this.onChange} dogInterests={dogInterests} type={type} />
         <p />
         Upload a picture of your dog! (png, jpg format)* <PhotoUpload type="dog" action="Upload" photoUpload={this.photoUpload} /><br />
         {dogImage ? <img src={dogImage} width="150" /> : null }

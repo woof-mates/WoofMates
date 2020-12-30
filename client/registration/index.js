@@ -47,16 +47,17 @@ class Registration extends React.Component {
     this.updateData = this.updateData.bind(this);
     this.goBack = this.goBack.bind(this);
   }
-   async updateData(userInfo){
+  updateData(userInfo){
     userInfo.step = this.state.step + 1
-    await this.setState(userInfo)
-    if (this.state.step === 4) {
-      await this.props.registerUser(this.state)
-      if (!this.props.user.userEmail) {
-        this.goBack(this.state);
-        this.setState( {message: 'There was an error with your registration. Please check your inputs and resubmit.'} )
+    this.setState(userInfo, async function() {
+      if (this.state.step === 4) {
+        await this.props.registerUser(this.state)
+        if (!this.props.user.userEmail) {
+          this.goBack(this.state);
+          this.setState( {message: 'There was an error with your registration. Please check your inputs and resubmit.'} )
+        }
       }
-    }
+    })
   }
   goBack(userInfo){
     this.props.handleBack();

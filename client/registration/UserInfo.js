@@ -56,30 +56,19 @@ class UserInfo extends Component{
     const { age, profession, userInterests, userImage1 } = this.props.info
     this.setState({ age, profession, userInterests, userImage1 })
   }
-  async onChange (e) {
+  onChange (e) {
+    let userInput = {}
     if (e.target.name.includes('userInterestsList')) {
-      if (e.target.name === 'userInterestsList1') {
-        this.tempUserInterests[0] = e.target.value
-      } else if (e.target.name === 'userInterestsList2') {
-        this.tempUserInterests[1] = e.target.value
-      } else if (e.target.name === 'userInterestsList3') {
-        this.tempUserInterests[2] = e.target.value
-      }
-      await this.setState({
-        userInterests: this.tempUserInterests
-      })
+      if (e.target.name === 'userInterestsList1') this.tempUserInterests[0] = e.target.value
+      else if (e.target.name === 'userInterestsList2') this.tempUserInterests[1] = e.target.value
+      else if (e.target.name === 'userInterestsList3') this.tempUserInterests[2] = e.target.value
+      userInput = {userInterests: this.tempUserInterests}
     }
-    else if (this.arrForNums.includes(e.target.name)) {
-      await this.setState({
-        [e.target.name]: Number(e.target.value)
-      })
-    }
-    else {
-      await this.setState({
-        [e.target.name]: e.target.value
-      })
-    }
-    if (this.props.type === 'edit') this.props.updateData(this.state)
+    else if (this.arrForNums.includes(e.target.name)) userInput = {[e.target.name]: Number(e.target.value)};
+    else userInput = {[e.target.name]: e.target.value}
+    this.setState(userInput, function(){
+      if (this.props.type === 'edit') this.props.updateData(userInput)
+    })
   }
   render(){
     const { age, profession, userInterests, userImage1 } = this.state

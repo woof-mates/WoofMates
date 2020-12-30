@@ -34,24 +34,17 @@ class UserRegistration extends Component{
     const { firstName, lastName, userEmail, city, state, zipCode } = this.props.info
     this.setState({ firstName, lastName, userEmail, city, state, zipCode })
   }
-  async onChange (e) {
+  onChange (e) {
+    let userInput = {}
     if (e.target.name === 'userEmail') {
       let newEmail = e.target.value.toLowerCase()
-      await this.setState({
-        userEmail: newEmail
-      })
+      userInput = { userEmail: newEmail }
     }
-    else if (this.arrForNums.includes(e.target.name)) {
-      await this.setState({
-        [e.target.name]: Number(e.target.value)
-      })
-    }
-    else {
-      await this.setState({
-        [e.target.name]: e.target.value
-      })
-    }
-    if (this.props.type === 'edit') this.props.updateData(this.state)
+    else if (this.arrForNums.includes(e.target.name)) userInput = { [e.target.name]: Number(e.target.value) }
+    else userInput = { [e.target.name]: e.target.value }
+    this.setState(userInput, function(){
+      if (this.props.type === 'edit') this.props.updateData(userInput)
+    })
   }
   sendData(){
     const { firstName, userEmail, password, zipCode} = this.state
