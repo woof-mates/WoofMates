@@ -89,7 +89,7 @@ class UserInfo extends Component{
       <h3>A bit more about you...</h3>
         <TextField label="Age" type="number" name = "age" onChange={this.onChange} value={age ? age : undefined} />
         <TextField select id="profession" label="Profession" name="profession" onChange={this.onChange} value={profession ? profession : '' }>
-          {PROFESSIONS.map(professionName => (<MenuItem key = {professionName} value={professionName}>{professionName}</MenuItem>))}
+          {PROFESSIONS.map(professionName => (<MenuItem key={professionName} value={professionName}>{professionName}</MenuItem>))}
         </TextField>
         <p />
         Your interests (select up to 3):<br />

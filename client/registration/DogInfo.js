@@ -3,7 +3,7 @@ import PhotoUpload from '../components/PhotoUpload'
 import Prompts from './Prompts'
 import ProfileInputButtons from './ProfileInputButtons'
 import DogInterests from './DogInterests'
-import { BREEDS, DOG_INTERESTS } from '../../constants'
+import { BREEDS } from '../../constants'
 
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
@@ -113,12 +113,6 @@ class DogInfo extends Component{
         <p />
         Your dog's primary interests (select up to 2):<br />
         <DogInterests onChange={this.onChange} dogInterests={dogInterests} />
-        {/* <TextField select label="Dog interest" id="dogInterestsList" name="dogInterestsList1" onChange={this.onChange} value={dogInterests[0] || ''}>
-          {DOG_INTERESTS.map(interest => (<MenuItem key = {interest} value={interest}>{interest}</MenuItem>))}
-        </TextField>
-        <TextField select label="Dog interest" id="dogInterestsList" name="dogInterestsList2" onChange={this.onChange} value={dogInterests[1] || ''}>
-          {DOG_INTERESTS.map(interest => (<MenuItem key = {interest} value={interest}>{interest}</MenuItem>))}
-        </TextField> */}
         <p />
         Upload a picture of your dog! (png, jpg format)* <PhotoUpload type="dog" action="Upload" photoUpload={this.photoUpload} /><br />
         {dogImage ? <img src={dogImage} width="150" /> : null }

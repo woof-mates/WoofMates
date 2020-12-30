@@ -8,10 +8,10 @@ export default function DogInterests (props){
     return (
         <>
             <TextField select label="Dog interest" id="dogInterestsList" name="dogInterestsList1" onChange={onChange} value={dogInterests[0] || ''}>
-                {DOG_INTERESTS.map(interest => (<MenuItem key = {interest} value={interest}>{interest}</MenuItem>))}
+                {DOG_INTERESTS.map(interest => (<MenuItem key={interest} value={interest}>{interest}</MenuItem>))}
             </TextField>
             <TextField select label="Dog interest" id="dogInterestsList" name="dogInterestsList2" onChange={onChange} value={dogInterests[1] || ''}>
-                {DOG_INTERESTS.map(interest => (<MenuItem key = {interest} value={interest}>{interest}</MenuItem>))}
+                {DOG_INTERESTS.map(interest => (<MenuItem key={interest} value={interest}>{interest}</MenuItem>))}
             </TextField>
         </>
     )

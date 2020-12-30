@@ -41,13 +41,11 @@ class UserRegistration extends Component{
         userEmail: newEmail
       })
     }
-
     else if (this.arrForNums.includes(e.target.name)) {
       await this.setState({
         [e.target.name]: Number(e.target.value)
       })
     }
-
     else {
       await this.setState({
         [e.target.name]: e.target.value
@@ -72,17 +70,17 @@ class UserRegistration extends Component{
     return (
       <div className={classes.root} noValidate autoComplete="off">
         <h3>Welcome! Create an Account:</h3>
-        <TextField required label="First Name" name="firstName" onChange={this.onChange} value={firstName ? firstName : ''} />
-        <TextField label="Last Name" name = "lastName" onChange={this.onChange} value={lastName ? lastName : ''} />
+        <TextField required label="First Name" name="firstName" onChange={this.onChange} value={firstName || ''} />
+        <TextField label="Last Name" name = "lastName" onChange={this.onChange} value={lastName || ''} />
         <p />
-        <TextField required label="Email" type="email" name = "userEmail" onChange={this.onChange} value={userEmail ? userEmail : ''} />
+        <TextField required label="Email" type="email" name = "userEmail" onChange={this.onChange} value={userEmail || ''} />
         <TextField required type="password" label="Password" name = "password" onChange={this.onChange} />
         <p />
-        <TextField label="City" name ="city" onChange={this.onChange} value={city ? city : ''} />
-        <TextField select id="stateList" label="State" name="state" onChange={this.onChange} value={state ? state : ''} >
+        <TextField label="City" name ="city" onChange={this.onChange} value={city || ''} />
+        <TextField select id="stateList" label="State" name="state" onChange={this.onChange} value={state || ''} >
           { STATES.map(stateName => <MenuItem value={stateName[0]} key={stateName[0]}>{stateName[1]}</MenuItem>)}
         </TextField>
-        <TextField required label="Zip Code" type="number" name ="zipCode" onChange={this.onChange} value={zipCode ? zipCode : undefined } width={1/3}/>
+        <TextField required label="Zip Code" type="number" name ="zipCode" onChange={this.onChange} value={zipCode || '' } width={1 / 3} />
         <p />
         <ProfileInputButtons type={type} stage={0} sendData={this.sendData} />
       </div>
