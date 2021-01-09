@@ -39,6 +39,7 @@ class Testimonials extends React.Component {
         [ev.target.name]: ev.target.value,
         userId: this.props.user.id
       })
+      console.log(this.state)
     }
     // console.log(this.state)
   }
@@ -52,6 +53,7 @@ class Testimonials extends React.Component {
   render() {
     const {user} = this.props
     const {testimonials} = this.props
+    const CHARACTER_LIMIT = 150
 
     if (!testimonials) {
       return (
@@ -87,6 +89,11 @@ class Testimonials extends React.Component {
               label="Review Body"
               name="reviewBody"
               autoComplete="reviewBody"
+              rowsMax={2}
+              inputProps={{
+                maxlength: CHARACTER_LIMIT
+              }}
+              helperText={`${this.state.reviewBody.length}/${CHARACTER_LIMIT}`}
               className="reviewBody" onChange={this.createReview}
               /> <br></br>
               <TextField select label="Star Rating" id="numberOfStars" name="numberOfStars" onChange={this.createReview} variant="filled" required value={5}>
@@ -103,16 +110,13 @@ class Testimonials extends React.Component {
             <div id="testimonialsContainer">
               {testimonials.map(testimonial => {return (
               <div id="singleTestimonial">
-                <div id="testimonialReviewTitle">
-                  {testimonial.reviewTitle}
-                </div>
-                <div id="testimonialReviewStars">
-                  {testimonial.numberOfStars}
-                </div>
-                <div id="singleTestimonialBody">
-                  {testimonial.reviewBody}
-                </div>
-              </div>)})}
+                <b>{testimonial.reviewTitle}</b>
+                <br></br>
+                {testimonial.reviewBody}
+                <br></br>
+                <i>{testimonial.user.firstName}</i>
+              </div>
+              )})}
             </div>
         </div>
       );
@@ -144,7 +148,15 @@ class Testimonials extends React.Component {
         <div id="testimonialsTitle">
           <h3>Testimonials</h3>
           <div id="testimonialsContainer">
-            {testimonials.map(testimonial => {return (<div id="singleTestimonial">{testimonial.reviewTitle}</div>)})}
+            {testimonials.map(testimonial => {return (
+            <div id="singleTestimonial">
+              <b>{testimonial.reviewTitle}</b>
+              <br></br>
+              {testimonial.reviewBody}
+              <br></br>
+              <i>{testimonial.user.firstName}</i>
+            </div>
+            )})}
           </div>
         </div>
       )
