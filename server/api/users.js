@@ -107,7 +107,6 @@ router.delete('/:userId', async(req, res, next) => { // delete a user (api/users
 
 router.put('/:userId', async(req, res, next) => { // update a user (api/users)
   try {
-    console.log(req.body)
     const userId = req.params.userId
     const {
       firstName, lastName, userEmail, age, profession, userImage1, dogImage, city, state, zipCode, userInterests,
