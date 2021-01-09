@@ -42,6 +42,7 @@ class EditProfile extends React.Component {
       isNeuteredDealbreaker: null,
       userImage1: '',
       dogImage: '',
+      populated: false
     }
     this.tempUserInterests = [];
     this.tempDogInterests = [];
@@ -52,7 +53,7 @@ class EditProfile extends React.Component {
   }
 
   componentDidMount(){
-    if (this.props.user && !this.state.firstName){
+    if (this.props.user && !this.state.populated){
       const { firstName, lastName, userEmail, age, profession, userImage1, dogImage, city, state, zipCode, userInterests } = this.props.user;
       const { dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests } = this.props.user.dog
       const { isNeuteredDealbreaker, distanceFromLocation } = this.props.user.preference
@@ -63,11 +64,11 @@ class EditProfile extends React.Component {
         dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests,
         dogSpeak, favoriteActivityWithDog,
         isNeuteredDealbreaker, distanceFromLocation,
-        dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref
+        dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref,
+        populated: true
       });
     }
   }
-
   onSubmit (e) {
     e.preventDefault();
     const { userEmail } = this.state
@@ -76,35 +77,29 @@ class EditProfile extends React.Component {
     })
     const userProfile = this.state
     this.props.updateUser(this.props.user.id, userProfile)
-    console.log('user has been updated', this.props.user)
     this.props.closeEdit();
   }
-
   photoUpload(photoObj){
     this.setState(photoObj)
   }
-
-  updateData(userInfo){
-    console.log(userInfo)
-    this.setState(userInfo)
+  updateData(userInput){
+    this.setState(userInput)
   }
-
   render() {
-    const { firstName } = this.state
-    if ( !firstName ) return null;
+    if (!this.state.populated) return null;
     return (
-        <div id="updateProfileContainer">
-          <div id="userUpdateForm">
-            <p className="error">{this.state.message}</p>
-            <UserRegistration updateData={this.updateData} info={this.state} type="edit" />
-            <UserInfo updateData={this.updateData} goBack={this.goBack} info={this.state} photoUpload={this.photoUpload} type="edit" />
-            <DogInfo updateData={this.updateData} goBack={this.goBack} info={this.state} photoUpload={this.photoUpload} type="edit" />
-            <DealbreakersPreferences updateData={this.updateData} goBack={this.goBack} info={this.state} type="edit" />
-            <div className="submit-button">
-              <Button type="submit" variant="contained" color="secondary" onClick={this.onSubmit}>Update</Button>
-            </div>
+      <div id="updateProfileContainer">
+        <div id="userUpdateForm">
+          <p className="error">{this.state.message}</p>
+          <UserRegistration updateData={this.updateData} info={this.state} type="edit" />
+          <UserInfo updateData={this.updateData} goBack={this.goBack} info={this.state} photoUpload={this.photoUpload} type="edit" />
+          <DogInfo updateData={this.updateData} goBack={this.goBack} info={this.state} photoUpload={this.photoUpload} type="edit" />
+          <DealbreakersPreferences updateData={this.updateData} goBack={this.goBack} info={this.state} type="edit" />
+          <div className="submit-button">
+            <Button type="submit" variant="contained" color="secondary" onClick={this.onSubmit}>Update</Button>
           </div>
         </div>
+      </div>
     )
   }
 }
@@ -113,7 +108,7 @@ const mapState = state => ({
     user: state.user
 })
 
-const mapDispatch = (dispatch) => ({
+const mapDispatch = dispatch => ({
   updateUser: (userId, userProfile ) => dispatch(editProfile(userId, userProfile))
 })
 
