@@ -1,51 +1,16 @@
 import React from "react";
 import { connect } from 'react-redux'
-import axios from 'axios';
 import { getTestimonials, postTestimonial } from '../../store/testimonials'
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import { Button } from '@material-ui/core';
 import TestimonialsContainer from './TestimonialsContainer'
 import WriteTestimonial from './WriteTestimonial'
 
 class Testimonials extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      testimonials: [],
-      reviewTitle: '',
-      numberOfStars: 5,
-      reviewBody: '',
-      userId: ''
-    }
   }
 
   async componentDidMount () {
     this.props.getTestimonials()
-    this.setState ({
-      userId: this.props.user.id
-    })
-    this.createReview = this.createReview.bind(this)
-    this.sendTestimonial = this.sendTestimonial.bind(this)
-  }
-
-  createReview (ev) {
-    if (ev.target.name === 'numberOfStars') {
-      this.setState({
-        numberOfStars: Number(ev.target.value)
-      })
-    }
-    else {
-      this.setState({
-        [ev.target.name]: ev.target.value,
-        userId: this.props.user.id
-      })
-    }
-  }
-
-  sendTestimonial (e) {
-    e.preventDefault()
-    this.props.postTestimonial(this.state)
   }
 
   render() {
