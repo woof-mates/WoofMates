@@ -5,6 +5,7 @@ const { User, Relationship, Dog, Preference, Userpref, Prompt } = require('../db
 const { getDistance }  = require('../../utils/mathFuncs') //used in testing console logs
 const { filterMatchesWithUserSpecifiedFilters } = require('../matchAlg/userFilters')
 const {findMatch} = require('../matchAlg/match')
+const updatePref = require('./updatePref')
 
 router.get('/:userId', async(req, res, next) => {
     // console.logs left in intentionally for testing purposes
@@ -100,7 +101,13 @@ router.put('/:userId', async(req, res, next) => {
         const { decision, matchId } = req.body
         // console.log(decision, 'userid', userId, 'matchId', matchId)
         // first check to see if match has already liked user
-
+        const currUserPref = await Preference.findOne({
+            where:
+            {
+                userId: userId
+            }
+        })
+        const match = await User.findByPk(matchId, {include: Dog})
         const existingRelationship = await Relationship.findOne({
             where:
                 {
@@ -108,6 +115,9 @@ router.put('/:userId', async(req, res, next) => {
                     matchId: parseInt(userId)
                 }
         })
+        if (decision === 'like'){
+            updatePref(currUserPref, match.dataValues, match.dog.dataValues)
+        }
         if (existingRelationship) {
             if (decision === 'like') {
                 await existingRelationship.update({ result: 'Matched' })
