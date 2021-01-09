@@ -20,7 +20,6 @@ class Testimonials extends React.Component {
 
   async componentDidMount () {
     this.props.getTestimonials()
-    // const testimonials = (await axios.get('/api/testimonials')).data
     this.setState ({
       userId: this.props.user.id
     })
@@ -62,7 +61,7 @@ class Testimonials extends React.Component {
         </div>
       )
     }
-    else if (user.firstName && testimonials) { // user logged in & testimonials exist
+    else if (user.firstName && testimonials && !user.testimonial) { // user logged in & testimonials exist & user has not written a review before
       return (
         <div id="testimonialsTitle">
           <h3>Testimonials</h3>
@@ -122,28 +121,26 @@ class Testimonials extends React.Component {
       );
     }
 
-    else if (user.firstName) { // user logged in but no testimonials exist
+    else if (user.firstName) { // user logged in and has already written a review
       return (
         <div id="testimonialsTitle">
           <h3>Testimonials</h3>
-            <div id="writeTestimonialContainer">
-              <TextField
-                variant="filled"
-                margin="normal"
-                required
-                fullWidth
-                id="review-title"
-                label="Review Title"
-                name="reviewTitle"
-                autoComplete="reviewTitle"
-                className="reviewTitle" onChange={this.createReview}
-                />
+          <div id="testimonialsContainer">
+            {testimonials.map(testimonial => {return (
+            <div id="singleTestimonial">
+              <b>{testimonial.reviewTitle}</b>
+              <br></br>
+              {testimonial.reviewBody}
+              <br></br>
+              <i>{testimonial.user.firstName}</i>
             </div>
+            )})}
+          </div>
         </div>
       )
     }
 
-    else if (testimonials) { // user not logged in, testimonials exist
+    else if (testimonials) { // user not logged in but testimonials exist
       return (
         <div id="testimonialsTitle">
           <h3>Testimonials</h3>

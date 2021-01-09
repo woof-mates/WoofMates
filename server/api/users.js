@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Session, Preference, Dog, Prompt, Userpref } = require('../db/index');
+const { User, Session, Preference, Dog, Prompt, Userpref, Testimonials } = require('../db/index');
 const { saltAndHash } = require('../../utils/hashPasswordFunc');
 const { A_WEEK_IN_MILLISECONDS } = require('../../constants')
 
@@ -31,7 +31,7 @@ router.get('/:userId', async(req, res, next) => { // single user profile
         where: {
           id: req.params.userId
         },
-        include: [Session, Dog, Preference, Prompt, Userpref],
+        include: [Session, Dog, Preference, Prompt, Userpref, Testimonials],
         attributes: {
           exclude: ['hashedPassword']
         }
@@ -110,7 +110,7 @@ router.put('/:userId', async(req, res, next) => { // update a user (api/users)
     const userId = req.params.userId
     const {
       firstName, lastName, userEmail, age, profession, userImage1, dogImage, city, state, zipCode, userInterests,
-      dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, 
+      dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests,
       isNeuteredDealbreaker, distanceFromLocation,
       dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref
     } = req.body;
