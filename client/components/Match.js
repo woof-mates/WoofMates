@@ -6,9 +6,11 @@ import { Link } from 'react-router-dom'
 import { getDistance }  from '../../utils/mathFuncs'
 import Chatrooms from './Chatrooms'
 import DogInfo from './Profile/DogInfo'
-import UserInfo from './Profile/UserInfo'
+import UserInfo from './Profile/userInfo'
 import {Button} from '@material-ui/core'
 import Cards from './Profile/Cards'
+import IconButton from '@material-ui/core/IconButton';
+import ChatIcon from '@material-ui/icons/Chat';
 
 class Match extends Component {
     constructor(props){
@@ -17,6 +19,7 @@ class Match extends Component {
             message: ''
         }
         this.sendDecisionAndLoadNextMatch = this.sendDecisionAndLoadNextMatch.bind(this)
+        this.sendToChat = this.sendToChat.bind(this)
     }
     componentDidMount(){
         const { getMatch, user } = this.props;
@@ -30,13 +33,25 @@ class Match extends Component {
                 // saving current match in variable before calling getMatch again. email takes too long to send with await.
                 sendEmailToMatch(user, match)
                 getMatch(user.id, user.userLatitude, user.userLongitude)
-                this.setState({ message: `${user.firstName}, you have matched with ${match.firstName}! Send them a message now:` })
+                this.setState({ message: `${user.firstName}, you have matched with ${match.firstName}! Send them a message now: ` })
             }
             else {
                 getMatch(user.id, user.userLatitude, user.userLongitude)
                 this.setState( { message: ''} )
             }
         } catch (err) { console.error(err); }
+    }
+    sendToChat(match){
+        this.props.history.push({
+            pathname: '/chat',
+            state: {
+                matchId: match.id,
+                type: 'matchPage'
+            }
+        })
+        // return (
+        //     <Chatrooms type="matchPage" match = {match} />
+        // )
     }
     render(){
         let { match, user } = this.props;
@@ -69,36 +84,43 @@ class Match extends Component {
 
         else {
             return (
-        <>
-        <div id="profileContainer">
-            <div id="profileBody">
-                <h3>{match.firstName} and {match.dog.dogName}
-                </h3>
-                {match.liked ?
-                <div id = "userLikedMatch">
-                    <img  src = '/images/heartImage.png' />
-                    <div>This user liked you!</div>
+            <>
+            <div id="profileContainer">
+                <div id="profileBody">
+                    <h3>{match.firstName} and {match.dog.dogName}
+                    </h3>
+                    {match.liked ?
+                    <div id = "userLikedMatch">
+                        <img  src = '/images/heartImage.png' />
+                        <div>This user liked you!</div>
+                    </div>
+                    : <div />
+                    }
+                    <Cards user = {match} />
+                    <div id="matchButtonsContainer">
+                        <Button className="rejectMatchButton" onClick={() => {this.sendDecisionAndLoadNextMatch('reject')}} variant="contained" color="secondary" type="submit">Don't like</Button>
+                        <Button className="acceptMatchButton" onClick={() => {this.sendDecisionAndLoadNextMatch('like')}} variant="contained" color="secondary" type="submit">Like</Button>
+                    </div>
+                    {/* Match user ID for debugging purposes, will take out */}
+                    {/* <p>Match User Id: {match.id}</p> */}
+                    <span>{this.state.message}</span>
+                    {/* { this.state.message.includes('you have matched') ? <Chatrooms type="matchPage" match = {match} /> : null} */}
+                    { this.state.message.includes('you have matched') ?
+                        <Link to="/chat" >
+                            <IconButton onClick={() => this.sendToChat(match)} >
+                                <ChatIcon title="Chat with your match"/>
+                            </IconButton>
+                        </Link>
+                    : null}
                 </div>
-                : <div />
-                }
-                <Cards user = {match} />
-                <div id="matchButtonsContainer">
-                    <Button className="rejectMatchButton" onClick={() => {this.sendDecisionAndLoadNextMatch('reject')}} variant="contained" color="secondary" type="submit">Don't like</Button>
-                    <Button className="acceptMatchButton" onClick={() => {this.sendDecisionAndLoadNextMatch('like')}} variant="contained" color="secondary" type="submit">Like</Button>
+                <div id="infoBody">
+                    <UserInfo user = {match} />
+                    <DogInfo dog = {match.dog} />
                 </div>
-                {/* Match user ID for debugging purposes, will take out */}
-                {/* <p>Match User Id: {match.id}</p> */}
-                <p>{this.state.message}</p>
-                { this.state.message.includes('you have matched') ? <Chatrooms matchedId = {match.id} /> : null}
             </div>
-            <div id="infoBody">
-                <UserInfo user = {match} />
-                <DogInfo dog = {match.dog} />
-            </div>
-        </div>
-        </>
-                )
-            }
+            </>
+            )
+        }
     }
 }
 

@@ -102,7 +102,6 @@ class Chat extends React.Component {
                 </div>
             )
         } else {
-            console.log(chats)
             return (
                 <div>
                     <div id='chatButtons'>

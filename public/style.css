@@ -754,3 +754,7 @@ h1 {
 .welcome {
   text-align: center;
 }
+
+.matchPage-chat {
+  margin: auto
+}

@@ -112,12 +112,14 @@ router.put('/:userId', async(req, res, next) => { // update a user (api/users)
       firstName, lastName, userEmail, age, profession, userImage1, dogImage, city, state, zipCode, userInterests,
       dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, 
       isNeuteredDealbreaker, distanceFromLocation,
-      dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref
+      dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref,
+      dogSpeak, favoriteActivityWithDog,
     } = req.body;
     const userUpdates = { firstName, lastName, userEmail, age, profession, userImage1, dogImage, city, state, zipCode, userInterests }
     const dogUpdates = { dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests }
     const preferenceUpdates = { isNeuteredDealbreaker, distanceFromLocation }
     const userprefUpdates = { dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref }
+    const promptUpdates = { dogSpeak, favoriteActivityWithDog }
 
     const updatedUser = await User.findByPk(userId, {
       include: [Session, Dog, Preference, Prompt, Userpref],
@@ -141,13 +143,17 @@ router.put('/:userId', async(req, res, next) => { // update a user (api/users)
         userId
       }
     })
+    await Prompt.update(promptUpdates, {
+      where: {
+        userId
+      }
+    })
       res.send(updatedUser);
     }
     catch (error) {
     console.log(error)
     res.sendStatus(500)
   }
-
 })
 
 module.exports = router;
