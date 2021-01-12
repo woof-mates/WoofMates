@@ -1,41 +1,55 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import AgoraRTC from 'agora-rtc-sdk-ng';
-
-const rtc = { 
-    client: null,
-    localAudioTrack: null,
-    localVideoTrack: null
-};
-
-const options = {
-    appId: '9fd5c87c7e6a4e659acff6443d6edbeb',
-    channel: 'DogMates',
-    uid: null,
-    token: '0069fd5c87c7e6a4e659acff6443d6edbebIACVikO5YwSABmHAldK+RXPXMA4MFDKC9sbG8B/QDKDigOZjfQEAAAAAEADAccLptkvqXwEAAQC2S+pf'
-}
+import {rtc, options} from './Agora.js';
+import IconButton from '@material-ui/core/IconButton';
+import PhoneDisabledIcon from '@material-ui/icons/PhoneDisabled';
 
 class VideoChat extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             joined: false,
+            remote: false,
         }
-        this.remoteRef = React.createRef("");
-        this.leaveRef = React.createRef("");
 
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleLeave = this.handleLeave.bind(this)
     }
-    
 
-    async handleSubmit(e) {
+    componentDidMount() {
+        this.handleSubmit()
+    }
+
+    componentWillUnmount() {
+        this.handleLeave()
+    }
+
+    async handleSubmit() {
         try {
             this.setState({
                 joined: true
             })
 
             rtc.client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
+
+            rtc.client.on("user-published", async (user, mediaType) => {
+                await rtc.client.subscribe(user, mediaType);
+                this.setState({
+                    remote: true
+                })
+                if (mediaType === "video") {
+                    const remoteVideoTrack = user.videoTrack;
+
+                    remoteVideoTrack.play("remote-stream")
+
+                }
+
+                if (mediaType === "audio") {
+                    const remoteAudioTrack = user.audioTrack;
+                    remoteAudioTrack.play();
+                }
+            });
+
             const uid = await rtc.client.join(
                 options.appId,
                 options.channel,
@@ -45,37 +59,17 @@ class VideoChat extends React.Component {
 
             rtc.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
             rtc.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
-            rtc.localVideoTrack.play("local-stream");
-            rtc.client.on("user-published", async (user, mediaType) => {
-                await rtc.client.subscribe(user, mediaType);
-                if (mediaType === "video" || mediaType === "all") {
-                    const remoteVideoTrack = user.videoTrack;
-
-                    const PlayerContainer = React.createElement("div", {
-                        id: user.uid,
-                        className: "stream",
-                    });
-
-                    ReactDOM.render(
-                        PlayerContainer,
-                        document.getElementById("remote-stream")
-                    );
-
-                    user.videoTrack.play(`${user.uid}`);
-                }
-
-                if (mediaType === "audio" || mediaType === "all") {
-                    const remoteAudioTrack = user.audioTrack;
-                    remoteAudioTrack.play();
-                }
-            });
-
-            rtc.client.on("user-unpublished", (user) => {
-                const playerContainer = document.getElementById(user.uid);
-                playerContainer.remove();
-            });
 
             await rtc.client.publish([rtc.localAudioTrack, rtc.localVideoTrack]);
+            
+            rtc.localVideoTrack.play("local-stream");
+
+
+            rtc.client.on("user-unpublished", (user) => {
+                this.setState({
+                    remote: false
+                })
+            });
 
         } catch (error) {
             console.error(error);
@@ -84,23 +78,16 @@ class VideoChat extends React.Component {
 
     async handleLeave() {
         try {
-            const localContainer = document.getElementById("local-stream");
-
+            this.setState({
+                joined: false,
+                remote: false
+            })
             rtc.localAudioTrack.close();
             rtc.localVideoTrack.close();
 
-            this.setState({
-                joined: false
-            })
-
-            localContainer.textContent = "";
-
-            rtc.client.remoteUsers.forEach((user) => {
-                const playerContainer = document.getElementById(user.uid);
-                playerContainer && playerContainer.remove();
-            });
-
             await rtc.client.leave();
+
+            this.props.closeVideo();
         } catch (err) {
             console.error(err);
         }
@@ -108,29 +95,36 @@ class VideoChat extends React.Component {
 
     render() {
         return (
-            <>
-                <div className="container">
-                    <input
-                    type="submit"
-                    value="Join"
-                    onClick={this.handleSubmit}
-                    disabled={this.state.joined ? true : false}
-                    />
-                    <input
-                    type="button"
-                    ref={this.leaveRef}
-                    value="Leave"
-                    onClick={this.handleLeave}
-                    disabled={this.state.joined ? false : true}
-                    />
+            <div>
+                <div id='chatButtons'>
+                    <IconButton onClick={this.handleLeave} >
+                        <PhoneDisabledIcon/>
+                    </IconButton>            
                 </div>
-                
-                <div>
-                    <div id="local-stream" className="stream local-stream"></div>
-                    <div id="remote-stream" ref={this.remoteRef} className="stream remote-stream"></div>
-                </div>
+            
+                {this.state.joined ? 
+                    <div>
+                        <div>{this.props.fromName}</div>
+                        <div id="local-stream" className="stream local-stream"></div>
+                    </div>
+                :
+                    null
+                }
 
-            </>
+                {this.state.remote ? 
+                    <div>
+                        <br></br>
+                        <div>{this.props.toName}</div>
+                        <div id="remote-stream" className="stream remote-stream"></div> 
+                    </div>
+                :   
+                    <div id='awaiting'>
+                        <br></br>
+                        <h3>Awaiting User to Join Call</h3>
+                    </div>
+                }
+
+            </div>
         )
     };
 }
