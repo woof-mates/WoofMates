@@ -21,16 +21,35 @@ const theme = createMuiTheme({
     },
   },
   spacing: 1,
+  stepper: {
+    iconColor: '#DAE7DE'
+  },
   overrides: {
     MuiInput: {
       input: {
-        "&::placeholder": {
+        '&::placeholder': {
             fontFamily: 'Georgia, Times New Roman, Times, serif',
         },
       }
-    }
-  },
-
+    },
+    MuiStepIcon: {
+      root: {
+        color: '#DAE7DE',
+        '&$completed': {
+          color: '#44C767',
+        },
+        '&$active': {
+          color: '#44C767',
+        },
+        '&$disabled': {
+        color: '#DAE7DE',
+        },
+      },
+      active: {},
+      completed: {},
+      disabled: {}
+    },
+  }
 });
 
 export default theme;

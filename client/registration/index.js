@@ -1,4 +1,3 @@
-/* eslint-disable complexity */
 import React from 'react';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
@@ -48,24 +47,23 @@ class Registration extends React.Component {
     this.updateData = this.updateData.bind(this);
     this.goBack = this.goBack.bind(this);
   }
-   async updateData(userInfo){
+  updateData(userInfo){
     userInfo.step = this.state.step + 1
-    await this.setState(userInfo)
-    if (this.state.step === 4) {
-      await this.props.registerUser(this.state)
-      if (!this.props.user.userEmail) {
-        this.goBack(this.state);
-        this.setState( {message: 'There was an error with your registration. Please check your inputs and resubmit.'} )
+    this.setState(userInfo, async function() {
+      if (this.state.step === 4) {
+        await this.props.registerUser(this.state)
+        if (!this.props.user.userEmail) {
+          this.goBack(this.state);
+          this.setState( {message: 'There was an error with your registration. Please check your inputs and resubmit.'} )
+        }
       }
-    }
+    })
   }
-
   goBack(userInfo){
     this.props.handleBack();
     userInfo.step = this.state.step - 1
     this.setState(userInfo)
   }
-
   render() {
     const { user, handleNext } = this.props
     const { step } = this.state
@@ -94,16 +92,12 @@ class Registration extends React.Component {
   }
 }
 
-const mapState = state => (
-  {
-    user: state.user
-  }
-)
+const mapState = state => ({
+  user: state.user
+})
 
-const mapDispatch = (dispatch) => {
-  return {
-    registerUser: (userInfo) => dispatch(registerUser(userInfo))
-  }
-}
+const mapDispatch = dispatch => ({
+  registerUser: (userInfo) => dispatch(registerUser(userInfo))
+})
 
 export default connect(mapState, mapDispatch)(Registration);
