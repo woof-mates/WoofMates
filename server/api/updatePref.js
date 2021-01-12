@@ -1,3 +1,6 @@
+/* eslint-disable guard-for-in */
+/* eslint-disable no-undef */
+/* eslint-disable complexity */
 const MATCH_PREF_WITH_SWIPING_ACT = {
   dogBreed: 'dogBreed',
   dogAgeForPref: 'dogAgeForPref',
@@ -9,25 +12,13 @@ const MATCH_PREF_WITH_SWIPING_ACT = {
   dogInterests: 'dogInterests'
 }
 
-const MATCH_USERPREF_WITH_DOG = {
-  dogBreedPref: 'breed',
-  dogAgePref: 'dogAge',
-  dogEnergyLevelPref: 'energyLevel',
-  dogWeightPref: 'weight'
-}
-
-const MATCH_USERPREF_WITH_USER = {
-  userProfessionsPref: 'profession',
-  userAgePrefMinRange: 'age',
-  userInterestsPref: 'userInterests'
-}
 let prefVal
 let updatedPref
 let newPref
 let name
 let val
 
-const updatePref = async(currUserPrefs, match, dog) => {
+const updatePref = (currUserPrefs, match, dog) => {
   let prefs = currUserPrefs.dataValues
   for (let trait in MATCH_PREF_WITH_SWIPING_ACT){
     switch (trait) {
@@ -40,7 +31,7 @@ const updatePref = async(currUserPrefs, match, dog) => {
           name = 'blank'
           val = newPref[name] + 1;
           newPref[name] = val;
-          currUserPrefs.update({'dogBreed': newPref})
+          currUserPrefs.update({dogBreed: newPref})
         break;
       case 'dogAgeForPref':
         prefVal = prefs.dogAgeForPref[dog.dogAge] + 1
@@ -51,7 +42,7 @@ const updatePref = async(currUserPrefs, match, dog) => {
         name = 'blank'
         val = newPref[name] + 1;
         newPref[name] = val;
-        currUserPrefs.update({'dogAgeForPref': newPref})
+        currUserPrefs.update({dogAgeForPref: newPref})
         break;
       case 'dogEnergyLevel':
         prefVal = prefs.dogEnergyLevel[dog.energyLevel] + 1
@@ -62,7 +53,7 @@ const updatePref = async(currUserPrefs, match, dog) => {
         name = 'blank'
         val = newPref[name] + 1;
         newPref[name] = val;
-        currUserPrefs.update({'dogEnergyLevel': newPref})
+        currUserPrefs.update({dogEnergyLevel: newPref})
         break;
       case 'dogWeight':
         prefVal = prefs.dogWeight[dog.weight] + 1
@@ -73,7 +64,7 @@ const updatePref = async(currUserPrefs, match, dog) => {
         name = 'blank'
         val = newPref[name] + 1;
         newPref[name] = val;
-        currUserPrefs.update({'dogWeight': newPref})
+        currUserPrefs.update({dogWeight: newPref})
         break;
       case 'userProfession':
         prefVal = prefs.userProfession[match.profession] + 1
@@ -84,7 +75,7 @@ const updatePref = async(currUserPrefs, match, dog) => {
         name = 'blank'
         val = newPref[name] + 1;
         newPref[name] = val;
-        currUserPrefs.update({'userProfession': newPref})
+        currUserPrefs.update({userProfession: newPref})
         break;
       case 'userAge':
         prefVal = prefs.userAge[match.age] + 1
@@ -95,13 +86,37 @@ const updatePref = async(currUserPrefs, match, dog) => {
         name = 'blank'
         val = newPref[name] + 1;
         newPref[name] = val;
-        currUserPrefs.update({'userAge': newPref})
+        currUserPrefs.update({userAge: newPref})
         break;
       case 'userInterests':
-
+        if (match.userInterests.length){
+          for (let interest of match.userInterests){
+            prefVal = prefs.userInterests[interest] + 1
+            updatedPref = prefs.userInterests
+            updatedPref[interest] = prefVal
+            newPref = {...updatedPref}
+            //Not sure why this is necessary but it will not update without these three lines
+            name = 'blank'
+            val = newPref[name] + 1;
+            newPref[name] = val;
+            currUserPrefs.update({userInterests: newPref})
+          }
+        }
         break;
       case 'dogInterests':
-
+        if (dog.dogInterests.length){
+          for (let interest of dog.dogInterests){
+            prefVal = prefs.dogInterests[interest] + 1
+            updatedPref = prefs.dogInterests
+            updatedPref[interest] = prefVal
+            newPref = {...updatedPref}
+            //Not sure why this is necessary but it will not update without these three lines
+            name = 'blank'
+            val = newPref[name] + 1;
+            newPref[name] = val;
+            currUserPrefs.update({dogInterests: newPref})
+          }
+        }
         break;
       default:
         // code block
