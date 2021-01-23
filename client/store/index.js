@@ -4,11 +4,13 @@ import { logger } from 'redux-logger';
 import userReducer from './user';
 import matchReducer from './match';
 import matchesReducer from './matches';
+import chatReducer from './chat';
 
 const reducer = combineReducers({
     user: userReducer,
     match: matchReducer,
-    matches: matchesReducer
+    matches: matchesReducer,
+    chat: chatReducer
 });
 
 const store = createStore(reducer, applyMiddleware(logger,thunkMiddleware));
