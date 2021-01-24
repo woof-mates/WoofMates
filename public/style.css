@@ -559,14 +559,14 @@ h1 {
 #singleTestimonial {
   flex-grow:1;
   padding: 1em;
-  background-color: #dae7de;
+  background-color: #E6E6ED;
   min-width: 20rem;
   max-width: 20rem;
-  max-height: 5rem;
+  max-height: 15rem;
   margin: 20px;
   display: block;
   border-radius: 15px;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  box-shadow: 0 0 20px 0 rgba(196, 136, 231, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
 #profileBody {
