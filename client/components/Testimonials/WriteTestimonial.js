@@ -27,7 +27,6 @@ class WriteTestimonial extends React.Component {
 
   createReview (ev) {
     if (ev.target.name === 'numberOfStars') {
-      console.log(Number(ev.target.value))
       this.setState({
         numberOfStars: Number(ev.target.value)
       })
@@ -45,7 +44,6 @@ class WriteTestimonial extends React.Component {
     let {reviewTitle, numberOfStars, reviewBody} = this.state
     if (reviewTitle === '' || numberOfStars === '' || reviewBody === '') {
       alert('Please fill out all of the required fields')
-      console.log('not filled out propoerly')
     }
     else {
       this.props.postTestimonial(this.state)
