@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from 'react-redux'
 import {postTestimonial } from '../../store/testimonials'
 import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid'
 import MenuItem from '@material-ui/core/MenuItem';
 import { Button } from '@material-ui/core';
 
@@ -10,7 +11,7 @@ class WriteTestimonial extends React.Component {
     super(props)
     this.state = {
       reviewTitle: '',
-      numberOfStars: 5,
+      numberOfStars: '',
       reviewBody: '',
       userId: ''
     }
@@ -26,6 +27,7 @@ class WriteTestimonial extends React.Component {
 
   createReview (ev) {
     if (ev.target.name === 'numberOfStars') {
+      console.log(Number(ev.target.value))
       this.setState({
         numberOfStars: Number(ev.target.value)
       })
@@ -40,7 +42,14 @@ class WriteTestimonial extends React.Component {
 
   sendTestimonial (e) {
     e.preventDefault()
-    this.props.postTestimonial(this.state)
+    let {reviewTitle, numberOfStars, reviewBody} = this.state
+    if (reviewTitle === '' || numberOfStars === '' || reviewBody === '') {
+      alert('Please fill out all of the required fields')
+      console.log('not filled out propoerly')
+    }
+    else {
+      this.props.postTestimonial(this.state)
+    }
   }
 
   render() {
@@ -48,11 +57,13 @@ class WriteTestimonial extends React.Component {
     return (
       <div id="writeTestimonialContainer">
         <h4>Write your own review of WoofMates here!</h4>
+        <Grid>
         <TextField
           variant="filled"
           margin="normal"
+          style={{ width: 800 }}
+          //fullWidth
           required
-          // fullWidth
           id="review-title"
           label="Review Title"
           name="reviewTitle"
@@ -63,9 +74,9 @@ class WriteTestimonial extends React.Component {
         <TextField
           variant="filled"
           margin="normal"
+          style={{ width: 800 }}
           required
           multiline
-          // fullWidth
           id="review-body"
           label="Review Body"
           name="reviewBody"
@@ -82,15 +93,17 @@ class WriteTestimonial extends React.Component {
           select label="Star Rating"
           id="numberOfStars"
           name="numberOfStars"
+          required
+          style={{ width: 300 }}
           onChange={this.createReview}
-          variant="filled"
-          required value={5}>
-          <MenuItem value="1">1 (Lowest)</MenuItem>
-          <MenuItem value="2">2</MenuItem>
-          <MenuItem value="3">3 (Default)</MenuItem>
-          <MenuItem value="4">4</MenuItem>
-          <MenuItem value="5">5 (Highest)</MenuItem>
+          variant="filled">
+          <MenuItem value="1">&#9733; Lowest</MenuItem>
+          <MenuItem value="2">&#9733;&#9733;</MenuItem>
+          <MenuItem value="3">&#9733;&#9733;&#9733; (Average)</MenuItem>
+          <MenuItem value="4">&#9733;&#9733;&#9733;&#9733;</MenuItem>
+          <MenuItem value="5">&#9733;&#9733;&#9733;&#9733;&#9733; (Highest)</MenuItem>
         </TextField>
+        </Grid>
         <div className="testimonial-buttons">
           <Button className="testimonial-submit-button" variant="contained" color="secondary" onClick={this.sendTestimonial}>Submit Feedback</Button>
         </div>
