@@ -10,10 +10,11 @@ const _getTestimonials = (testimonials) => {
   }
 };
 
-const _postTestimonial = (testimonial) => {
+const _postTestimonial = (testimonial, user) => {
   return {
     type: POST_TESTIMONIAL,
-    testimonial
+    testimonial,
+    user
   }
 }
 
@@ -30,7 +31,8 @@ export const postTestimonial = (reviewInfo) => {
   return async(dispatch) => {
     try {
       const newTestimonial = (await axios.post('/api/testimonials', reviewInfo)).data
-      dispatch(_postTestimonial(newTestimonial))
+      const user = await axios.get(`/api/users/${reviewInfo.userId}`)
+      dispatch(_postTestimonial(newTestimonial, user.data))
     } catch (err) {console.error(err)}
   }
 }

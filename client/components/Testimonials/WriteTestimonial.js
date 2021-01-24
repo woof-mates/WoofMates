@@ -16,7 +16,7 @@ class WriteTestimonial extends React.Component {
     }
   }
 
-  async componentDidMount () {
+  componentDidMount () {
     this.setState ({
       userId: this.props.user.id
     })

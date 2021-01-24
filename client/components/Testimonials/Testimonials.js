@@ -5,11 +5,8 @@ import TestimonialsContainer from './TestimonialsContainer'
 import WriteTestimonial from './WriteTestimonial'
 
 class Testimonials extends React.Component {
-  constructor(props) {
-    super(props)
-  }
 
-  async componentDidMount () {
+  componentDidMount () {
     this.props.getTestimonials()
   }
 

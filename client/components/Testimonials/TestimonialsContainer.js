@@ -9,7 +9,7 @@ class TestimonialsContainer extends React.Component {
     this.generateStars = this.generateStars.bind(this)
   }
 
-  async componentDidMount () {
+  componentDidMount () {
     this.props.getTestimonials()
   }
 
@@ -18,28 +18,10 @@ class TestimonialsContainer extends React.Component {
     for (let i=0; i<num; i++) {
       starStringHTML += '&#9733';
     }
-
-    console.log(starStringHTML)
-    // var $ = $( "#testimonialStarRating"),
-    //console.log(document.getElementById('testimonialStarRating').innerHTML)
-
-    // // var parser = new DOMParser();
-    // // var doc = parser.parseFromString(starStringHTML, 'text/html');
-    // console.log(starStringHTML)
-
-    //document.getElementById("testimonialStarRating").innerHTML += starStringHTML
-    //document.getElementById('testimonialStarRating').innerHTML='<div>'+starStringHTML+'</div>';
     return (
-      // doc.body
       ReactHtmlParser(starStringHTML)
-      // $('#testimonialStarRating').html(starStringHTML)
     )
-    // for (let i = 0; i < num; i++) {
-    //   console.log(document.getElementById('testimonialStarRating'))
-    //   document.getElementById('testimonialStarRating').innerHTML += '&#9733;';
-    // }
   }
-
 
   render() {
     const {testimonials} = this.props
@@ -50,7 +32,6 @@ class TestimonialsContainer extends React.Component {
         <div id="singleTestimonial">
           <b>{testimonial.reviewTitle}</b>
           <br></br>
-          {/* <div id="testimonialStarRating">&#9733;&#9733;&#9733;&#9733;&#9733;</div> */}
           <div id="testimonialStarRating">{this.generateStars(testimonial.numberOfStars)}</div>
           {testimonial.reviewBody}
           <br></br>
@@ -64,7 +45,8 @@ class TestimonialsContainer extends React.Component {
 
 const mapState = state => (
   {
-    testimonials: state.testimonials
+    testimonials: state.testimonials,
+    users: state.users
   }
 )
 

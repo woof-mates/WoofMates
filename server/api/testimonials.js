@@ -15,7 +15,14 @@ router.get('/', async(req, res, next) => { // api/testimonials
 router.post('/', async(req, res, next) => { // write a testimonial
   try {
     const newTestimonial = await Testimonials.create(req.body)
-    res.status(201).send(newTestimonial)
+    const testimonial = await Testimonials.findOne({
+      where: {
+        id: newTestimonial.id
+      },
+      include: [User],
+    })
+    //userId
+    res.status(201).send(testimonial)
   }
   catch (ex) {
       console.error(ex)
