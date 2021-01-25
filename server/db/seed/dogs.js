@@ -14,7 +14,7 @@ const createDogs = (numUsers) => {
 
   for (let i = 0; i < numUsers;i++){
     dogNames.push(faker.name.firstName())
-    dogAges.push(getRandomInt(13) + 1)
+    dogAges.push(getRandomIntBetween(3, 13))
     energyLevels.push(getRandomInt(5) + 1)
     weights.push(getRandomIntBetween(60, 90))
     neutered.push(getRandomInt(2))
