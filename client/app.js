@@ -8,6 +8,7 @@ import Match from './components/Match'
 import Home from './components/Home'
 import Chatrooms from './components/Chatrooms'
 import Profile from './components/Profile'
+import Testimonials from './components/Testimonials/Testimonials'
 import { connect } from 'react-redux'
 import { getUser } from './store/user'
 import ProgressBar from './registration/ProgressBar'
@@ -28,6 +29,7 @@ class App extends React.Component {
                         <Route path='/chat' exact component={Chatrooms} />
                         <Route path='/login' exact component={Auth} />
                         <Route path='/match' exact component={Match} />
+                        <Route path='/testimonials' exact component={Testimonials} />
                     </Switch>
                     <Footer />
             </Router>
