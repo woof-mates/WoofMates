@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux'
 import {postTestimonial } from '../../store/testimonials'
+import { CHARACTER_LIMIT } from '../../../constants'
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid'
 import MenuItem from '@material-ui/core/MenuItem';
@@ -41,7 +42,7 @@ class WriteTestimonial extends React.Component {
 
   sendTestimonial (e) {
     e.preventDefault()
-    let {reviewTitle, numberOfStars, reviewBody} = this.state
+    const {reviewTitle, numberOfStars, reviewBody} = this.state
     if (reviewTitle === '' || numberOfStars === '' || reviewBody === '') {
       alert('Please fill out all of the required fields')
     }
@@ -51,7 +52,6 @@ class WriteTestimonial extends React.Component {
   }
 
   render() {
-    const CHARACTER_LIMIT = 150
     return (
       <div id="writeTestimonialContainer">
         <h4>Write your own review of WoofMates here!</h4>
@@ -60,7 +60,6 @@ class WriteTestimonial extends React.Component {
           variant="filled"
           margin="normal"
           style={{ width: 800 }}
-          //fullWidth
           required
           id="review-title"
           label="Review Title"

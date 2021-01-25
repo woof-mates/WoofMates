@@ -4,13 +4,25 @@ const { TEXT, INTEGER } = Sequelize;
 
 const Testimonial = db.define('testimonial', {
     reviewTitle: {
-        type: TEXT
+        type: TEXT,
+        allowNull: false,
+        validate: {
+            notEmpty: true,
+        }
     },
     numberOfStars: {
-        type: INTEGER
+        type: INTEGER,
+        allowNull: false,
+        validate: {
+            notEmpty: true,
+        }
     },
     reviewBody: {
-        type: TEXT
+        type: TEXT,
+        allowNull: false,
+        validate: {
+            notEmpty: true,
+        }
     }
 });
 
