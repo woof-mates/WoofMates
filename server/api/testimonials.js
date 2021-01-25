@@ -21,7 +21,6 @@ router.post('/', async(req, res, next) => { // write a testimonial
       },
       include: [User],
     })
-    //userId
     res.status(201).send(testimonial)
   }
   catch (ex) {
