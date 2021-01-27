@@ -48,14 +48,14 @@ const UserInfo = ({user}) => {
         </ListItem>
         {user.userInterests.map((interest) => {
           return (
-          <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <FavoriteBorderIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary={interest} secondary = "Interests"/>
-        </ListItem>
+          <ListItem key={interest}>
+            <ListItemAvatar>
+                <Avatar>
+                <FavoriteBorderIcon />
+                </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={interest} secondary = "Interests"/>
+          </ListItem>
           )
         })}
       </List>

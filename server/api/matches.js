@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Relationship, Dog } = require('../db')
+const { Relationship } = require('../db')
 const { Op } = require('sequelize')
 
 router.get('/:userId', async(req,res,next) => {
@@ -16,7 +16,6 @@ router.get('/:userId', async(req,res,next) => {
                 result: 'Matched'
             }
         });
-        // console.log(allMatches)
         //if userId === userId, then send the matchId
         //if matchId === userId, then send the userId
 

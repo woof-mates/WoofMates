@@ -32,9 +32,6 @@ const authMiddleware = async(req, res, next) => {
             req.session = null;
         }
     }
-//    console.log('sid',sid)
-//    console.log('cookies',req.cookies)
-//    console.log('session',req.session)
    next();
 }
 
