@@ -29,13 +29,13 @@ class TestimonialsContainer extends React.Component {
     return (
       <div id="testimonialsContainer">
         {testimonials.map(testimonial => {return (
-        <div id="singleTestimonial">
+        <div id="singleTestimonial" key={testimonial.id}>
           <b>{testimonial.reviewTitle}</b>
-          <p></p>
+          <p />
           <div id="testimonialStarRating">{this.generateStars(testimonial.numberOfStars)}</div>
-          <br></br>
+          <br />
           {testimonial.reviewBody}
-          <br></br>
+          <br />
           <i>- {testimonial.user.firstName}</i>
         </div>
         )})}

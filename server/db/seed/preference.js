@@ -1,6 +1,5 @@
 /* eslint-disable max-statements */
 const {BREEDS, MAX_DOG_AGE, MAX_DOG_WEIGHT, PROFESSIONS, USER_INTERESTS, MAX_USER_AGE, MAX_DISTANCE_FROM_USER, DOG_INTERESTS} = require('../../../constants')
-const {getRandomInt} = require('../../../utils/mathFuncs')
 const {setValObj, setNumericalObj} = require('../../../utils/dbFuncs')
 
 const createPreferences = (numUsers, numVotes) => {

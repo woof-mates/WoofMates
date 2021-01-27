@@ -40,7 +40,6 @@ const createUsers = async (numUsers) => {
   const signs = [-1, 1]
 
   for (let i = 0; i < numUsers;i++){
-    // let dogImage1 = await axios.get('https://dog.ceo/api/breeds/image/random')
     firstNames.push(faker.name.firstName())
     lastNames.push(faker.name.lastName())
     userEmails.push(faker.internet.email().toLowerCase())
@@ -50,7 +49,7 @@ const createUsers = async (numUsers) => {
     state.push('NY')
     age.push(getRandomIntBetween(24, 41))
     profession.push(PROFESSIONS[getRandomInt(PROFESSIONS.length)])
-    userInterests.push([USER_INTERESTS[getRandomInt(USER_INTERESTS.length)], USER_INTERESTS[getRandomInt(USER_INTERESTS.length)]])
+    userInterests.push([USER_INTERESTS[getRandomInt(USER_INTERESTS.length)]])
     // currently seeding NY-area users so that there are more distance filter matches
     userLatitude.push((LATITUDE_NY + Math.random() * signs[getRandomInt(2)]) / 10) // +/- up to 1/10 latitude fron NY (1 lat = 69 miles)
     userLongitude.push((LONGITUDE_NY + Math.random() * signs[getRandomInt(2)]) / 10) // +/- up to 1/10 longitude fron NY (1 long = 50 miles)

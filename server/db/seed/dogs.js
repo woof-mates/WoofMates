@@ -18,7 +18,7 @@ const createDogs = (numUsers) => {
     energyLevels.push(getRandomInt(5) + 1)
     weights.push(getRandomIntBetween(60, 90))
     neutered.push(getRandomInt(2))
-    dogInterests.push([DOG_INTERESTS[getRandomInt(DOG_INTERESTS.length)], DOG_INTERESTS[getRandomInt(DOG_INTERESTS.length)]])
+    dogInterests.push([DOG_INTERESTS[getRandomInt(DOG_INTERESTS.length)]])
   }
 
   for (let i = 0; i < numUsers;i++){
