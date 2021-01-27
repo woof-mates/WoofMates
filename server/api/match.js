@@ -3,7 +3,8 @@ const router = require('express').Router();
 const nodemailer = require('nodemailer');
 const { User, Relationship } = require('../db')
 const { filterMatchesWithUserSpecifiedFilters } = require('../matchAlg/userFilters')
-const { findMatch } = require('../matchAlg/match')
+const {findMatch} = require('../matchAlg/match')
+const updatePref = require('./updatePref')
 
 router.get('/:userId', async(req, res, next) => {
     try {
@@ -81,7 +82,13 @@ router.put('/:userId', async(req, res, next) => {
         const { userId } = req.params
         const { decision, matchId } = req.body
         // first check to see if match has already liked user
-
+        const currUserPref = await Preference.findOne({
+            where:
+            {
+                userId: userId
+            }
+        })
+        const match = await User.findByPk(matchId, {include: Dog})
         const existingRelationship = await Relationship.findOne({
             where:
                 {
@@ -89,6 +96,9 @@ router.put('/:userId', async(req, res, next) => {
                     matchId: parseInt(userId)
                 }
         })
+        if (decision === 'like'){
+            updatePref(currUserPref, match.dataValues, match.dog.dataValues)
+        }
         if (existingRelationship) {
             if (decision === 'like') {
                 await existingRelationship.update({ result: 'Matched' })

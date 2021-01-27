@@ -24,7 +24,7 @@ router.get('/:userId', async(req,res,next) => {
         allMatches.forEach(match => {
 
             if (match.userId === parseInt(userId)) {
-                listOfMatchedIds.push(match.matchId) 
+                listOfMatchedIds.push(match.matchId)
             } else {
                 listOfMatchedIds.push(match.userId)
             }
