@@ -5,7 +5,7 @@ const { Op } = require('sequelize')
 router.get('/:userId', async(req,res,next) => {
     try {
         const { userId } = req.params
-        
+
         //find all matches on relationship table where either userId or MatchId is the userId
         const allMatches = await Relationship.findAll({
             where: {
@@ -16,21 +16,21 @@ router.get('/:userId', async(req,res,next) => {
                 result: 'Matched'
             }
         });
-        console.log(allMatches)
+        // console.log(allMatches)
         //if userId === userId, then send the matchId
         //if matchId === userId, then send the userId
-        
+
         const listOfMatchedIds = [];
-        
+
         allMatches.forEach(match => {
-            
+
             if (match.userId === parseInt(userId)) {
-                listOfMatchedIds.push(match.matchId) 
+                listOfMatchedIds.push(match.matchId)
             } else {
                 listOfMatchedIds.push(match.userId)
             }
         })
-        
+
         res.send(listOfMatchedIds);
 
     } catch(err) { next(err) }
