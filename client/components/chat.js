@@ -1,19 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import VideoChat from './VideoChat/VideoChat';
-import firebaseDB from './Firebase';
 import classnames from 'classnames';
 import IconButton from '@material-ui/core/IconButton';
 import PhoneIcon from '@material-ui/icons/Phone';
 import SpeakerNotesOffIcon from '@material-ui/icons/SpeakerNotesOff';
+import { getChat, sendChat } from '../store/chat';
 
 class Chat extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            chats: [],
             message: '',
-            readError: null,
-            writeError: null,
             videoChat: false
         };
         this.handleChange = this.handleChange.bind(this);
@@ -23,21 +21,7 @@ class Chat extends React.Component {
     }
 
     async componentDidMount() {
-        this.setState({
-            readError: null
-        });
-
-        try {
-            firebaseDB.ref(`${this.props.from}-${this.props.to}/chats`).on("value", snapshot => {
-                let chats = [];
-                snapshot.forEach(snap => {
-                    chats.push(snap.val());
-                });
-                this.setState({ chats });
-            });
-        } catch (error) {
-            this.setState({ readError: error.message })
-        }
+        await this.props.getChat(this.props.from, this.props.to);
     }
 
     handleChange(event) {
@@ -48,33 +32,15 @@ class Chat extends React.Component {
 
     async handleSubmit(event) {
         event.preventDefault();
-        this.setState({
-            writeError: null
-        })
+
         const today = new Date();
         const hours = (today.getHours() % 12) < 10 ? `0${today.getHours() % 12}` : today.getHours();
         const minutes = today.getMinutes() < 10 ? `0${today.getMinutes()}` : today.getMinutes();
-        const seconds = today.getSeconds() < 10 ? `0${today.getSeconds()}` : today.getSeconds();
         const ampm = today.getHours() < 12 ? ' AM' : ' PM'
         const time = hours + ":" + minutes + ampm;
-        try {
-            await firebaseDB.ref(`${this.props.from}-${this.props.to}/chats`).push({
-                message: this.state.message,
-                timestamp: time,
-                from: this.props.fromName,
-                to: this.props.toName
-            });
-            await firebaseDB.ref(`${this.props.to}-${this.props.from}/chats`).push({
-                message: this.state.message,
-                timestamp: time,
-                from: this.props.fromName,
-                to: this.props.toName
-            });
-        } catch (error) {
-            this.setState({
-                writeError: error.message
-            })
-        }
+
+        await this.props.sendChat(this.props.from, this.props.to, this.state.message, time, this.props.fromName, this.props.toName);
+
         this.setState({
             message: ''
         })
@@ -93,7 +59,8 @@ class Chat extends React.Component {
     }
 
     render() {
-        const { chats, videoChat } = this.state;
+        const { videoChat } = this.state;
+        const { chat } = this.props;
 
         if (videoChat) {
             return (
@@ -114,9 +81,9 @@ class Chat extends React.Component {
                     </div>
                     <div id="ChatBody">
                         {
-                            chats.map(chat => {
+                            chat.map(chat => {
                                 return (
-                                    <p className={classnames({recipient: this.props.fromName !== chat.from}, {sender: this.props.fromName === chat.from})} key={chat.timestamp}>
+                                    <p className={classnames({recipient: this.props.fromName !== chat.from}, {sender: this.props.fromName === chat.from})} key={chat.timestamp + chat.message}>
                                         <span className='messages'>{chat.message}</span>
                                         <span className='timestamp'>{chat.timestamp}</span>
                                     </p>
@@ -135,4 +102,15 @@ class Chat extends React.Component {
     }
 }
 
-export default Chat;
+const mapState = (state) => {
+    return {
+        chat: state.chat
+    }
+}
+
+const mapDispatch = (dispatch) => ({
+    getChat: (fromId, toId ) => dispatch(getChat(fromId, toId)),
+    sendChat: (fromId, toId, message, timestamp, from, to) => dispatch(sendChat(fromId, toId, message, timestamp, from, to))
+})
+
+export default connect(mapState, mapDispatch)(Chat);
