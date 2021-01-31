@@ -23,6 +23,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
+    "agora-rtc-sdk-ng": "^4.2.1",
     "axios": "^0.17.1",
     "babel-eslint": "^10.1.0",
     "bcrypt": "^5.0.0",
@@ -40,6 +41,7 @@
     "pg-hstore": "^2.3.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-html-parser": "^2.0.2",
     "react-icons": "^4.1.0",
     "react-redux": "^7.1.0",
     "react-router": "^5.0.1",

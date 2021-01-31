@@ -94,7 +94,7 @@ const scorePreferences = (statedPreferences, possibleMatch, userDog) => {
           if (statedPreference === dog2[MATCH_USERPREF_WITH_DOG[key]]){total += VOTES_FOR_STATED_PREF}
           break;
         case 'dogAgePref':
-          if (statedPreference === 'Same' && dog2[MATCH_USERPREF_WITH_DOG[key]] == usersDog[MATCH_USERPREF_WITH_DOG[key]]) {
+          if (statedPreference === 'Same' && dog2[MATCH_USERPREF_WITH_DOG[key]] === usersDog[MATCH_USERPREF_WITH_DOG[key]]) {
             total += VOTES_FOR_STATED_PREF
           }
           else if (statedPreference === 'Younger' && dog2[MATCH_USERPREF_WITH_DOG[key]] < usersDog[MATCH_USERPREF_WITH_DOG[key]]) {
@@ -108,7 +108,7 @@ const scorePreferences = (statedPreferences, possibleMatch, userDog) => {
           if (parseInt(statedPreference) === dog2[MATCH_USERPREF_WITH_DOG[key]]){total += VOTES_FOR_STATED_PREF}
           break;
         case 'dogWeightPref':
-          if (statedPreference === 'Same' && dog2[MATCH_USERPREF_WITH_DOG[key]] == usersDog[MATCH_USERPREF_WITH_DOG[key]]) {
+          if (statedPreference === 'Same' && dog2[MATCH_USERPREF_WITH_DOG[key]] === usersDog[MATCH_USERPREF_WITH_DOG[key]]) {
             total += VOTES_FOR_STATED_PREF
           }
           else if (statedPreference === 'Larger' && dog2[MATCH_USERPREF_WITH_DOG[key]] > usersDog[MATCH_USERPREF_WITH_DOG[key]]) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import VideoChatContainer from './VideoChat/VideoChatContainer';
+import VideoChat from './VideoChat/VideoChat';
 import classnames from 'classnames';
 import IconButton from '@material-ui/core/IconButton';
 import PhoneIcon from '@material-ui/icons/Phone';
@@ -65,7 +65,7 @@ class Chat extends React.Component {
         if (videoChat) {
             return (
                 <div>
-                    <VideoChatContainer fromName={this.props.fromName} toName={this.props.toName} closeVideo={this.closeVideo}/>
+                    <VideoChat fromName={this.props.fromName} toName={this.props.toName} closeVideo={this.closeVideo}/>
                 </div>
             )
         } else {

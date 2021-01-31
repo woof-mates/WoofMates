@@ -77,7 +77,7 @@ class UserInfo extends Component{
     return (
       <div className={classes.root} noValidate autoComplete="off">
       <h3>A bit more about you...</h3>
-        <TextField label="Age" type="number" name = "age" onChange={this.onChange} value={age ? age : undefined} />
+        <TextField label="Age" type="number" name = "age" onChange={this.onChange} value={age || ''} />
         <TextField select id="profession" label="Profession" name="profession" onChange={this.onChange} value={profession ? profession : '' }>
           {PROFESSIONS.map(professionName => (<MenuItem key={professionName} value={professionName}>{professionName}</MenuItem>))}
         </TextField>
