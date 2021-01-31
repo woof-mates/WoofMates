@@ -1,5 +1,5 @@
 import React from 'react';
-import VideoChatContainer from './VideoChat/VideoChatContainer';
+import VideoChat from './VideoChat/VideoChat';
 import firebaseDB from './Firebase';
 import classnames from 'classnames';
 import IconButton from '@material-ui/core/IconButton';
@@ -98,7 +98,7 @@ class Chat extends React.Component {
         if (videoChat) {
             return (
                 <div>
-                    <VideoChatContainer fromName={this.props.fromName} toName={this.props.toName} closeVideo={this.closeVideo}/>
+                    <VideoChat fromName={this.props.fromName} toName={this.props.toName} closeVideo={this.closeVideo}/>
                 </div>
             )
         } else {
