@@ -8,7 +8,8 @@ const REGISTER_USER = 'REGISTER_USER';
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
 const UPDATE = 'UPDATE';
-const GET_USER = 'GET_USER'
+const GET_USER = 'GET_USER';
+const POST_TESTIMONIAL = 'POST_TESTIMONIAL'
 
 const _login = (user) => {
     return {
@@ -111,6 +112,8 @@ export default function userReducer (state = {}, action) {
       case LOGOUT:
         return action.emptyUser;
       case GET_USER:
+        return action.user
+      case POST_TESTIMONIAL:
         return action.user
       default:
         return state

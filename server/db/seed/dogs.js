@@ -1,10 +1,10 @@
 const faker = require('faker')
-const {BREEDS, DOG_INTERESTS} = require('../../../constants')
-const {getRandomInt} = require('../../../utils/mathFuncs')
+const { DOG_INTERESTS } = require('../../../constants')
+const { getRandomInt, getRandomIntBetween } = require('../../../utils/mathFuncs')
 
 const createDogs = (numUsers) => {
   let dogNames = [];
-  let breeds = [];
+  let breeds = ['Airedale Terrier', 'Golden Retriever', 'German Shepherd', 'Dalmatian', 'Shiba Inu'];
   let dogAges = [];
   let energyLevels = [];
   let weights = [];
@@ -14,12 +14,11 @@ const createDogs = (numUsers) => {
 
   for (let i = 0; i < numUsers;i++){
     dogNames.push(faker.name.firstName())
-    breeds.push(BREEDS[getRandomInt(BREEDS.length)])
-    dogAges.push(getRandomInt(19) + 1)
+    dogAges.push(getRandomIntBetween(3, 13))
     energyLevels.push(getRandomInt(5) + 1)
-    weights.push(getRandomInt(100))
+    weights.push(getRandomIntBetween(60, 90))
     neutered.push(getRandomInt(2))
-    dogInterests.push([DOG_INTERESTS[getRandomInt(DOG_INTERESTS.length)], DOG_INTERESTS[getRandomInt(DOG_INTERESTS.length)]])
+    dogInterests.push([DOG_INTERESTS[getRandomInt(DOG_INTERESTS.length)]])
   }
 
   for (let i = 0; i < numUsers;i++){

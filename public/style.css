@@ -532,6 +532,43 @@ h1 {
   text-align: center;
 }
 
+#writeTestimonialContainer {
+  display: flex;
+  padding: 1em;
+  text-align: center;
+  min-width: 240px;
+  flex-direction: column;
+}
+
+#testimonialsContainer {
+  padding: 1em;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-bottom: 126px;
+  min-height: 480px;
+  text-align: center;
+}
+
+#testimonialsTitle {
+  display: flex;
+  flex-direction: column;
+}
+
+#singleTestimonial {
+  flex-grow:1;
+  padding: 1em;
+  background-color: #E6E6ED;
+  min-width: 20rem;
+  max-width: 20rem;
+  max-height: 15rem;
+  margin: 20px;
+  display: block;
+  border-radius: 15px;
+  box-shadow: 0 0 20px 0 rgba(196, 136, 231, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
 #profileBody {
   flex-grow:5;
   padding: 1em;
@@ -578,6 +615,11 @@ h1 {
   color: white;
 }
 
+.testimonial-submit-button {
+  float: right;
+  color: white;
+}
+
 /* Stepper class */
 .MuiPaper-root.MuiStepper-root.MuiStepper-horizontal.MuiStepper-alternativeLabel.MuiPaper-elevation0 {
   margin: 0px;
@@ -585,12 +627,20 @@ h1 {
 
 #prompts {
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .registration-buttons {
   margin-bottom: 10px;
   margin-top: 50px
+}
+
+.testimonial-buttons {
+  margin-bottom: 10px;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
 }
 
 /* div[class^=UserRegistration-root] {
@@ -758,6 +808,7 @@ h1 {
 .matchPage-chat {
   margin: auto
 }
+<<<<<<< HEAD
 
 .container {
   margin: 10px;
@@ -779,3 +830,5 @@ h1 {
 .awaiting h3 {
   text-align: center;
 }
+=======
+>>>>>>> 0da5a6614ae31700180202bd742672aeb0feca1b
