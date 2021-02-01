@@ -8,7 +8,8 @@ const REGISTER_USER = 'REGISTER_USER';
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
 const UPDATE = 'UPDATE';
-const GET_USER = 'GET_USER'
+const GET_USER = 'GET_USER';
+const POST_TESTIMONIAL = 'POST_TESTIMONIAL'
 
 const _login = (user) => {
     return {
@@ -36,14 +37,12 @@ export const registerUser = (userInfo) => {
     try {
       console.log('USERINFO PASSED IN:')
       console.log(userInfo)
-      // let {firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, distanceFromLocation, userAgePrefMinRange, userProfessionsPref, userInterestsPref, isNeuteredDealbreaker} = userInfo
       const { zipCode } = userInfo
       // mapquest API to get latitude and longitude from user zipcode
       const mapQuestInfo = (await axios.get(`https://www.mapquestapi.com/geocoding/v1/address?key=${MAPQUEST_KEY}&location=${zipCode}%2C+US&thumbMaps=true`)).data
       userInfo.userLatitude = mapQuestInfo.results[0].locations[0].latLng.lat;
       userInfo.userLongitude = mapQuestInfo.results[0].locations[0].latLng.lng;
 
-      // const newUser = (await axios.post('/api/users/register', {firstName, lastName, userEmail, password, city, state, zipCode, age, profession, userInterests, dogSpeak, favoriteActivityWithDog, dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, distanceFromLocation, userAgePrefMinRange, userProfessionsPref, userInterestsPref, isNeuteredDealbreaker, userLatitude, userLongitude })).data
       const newUser = (await axios.post('/api/users/register', userInfo)).data
       dispatch(registerAUser(newUser))
     }
@@ -113,6 +112,8 @@ export default function userReducer (state = {}, action) {
       case LOGOUT:
         return action.emptyUser;
       case GET_USER:
+        return action.user
+      case POST_TESTIMONIAL:
         return action.user
       default:
         return state

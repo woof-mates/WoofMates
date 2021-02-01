@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Session, Preference, Dog, Prompt, Userpref } = require('../db/index');
+const { User, Session, Preference, Dog, Prompt, Userpref, Testimonials } = require('../db/index');
 const { saltAndHash } = require('../../utils/hashPasswordFunc');
 const { A_WEEK_IN_MILLISECONDS } = require('../../constants')
 
@@ -31,7 +31,7 @@ router.get('/:userId', async(req, res, next) => { // single user profile
         where: {
           id: req.params.userId
         },
-        include: [Session, Dog, Preference, Prompt, Userpref],
+        include: [Session, Dog, Preference, Prompt, Userpref, Testimonials],
         attributes: {
           exclude: ['hashedPassword']
         }
@@ -110,14 +110,16 @@ router.put('/:userId', async(req, res, next) => { // update a user (api/users)
     const userId = req.params.userId
     const {
       firstName, lastName, userEmail, age, profession, userImage1, dogImage, city, state, zipCode, userInterests,
-      dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests, 
+      dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests,
       isNeuteredDealbreaker, distanceFromLocation,
-      dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref
+      dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref,
+      dogSpeak, favoriteActivityWithDog,
     } = req.body;
     const userUpdates = { firstName, lastName, userEmail, age, profession, userImage1, dogImage, city, state, zipCode, userInterests }
     const dogUpdates = { dogName, breed, dogAge, energyLevel, weight, neutered, dogInterests }
     const preferenceUpdates = { isNeuteredDealbreaker, distanceFromLocation }
     const userprefUpdates = { dogBreedPref, dogAgePref, dogEnergyLevelPref, dogWeightPref, userAgePrefMinRange, userProfessionsPref, userInterestsPref }
+    const promptUpdates = { dogSpeak, favoriteActivityWithDog }
 
     const updatedUser = await User.findByPk(userId, {
       include: [Session, Dog, Preference, Prompt, Userpref],
@@ -141,13 +143,17 @@ router.put('/:userId', async(req, res, next) => { // update a user (api/users)
         userId
       }
     })
+    await Prompt.update(promptUpdates, {
+      where: {
+        userId
+      }
+    })
       res.send(updatedUser);
     }
     catch (error) {
     console.log(error)
     res.sendStatus(500)
   }
-
 })
 
 module.exports = router;

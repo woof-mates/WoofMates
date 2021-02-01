@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Enzyme, { shallow, mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import { MemoryRouter } from 'react-router-dom'
@@ -12,12 +12,6 @@ import store from '../client/store'
 
 Enzyme.configure({ adapter: new Adapter() });
 
-// describe('Examining the syntax of Jest tests', () => {
-//     it('sums numbers', () => {
-//         expect(1 + 2).toEqual(3);
-//         expect(2 + 2).toEqual(4);
-//      });
-//   });
 describe('Login tests', () => {
   test('Auth component renders correctly', () => {
     const component = renderer.create(
@@ -40,7 +34,5 @@ describe('Login tests', () => {
     app.find('.signInNavButton').at(1).simulate('click', { button: 0 })
     app.update();
     expect(app.text().includes('Welcome!')).toBe(true);
-    // expect(app.find('#signInContainer')).toHaveLength(1)
-    
   })
 })

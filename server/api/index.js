@@ -6,6 +6,8 @@ router.use('/auth', require('./auth'));
 router.use('/match', require('./match'));
 router.use('/matches', require('./matches'));
 router.use('/dogs', require('./dogs'));
+router.use('/firebaseChat', require('./firebaseChat'));
+router.use('/testimonials', require('./testimonials'))
 
 router.use((req, res, next) => { //api
   const err = new Error('API route not found!')

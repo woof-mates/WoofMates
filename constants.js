@@ -10,6 +10,8 @@ const MIN_USER_AGE = 10;
 
 const AGE_RANGE = 9;
 
+const CHARACTER_LIMIT = 150
+
 const MAX_DOG_ENERGY_LEVEL = 5;
 
 const INITIAL_PREF_POINTS_BREED = 100000;
@@ -52,6 +54,60 @@ const DOG_WEIGHTS = [
   172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183,
   184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195,
   196, 197, 198, 199, 200
+]
+
+const STATES =  [
+  ['AL', 'Alabama'],
+  ['AK', 'Alaska'],
+  ['AZ', 'Arizona'],
+  ['AR', 'Arkansas'],
+  ['CA', 'California'],
+  ['CO', 'Colorado'],
+  ['CT', 'Connecticut'],
+  ['DE', 'Delaware'],
+  ['DC', 'District Of Columbia'],
+  ['FL', 'Florida'],
+  ['GA', 'Georgia'],
+  ['HI', 'Hawaii'],
+  ['ID', 'Idaho'],
+  ['IL', 'Illinois'],
+  ['IN', 'Indiana'],
+  ['IA', 'Iowa'],
+  ['KS', 'Kansas'],
+  ['KY', 'Kentucky'],
+  ['LA', 'Louisiana'],
+  ['ME', 'Maine'],
+  ['MD', 'Maryland'],
+  ['MA', 'Massachusetts'],
+  ['MI', 'Michigan'],
+  ['MN', 'Minnesota'],
+  ['MS', 'Mississippi'],
+  ['MO', 'Missouri'],
+  ['MT', 'Montana'],
+  ['NE', 'Nebraska'],
+  ['NV', 'Nevada'],
+  ['NH', 'New Hampshire'],
+  ['NJ', 'New Jersey'],
+  ['NM', 'New Mexico'],
+  ['NY', 'New York'],
+  ['NC', 'North Carolina'],
+  ['ND', 'North Dakota'],
+  ['OH', 'Ohio'],
+  ['OK', 'Oklahoma'],
+  ['OR', 'Oregon'],
+  ['PA', 'Pennsylvania'],
+  ['RI', 'Rhode Island'],
+  ['SC', 'South Carolina'],
+  ['SD', 'South Dakota'],
+  ['TN', 'Tennessee'],
+  ['TX', 'Texas'],
+  ['UT', 'Utah'],
+  ['VT', 'Vermont'],
+  ['VA', 'Virginia'],
+  ['WA', 'Washington'],
+  ['WV', 'West Virginia'],
+  ['WI', 'Wisconsin'],
+  ['WY', 'Wyoming'],
 ]
 
 const BREEDS =    [
@@ -736,4 +792,4 @@ const MAX_LONGITUDE_FROM_NY = 1 // Each degree of longitude is approximately 50 
 
 const A_WEEK_IN_MILLISECONDS = 1000 * 60 * 60 * 24 * 7;
 
-module.exports = { BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS, MAX_DOG_AGE, MAX_DOG_WEIGHT, MAX_USER_AGE, MAX_DISTANCE_FROM_USER,  DOG_AGES, DOG_WEIGHTS, INITIAL_PREF_POINTS_OTHER, INITIAL_PREF_POINTS_BREED, MAX_DOG_ENERGY_LEVEL, MAX_DISTANCES, DOG_INTERESTS, DOG_AGE_PREFS, DOG_WEIGHT_PREFS, MAPQUEST_KEY, TOP_LATITUDE_US, LEFT_LONGITUDE_US, RIGHT_LONGITUDE_US, BOTTOM_LATITUDE_US, LENGTH_US, WIDTH_US, LATITUDE_NY, LONGITUDE_NY, A_WEEK_IN_MILLISECONDS, MIN_USER_AGE, AGE_RANGE }
+module.exports = { BREEDS, ENERGY_LEVELS, RELATIONSHIPS, USER_INTERESTS, PROFESSIONS, MAX_DOG_AGE, MAX_DOG_WEIGHT, MAX_USER_AGE, MAX_DISTANCE_FROM_USER,  DOG_AGES, DOG_WEIGHTS, INITIAL_PREF_POINTS_OTHER, INITIAL_PREF_POINTS_BREED, MAX_DOG_ENERGY_LEVEL, MAX_DISTANCES, DOG_INTERESTS, DOG_AGE_PREFS, DOG_WEIGHT_PREFS, MAPQUEST_KEY, TOP_LATITUDE_US, LEFT_LONGITUDE_US, RIGHT_LONGITUDE_US, BOTTOM_LATITUDE_US, LENGTH_US, WIDTH_US, LATITUDE_NY, LONGITUDE_NY, A_WEEK_IN_MILLISECONDS, MIN_USER_AGE, AGE_RANGE, STATES, CHARACTER_LIMIT }

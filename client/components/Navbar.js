@@ -39,7 +39,7 @@ class Navbar extends React.Component {
       return (
         <div id="NavbarContainer">
           <div id="NavbarTitleContainer">
-            <Link id="NavbarTitleLink" to="/">Woofmates</Link>
+            <Link id="NavbarTitleLink" to="/">WoofMates</Link>
           </div>
           <div id="NavbarLogoContainer">
             <img id="NavbarLogoPic" src="https://cdn.shopify.com/s/files/1/0667/0685/files/tintin_and_snowy_by_genus_rattus-d4jxohy_large.png?9525775607535621580"></img>
@@ -65,22 +65,13 @@ class Navbar extends React.Component {
       return (
         <div id="NavbarContainer">
           <div id="NavbarTitleContainer">
-            <Link id="NavbarTitleLink" to="/">Woofmates</Link>
+            <Link id="NavbarTitleLink" to="/">WoofMates</Link>
           </div>
           <div id="NavbarLogoContainer">
             <img id="NavbarLogoPic" src="https://cdn.shopify.com/s/files/1/0667/0685/files/tintin_and_snowy_by_genus_rattus-d4jxohy_large.png?9525775607535621580"></img>
           </div>
           <div id="LinkContainer">
               <Link id="NavbarLink" to="/">Home</Link>
-          </div>
-          <div id="LinkContainer">
-              <Link id="NavbarLink" to="/profile">My Profile</Link>
-          </div>
-          <div id="LinkContainer">
-              <Link id="NavbarLink" to="/chat">Chat</Link>
-          </div>
-          <div id="LinkContainer">
-              <Link id="NavbarLink" to="/match">Find Your Match</Link>
           </div>
           <div id="LinkContainer">
             <button className="signInNavButton" onClick={this.logIn}>Sign In </button>

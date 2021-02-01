@@ -64,7 +64,7 @@ const DogInfo = ({dog}) => {
       </ListItem>
       {dog.dogInterests.map((interest) => {
           return (
-          <ListItem>
+          <ListItem key={interest}>
           <ListItemAvatar>
             <Avatar>
               <FavoriteBorderIcon />
