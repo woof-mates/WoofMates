@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 import { connect } from 'react-redux'
 import { HashRouter as Router, Link, Switch, Route }
 from 'react-router-dom';
-import {logout} from '../store/user'
+import { logout } from '../store/user'
 
 
 class Navbar extends React.Component {
@@ -20,17 +20,17 @@ class Navbar extends React.Component {
   logout (e) {
     e.preventDefault();
     this.props.logout(this.props.user.id)
-    window.location.hash='/login'
+    window.location.hash = '/login'
   }
 
   logIn (e) {
     e.preventDefault();
-    window.location.hash='/login'
+    window.location.hash = '/login'
   }
 
   signUp (e) {
     e.preventDefault();
-    window.location.hash='/signUp'
+    window.location.hash = '/signUp'
   }
 
   render() {
@@ -83,13 +83,11 @@ class Navbar extends React.Component {
       )
     }
   }
-};
+}
 
-const mapState = state => (
-  {
+const mapState = state => ({
     user: state.user
-  }
-)
+})
 
 const mapDispatchToProps = (dispatch) => ({
       logout: (userId) => dispatch(logout(userId))

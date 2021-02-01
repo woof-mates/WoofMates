@@ -1,6 +1,5 @@
 import React from 'react'
-import { HashRouter as Router, Route, Switch} from 'react-router-dom'
-import Registration from './registration/index'
+import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import Footer from './components/Footer'
 import Navbar from './components/Navbar'
 import Auth from './components/Auth'
@@ -21,15 +20,15 @@ class App extends React.Component {
     render() {
         return (
             <Router>
-                <Navbar></Navbar>
+                <Navbar />
                     <Switch>
-                        <Route path='/' exact component={Home} />
-                        <Route path='/signUp' exact component={ProgressBar} />
-                        <Route path='/profile' exact component={Profile} />
-                        <Route path='/chat' exact component={Chatrooms} />
-                        <Route path='/login' exact component={Auth} />
-                        <Route path='/match' exact component={Match} />
-                        <Route path='/testimonials' exact component={Testimonials} />
+                        <Route path="/" exact component={Home} />
+                        <Route path="/signUp" exact component={ProgressBar} />
+                        <Route path="/profile" exact component={Profile} />
+                        <Route path="/chat" exact component={Chatrooms} />
+                        <Route path="/login" exact component={Auth} />
+                        <Route path="/match" exact component={Match} />
+                        <Route path="/testimonials" exact component={Testimonials} />
                     </Switch>
                     <Footer />
             </Router>
